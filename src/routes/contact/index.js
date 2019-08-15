@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import Layout from '../../components/Layout';
+import AdminLayout from '../../components/Admin/AdminLayout';
 import Contact from './Contact';
 
 const title = 'Contact Us';
@@ -18,9 +18,9 @@ function action() {
     chunks: ['contact'],
     title,
     component: (
-      <Layout>
+      <AdminLayout>
         <Contact title={title} />
-      </Layout>
+      </AdminLayout>
     ),
   };
 }
