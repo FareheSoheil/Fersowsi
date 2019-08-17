@@ -270,6 +270,38 @@ app.post('/login', (req, res, next) => {
   }
   res.send(data);
 });
+let comments = [
+  {
+    id: 'Product#1',
+    productId: 'id22222',
+    userId: 'farehe1',
+    repliedCommentId: '300000',
+    status: 'pending',
+    createdAt: '27-08-2018 01:22:12',
+    text:
+      'sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk',
+  },
+  {
+    id: 'Product#1',
+    productId: 'id22222',
+    userId: 'farehe1',
+    repliedCommentId: '300000',
+    status: 'pending',
+    createdAt: '27-08-2018 01:22:12',
+    text:
+      'sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk',
+  },
+  {
+    id: 'Product#1',
+    productId: 'id22222',
+    userId: 'farehe1',
+    repliedCommentId: '300000',
+    status: 'pending',
+    createdAt: '27-08-2018 01:22:12',
+    text:
+      'sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk',
+  },
+];
 app.post('/getComments', (req, res, next) => {
   console.log('--------------------- in getComments controller--------------');
   const role = req.cookies;
@@ -278,6 +310,28 @@ app.post('/getComments', (req, res, next) => {
     let data = {};
     const filter = req.body.searchBy;
     const pn = req.body.pageNumber;
+    data = {
+      currentRecords: comments,
+      totalPageNumber: 20,
+    };
+    res.send(data);
+  }
+});
+app.post('/modifyComments', (req, res, next) => {
+  console.log(
+    '--------------------- in modifyComments controller--------------',
+  );
+  const role = req.cookies;
+  if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
+  else {
+    let data = {};
+    const id = req.body.productId;
+    const status = req.body.status;
+    comments[0].status = status;
+    data = {
+      currentRecords: comments,
+      totalPageNumber: 20,
+    };
     res.send(data);
   }
 });
