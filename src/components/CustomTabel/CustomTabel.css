@@ -1,0 +1,4 @@
+.hoverableTr tr {
+    cursor: pointer;
+    /* border: 2px solid red; */
+}

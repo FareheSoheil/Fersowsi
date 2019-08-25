@@ -28,7 +28,7 @@ class CommentTable extends React.Component {
       currentComments: '',
       searchFilter: '',
       productComment: '',
-      productId: '',
+      productName: '',
       selectedOption: null,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -46,7 +46,7 @@ class CommentTable extends React.Component {
   commentDetails(id, msg) {
     this.setState({
       productComment: msg,
-      productId: id,
+      productName: id,
     });
   }
   modifyComment(status) {
@@ -126,8 +126,8 @@ class CommentTable extends React.Component {
         <tr>
           <td>{i + 1}</td>
           <td>{comment.id}</td>
-          <td>{comment.productId} </td>
-          <td>{comment.userId}</td>
+          <td>{comment.productName} </td>
+          <td>{comment.username}</td>
           <td>{comment.repliedCommentId}</td>
           <td>
             <span className="badge-dot badge-brand mr-1" />
@@ -138,7 +138,7 @@ class CommentTable extends React.Component {
             <a
               href="#"
               onClick={() =>
-                this.commentDetails(comment.ProductId, comment.text)
+                this.commentDetails(comment.productName, comment.text)
               }
               class="btn btn-primary"
               data-toggle="modal"
@@ -186,8 +186,8 @@ class CommentTable extends React.Component {
                               <tr className="border-0">
                                 <th className="border-0">#</th>
                                 <th className="border-0">Comment Id</th>
-                                <th className="border-0">Product Id</th>
-                                <th className="border-0">User Id</th>
+                                <th className="border-0">Product Name</th>
+                                <th className="border-0">Username</th>
                                 <th className="border-0">Replied to</th>
                                 <th className="border-0">Status</th>
                                 <th className="border-0">Created at</th>
@@ -220,7 +220,7 @@ class CommentTable extends React.Component {
                                     class="modal-title"
                                     id="exampleModalLabel"
                                   >
-                                    {this.state.productId}
+                                    text of {this.state.productName} comment:
                                   </h5>
                                   <a
                                     href="#"
@@ -269,8 +269,8 @@ class CommentTable extends React.Component {
                   <div className="row">
                     <div className="col-12">
                       <ReactPaginate
-                        previousLabel="<"
-                        nextLabel=">"
+                        previousLabel="<<"
+                        nextLabel=">>"
                         pageCount={20}
                         pageRangeDisplayed={3}
                         onPageChange={this.handlePageChange}

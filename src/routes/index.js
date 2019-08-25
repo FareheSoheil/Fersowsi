@@ -15,14 +15,20 @@ const routes = {
             import(/* webpackChunkName: 'adminHome' */ './admin/adminHome'),
         },
         {
-          path: '/contact',
-          load: () => import(/* webpackChunkName: 'contact' */ './contact'),
+          path: '/claims',
+          load: () =>
+            import(/* webpackChunkName: 'adminClaims' */ './admin/ClaimsTable'),
         },
         {
           path: '/comments',
           load: () =>
             import(/* webpackChunkName: 'adminComments' */ './admin/CommentsTable'),
         },
+        // {
+        //   path: '/currencies',
+        //   load: () =>
+        //     import(/* webpackChunkName: 'adminCurrencies' */ './admin/Currency'),
+        // },
       ],
     },
 

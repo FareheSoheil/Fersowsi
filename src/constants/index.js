@@ -11,6 +11,11 @@ const createTokenTableQuery =
 const ERRORS = {
   TITLE: 'Error',
 };
+const ClaimStats = {
+  open: 'open',
+  closed: 'closed',
+  all: 'all',
+};
 const COOKIE_EXPIRATION = 356;
 const REQUEST_TIMEOUT = 4000;
 const SERVER = 'http://localhost:3000';
@@ -34,4 +39,5 @@ export {
   USER_LOGIN,
   fetchURL,
   ROLES,
+  ClaimStats,
 };

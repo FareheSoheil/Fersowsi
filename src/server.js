@@ -273,33 +273,27 @@ app.post('/login', (req, res, next) => {
 let comments = [
   {
     id: 'Product#1',
-    productId: 'id22222',
-    userId: 'farehe1',
-    repliedCommentId: '300000',
+    senderUserName: 'id22222',
+    receiverUserName: 'farehe1',
+    repliedMSGId: '3000',
+    msgStatus: 'sd',
     status: 'pending',
-    createdAt: '27-08-2018 01:22:12',
-    text:
-      'sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk',
   },
   {
-    id: 'Product#1',
-    productId: 'id22222',
-    userId: 'farehe1',
-    repliedCommentId: '300000',
-    status: 'pending',
-    createdAt: '27-08-2018 01:22:12',
-    text:
-      'sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk',
+    id: 'Product#2',
+    senderUserName: 'id22222',
+    receiverUserName: 'farehe2',
+    repliedMsgId: '300tt',
+    msgStatus: 'ef',
+    status: 'rej',
   },
   {
-    id: 'Product#1',
-    productId: 'id22222',
-    userId: 'farehe1',
-    repliedCommentId: '300000',
-    status: 'pending',
-    createdAt: '27-08-2018 01:22:12',
-    text:
-      'sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk sssssssssssssssssssssscscks;ldkc;skldcjs;dklc;dkcjsad;kfaflk',
+    id: 'Product#3',
+    senderUserName: 'id22222',
+    receiverUserName: 'farehe3',
+    repliedMSGId: '7ujfh65',
+    msgStatus: 'e',
+    status: 'acc',
   },
 ];
 app.post('/getComments', (req, res, next) => {
@@ -309,6 +303,7 @@ app.post('/getComments', (req, res, next) => {
   else {
     let data = {};
     const filter = req.body.searchBy;
+    console.log('^^^^^^^^^^^^^^^^^^ search By^^^^^^^^^ : ', filter);
     const pn = req.body.pageNumber;
     data = {
       currentRecords: comments,
