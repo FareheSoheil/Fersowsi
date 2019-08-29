@@ -10,25 +10,51 @@ const routes = {
       path: '/admin',
       children: [
         {
-          path: '/home',
+          path: '',
           load: () =>
             import(/* webpackChunkName: 'adminHome' */ './admin/adminHome'),
         },
+
         {
           path: '/claims',
-          load: () =>
-            import(/* webpackChunkName: 'adminClaims' */ './admin/ClaimsTable'),
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminClaims' */ './admin/ClaimsTable'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminClaimDetails' */ './admin/ClaimDetails'),
+            },
+          ],
+        },
+        {
+          path: '/accounts',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminAccounts' */ './admin/AccountsTable'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminProfileDetails' */ './admin/ProfileDetail'),
+            },
+          ],
         },
         {
           path: '/comments',
           load: () =>
             import(/* webpackChunkName: 'adminComments' */ './admin/CommentsTable'),
         },
-        // {
-        //   path: '/currencies',
-        //   load: () =>
-        //     import(/* webpackChunkName: 'adminCurrencies' */ './admin/Currency'),
-        // },
+        {
+          path: '/products',
+          load: () =>
+            import(/* webpackChunkName: 'adminProducts' */ './admin/ProductsTable'),
+        },
       ],
     },
 

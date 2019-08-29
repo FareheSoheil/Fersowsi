@@ -8,16 +8,16 @@
  */
 
 import React from 'react';
-import AdminHome from './AdminHome';
+import AccountsTable from './AccountsTable';
 import AdminLayout from '../../../components/Admin/AdminLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
-    chunks: ['adminHome'],
+    chunks: ['adminAccounts'],
     component: (
       <AdminLayout>
-        <AdminHome context={context} />
+        <AccountsTable context={context} />
       </AdminLayout>
     ),
   };

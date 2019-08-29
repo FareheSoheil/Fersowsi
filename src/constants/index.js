@@ -16,6 +16,11 @@ const ClaimStats = {
   closed: 'closed',
   all: 'all',
 };
+const AccountStats = {
+  active: 'active',
+  deactive: 'deactive',
+  approved: 'approved',
+};
 const COOKIE_EXPIRATION = 356;
 const REQUEST_TIMEOUT = 4000;
 const SERVER = 'http://localhost:3000';
@@ -26,6 +31,16 @@ const ROLES = {
   customer: 'Customer',
   publisher: 'Publisher',
 };
+const UserTypesArray = [
+  { value: 'Publisher', label: 'Publisher' },
+  { value: 'Customer', label: 'Customer' },
+  { value: 'Operator', label: 'Operator' },
+];
+const UserNumbersArray = [
+  { value: 'Mobile Number', label: 'Mobile Number' },
+  { value: 'Phone Number', label: 'Phone Number' },
+  { value: 'Fax Number', label: 'Fax Number' },
+];
 export {
   SET_RUNTIME_VARIABLE,
   selectQuery,
@@ -40,4 +55,7 @@ export {
   fetchURL,
   ROLES,
   ClaimStats,
+  AccountStats,
+  UserTypesArray,
+  UserNumbersArray,
 };

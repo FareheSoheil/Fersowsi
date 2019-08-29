@@ -29,13 +29,7 @@ class AdminLayout extends React.Component {
       <div className="dashboard-main-wrapper">
         <Header />
         <SideBar />
-        <div className="dashboard-wrapper">
-          {/* <div className="container-fluid dashboard-content"> */}
-          {this.props.children}
-          {/* </div> */}
-        </div>
-        {/* <Feedback /> */}
-        {/* <Footer /> */}
+        <div className="dashboard-wrapper">{this.props.children}</div>
       </div>
     );
   }

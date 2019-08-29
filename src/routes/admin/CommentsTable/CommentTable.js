@@ -41,7 +41,7 @@ class CommentTable extends React.Component {
   }
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+    console.log('comment : ', selectedOption);
   };
   commentDetails(id, msg) {
     this.setState({
@@ -116,9 +116,9 @@ class CommentTable extends React.Component {
   }
   render() {
     const options = [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' },
+      { id: 1, name: 'sss', label: 'Chocolate' },
+      { value: 2, label: 'Strawberry' },
+      { value: 3, label: 'Vanilla' },
     ];
     let comments = '';
     if (!this.state.isLoading)
@@ -136,7 +136,6 @@ class CommentTable extends React.Component {
           <td>{comment.createdAt}</td>
           <td>
             <a
-              href="#"
               onClick={() =>
                 this.commentDetails(comment.productName, comment.text)
               }
