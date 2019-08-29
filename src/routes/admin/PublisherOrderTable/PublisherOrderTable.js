@@ -13,11 +13,11 @@ import ReactPaginate from 'react-paginate';
 import history from '../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ProductCard from '../../../components/Admin/ProductCard';
-import ProductSideFilter from '../../../components/Admin/ProductSideFilter';
+import PublisherOrderSideFilter from '../../../components/Admin/PublisherOrderSideFilter';
 
-import s from './ProductsTable.css';
+import s from './PublisherOrderTable.css';
 
-class ProductsTable extends React.Component {
+class PublisherOrderTable extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -67,11 +67,11 @@ class ProductsTable extends React.Component {
             </div>
           </div>
 
-          <ProductSideFilter />
+          <PublisherOrderSideFilter />
         </div>
       </div>
     );
   }
 }
 
-export default withStyles(s)(ProductsTable);
+export default withStyles(s)(PublisherOrderTable);

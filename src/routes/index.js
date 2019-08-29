@@ -52,8 +52,48 @@ const routes = {
         },
         {
           path: '/products',
-          load: () =>
-            import(/* webpackChunkName: 'adminProducts' */ './admin/ProductsTable'),
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminProducts' */ './admin/ProductsTable'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminProductDetails' */ './admin/ProductDetail'),
+            },
+          ],
+        },
+        {
+          path: '/puborders',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/PublisherOrderTable'),
+            },
+            // {
+            //   path: '/:id',
+            //   load: () =>
+            //     import(/* webpackChunkName: 'adminProductDetails' */ './admin/ProductDetail'),
+            // },
+          ],
+        },
+        {
+          path: '/cusorders',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminCustomerOrderTable' */ './admin/CustomerOrderTable'),
+            },
+            // {
+            //   path: '/:id',
+            //   load: () =>
+            //     import(/* webpackChunkName: 'adminProductDetails' */ './admin/ProductDetail'),
+            // },
+          ],
         },
       ],
     },

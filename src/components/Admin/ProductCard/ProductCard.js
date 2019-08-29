@@ -20,10 +20,7 @@ class ProductCard extends React.Component {
   render() {
     return (
       <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 product-card">
-        <div
-          onClick={() => this.props.onProductClick(this.props.id)}
-          class="product-thumbnail"
-        >
+        <div class="product-thumbnail">
           <div class="product-img-head">
             <div class="product-img">
               <img src={this.props.imgSrc} alt="" class="img-fluid" />
@@ -73,13 +70,14 @@ class ProductCard extends React.Component {
               </div>
               <div class={s.productDescription}>
                 {this.props.descrption}
+                sdkllllllllllllllllllllllllllllllllgkja;smlcaxmzxc,mnqoei;ruoweyt249873842009;
                 sdkllllllllllllllllllllllllllllllllgkja;smlcaxmzxc,mnqoei;ruoweyt249873842009
               </div>
             </div>
             <div class="product-btn">
               <a class="btn btn-primary">Add to Cart</a> &nbsp;
               <a
-                onClick={this.props.onProductClick}
+                onClick={() => this.props.onProductClick(this.props.id)}
                 class="btn btn-outline-light"
               >
                 Details
