@@ -10,26 +10,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
+import cookie from 'react-cookies';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
 import s from './Layout.css';
-import Header from '../Header';
-import Feedback from '../Feedback';
-import Footer from '../Footer';
+import AdminLayout from '../Admin/AdminLayout';
+import LoginLayout from '../Login/LoginLayout';
 
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    context: PropTypes.object.isRequired,
   };
 
   render() {
     return (
       <div>
-        <Header />
-        {this.props.children}
-        <Feedback />
-        <Footer />
+        {/* {cookie.load('role') === undefined ? (
+          <LoginLayout className="aabb">{this.props.children}</LoginLayout>
+        ) : cookie.load('role') === 'customer' ? (
+          <div>{this.props.children}</div>
+        ) : (
+          // <div className="dashboard-main-wrapper">
+          <AdminLayout>{this.props.children}</AdminLayout>
+          // </div>
+        )} */}
+        <div>{this.props.children}</div>
       </div>
     );
   }

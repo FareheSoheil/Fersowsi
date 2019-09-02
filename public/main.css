@@ -17,3 +17,75 @@
     direction: ltr !important;
   }
 }
+/* ===================== Pagination Styles =========================== */
+.paginate {
+  display: flex;
+  list-style: none;
+  margin-top: 60px;
+  /* border: 2px solid red; */
+}
+.paginate > li {
+  border: .5px solid rgb(208, 208, 208);
+  min-width: 3%;
+  cursor: pointer;
+  padding: 4px;
+  vertical-align: middle;
+  width: auto;
+  text-align: center;
+  border-collapse: collapse;
+  margin: 1px;
+}
+
+.paginate > li:not(:first-child):not(:last-child):hover , .active-page{
+  background-color: var(--theme-color-hover);
+  border:  1px solid var(--theme-color-hover) !important;
+  
+}
+.paginate > li.active-page > a {
+  color: white !important;
+}
+
+.paginate > li > a {
+  outline: 0;
+  color: rgb(75, 75, 75) !important;
+
+}
+.next {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.previous {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+/* ===================================== React Select Styles =========================== */
+.reactSelectContainer{
+  padding-left: .5em;
+  margin: 15px 5px 15px 5px;
+  padding: 10px 1px 10px 1px;
+}
+.reactSelectLabel {
+  padding-top: 10px;
+  color: #3d405c;
+}
+
+.reactSelect > div:first-of-type:focus{
+  /* border: 2px solid var(--theme-color); */
+  background-color: aqua;
+  outline: 0px;
+}
+
+.table-responsive>.table-bordered {
+  border: 1px solid #e6e6f2 !important;
+}
+/* ==================================== Advanced Search Styles ==========================*/
+.advancedSearchContainer {
+  padding: 10px 5px 10px 5px;
+}
+.advancedSearchContainer button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.advancedSearchLabel {
+  color: #3d405c;
+}

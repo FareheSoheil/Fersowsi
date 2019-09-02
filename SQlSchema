@@ -1,0 +1,610 @@
+CREATE Table Role (
+  `id` int(2) NOT NULL AUTO_INCREMENT,
+  `name` nvarchar(50),
+  `level` int(2),
+  `primary` key(`id`)
+)COLLATE=utf8_persian_ci;
+{
+  SuperAdmin,
+  Operator,
+  Publisher,
+  Customer
+}
+
+CREATE Table AgeGroup(
+    `id` int(2),
+    `name` nvarchar(50),
+)
+{
+  child,
+  teenager,
+  young,
+  adult
+}
+
+
+CREATE Table Currecny(
+    `id` int(2),
+    `name` nvarchar(50),
+    `usdRatio` decimal(17,8)
+)
+{
+  Euro,
+  Dollar,
+  Krona,
+  Rial
+}
+
+
+CREATE Table CustomerCategory (
+  id int(2) not NULL AUTO_INCREMENT,
+  name nvarchar(30)
+);
+
+{
+  Library
+  Goverment,
+  School,
+  Corporation,
+  SingleCustomer
+}
+
+CREATE Table PublisherCategory (
+  id int(2) not NULL AUTO_INCREMENT,
+  name nvarchar(30)
+);
+
+{
+  Private,
+  Public
+}
+
+CREATE Table AdminCategory (
+  id int(2) not NULL AUTO_INCREMENT,
+  name nvarchar(30)
+);
+
+{
+  SuperAdmin,
+  Operator
+}
+
+CREATE Table Jobs (
+  id int(2) not NULL AUTO_INCREMENT,
+  name nvarchar(30)
+);
+{
+  "executive/managerial",
+  "professional (doctor, lawyer, etc.)",
+  "academic/educator",
+  "computer technical/engineering",
+  "other technical/engineering",
+  "service/customer support",
+  "clerical/administrative",
+  "sales/marketing",
+  "tradesman/craftsman",
+  "college/graduate student",
+  "K-12 student",
+  "homemaker",
+  "self-employed/own company",
+  "unemployed, looking for work",
+  "retired",
+  "other"
+}
+
+CREATE Table UserActivitionStatus (
+  id int(2) not NULL AUTO_INCREMENT,
+  name nvarchar(30)
+);
+{
+  active,
+  deactive
+}
+
+CREATE Table SiteLanguage (
+  id int(2) not NULL AUTO_INCREMENT,
+  name nvarchar(30),
+  Abbr nvarchar(10)
+);
+{
+  Swedish,
+  English
+}
+
+CREATE Table ProductLanguage (
+  id int(2) not NULL AUTO_INCREMENT,
+  name nvarchar(30),
+  Abbr nvarchar(10)
+);
+{
+  Swedish,
+  English,
+  Persian,
+  Arabic,
+  French
+}
+
+CREATE Table userActivity(
+  id bigint NOT NULL AUTO_INCREMENT,
+  userId bigint,
+  activityTime datetime,
+  ip nvarchar(20),
+  location nvarchar(100),
+  browser nvarchar(50),
+  action nvarchar(100)
+
+)
+
+CREATE TABLE Zone(
+  id bigint NOT NULL AUTO_INCREMENT,
+  name nvarchar(100),
+);
+{
+  "US&Canada",
+  "Europe",
+  "MiddleEast",
+  "Asia"
+}
+
+CREATE TABLE Country(
+  id bigint NOT NULL AUTO_INCREMENT,
+  name nvarchar(100),
+  zoneId int,
+  prefixTel nvarchar(5)
+);
+
+CREATE TABLE address(
+  id bigint NOT NULL AUTO_INCREMENT,
+  countyId int,
+  province nvarchar(50),
+  city nvarchar(50),
+  detailAddress nvarchar(200)
+);
+
+CREATE Table CustomerProfile(
+  id bigint NOT NULL AUTO_INCREMENT,
+  firstName nvarchar(50),
+  lastName nvarchar(50),
+  contractName nvarchar(50),
+  CustomerCategoryId int(2),
+  phoneNumber nvarchar(20),
+  mobileNumber nvarchar(20),
+  faxNumber nvarchar(20),
+  homepage nvarchar(500),
+  VatId nvarchar(100),
+  dateOfBirth date,
+  psn nvarchar(50),
+  jobId int(3),
+  currencyId int(3),
+  languageId int(3),
+  createdAt datetime,
+  updatedAt datetime,
+  discount decimal(4,2);
+  userActivitionStatusId int(2),
+  profilePic nvarchar(300),
+  addressId bigint,
+  bio nvarchar(500)
+);
+
+
+CREATE TABLE PublisherProfile(
+  id bigint NOT NULL AUTO_INCREMENT,
+  firstName nvarchar(50),
+  lastName nvarchar(50),
+  contractName nvarchar(50),
+  PublisherCategoryId int(2),
+  phoneNumber nvarchar(20),
+  mobileNumber nvarchar(20),
+  faxNumber nvarchar(20),
+  homepage nvarchar(500),
+  VatId nvarchar(100),
+  dateOfBirth date,
+  psn nvarchar(50),
+  currencyId int(3),
+  languageId int(3),
+  createdAt datetime,
+  updatedAt datetime,
+  discount decimal(4,2);
+  userActivitionStatusId int(2),
+  emailConfirmed boolean,
+  profilePic nvarchar(300),
+  addressId bigint,
+  preferredContractMethod int,
+  expectedPaymentCondition int,
+  bio nvarchar(500)
+);
+
+CREATE TABLE AdminProfile()
+{
+  id bigint NOT NULL AUTO_INCREMENT,
+  firstName nvarchar(50),
+  lastName nvarchar(50),
+  contractName nvarchar(50),
+  AdminCategoryId int(2),
+
+  phoneNumber nvarchar(20),
+  mobileNumber nvarchar(20),
+  dateOfBirth date,
+  psn nvarchar(50),
+  
+  userActivitionStatusId int(2),
+  emailConfirmed boolean,
+  profilePic nvarchar(300),
+  addressId bigint,
+  
+  createdAt datetime,
+  updatedAt datetime,
+
+}
+
+create table UserCategory
+{
+  id bigint NOT NULL AUTO_INCREMENT,
+  name nvarchar(20)
+}
+{
+  Customer,
+  Publisher,
+  Admin
+}
+
+CREATE TABLE User(
+  id bigint NOT NULL AUTO_INCREMENT,
+  UserCategoryId int,
+
+  email nvarchar(50),
+  username nvarchar(50),
+  password nvarchar(50),
+  
+  loginToken nvarchar(100),
+  loginTokenCreatedAt datetime,
+  
+  emailConfirmationToken nvarchar(100),
+  emailConfirmationTokenCreatedAt datetime,
+
+  resetPasswordToken nvarchar(100),
+  resetPasswordTokenCreatedAt datetime,
+
+  createdAt datetime,
+  updatedAt datetime
+);
+
+
+----  blogs  ----
+
+CREATE Table BlogCategory (
+  id bigint NOT NULL AUTO_INCREMENT,
+  name nvarchar(30)
+);
+{
+  Tutorial,
+  News,
+  Technology
+}
+
+
+CREATE Table BlogPost(
+  id bigint NOT NULL AUTO_INCREMENT,
+  blogCategoryId int(2),
+  title nvarchar(100),
+  pic nvarchar(200),
+  contentHtml nvarchar(10000)
+);
+
+CREATE TABLE BlogTag
+{
+  id bigint NOT NULL AUTO_INCREMENT,
+  name nvarchar(50),
+}
+
+CREATE TABLE BlogPostAssignedTag
+{
+  id bigint NOT NULL AUTO_INCREMENT,
+  blogTagId bigint,
+  blogPostId bigint
+}
+
+--- Messages and Claims and Contact Us----
+CREATE Table Message(
+  id bigint NOT NULL AUTO_INCREMENT,
+  messageHtml nvarchar(10000),
+  senderUserId bigint,
+  receiverUserId bigint,
+  triggerUserId bigint,
+  repliedMessageId bigint,
+  createdAt datetime,
+  updatedAt datetime,
+
+  isSeen boolean,
+  isRejected boolean
+  isAccepted boolean
+  isAcceptedAdminId bigint,
+);
+
+CREATE Table Claim(
+  id bigint NOT NULL AUTO_INCREMENT,
+  messageHtml nvarchar(10000),
+  senderUserId bigint,
+  receiverUserId bigint,
+  triggerUserId bigint,
+  repliedMessageId bigint,
+  customerOrderId bigint,
+
+  createdAt datetime,
+  updatedAt datetime,
+
+  isSeen boolean,
+  isRejected boolean
+  isAccepted boolean
+  isAcceptedAdminId bigint,
+  isFinished bigint,
+  imageAddress nvarchar(300)
+);
+
+CREATE Table ContactUs()
+{
+  id bigint NOT NULL AUTO_INCREMENT,
+  firstName nvarchar(50),
+  lastName nvarchar(50),
+  phoneNumber nvarchar(50),
+  countryId int,
+  email nvarchar(100),
+  text nvarchar(1000),
+  isSeen boolean
+}
+
+
+--- Product ----
+CREATE TABLE ProductContentType(
+  id int BOT NULL AUTO_INCREMENT,
+  name nvarchar(100)
+);
+{
+  "Political&Social"
+  "Cultural"
+  "Sport"
+  "Academic"
+  "Economic&Finance"
+  "General"
+  "Literal"
+  "Children"
+  "Scintefic & Technical"
+  "Woman"
+  "Family"
+  "Satirical&Critical"
+  "Iranian Studies"
+  "Middle Eastern Studies"
+  "Centeral Asian Studies"
+  "Afghanistan"
+  "Kurdish Studies"
+  "Games"
+  "Islamic Studies"
+  "Millitary Defence"
+  "IT-Computer"
+  "Philosophy and Logic"
+  "Arts, Photos, paintings"
+  "Movie Theater"
+  "Psychology"
+  "Statistics"
+  "Law"
+  "Computer"
+  "Travel & Tourism"
+  "Crosswords and Entertainment"
+  "Cooking and Housekeeping"
+  "Medical"
+  "Education and training"
+  "Language"
+  "Daily Newspaper"
+  "journals"
+  "Music"
+  "Nature"
+  "Electronic"
+  "Magazine"
+  "Weekly newspaper"
+  "Multilingual"
+  "Arab Studies"
+  "Dressmaking"
+  "Sticking"
+  "Antiques"
+  "Labor"
+  "Architecture"
+  "Branch magazines"
+  "Adoption"
+  "Organisation Press"
+  "Neuropsychiatric disorders"
+  "ADHD (Attention deficit hyperactivity disorder)"
+  "People with hearing impairment"
+  "Patient Journals"
+  "Comic magazines"
+  "Feminism"
+  "Equality"
+  "Restaurants"
+  "Books"
+  "Cartoons"
+  "Political Party Press"
+  "Fashion and style"
+  "Popular press"
+  "Anarchism"
+  "Local Heritage Care"
+  "Construction Equipment"
+  "Special Publications"
+  "Boats"
+  "Lifestyle"
+  "Civil defense"
+  "Interior decoration"
+  "Motorcycles"
+  "Religion"
+  "Union organizations"
+  "Healthcare"
+  "Media and journalism"
+  "Animals"
+  "Local News"
+  "Fishing and Hunting"
+}
+
+CREATE Table ProductType(
+    `id` int(2),
+    `name` nvarchar(50)
+)
+{
+  SingleProduct,
+  Package
+}
+
+CREATE Table SingleProductType(
+    `id` int(2),
+    `name` nvarchar(50)
+)
+{
+  Journal,
+  Magazine,
+  EMagazine,
+  ImageCollection,
+  Archive,
+  Catalogue
+}
+
+CREATE TABLE PackageProductContain(
+  id bigint NOT NULL AUTO_INCREMENT,
+  PackageProductId bigint,
+  SingleProductId bigint
+)
+
+CREATE TABLE Product(
+  id bigint NOT NULL AUTO_INCREMENT,
+  ProductTypeId int,
+  SingleProductTypeId int,
+  price decimal(11,4),
+  discount decimal(11,4),
+  ISSN nvarchar(20),
+  Dewey nvarchar(20),
+  ASB nvarchar(20),
+  PublisherId bigint,
+  languageId int,
+  EnglishTitle nvarchar(100),
+  EnglishDesc nvarchar(100),
+  
+  AgeGroupId int,
+  weight decimal(11,4),
+  coverImage nvarchar(200),
+  PublishPeriodId int,
+
+  creationDate date,
+  priceUpdatedAt date,
+
+  tax decimal(11,4),
+  discount decimal(11,4),
+
+  createdAt datetime,
+  updatedAt datetime
+)
+
+CREATE TABLE ProductContentTranslation(
+  id bigint not NULL AUTO_INCREMENT,
+  ProductId bigint,
+  languageId int,
+  title nvarchar(100),
+  description nvarchar(1000)
+)
+
+CREATE TABLE ProductContentCategory(
+  id bigint not NULL AUTO_INCREMENT,
+  ProductId bigint,
+  ProductContentType int
+)
+
+CREATE TABLE ProductPeriod(
+  id int not NULL AUTO_INCREMENT,
+  name nvarchar(50)
+)
+{
+  Daily,
+  Weekly,
+  TwoWeekly,
+  ThreeWeekly,
+  Monthly,
+  SixMonthly,
+  Yearly
+}
+
+CREATE TABLE ProductPeriodPrice(
+  id bigint not NULL AUTO_INCREMENT,
+  ProductId bigint,
+  ProductPeriodId int,
+  PublisherPrice decimal(11,4),
+  CustomerPrice decimal(11,4)
+)
+
+CREATE TABLE DeliveryPrice(
+  id bigint not NULL AUTO_INCREMENT,
+  ProductPeriodPriceId bigint,
+  zoneId int,
+  deliveryTypeId int,
+  deliveryPrice decimal(11,4)
+)
+
+CREATE TABLE DeliveryType(
+  id int not null AUTO_INCREMENT,
+  name nvarchar(50)
+)
+
+--- Orders  ----
+CREATE Table Basket(
+  userId bigint not null,
+  ProductId bigint
+);
+
+
+CREATE TABLE Invoice(
+  id bigint not null AUTO_INCREMENT,
+  CustomerOrderId bigint,
+  contentHtml nvarchar(300),
+  imageAddress nvarchar(300)
+)
+
+CREATE TABLE CustomerOrderStatus (
+  id int not null AUTO_INCREMENT,
+  name nvarchar(30)
+);
+{
+  "Wait For Admin Response",
+  "Admin Rejected",
+  "Admin Suspend",
+  "Admin Edited",
+  "Sent E-Factor",
+  "Payment Done",
+  "Publisher Order Created"
+}
+
+CREATE TABLE PublisherOrderStatus (
+  id int not null AUTO_INCREMENT,
+  name nvarchar(30)
+);
+{
+  "Delayed",
+  "Deflicted",
+  "Cancel",
+  "Accept",
+  "Sent",
+  "Delivered"
+}
+
+CREATE Table CustomerOrder(
+  id bigint not null AUTO_INCREMENT,
+  userId bigint,
+  deliveryAddressId bigint, 
+  totalTaxCost decimal(11,4),
+  totalDeliveryCost decimal(11,4),
+  totalCost decimal(11,4),
+  totalPrice decimal(11,4),
+  orderDate datetime
+);
+
+CREATE TABLE PublisherOrder(
+  customerOrderId bigint,
+  productId bigint,
+  count int,
+  startDate date,
+  endDate date,
+  cancelPrice decimal(11,4)
+);

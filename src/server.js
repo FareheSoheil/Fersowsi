@@ -6,15 +6,13 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-
+import Promise from 'bluebird';
+//
 import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
-import { graphql } from 'graphql';
 import expressGraphQL from 'express-graphql';
-import jwt from 'jsonwebtoken';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
@@ -24,15 +22,17 @@ import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
-import passport from './passport';
 import router from './router';
 import models from './data/models';
 import schema from './data/schema';
-// import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
+import { userIsLoggedIn } from './actions/userLoggin';
 import config from './config';
+import { InitializeSQLite, readTokenIdFromDB } from './sqliteManager';
+import stateController from './stateController';
+import { ROLES } from './constants';
 
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
@@ -62,54 +62,48 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use('/state', stateController);
+app.all('*', Authorize);
 
-//
-// Authentication
-// -----------------------------------------------------------------------------
-app.use(
-  expressJwt({
-    secret: config.auth.jwt.secret,
-    credentialsRequired: false,
-    getToken: req => req.cookies.id_token,
-  }),
-);
-// Error handler for express-jwt
-app.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
-  if (err instanceof Jwt401Error) {
-    console.error('[express-jwt-error]', req.cookies.id_token);
-    // `clearCookie`, otherwise user can't use web-app until cookie expires
-    res.clearCookie('id_token');
+InitializeSQLite();
+
+async function Authorize(req, res, next) {
+  const statePat = new RegExp('/state/');
+  const forgetPat = new RegExp('/forget');
+  const loginPat = new RegExp('/login');
+  const newPassPat = new RegExp('/newpass');
+  console.log(
+    '*****************authorize***************',
+    req.path,
+    loginPat.test(req.path),
+  );
+  if (statePat.test(req.path) && req.method === 'POST') {
+    return next();
   }
-  next(err);
-});
-
-app.use(passport.initialize());
-
-app.get(
-  '/login/facebook',
-  passport.authenticate('facebook', {
-    scope: ['email', 'user_location'],
-    session: false,
-  }),
-);
-app.get(
-  '/login/facebook/return',
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-    session: false,
-  }),
-  (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, config.auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+  if (
+    loginPat.test(req.path) ||
+    forgetPat.test(req.path) ||
+    newPassPat.test(req.path)
+  ) {
+    if (req.cookies.TokenId === undefined) {
+      return next();
+    }
     res.redirect('/');
-  },
-);
+  } else if (req.cookies.TokenId === undefined) {
+    res.redirect('/login');
+  } else if (req.cookies.TokenId !== undefined) {
+    const fetchedState = await readTokenIdFromDB(req.cookies.TokenId);
+    if (fetchedState === undefined) {
+      res.clearCookie('TokenId');
+      res.redirect('/login');
+    } else {
+      next();
+    }
+  }
+}
 
-//
-// Register API middleware
-// -----------------------------------------------------------------------------
+// // Register API middleware
+// // -----------------------------------------------------------------------------
 app.use(
   '/graphql',
   expressGraphQL(req => ({
@@ -139,7 +133,7 @@ app.get('*', async (req, res, next) => {
       baseUrl: config.api.serverUrl,
       cookie: req.headers.cookie,
       schema,
-      graphql,
+      // graphql,
     });
 
     const initialState = {
@@ -148,6 +142,7 @@ app.get('*', async (req, res, next) => {
 
     const store = configureStore(initialState, {
       fetch,
+      role: '',
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
@@ -166,6 +161,7 @@ app.get('*', async (req, res, next) => {
       // The twins below are wild, be careful!
       pathname: req.path,
       query: req.query,
+      role: req.cookies.role,
       // You can access redux through react-redux connect
       store,
       storeSubscription: null,
@@ -205,6 +201,7 @@ app.get('*', async (req, res, next) => {
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);
+    // match routes
   } catch (err) {
     next(err);
   }
@@ -253,4 +250,84 @@ if (module.hot) {
   module.hot.accept('./router');
 }
 
+// Server mimic controllers :
+app.post('/login', (req, res, next) => {
+  console.log('--------------------- in login controller--------------');
+  const user = req.body.username;
+  let data = {};
+  if (user) {
+    data = {
+      TokenId: 'inAlakieAzizam',
+      role: 'Admin',
+      name: 'فارهه',
+      lastName: 'سهیل',
+      error: 'Nothing',
+    };
+  } else {
+    data = {
+      error: 'wrongUserName',
+    };
+  }
+  res.send(data);
+});
+let comments = [
+  {
+    id: 'Product#1',
+    senderUserName: 'id22222',
+    receiverUserName: 'farehe1',
+    repliedMSGId: '3000',
+    msgStatus: 'sd',
+    status: 'pending',
+  },
+  {
+    id: 'Product#2',
+    senderUserName: 'id22222',
+    receiverUserName: 'farehe2',
+    repliedMsgId: '300tt',
+    msgStatus: 'ef',
+    status: 'rej',
+  },
+  {
+    id: 'Product#3',
+    senderUserName: 'id22222',
+    receiverUserName: 'farehe3',
+    repliedMSGId: '7ujfh65',
+    msgStatus: 'e',
+    status: 'acc',
+  },
+];
+app.post('/getComments', (req, res, next) => {
+  console.log('--------------------- in getComments controller--------------');
+  const role = req.cookies;
+  if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
+  else {
+    let data = {};
+    const filter = req.body.searchBy;
+    console.log('^^^^^^^^^^^^^^^^^^ search By^^^^^^^^^ : ', filter);
+    const pn = req.body.pageNumber;
+    data = {
+      currentRecords: comments,
+      totalPageNumber: 20,
+    };
+    res.send(data);
+  }
+});
+app.post('/modifyComments', (req, res, next) => {
+  console.log(
+    '--------------------- in modifyComments controller--------------',
+  );
+  const role = req.cookies;
+  if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
+  else {
+    let data = {};
+    const id = req.body.productId;
+    const status = req.body.status;
+    comments[0].status = status;
+    data = {
+      currentRecords: comments,
+      totalPageNumber: 20,
+    };
+    res.send(data);
+  }
+});
 export default app;

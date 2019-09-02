@@ -8,19 +8,22 @@
  */
 
 import React from 'react';
+import LoginLayout from '../../components/Login/LoginLayout';
 import Layout from '../../components/Layout';
 import Login from './Login';
 
 const title = 'Log In';
 
-function action() {
+function action(context) {
   return {
     chunks: ['login'],
     title,
     component: (
-      <Layout>
-        <Login title={title} />
-      </Layout>
+      // <Layout context={context}>
+      <LoginLayout>
+        <Login title={title} context={context} />
+      </LoginLayout>
+      // </Layout>
     ),
   };
 }
