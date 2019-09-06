@@ -330,4 +330,47 @@ app.post('/modifyComments', (req, res, next) => {
     res.send(data);
   }
 });
+let Users = [
+  {
+    id: 'Product#1',
+    profilePic: '/assets/images/card-img-1.jpg',
+    firstName: 'id22222',
+    lastName: 'farehe1',
+    username: '3000',
+    email: 'sd',
+  },
+  {
+    id: 'Product#2',
+    profilePic: '/assets/images/card-img-1.jpg',
+    firstName: 'id22222',
+    lastName: 'farehe1',
+    username: '3000',
+    email: 'sd',
+  },
+  {
+    id: 'Product#3',
+    profilePic: '/assets/images/card-img-1.jpg',
+    firstName: 'id22222',
+    lastName: 'farehe1',
+    username: '3000',
+    email: 'sd',
+  },
+];
+
+app.post('/getUsers', (req, res, next) => {
+  console.log('--------------------- in users controller--------------');
+  const role = req.cookies;
+  if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
+  else {
+    let data = {};
+    const filter = req.body.searchBy;
+    console.log('^^^^^^^^^^^^^^^^^^ search By^^^^^^^^^ : ', filter);
+    const pn = req.body.pageNumber;
+    data = {
+      currentRecords: Users,
+      totalPageNumber: 20,
+    };
+    res.send(data);
+  }
+});
 export default app;

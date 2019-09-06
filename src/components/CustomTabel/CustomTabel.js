@@ -27,11 +27,11 @@ class CustomTabel extends React.Component {
   render() {
     //   vars[labels[0]]);
     console.log('recordItemNames : ', this.props.recordItemNames);
-    console.log('recordItem : ', this.props.recordItemNames[3]);
+    console.log('columnLabels : ', this.props.columnLabels);
+    console.log('records : ', this.props.records);
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th className="border-0">{label}</th>
     ));
-    console.log('records : ', this.props.records);
     const records = this.props.records.map((record, i) => (
       <tr
         onClick={() => {
@@ -39,7 +39,22 @@ class CustomTabel extends React.Component {
         }}
       >
         <td>{i + 1}</td>
-        {this.props.recordItemNames.map(label => <td>{record[label]}</td>)}
+        {this.props.recordItemNames.map(
+          label =>
+            label === 'profilePic' ? (
+              <td>
+                <img
+                  class={s.profilePicContiner}
+                  src={record[label]}
+                  width="50"
+                  height="50"
+                />
+              </td>
+            ) : (
+              <td>{record[label]}</td>
+            ),
+        )}
+        {/* <td /> */}
       </tr>
     ));
     return (
