@@ -10,7 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
+import RichText from '../../../components/RichText';
 import s from './ClaimDetails.css';
 
 class ClaimDetails extends React.Component {
@@ -20,7 +20,7 @@ class ClaimDetails extends React.Component {
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        This is Claim details homepage
+        <RichText initialValue="sala azizam" />
       </div>
     );
   }

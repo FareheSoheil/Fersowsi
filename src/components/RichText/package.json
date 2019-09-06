@@ -1,0 +1,7 @@
+{
+    "name": "RichText",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RichText.js"
+  }
+  

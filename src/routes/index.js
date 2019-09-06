@@ -14,7 +14,10 @@ const routes = {
           load: () =>
             import(/* webpackChunkName: 'adminHome' */ './admin/adminHome'),
         },
-
+        {
+          path: '/CMS',
+          load: () => import(/* webpackChunkName: 'adminCMS' */ './admin/CMS'),
+        },
         {
           path: '/claims',
           children: [
@@ -97,7 +100,16 @@ const routes = {
         },
       ],
     },
-
+    {
+      path: '/user',
+      children: [
+        {
+          path: '',
+          load: () =>
+            import(/* webpackChunkName: 'userHome' */ './user/userHome'),
+        },
+      ],
+    },
     {
       path: '/login',
       load: () => import(/* webpackChunkName: 'login' */ './login'),

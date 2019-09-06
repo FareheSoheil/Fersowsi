@@ -7110,3 +7110,6 @@ margin-bottom: 22px; }
 .product-card{
     cursor: pointer;
 }
+.tox-menubar {
+    background-color: var(--theme-color) !important;
+}
