@@ -18,10 +18,11 @@ import s from './AccountsTable.css';
 import Spinner from '../../../components/Admin/Spinner';
 import CustomTable from '../../../components/CustomTabel';
 import {
-  AccountStats,
-  UserTypesArray,
+  ROLES_ARRAY,
+  USER_SUBCATEGORY_ARRAY,
+  USER_ACTIVITION_STATUS,
   UserNumbersArray,
-} from '../../../constants';
+} from '../../../constants/constantData';
 
 class AccountsTable extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class AccountsTable extends React.Component {
     this.state = {
       isLoading: true,
       firstRender: true,
-      currentPageNumber: 1,
+      pageIndex: 1,
       totalPageNum: '',
       currentAccounts: '',
       searchClear: true,
@@ -38,10 +39,12 @@ class AccountsTable extends React.Component {
       accountsSearchFilter: {
         firstName: '',
         lastName: '',
+        contractName: '',
         Email: '',
         userName: '',
         country: '',
-        userType: '',
+        userRole: '',
+        userSubCategory: '',
         job: '',
         hasOpenClaim: '',
         accountStatus: '',
@@ -53,7 +56,7 @@ class AccountsTable extends React.Component {
     this.onChangeInput = this.onChangeInput.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.fetchAccounts = this.fetchAccounts.bind(this);
-    this.onCommentClick = this.onCommentClick.bind(this);
+    this.onAccountClick = this.onAccountClick.bind(this);
   }
 
   componentDidMount() {
@@ -68,13 +71,24 @@ class AccountsTable extends React.Component {
     this.fetchAccounts();
   }
   onChangeInput(event) {
-    let state;
-    event.target.type === 'radio'
-      ? (state = 'accountStatus')
-      : (state = event.target.name);
+    let state, value;
+    parseInt();
+    if (event.target.type === 'radio') {
+      state = 'accountStatus';
+      value = parseInt(event.target.value);
+    } else {
+      state = event.target.name;
+      value = event.target.value;
+    }
 
     let accountsSearchFilter = { ...this.state.accountsSearchFilter };
-    accountsSearchFilter[state] = event.target.value;
+    console.log(
+      'type of event : ',
+      typeof value,
+      '   type of const : ',
+      typeof USER_ACTIVITION_STATUS.ACTIVE,
+    );
+    accountsSearchFilter[state] = value;
     this.setState({ accountsSearchFilter, searchClear: false });
     localStorage.setItem(
       'accountsSearchFilter',
@@ -90,7 +104,7 @@ class AccountsTable extends React.Component {
         Email: '',
         userName: '',
         country: '',
-        userType: '',
+        userRole: '',
         job: '',
         hasOpenClaim: '',
         accountStatus: '',
@@ -105,9 +119,10 @@ class AccountsTable extends React.Component {
     this.setState({
       isLoading: true,
     });
+    console.log('account being fetched : ', this.state.accountsSearchFilter);
     const credentials = {
       searchBy: this.state.accountsSearchFilter,
-      pageNumber: this.state.currentPageNumber,
+      pageIndex: this.state.pageIndex,
     };
     const options = {
       method: 'POST',
@@ -118,7 +133,7 @@ class AccountsTable extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      url,
+      'http://localhost:3000/getUsers',
       options,
       response => {
         that.setState({
@@ -154,7 +169,6 @@ class AccountsTable extends React.Component {
           countries: response.countries,
           jobs: response.jobs,
           isLoading: false,
-          firstRender: false,
         });
       },
       error => {
@@ -162,8 +176,8 @@ class AccountsTable extends React.Component {
       },
     );
   }
-  handlePageChange(pageNumber) {
-    this.setState({ currentPageNumber: pageNumber.selected });
+  handlePageChange(pageIndex) {
+    this.setState({ pageIndex: pageIndex.selected });
     this.fetchAccounts();
   }
   handleSelectChange = (selectedOption, op) => {
@@ -174,10 +188,10 @@ class AccountsTable extends React.Component {
       'accountsSearchFilter',
       JSON.stringify(accountsSearchFilter),
     );
-    console.log('selected : ', op);
+    console.log('selected : ', op, selectedOption);
   };
 
-  onCommentClick(id) {
+  onAccountClick(id) {
     history.push(`/admin/accounts/${id}`);
   }
   render() {
@@ -190,17 +204,12 @@ class AccountsTable extends React.Component {
       'Email',
     ];
     const recordItemNames = [
+      'profilePic',
       'id',
-      'senderUserName',
-      'receiverUserName',
-      'msgStatus',
-      'repliedMsgId',
-      'status',
-    ];
-    const options = [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' },
+      'firstName',
+      'lastName',
+      'username',
+      'email',
     ];
     return (
       <div className="container-fluid dashboard-content">
@@ -247,17 +256,20 @@ class AccountsTable extends React.Component {
                                 <label class="custom-color-theme custom-control custom-radio custom-control-inline">
                                   <input
                                     type="radio"
-                                    name="approvedAccounts"
+                                    name="waitForApprovalAccounts"
                                     class="custom-control-input"
-                                    value={AccountStats.approved}
+                                    value={
+                                      USER_ACTIVITION_STATUS.WAITFORAPPROVAL
+                                    }
                                     onChange={this.onChangeInput}
                                     checked={
                                       this.state.accountsSearchFilter
-                                        .accountStatus === AccountStats.approved
+                                        .accountStatus ===
+                                      USER_ACTIVITION_STATUS.WAITFORAPPROVAL
                                     }
                                   />
                                   <span class="custom-control-label">
-                                    Approved Accounts
+                                    Wait For Approval Accounts
                                   </span>
                                 </label>
                                 <label class="custom-color-theme custom-control custom-radio custom-control-inline">
@@ -265,10 +277,11 @@ class AccountsTable extends React.Component {
                                     type="radio"
                                     name="activeAccounts"
                                     class="custom-control-input"
-                                    value={AccountStats.active}
+                                    value={USER_ACTIVITION_STATUS.ACTIVE}
                                     checked={
                                       this.state.accountsSearchFilter
-                                        .accountStatus === AccountStats.active
+                                        .accountStatus ===
+                                      USER_ACTIVITION_STATUS.ACTIVE
                                     }
                                     onChange={this.onChangeInput}
                                   />
@@ -281,10 +294,11 @@ class AccountsTable extends React.Component {
                                     type="radio"
                                     name="deactiveAccounts"
                                     class="custom-control-input"
-                                    value={AccountStats.deactive}
+                                    value={USER_ACTIVITION_STATUS.DEACTIVE}
                                     checked={
                                       this.state.accountsSearchFilter
-                                        .accountStatus === AccountStats.deactive
+                                        .accountStatus ===
+                                      USER_ACTIVITION_STATUS.DEACTIVE
                                     }
                                     onChange={this.onChangeInput}
                                   />
@@ -364,25 +378,64 @@ class AccountsTable extends React.Component {
                                         onChange={this.onChangeInput}
                                       />
                                     </div>
+                                    <div class="col-md-2 col-sm-4 form-group">
+                                      <input
+                                        id="cn"
+                                        name="contractName"
+                                        type="text"
+                                        placeholder="Contract Name"
+                                        value={
+                                          this.state.accountsSearchFilter
+                                            .contractName
+                                        }
+                                        class="form-control"
+                                        onChange={this.onChangeInput}
+                                      />
+                                    </div>
                                   </div>
                                 </form>
                               </div>
                             </div>
 
-                            {/* User Type */}
+                            {/* User Role */}
                             <div class="row reactSelectContainer">
                               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 reactSelectLabel">
-                                User Type :
+                                User Role :
                               </div>
                               <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7">
                                 <Select
                                   value={
-                                    this.state.accountsSearchFilter.userType
+                                    this.state.accountsSearchFilter.userRole
                                   }
                                   onChange={so =>
-                                    this.handleSelectChange(so, 'userType')
+                                    this.handleSelectChange(so, 'userRole')
                                   }
-                                  options={UserTypesArray}
+                                  options={ROLES_ARRAY}
+                                  isSearchable
+                                  className="reactSelect"
+                                  classNamePrefix="innerSelect"
+                                />
+                              </div>
+                            </div>
+
+                            {/* User SubCategory */}
+                            <div class="row reactSelectContainer">
+                              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 reactSelectLabel">
+                                User Subcategory :
+                              </div>
+                              <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7">
+                                <Select
+                                  value={
+                                    this.state.accountsSearchFilter
+                                      .userSubCategory
+                                  }
+                                  onChange={so =>
+                                    this.handleSelectChange(
+                                      so,
+                                      'userSubCategory',
+                                    )
+                                  }
+                                  options={USER_SUBCATEGORY_ARRAY}
                                   isSearchable
                                   className="reactSelect"
                                   classNamePrefix="innerSelect"
@@ -494,12 +547,12 @@ class AccountsTable extends React.Component {
                     <hr />
                     <CustomTable
                       pageCount={20}
-                      currentPageNumber={this.state.currentPageNumber}
+                      pageIndex={this.state.pageIndex}
                       records={this.state.currentAccounts}
                       columnLabels={columnLabels}
                       recordItemNames={recordItemNames}
                       handlePageChange={this.handlePageChange}
-                      onRecordClick={this.onCommentClick}
+                      onRecordClick={this.onAccountClick}
                     />
                   </div>
                 </div>

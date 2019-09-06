@@ -1,0 +1,65 @@
+.userHeaderContainer {
+    background-color: #1a1a1a !important;
+    height: 55px;
+    /* border: 2px solid yellow; */
+    color: white;
+    padding: 15px 70px 10px 100px;
+}
+.userHeaderContainer .nav-link {
+ border: 1px solid chartreuse;
+}
+.UserNavBrand {
+    color: white;
+    padding-right: 50px;
+}
+
+.headerIconContainer {
+    width: 100%;
+    text-align: right;
+    
+}
+.headerIconContainer i {
+    /* border: 1px solid    violet; */
+    /* border-radius: 60px; */
+    /* box-shadow: 0px 0px 2px #888; */
+    margin: 0px 1px 0px 1px;
+    padding: 8px;
+}
+.headerIconContainer i:hover {
+    cursor: pointer;
+    color: gray;
+    /* background: whitesmoke; */
+   
+}
+.headerIconContainer input {
+    border-radius: 5px;
+    border: 1px solid wheat;
+    height: 100%;
+    padding: 5px;
+    margin-right: 10px;
+    color: gray;
+}
+.headerIconContainer input:focus{
+    outline: none;
+}
+@media only screen and (max-width: 991px) {
+    .userHeaderContainer {
+        padding-left: 15px;
+        padding-right: 15px;
+        height: auto;
+    }
+    .UserNavBrand {
+        padding-left: 0px;
+        border: 1px solid green;
+        padding-right: 10px;
+    }
+    .headerIconContainer {
+        border-top: 1px solid wheat;
+        padding-top: 10px;
+        margin-top: 10px;
+        text-align: center;
+        align-content: center;
+        
+    }
+}
+

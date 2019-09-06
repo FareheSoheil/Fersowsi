@@ -11,19 +11,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RichText from '../../../components/RichText';
-import s from './ClaimDetails.css';
+import s from './CMS.css';
 
-class ClaimDetails extends React.Component {
+class CMS extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        <RichText initialValue="sala azizam" />
+        <RichText initialValue="sala CMS" />
       </div>
     );
   }
 }
 
-export default withStyles(s)(ClaimDetails);
+export default withStyles(s)(CMS);

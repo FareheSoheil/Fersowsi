@@ -2,3 +2,7 @@
     cursor: pointer;
     /* border: 2px solid red; */
 }
+.profilePicContiner {
+    align-content: center;
+    border-radius: 50px;
+}

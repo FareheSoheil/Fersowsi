@@ -32,7 +32,7 @@ class SideBar extends React.Component {
               <span className="navbar-toggler-icon" />
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav flex-column">
+              <ul className={`${s.itemContainer} navbar-nav flex-column `}>
                 <li className="nav-divider">Menu</li>
                 {/* accounts item */}
                 <li className="nav-item ">
@@ -61,7 +61,7 @@ class SideBar extends React.Component {
                 {/* CMS item */}
                 <li className="nav-item ">
                   <a className="nav-link" href="/admin/CMS">
-                    <i className="fas fa-object-group" />CMS{' '}
+                    <i className="far fa-object-group" />CMS{' '}
                   </a>
                 </li>
                 {/* Product item */}
@@ -73,7 +73,7 @@ class SideBar extends React.Component {
                 {/* Customer Order item */}
                 <li className="nav-item ">
                   <a className="nav-link" href="/admin/cusorders">
-                    <i className=" fas fa-shopping-basket" />Customer Order{' '}
+                    <i className=" fa fa-shopping-basket" />Customer Order{' '}
                   </a>
                 </li>
                 {/* Publisher Order item */}
