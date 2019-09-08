@@ -1,0 +1,24 @@
+.inlineInput {
+    display: inline !important;
+}
+ .avatar{
+    margin-bottom: 15px;
+}
+
+
+.avatar:hover {
+    cursor: pointer;
+}
+.userDetailContainer label, .userDetailContainer i{
+    
+    text-align: left;
+    color: rgb(88, 87, 87);
+}
+.formS {
+    padding-top: 10px;
+    text-align: left;
+}
+.numberContainer {
+    /* border: 2px solid teal; */
+    padding-left: 17px;
+}

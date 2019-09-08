@@ -18,6 +18,10 @@ import s from './ClaimsTable.css';
 import Spinner from '../../../components/Admin/Spinner';
 import CustomTable from '../../../components/CustomTabel';
 import { ClaimStats } from '../../../constants';
+import {
+  CLAIMS_COLUMNS_LABELS_ARRAY,
+  CLAIMS_RECORDE_ITEM_NAMES_ARRAY,
+} from '../../../constants/constantData';
 
 class ClaimsTable extends React.Component {
   constructor(props) {
@@ -411,8 +415,8 @@ class ClaimsTable extends React.Component {
                       pageCount={20}
                       currentPageNumber={this.state.currentPageNumber}
                       records={this.state.currentClaims}
-                      columnLabels={columnLabels}
-                      recordItemNames={recordItemNames}
+                      columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
+                      recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
                       handlePageChange={this.handlePageChange}
                       onRecordClick={this.onClaimClick}
                     />

@@ -1,3 +1,12 @@
-.inlineInput {
-    display: inline !important;
+.btnContainer {
+    padding: 5px;
+    text-align: center;
+    align-content: center;
+}
+.btnContainer>button:first-child {
+    margin-right: 2.5rem;
+}
+.btnContainer>button:nth-child(2) {
+    margin-right: 2.5rem;
+    color: white;
 }
