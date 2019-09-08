@@ -32,48 +32,54 @@ class CustomTabel extends React.Component {
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th className="border-0">{label}</th>
     ));
-    const records = this.props.records.map((record, i) => (
-      <tr
-        onClick={() => {
-          this.props.onRecordClick(record.id);
-        }}
-      >
-        <td>{i + 1}</td>
-        {this.props.recordItemNames.map(
-          label =>
-            label === 'profilePic' ? (
-              <td>
-                <img
-                  class={s.profilePicContiner}
-                  src={record[label]}
-                  width="50"
-                  height="50"
-                />
-              </td>
-            ) : (
-              <td>{record[label]}</td>
-            ),
-        )}
-        {/* <td /> */}
-      </tr>
-    ));
+    let records = '';
+    let toDisplay = <div className={s.noRecords}> No Match Found</div>;
+    if (this.props.records !== undefined && this.props.records.length !== 0) {
+      records = this.props.records.map((record, i) => (
+        <tr
+          onClick={() => {
+            this.props.onRecordClick(record.id);
+          }}
+        >
+          <td>{i + 1}</td>
+          {this.props.recordItemNames.map(
+            label =>
+              label === 'profilePic' ? (
+                <td>
+                  <img
+                    class={s.profilePicContiner}
+                    src={record[label]}
+                    width="50"
+                    height="50"
+                  />
+                </td>
+              ) : (
+                <td>{record[label]}</td>
+              ),
+          )}
+        </tr>
+      ));
+      toDisplay = (
+        <div className={`table-responsive ${s.table}`}>
+          <table
+            className={`table table-hover table-bordered ${s.hoverableTr}`}
+          >
+            <thead className="bg-light">
+              <th>#</th>
+              {tableHeaders}
+            </thead>
+            <tbody>{records}</tbody>
+          </table>
+        </div>
+      );
+    }
+
     return (
       <div>
-        <h4 className="card-header">{this.props.title}</h4>
+        {/* <h4 className="card-header">{this.props.title}</h4> */}
         <div className="row">
-          <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
-            <div className="table-responsive">
-              <table
-                className={`table table-hover table-bordered ${s.hoverableTr}`}
-              >
-                <thead className="bg-light">
-                  <th>#</th>
-                  {tableHeaders}
-                </thead>
-                <tbody>{records}</tbody>
-              </table>
-            </div>
-          </div>
+          <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" />
+          {toDisplay}
         </div>
         {/* Pagination */}
         <div className="row">

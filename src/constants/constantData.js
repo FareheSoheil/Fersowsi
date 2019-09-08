@@ -74,21 +74,28 @@ const PAYMENT_STATUS_ARRAY = [
   { id: 2, name: 'Partial Payment', label: 'Partial Payment' },
   { id: 3, name: 'No Payment', label: 'No Payment' },
 ];
-const UserTypesArray = [
-  { value: 'Publisher', label: 'Publisher' },
-  { value: 'Customer', label: 'Customer' },
-  { value: 'Operator', label: 'Operator' },
-];
-const UserNumbersArray = [
+
+const USER_NUMBER_ARRAY = [
   { value: 'Mobile Number', label: 'Mobile Number' },
   { value: 'Phone Number', label: 'Phone Number' },
   { value: 'Fax Number', label: 'Fax Number' },
 ];
-const AccountStats = {
-  active: { value: 1, label: 'active' },
-  deactive: 'deactive',
-  approved: 'approved',
-};
+const CLAIMS_COLUMNS_LABELS_ARRAY = [
+  'Id',
+  'Sender',
+  'Receiver',
+  'MSG Status',
+  'Replied to',
+  'Status',
+];
+const CLAIMS_RECORDE_ITEM_NAMES_ARRAY = [
+  'id',
+  'senderUserName',
+  'receiverUserName',
+  'msgStatus',
+  'repliedMsgId',
+  'status',
+];
 export {
   USER_SUBCATEGORY_ARRAY,
   USER_ACTIVITION_STATUS_ARRAY,
@@ -99,6 +106,7 @@ export {
   PRODUCT_TYPE_ARRAY,
   PUBLISHER_ORDER_STATUS_ARRAY,
   USER_ACTIVITION_STATUS,
-  UserTypesArray,
-  UserNumbersArray,
+  CLAIMS_COLUMNS_LABELS_ARRAY,
+  CLAIMS_RECORDE_ITEM_NAMES_ARRAY,
+  USER_NUMBER_ARRAY,
 };

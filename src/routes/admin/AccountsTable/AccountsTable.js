@@ -21,7 +21,7 @@ import {
   ROLES_ARRAY,
   USER_SUBCATEGORY_ARRAY,
   USER_ACTIVITION_STATUS,
-  UserNumbersArray,
+  USER_NUMBER_ARRAY,
 } from '../../../constants/constantData';
 
 class AccountsTable extends React.Component {
@@ -43,8 +43,8 @@ class AccountsTable extends React.Component {
         Email: '',
         userName: '',
         country: '',
-        userRole: '',
-        userSubCategory: '',
+        role: '',
+        subcategory: '',
         job: '',
         hasOpenClaim: '',
         accountStatus: '',
@@ -72,7 +72,6 @@ class AccountsTable extends React.Component {
   }
   onChangeInput(event) {
     let state, value;
-    parseInt();
     if (event.target.type === 'radio') {
       state = 'accountStatus';
       value = parseInt(event.target.value);
@@ -82,12 +81,6 @@ class AccountsTable extends React.Component {
     }
 
     let accountsSearchFilter = { ...this.state.accountsSearchFilter };
-    console.log(
-      'type of event : ',
-      typeof value,
-      '   type of const : ',
-      typeof USER_ACTIVITION_STATUS.ACTIVE,
-    );
     accountsSearchFilter[state] = value;
     this.setState({ accountsSearchFilter, searchClear: false });
     localStorage.setItem(
@@ -104,7 +97,7 @@ class AccountsTable extends React.Component {
         Email: '',
         userName: '',
         country: '',
-        userRole: '',
+        role: '',
         job: '',
         hasOpenClaim: '',
         accountStatus: '',
@@ -404,11 +397,9 @@ class AccountsTable extends React.Component {
                               </div>
                               <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7">
                                 <Select
-                                  value={
-                                    this.state.accountsSearchFilter.userRole
-                                  }
+                                  value={this.state.accountsSearchFilter.role}
                                   onChange={so =>
-                                    this.handleSelectChange(so, 'userRole')
+                                    this.handleSelectChange(so, 'role')
                                   }
                                   options={ROLES_ARRAY}
                                   isSearchable
@@ -426,14 +417,10 @@ class AccountsTable extends React.Component {
                               <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7">
                                 <Select
                                   value={
-                                    this.state.accountsSearchFilter
-                                      .userSubCategory
+                                    this.state.accountsSearchFilter.subcategory
                                   }
                                   onChange={so =>
-                                    this.handleSelectChange(
-                                      so,
-                                      'userSubCategory',
-                                    )
+                                    this.handleSelectChange(so, 'subcategory')
                                   }
                                   options={USER_SUBCATEGORY_ARRAY}
                                   isSearchable
@@ -493,7 +480,7 @@ class AccountsTable extends React.Component {
                                   onChange={so =>
                                     this.handleSelectChange(so, 'numberType')
                                   }
-                                  options={UserNumbersArray}
+                                  options={USER_NUMBER_ARRAY}
                                   isSearchable
                                   className="reactSelect"
                                   classNamePrefix="innerSelect"

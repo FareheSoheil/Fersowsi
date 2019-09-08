@@ -2,6 +2,8 @@
 
 # Dependencies
 node_modules/
+docs/
+models/
 
 # Compiled output
 build
