@@ -27,7 +27,7 @@ const routes = {
                 import(/* webpackChunkName: 'adminClaims' */ './admin/ClaimsTable'),
             },
             {
-              path: '/:id',
+              path: '/id=:cid & orderId=:oid',
               load: () =>
                 import(/* webpackChunkName: 'adminClaimDetails' */ './admin/ClaimDetails'),
             },

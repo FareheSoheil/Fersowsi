@@ -1,0 +1,58 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@import '../variables.css';
+
+.root {
+  background: rgb(228, 227, 227);
+  color: #333;
+  border:1px solid rgb(172, 172, 172);
+  border-radius: 2px;
+}
+.accepted {
+border: 3px solid green;
+}
+.rejected {
+  border: 2px solid red;
+  }
+.notFinished {
+  border: 2px solid yellow;
+}
+.header {padding-top: 8px;background: rgb(228, 227, 227);border-radius: 4px;}
+.header>div {
+  
+  text-align: center;margin-bottom: 5px;padding: 3px;
+}
+.container {
+  margin-bottom: 20px;
+  padding: 20px 5px 10px 5px ;
+  text-align: left;
+  max-width: 100%;
+  /*  */
+  background: rgb(255, 255, 255);
+  /* background-color:var(--theme-color); */
+  color: #333;
+  border:1px solid rgb(172, 172, 172);
+  border-radius: 6px;
+  /* font-size: 1.5em; ~24px */
+}
+
+.container label {
+  color:black;
+  font-size: 1em;
+}
+.msgContainer {
+  border: 1px solid rgb(236, 232, 232);
+  background-color: white;
+  padding: 5px;
+}
+.spacer {
+  padding-right: 15px;
+  padding-left: 15px;
+}

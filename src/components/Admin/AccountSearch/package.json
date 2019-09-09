@@ -1,0 +1,7 @@
+{
+    "name": "AccountSearch",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./AccountSearch.js"
+  }
+  
