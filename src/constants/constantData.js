@@ -47,35 +47,40 @@ const PRODUCT_PERIOD_ARRAY = [
   { id: 7, value: 7, name: 'Yearly', label: 'Yearly' },
 ];
 const SINGLE_PRODUCT_TYPE_ARRAY = [
-  { id: 1, name: 'Journal', label: 'Journal' },
-  { id: 2, name: 'Magazine', label: 'Magazine' },
-  { id: 3, name: 'EMagazine', label: 'EMagazine' },
-  { id: 4, name: 'ImageCollection', label: 'ImageCollection' },
-  { id: 5, name: 'Archive', label: 'Archive' },
-  { id: 6, name: 'Catalouge', label: 'Catalouge' },
+  { id: 1, value: 1, name: 'Journal', label: 'Journal' },
+  { id: 2, value: 2, name: 'Magazine', label: 'Magazine' },
+  { id: 3, value: 3, name: 'EMagazine', label: 'EMagazine' },
+  { id: 4, value: 4, name: 'ImageCollection', label: 'ImageCollection' },
+  { id: 5, value: 5, name: 'Archive', label: 'Archive' },
+  { id: 6, value: 6, name: 'Catalouge', label: 'Catalouge' },
 ];
 const PRODUCT_STATUS_ARRAY = [
-  { id: 1, label: 'WaitForAcceptByAdmin', name: 'Wait For AcceptBy Admin' },
-  { id: 2, label: 'Ready', name: 'Ready' },
-  { id: 3, label: 'NotAvailable', name: 'Not Available' },
+  {
+    id: 1,
+    value: 1,
+    label: 'WaitForAcceptByAdmin',
+    name: 'Wait For AcceptBy Admin',
+  },
+  { id: 2, value: 2, label: 'Ready', name: 'Ready' },
+  { id: 3, value: 3, label: 'NotAvailable', name: 'Not Available' },
 ];
 const PRODUCT_TYPE_ARRAY = [
-  { id: 1, label: 'SingleProduct', name: 'SingleProduct' },
-  { id: 2, label: 'Package', name: 'Package' },
+  { id: 1, value: 1, label: 'SingleProduct', name: 'SingleProduct' },
+  { id: 2, value: 2, label: 'Package', name: 'Package' },
 ];
 const PUBLISHER_ORDER_STATUS_ARRAY = [
-  { id: 1, name: 'Delayed', label: 'Delayed' },
-  { id: 2, name: 'Deflicted', label: 'Deflicted' },
-  { id: 3, name: 'Cancel', label: 'Cancel' },
-  { id: 4, name: 'Accept', label: 'Accept' },
-  { id: 5, name: 'Sent', label: 'Sent' },
-  { id: 6, name: 'Delivered', label: 'Delivered' },
+  { value: 1, id: 1, name: 'Delayed', label: 'Delayed' },
+  { value: 2, id: 2, name: 'Deflicted', label: 'Deflicted' },
+  { value: 3, id: 3, name: 'Cancel', label: 'Cancel' },
+  { value: 4, id: 4, name: 'Accept', label: 'Accept' },
+  { value: 5, id: 5, name: 'Sent', label: 'Sent' },
+  { value: 6, id: 6, name: 'Delivered', label: 'Delivered' },
 ];
 const MESSAGE_STATUS_ARRAY = [
-  { value: 1, name: 'SeenByAdmin', label: 'Seen By Admin' },
-  { value: 2, name: 'Rejected', label: 'Rejected' },
-  { value: 3, name: 'Accepted', label: 'Accepted' },
-  { value: 4, name: 'Pending', label: 'Pending' },
+  { id: 1, value: 1, name: 'SeenByAdmin', label: 'Seen By Admin' },
+  { id: 2, value: 2, name: 'Rejected', label: 'Rejected' },
+  { id: 3, value: 3, name: 'Accepted', label: 'Accepted' },
+  { id: 4, value: 4, name: 'Pending', label: 'Pending' },
 ];
 const MESSAGE_STATUS = {
   SeenByAdmin: 1,
@@ -84,9 +89,9 @@ const MESSAGE_STATUS = {
   Pending: 4,
 };
 const PAYMENT_STATUS_ARRAY = [
-  { id: 1, name: 'Full Payment', label: 'Full Payment' },
-  { id: 2, name: 'Partial Payment', label: 'Partial Payment' },
-  { id: 3, name: 'No Payment', label: 'No Payment' },
+  { value: 1, id: 1, name: 'Full Payment', label: 'Full Payment' },
+  { value: 2, id: 2, name: 'Partial Payment', label: 'Partial Payment' },
+  { value: 3, id: 3, name: 'No Payment', label: 'No Payment' },
 ];
 
 const USER_NUMBER_ARRAY = [

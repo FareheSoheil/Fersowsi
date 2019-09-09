@@ -25,13 +25,13 @@ class ProductCard extends React.Component {
             <div class="product-img">
               <img src={this.props.imgSrc} alt="" class="img-fluid" />
             </div>
-            <div class="ribbons" />
+            {/* <div class="ribbons" />
             <div class="ribbons-text">New</div>
             <div class="">
               <a class="product-wishlist-btn">
                 <i class="fas fa-heart" />
               </a>
-            </div>
+            </div> */}
           </div>
           <div class="product-content">
             <div class="product-content-head">
@@ -75,7 +75,6 @@ class ProductCard extends React.Component {
               </div>
             </div>
             <div class="product-btn">
-              <a class="btn btn-primary">Add to Cart</a> &nbsp;
               <a
                 onClick={() => this.props.onProductClick(this.props.id)}
                 class="btn btn-outline-light"

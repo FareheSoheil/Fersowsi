@@ -29,7 +29,7 @@ class ClaimsTable extends React.Component {
     this.state = {
       isLoading: true,
       firstRender: true,
-      currentPageNumber: 1,
+      pageIndex: 0,
       totalPageNum: '',
       currentClaims: '',
       searchClear: true,
@@ -53,13 +53,6 @@ class ClaimsTable extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.state.firstRender)
-      this.setState({
-        claimsSearchFilter:
-          localStorage.getItem('claimsSearchFilter') !== null
-            ? JSON.parse(localStorage.getItem('claimsSearchFilter'))
-            : this.state.claimsSearchFilter,
-      });
     this.fetchClaims();
   }
   handleInputChange(event) {
@@ -73,13 +66,8 @@ class ClaimsTable extends React.Component {
     let claimsSearchFilter = { ...this.state.claimsSearchFilter };
     claimsSearchFilter[state] = value;
     this.setState({ claimsSearchFilter, searchClear: false });
-    localStorage.setItem(
-      'claimsSearchFilter',
-      JSON.stringify(claimsSearchFilter),
-    );
   }
   clearFilters() {
-    localStorage.removeItem('claimsSearchFilter');
     this.setState({
       claimsSearchFilter: {
         senderFN: '',
@@ -102,7 +90,7 @@ class ClaimsTable extends React.Component {
     });
     const credentials = {
       searchBy: this.state.claimsSearchFilter,
-      pageNumber: this.state.currentPageNumber,
+      pageIndex: this.state.pageIndex,
     };
     const options = {
       method: 'POST',
@@ -129,11 +117,10 @@ class ClaimsTable extends React.Component {
     );
   }
   handlePageChange(pageNumber) {
-    this.setState({ currentPageNumber: pageNumber.selected });
+    this.setState({ pageIndex: pageNumber.selected });
     this.fetchClaims();
   }
   onClaimClick(id, orderId) {
-    // window.alert(orderId);?orderId=:oid orderId=${orderId}
     history.push(`/admin/claims/id=${id} & orderId=${orderId}`);
   }
   render() {
@@ -158,7 +145,7 @@ class ClaimsTable extends React.Component {
                     <hr />
                     <CustomTable
                       pageCount={20}
-                      currentPageNumber={this.state.currentPageNumber}
+                      currentPageNumber={this.state.pageIndex}
                       records={this.state.currentClaims}
                       columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
                       recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
