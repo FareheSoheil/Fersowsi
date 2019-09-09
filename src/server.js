@@ -86,8 +86,10 @@ async function Authorize(req, res, next) {
     newPassPat.test(req.path)
   ) {
     if (req.cookies.TokenId === undefined) {
+      console.log('###### coockie undefined ######');
       return next();
     }
+    console.log('###### coockie defined ######');
     res.redirect('/');
   } else if (req.cookies.TokenId === undefined) {
     res.redirect('/login');
@@ -252,7 +254,7 @@ if (module.hot) {
 
 // Server mimic controllers :
 app.post('/login', (req, res, next) => {
-  console.log('--------------------- in login controller--------------');
+  console.log('###### in login controller######', req.body.username);
   const user = req.body.username;
   let data = {};
   if (user) {
@@ -272,7 +274,7 @@ app.post('/login', (req, res, next) => {
 });
 let comments = [
   {
-    id: 'Product#1',
+    id: 'Product1',
     senderUserName: 'id22222',
     receiverUserName: 'farehe1',
     repliedMSGId: '3000',
@@ -280,7 +282,7 @@ let comments = [
     status: 'pending',
   },
   {
-    id: 'Product#2',
+    id: 'Product2',
     senderUserName: 'id22222',
     receiverUserName: 'farehe2',
     repliedMsgId: '300tt',
@@ -332,7 +334,7 @@ app.post('/modifyComments', (req, res, next) => {
 });
 let Users = [
   {
-    id: 'Product#1',
+    id: 'Product1',
     profilePic: '/assets/images/card-img-1.jpg',
     firstName: 'id22222',
     lastName: 'farehe1',
@@ -340,7 +342,7 @@ let Users = [
     email: 'sd',
   },
   {
-    id: 'Product#2',
+    id: 'Product2',
     profilePic: '/assets/images/card-img-1.jpg',
     firstName: 'id22222',
     lastName: 'farehe1',
@@ -348,7 +350,7 @@ let Users = [
     email: 'sd',
   },
   {
-    id: 'Product#3',
+    id: 'Product3',
     profilePic: '/assets/images/card-img-1.jpg',
     firstName: 'id22222',
     lastName: 'farehe1',

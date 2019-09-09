@@ -26,9 +26,9 @@ class CustomTabel extends React.Component {
 
   render() {
     //   vars[labels[0]]);
-    console.log('recordItemNames : ', this.props.recordItemNames);
-    console.log('columnLabels : ', this.props.columnLabels);
-    console.log('records : ', this.props.records);
+    // console.log('recordItemNames : ', this.props.recordItemNames);
+    // console.log('columnLabels : ', this.props.columnLabels);
+    // console.log('records : ', this.props.records);
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th className="border-0">{label}</th>
     ));
@@ -38,7 +38,7 @@ class CustomTabel extends React.Component {
       records = this.props.records.map((record, i) => (
         <tr
           onClick={() => {
-            this.props.onRecordClick(record.id);
+            this.props.onRecordClick(record.id, record.customerOrderId);
           }}
         >
           <td>{i + 1}</td>

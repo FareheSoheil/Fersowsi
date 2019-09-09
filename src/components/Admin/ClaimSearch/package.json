@@ -1,0 +1,7 @@
+{
+    "name": "ClaimSearch",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./ClaimSearch.js"
+  }
+  

@@ -99,7 +99,6 @@ class ProfileInfo extends React.Component {
           </div>
           <div class="card-body border-top">
             <div class="text-center">
-              {/* <h4 class="font-24 mb-2"> */}
               <form className={s.formS}>
                 <div class="form-group">
                   <div className="row">
@@ -341,7 +340,7 @@ class ProfileInfo extends React.Component {
                 }
               />
 
-              <span class="custom-control-label">is Email Confirmed</span>
+              <span class="custom-control-label">Is Email Confirmed</span>
             </label>
           </div>
         </div>

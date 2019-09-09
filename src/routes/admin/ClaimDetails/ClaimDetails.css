@@ -1,0 +1,13 @@
+.claimsListContainer {
+    /* border: 1px solid gray; */
+    text-align: center;
+    padding: 10px;
+    /* align-content: center; */
+    background-color: whitesmoke;
+    width: 100%; 
+      /* text-align: center; */
+}
+.rixtContainer{
+    text-align: center;
+    text-align: -webkit-center;
+}

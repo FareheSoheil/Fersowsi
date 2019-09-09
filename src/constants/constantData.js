@@ -29,6 +29,14 @@ const USER_ACTIVITION_STATUS = {
   ACTIVE: 2,
   DEACTIVE: 3,
 };
+const CLAIM_STATUS = {
+  OPEN: false,
+  ISFINISHED: true,
+};
+const CLAIM_STATUS_ARRAY = [
+  { value: 0, label: 'Open' },
+  { value: 1, label: 'Finished' },
+];
 const PRODUCT_PERIOD_ARRAY = [
   { id: 1, value: 1, name: 'Daily', label: 'Daily' },
   { id: 2, value: 2, name: 'Weekly', label: 'Weekly' },
@@ -64,11 +72,17 @@ const PUBLISHER_ORDER_STATUS_ARRAY = [
   { id: 6, name: 'Delivered', label: 'Delivered' },
 ];
 const MESSAGE_STATUS_ARRAY = [
-  { id: 1, name: 'SeenByAdmin', label: 'Seen By Admin' },
-  { id: 2, name: 'Rejected', label: 'Rejected' },
-  { id: 3, name: 'Accepted', label: 'Accepted' },
-  { id: 4, name: 'Pending', label: 'Pending' },
+  { value: 1, name: 'SeenByAdmin', label: 'Seen By Admin' },
+  { value: 2, name: 'Rejected', label: 'Rejected' },
+  { value: 3, name: 'Accepted', label: 'Accepted' },
+  { value: 4, name: 'Pending', label: 'Pending' },
 ];
+const MESSAGE_STATUS = {
+  SeenByAdmin: 1,
+  Rejected: 2,
+  Accepted: 3,
+  Pending: 4,
+};
 const PAYMENT_STATUS_ARRAY = [
   { id: 1, name: 'Full Payment', label: 'Full Payment' },
   { id: 2, name: 'Partial Payment', label: 'Partial Payment' },
@@ -82,19 +96,35 @@ const USER_NUMBER_ARRAY = [
 ];
 const CLAIMS_COLUMNS_LABELS_ARRAY = [
   'Id',
+  'Order Id',
   'Sender',
   'Receiver',
-  'MSG Status',
+  'Message Status',
   'Replied to',
-  'Status',
 ];
 const CLAIMS_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
+  'customerOrderId',
   'senderUserName',
   'receiverUserName',
   'msgStatus',
   'repliedMsgId',
-  'status',
+];
+const ACCOUNTS_COLUMNS_LABELS_ARRAY = [
+  'Avatar',
+  'Id',
+  'First Name',
+  'Last Name',
+  'Username',
+  'Email',
+];
+const ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY = [
+  'profilePic',
+  'id',
+  'firstName',
+  'lastName',
+  'username',
+  'email',
 ];
 export {
   USER_SUBCATEGORY_ARRAY,
@@ -105,8 +135,15 @@ export {
   PRODUCT_STATUS_ARRAY,
   PRODUCT_TYPE_ARRAY,
   PUBLISHER_ORDER_STATUS_ARRAY,
-  USER_ACTIVITION_STATUS,
+  USER_NUMBER_ARRAY,
+  MESSAGE_STATUS_ARRAY,
+  PAYMENT_STATUS_ARRAY,
   CLAIMS_COLUMNS_LABELS_ARRAY,
   CLAIMS_RECORDE_ITEM_NAMES_ARRAY,
-  USER_NUMBER_ARRAY,
+  ACCOUNTS_COLUMNS_LABELS_ARRAY,
+  ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY,
+  USER_ACTIVITION_STATUS,
+  CLAIM_STATUS,
+  MESSAGE_STATUS,
+  CLAIM_STATUS_ARRAY,
 };
