@@ -11,7 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RichText from '../../../components/RichText';
-import fetchWithTimeout from '../../../fetchWithTimeout';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import ReactPaginate from 'react-paginate';
 import Spinner from '../../../components/Admin/Spinner';
 import Claim from '../../../components/Claim';
@@ -79,7 +79,7 @@ class ClaimDetails extends React.Component {
   }
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected });
-    this.fetchClaims();
+    // this.fetchClaims();
   }
   sendClaim() {
     window.alert('send new claim with user id and trigger user id');

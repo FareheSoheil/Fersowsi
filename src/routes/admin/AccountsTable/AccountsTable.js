@@ -27,7 +27,8 @@ class AccountsTable extends React.Component {
     this.state = {
       isLoading: true,
       firstRender: true,
-      pageIndex: 1,
+      pageIndex: 0,
+      pageSize: 15,
       totalPageNum: '',
       currentAccounts: '',
       searchClear: true,
@@ -50,20 +51,14 @@ class AccountsTable extends React.Component {
       },
     };
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.fetchAccounts = this.fetchAccounts.bind(this);
     this.onAccountClick = this.onAccountClick.bind(this);
+    this.fetchAllInfo = this.fetchAllInfo.bind(this);
   }
   componentDidMount() {
-    if (!this.state.firstRender)
-      this.setState({
-        accountsSearchFilter:
-          localStorage.getItem('accountsSearchFilter') !== null
-            ? JSON.parse(localStorage.getItem('accountsSearchFilter'))
-            : this.state.accountsSearchFilter,
-      });
-    //   this.fetchAllInfo();
     this.fetchAccounts();
   }
   handleInputChange(event) {
@@ -79,13 +74,9 @@ class AccountsTable extends React.Component {
     let accountsSearchFilter = { ...this.state.accountsSearchFilter };
     accountsSearchFilter[state] = value;
     this.setState({ accountsSearchFilter, searchClear: false });
-    localStorage.setItem(
-      'accountsSearchFilter',
-      JSON.stringify(accountsSearchFilter),
-    );
   }
   clearFilters() {
-    localStorage.removeItem('accountsSearchFilter');
+    // localStorage.removeItem('accountsSearchFilter');
     this.setState({
       accountsSearchFilter: {
         firstName: '',
@@ -103,14 +94,14 @@ class AccountsTable extends React.Component {
       searchClear: true,
     });
   }
-  fetchAccounts() {
+  fetchAccounts(pageIndex) {
     const url = fetchURL;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       searchBy: this.state.accountsSearchFilter,
-      pageIndex: this.state.pageIndex,
+      pageIndex: pageIndex,
     };
     const options = {
       method: 'POST',
@@ -125,6 +116,7 @@ class AccountsTable extends React.Component {
       options,
       response => {
         that.setState({
+          pageIndex: pageIndex,
           currentAccounts: response.currentRecords,
           totalPageNum: response.totalPageNumber,
           isLoading: false,
@@ -172,10 +164,6 @@ class AccountsTable extends React.Component {
     let accountsSearchFilter = { ...this.state.accountsSearchFilter };
     accountsSearchFilter[op] = selectedOption;
     this.setState({ accountsSearchFilter, searchClear: false });
-    localStorage.setItem(
-      'accountsSearchFilter',
-      JSON.stringify(accountsSearchFilter),
-    );
   };
   onAccountClick(id) {
     history.push(`/admin/accounts/${id}`);
@@ -201,6 +189,7 @@ class AccountsTable extends React.Component {
                       handleSelectChange={this.handleSelectChange}
                       fetchAccounts={this.fetchAccounts}
                       clearFilters={this.clearFilters}
+                      currentPageNumber={this.state.pageIndex}
                     />
                     <hr />
                     <CustomTable

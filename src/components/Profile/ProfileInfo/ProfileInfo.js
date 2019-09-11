@@ -9,10 +9,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import ImageUploader from 'react-images-upload';
-// import ImagesUploader from 'react-images-uploader';
-// import 'react-images-uploader/styles.css';
-// import 'react-images-uploader/font.css';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -334,10 +330,7 @@ class ProfileInfo extends React.Component {
                 class="custom-control-input"
                 value={!this.props.user.emailConfirmed}
                 onClick={this.props.handleSimpleInputChange}
-                defaultChecked={
-                  this.props.user.emailConfirmed === 'true' ||
-                  this.props.user.emailConfirmed === true
-                }
+                defaultChecked={this.props.user.emailConfirmed === true}
               />
 
               <span class="custom-control-label">Is Email Confirmed</span>

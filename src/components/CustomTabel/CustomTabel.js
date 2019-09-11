@@ -90,7 +90,6 @@ class CustomTabel extends React.Component {
               pageCount={this.props.pageCount}
               pageRangeDisplayed={3}
               onPageChange={this.props.handlePageChange}
-              marginPagesDisplayed={1}
               containerClassName="paginate"
               subContainerClassName="pages paginate"
               activeClassName="active-page"

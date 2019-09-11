@@ -126,9 +126,44 @@ class ProfileDetail extends React.Component {
       },
     );
   }
+  fetchAllInfo() {
+    const url = `${SERVER}/getAllInfo`;
+    this.setState({
+      isLoading: true,
+    });
+    const credentials = {
+      // searchBy: this.state.productsSearchFilter,
+      // pageNumber: this.state.currentPageNumber,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        that.setState({
+          countries: response.countries,
+          siteLanguage: response.siteLanguage,
+          jobs: response.jobs,
+          currencies: response.currencies,
+        });
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  }
   onChangeInput(event) {
+    let value;
+    if (event.target.type === 'checkbox') value = event.target.checked;
+    else value = event.target.value;
     const state = event.target.name;
-    const value = event.target.value;
     let user = { ...this.state.user };
     user[state] = value;
     this.setState({ user });
