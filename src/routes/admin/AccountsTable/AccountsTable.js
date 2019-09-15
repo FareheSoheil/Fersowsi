@@ -192,6 +192,7 @@ class AccountsTable extends React.Component {
                       currentPageNumber={this.state.pageIndex}
                     />
                     <hr />
+
                     <CustomTable
                       pageCount={20}
                       pageIndex={this.state.pageIndex}

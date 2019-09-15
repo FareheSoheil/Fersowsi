@@ -13,6 +13,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
+import history from '../../../history';
 import s from './AccountSearch.css';
 import {
   ROLES_ARRAY,
@@ -46,22 +47,32 @@ class AccountSearch extends React.Component {
     fetchAccounts: PropTypes.func.isRequired,
     clearFilters: PropTypes.func.isRequired,
   };
-
+  onAddUser() {
+    history.push('/admin/addUser');
+  }
   render() {
     return (
       <div className="row advancedSearchContainer">
         <div className="col-12">
-          <div>
-            <button
-              className="btn btn-primary"
-              type="button"
-              data-toggle="collapse"
-              data-target="#collapseExample"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              Advanced Search
-            </button>
+          <div className="row">
+            <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+              <button
+                className="btn btn-primary"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                Advanced Search
+              </button>
+            </div>
+            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <button onClick={this.onAddUser} className="btn btn-primary">
+                {' '}
+                Add User &nbsp;&nbsp;<i class="fas fa-plus" />
+              </button>
+            </div>
           </div>
           <div
             className={this.props.searchClear ? 'collapse' : 'collapse show'}

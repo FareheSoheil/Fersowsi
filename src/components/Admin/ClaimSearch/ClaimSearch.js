@@ -31,22 +31,32 @@ class ClaimSearch extends React.Component {
     fetchClaims: PropTypes.func.isRequired,
     clearFilters: PropTypes.func.isRequired,
   };
-
+  onAddClaim() {
+    history.push('/admin/addClaim');
+  }
   render() {
     return (
       <div className="row advancedSearchContainer">
         <div className="col-12">
-          <div>
-            <button
-              class="btn btn-primary"
-              type="button"
-              data-toggle="collapse"
-              data-target="#collapseExample"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              Advanced Search
-            </button>
+          <div className="row">
+            <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+              <button
+                className="btn btn-primary"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                Advanced Search
+              </button>
+            </div>
+            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <button onClick={this.onAddClaim} className="btn btn-primary">
+                {' '}
+                Add Claim &nbsp;&nbsp;<i class="fas fa-plus" />
+              </button>
+            </div>
           </div>
           <div
             class={this.props.searchClear ? 'collapse' : 'collapse show'}

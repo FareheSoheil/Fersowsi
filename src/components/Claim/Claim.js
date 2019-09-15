@@ -49,19 +49,28 @@ class Claim extends React.Component {
               </div>
             </div>
             <div className="row ">
-              <div className="col-xl-4 col-lg-4 col-md-5">
+              <div className="col-xl-4 col-lg-4 col-md-5 ">
                 <label>Message Status :&nbsp;</label>
                 {this.props.claim.messageStatus.value ===
                   MESSAGE_STATUS.Pending ||
                 this.props.claim.messageStatus.value ===
                   MESSAGE_STATUS.SeenByAdmin ? (
-                  <Select
-                    value={this.props.claim.messageStatus}
-                    options={MESSAGE_STATUS_ARRAY}
-                    onChange={so =>
-                      this.props.handleSelectChange(id, so, 'messageStatus')
-                    }
-                  />
+                  <div
+                    style={{
+                      width: '50%',
+                      display: 'inline-block',
+                      paddingLeft: '5px',
+                      textAlign: 'left',
+                    }}
+                  >
+                    <Select
+                      value={this.props.claim.messageStatus}
+                      options={MESSAGE_STATUS_ARRAY}
+                      onChange={so =>
+                        this.props.handleSelectChange(id, so, 'messageStatus')
+                      }
+                    />
+                  </div>
                 ) : (
                   this.props.claim.messageStatus.label
                 )}

@@ -72,13 +72,13 @@ class SideBar extends React.Component {
                 </li>
                 {/* Customer Order item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/cusorders">
+                  <a className="nav-link" href="/admin/customerOrder">
                     <i className=" fa fa-shopping-basket" />Customer Order{' '}
                   </a>
                 </li>
                 {/* Publisher Order item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/puborders">
+                  <a className="nav-link" href="/admin/publisherOrder">
                     <i className="fab fa-leanpub" />Publisher Order{' '}
                   </a>
                 </li>

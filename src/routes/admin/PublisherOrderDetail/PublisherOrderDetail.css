@@ -1,0 +1,48 @@
+
+.orderSmallInfoContainer {
+    padding: 5px 20px 5px 15px;
+    text-align: center;
+}
+.orderSmallInfoContainer>div {
+    text-align: left;
+}
+.orderSmallInfoContainer input{
+    display: inline;
+    width: auto;
+}
+
+
+.dropDownContainer>div{
+    margin-bottom: 12px;
+    /* border: 1px solid violet; */
+}
+.dropDownContainer > input {
+    width: 100px;
+}
+.dropDownContainer>div>label , .productsmallInfoContainer>div>label{ 
+    color: rgb(80, 78, 78);
+}
+.advancedContainer {
+    /* border: 1px solid greenyellow; */
+    text-align: left;
+    padding: 10px;
+    background-color: white;
+}
+.publisherOrderDetailContainer form {
+    width: 100%;
+    display: inline-block;
+}
+.publisherOrderDetailContainer label {
+    display: inline-block;
+}
+.publisherOrderDetailContainer input{
+    margin-left: 5px;
+    width:100px;
+    display: inline-block;
+}
+@media only screen and (max-width: 600px) {
+    .customerOrderDetailContainer input{
+        
+        width:100%;
+    }
+}
