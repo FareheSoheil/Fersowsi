@@ -170,7 +170,8 @@ body {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    color: #71748d;
+    /* color: #71748d; */
+    color:black;
     background-color: #efeff6;
     -webkit-font-smoothing: antialiased;
 }

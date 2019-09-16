@@ -10,13 +10,21 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './SideBar.css';
+import history from '../../../history';
 
 class SideBar extends React.Component {
+  goTo(url) {
+    console.log(history);
+    history.push(url);
+  }
   render() {
     return (
       <div className="nav-left-sidebar sidebar-dark">
         <div className={`menu-list ${s.scrollbar}`}>
-          <nav className="navbar navbar-expand-lg navbar-light">
+          <nav
+            className="navbar navbar-expand-lg navbar-light"
+            style={{ marginBottom: '80px' }}
+          >
             <a className="d-xl-none d-lg-none" href="#">
               Dashboard
             </a>
@@ -36,57 +44,176 @@ class SideBar extends React.Component {
                 <li className="nav-divider">Menu</li>
                 {/* accounts item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/accounts">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/accounts')}
+                  >
                     <i className="fa fa-fw fa-user-circle" />Accounts{' '}
                   </a>
                 </li>
                 {/* claims item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/claims">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/claims')}
+                    // href="/admin/claims"
+                  >
                     <i className="far fa-hdd" />Claims{' '}
                   </a>
                 </li>
                 {/* Comments item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/comments">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/comments')}
+                    // href="/admin/comments"
+                  >
                     <i className="fa fa-comments" />Comments{' '}
                   </a>
                 </li>
                 {/* Currencies item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/currencies">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/currencies')}
+                    // href="/admin/currencies"
+                  >
                     <i className="far fa-money-bill-alt" />Currencies{' '}
                   </a>
                 </li>
                 {/* CMS item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/CMS">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/CMS')}
+                    // href="/admin/CMS"
+                  >
                     <i className="far fa-object-group" />CMS{' '}
                   </a>
                 </li>
                 {/* Product item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/products">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/products')}
+                    // href="/admin/products"
+                  >
                     <i className=" fab fa-product-hunt" />Products{' '}
                   </a>
                 </li>
                 {/* Customer Order item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/customerOrder">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/customerOrder')}
+                    // href="/admin/customerOrder"
+                  >
                     <i className=" fa fa-shopping-basket" />Customer Order{' '}
                   </a>
                 </li>
                 {/* Publisher Order item */}
                 <li className="nav-item ">
-                  <a className="nav-link" href="/admin/publisherOrder">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/publisherOrder')}
+                    href="/admin/publisherOrder"
+                  >
                     <i className="fab fa-leanpub" />Publisher Order{' '}
                   </a>
                 </li>
                 {/* Settings item */}
-                <li className="nav-item ">
-                  <a className="nav-link" href="/admin/puborder">
-                    <i className="icon-settings" />Settings{' '}
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="#"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                    data-target="#submenu"
+                    aria-controls="submenu"
+                  >
+                    <i class="fa fa-fw fa-rocket" />Settings
                   </a>
+                  <div id="submenu" class="collapse submenu">
+                    <ul class="nav flex-column">
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/settings/ageGroups')}
+                          // href="admin/settings/ageGroups"
+                        >
+                          Age Groups{' '}
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() =>
+                            this.goTo('/admin/settings/poductLanguages')
+                          }
+                        >
+                          Product Language
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() =>
+                            this.goTo('/admin/settings/siteLanguages')
+                          }
+                        >
+                          Site Language
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() =>
+                            this.goTo('/admin/settings/productContentTypes')
+                          }
+                        >
+                          Product Content Type
+                        </a>
+                      </li>
+
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() =>
+                            this.goTo('/admin/settings/deliveryTypes')
+                          }
+                        >
+                          Delivery Type
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/claims')}
+                          href="admin/settings/jobs"
+                        >
+                          Job
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/claims')}
+                          href="admin/settings/zones"
+                        >
+                          Zone
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/claims')}
+                          href="admin/settings/countries"
+                        >
+                          Country
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
               </ul>
             </div>

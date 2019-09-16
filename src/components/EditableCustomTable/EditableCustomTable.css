@@ -1,0 +1,35 @@
+.hoverableTr tr {
+    cursor: pointer;
+}
+.tableContainer {
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-top: 10px;
+    margin-bottom: 25px;
+    width: 100%;
+    
+}
+
+.table td {
+    width: 1%;
+    white-space: nowrap;
+    /* text-align: center; */
+    /*  */
+}
+.table input {
+    margin-left: 70px;
+    width: 250px;
+}
+.noRecords {
+    text-align: center;
+    width: 100%;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .table input {
+        margin-left: auto;
+    }
+  }

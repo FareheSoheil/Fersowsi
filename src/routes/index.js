@@ -98,6 +98,21 @@ const routes = {
             },
           ],
         },
+        {
+          path: '/settings',
+          children: [
+            {
+              path: '/ageGroups',
+              load: () =>
+                import(/* webpackChunkName: 'adminAgeGroups' */ './admin/Settings/AgeGroups'),
+            },
+            // {
+            //   path: '/productLanguage',
+            //   load: () =>
+            //     import(/* webpackChunkName: 'adminProductLanguage' */ './admin/Settings/ProductLanguage'),
+            // },
+          ],
+        },
       ],
     },
     {

@@ -1,4 +1,7 @@
 .itemContainer>li>a>i {
-  font-size: 20px !important;
+  font-size: 17px !important;
   
+}
+.itemContainer>li {
+  cursor: pointer;
 }

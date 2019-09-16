@@ -2,7 +2,10 @@
     cursor: pointer;
 }
 .table {
-    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 1px;
+    margin-bottom: 30px;
 }
 .profilePicContiner {
     align-content: center;
