@@ -25,7 +25,7 @@ class AccountsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      isLoading: false,
       firstRender: true,
       pageIndex: 0,
       pageSize: 15,
@@ -180,7 +180,7 @@ class AccountsTable extends React.Component {
                 <h4 className="card-header">Accounts</h4>
                 <div className="card-body p-0">
                   <div className="container-fluid">
-                    <AccountSearch
+                    {/* <AccountSearch
                       searchClear={this.state.searchClear}
                       jobs={this.state.jobs}
                       countries={this.state.countries}
@@ -190,7 +190,7 @@ class AccountsTable extends React.Component {
                       fetchAccounts={this.fetchAccounts}
                       clearFilters={this.clearFilters}
                       currentPageNumber={this.state.pageIndex}
-                    />
+                    /> */}
                     <hr />
 
                     <CustomTable

@@ -19,6 +19,11 @@ const routes = {
           load: () => import(/* webpackChunkName: 'adminCMS' */ './admin/CMS'),
         },
         {
+          path: '/currencies',
+          load: () =>
+            import(/* webpackChunkName: 'adminCurrencies' */ './admin/Currencies'),
+        },
+        {
           path: '/claims',
           children: [
             {
@@ -106,11 +111,46 @@ const routes = {
               load: () =>
                 import(/* webpackChunkName: 'adminAgeGroups' */ './admin/Settings/AgeGroups'),
             },
-            // {
-            //   path: '/productLanguage',
-            //   load: () =>
-            //     import(/* webpackChunkName: 'adminProductLanguage' */ './admin/Settings/ProductLanguage'),
-            // },
+            {
+              path: '/deliveryTypes',
+              load: () =>
+                import(/* webpackChunkName: 'adminDeliveryTypes' */ './admin/Settings/DeliveryTypes'),
+            },
+            {
+              path: '/poductLanguages',
+              load: () =>
+                import(/* webpackChunkName: 'adminProductLanguages' */ './admin/Settings/ProductLanguages'),
+            },
+            {
+              path: '/siteLanguages',
+              load: () =>
+                import(/* webpackChunkName: 'adminSiteLanguages' */ './admin/Settings/SiteLanguages'),
+            },
+            {
+              path: '/productContentTypes',
+              load: () =>
+                import(/* webpackChunkName: 'adminProductContentTypes' */ './admin/Settings/ProductContentTypes'),
+            },
+            {
+              path: '/productCategories',
+              load: () =>
+                import(/* webpackChunkName: 'adminProductCategories' */ './admin/Settings/ProductCategories'),
+            },
+            {
+              path: '/jobs',
+              load: () =>
+                import(/* webpackChunkName: 'adminJobs' */ './admin/Settings/Jobs'),
+            },
+            {
+              path: '/zones',
+              load: () =>
+                import(/* webpackChunkName: 'adminZones' */ './admin/Settings/Zones'),
+            },
+            {
+              path: '/countries',
+              load: () =>
+                import(/* webpackChunkName: 'adminCountries' */ './admin/Settings/Countries'),
+            },
           ],
         },
       ],

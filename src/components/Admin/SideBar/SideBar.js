@@ -66,7 +66,6 @@ class SideBar extends React.Component {
                   <a
                     className="nav-link"
                     onClick={() => this.goTo('/admin/comments')}
-                    // href="/admin/comments"
                   >
                     <i className="fa fa-comments" />Comments{' '}
                   </a>
@@ -76,7 +75,6 @@ class SideBar extends React.Component {
                   <a
                     className="nav-link"
                     onClick={() => this.goTo('/admin/currencies')}
-                    // href="/admin/currencies"
                   >
                     <i className="far fa-money-bill-alt" />Currencies{' '}
                   </a>
@@ -86,7 +84,6 @@ class SideBar extends React.Component {
                   <a
                     className="nav-link"
                     onClick={() => this.goTo('/admin/CMS')}
-                    // href="/admin/CMS"
                   >
                     <i className="far fa-object-group" />CMS{' '}
                   </a>
@@ -96,7 +93,6 @@ class SideBar extends React.Component {
                   <a
                     className="nav-link"
                     onClick={() => this.goTo('/admin/products')}
-                    // href="/admin/products"
                   >
                     <i className=" fab fa-product-hunt" />Products{' '}
                   </a>
@@ -133,13 +129,15 @@ class SideBar extends React.Component {
                   >
                     <i class="fa fa-fw fa-rocket" />Settings
                   </a>
-                  <div id="submenu" class="collapse submenu">
+                  <div
+                    id="submenu"
+                    class={`collapse submenu ${s.submenuContainer} `}
+                  >
                     <ul class="nav flex-column">
                       <li class="nav-item">
                         <a
                           class="nav-link"
                           onClick={() => this.goTo('/admin/settings/ageGroups')}
-                          // href="admin/settings/ageGroups"
                         >
                           Age Groups{' '}
                         </a>
@@ -174,7 +172,16 @@ class SideBar extends React.Component {
                           Product Content Type
                         </a>
                       </li>
-
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() =>
+                            this.goTo('/admin/settings/productCategories')
+                          }
+                        >
+                          Product Category
+                        </a>
+                      </li>
                       <li class="nav-item">
                         <a
                           class="nav-link"
@@ -188,8 +195,7 @@ class SideBar extends React.Component {
                       <li class="nav-item">
                         <a
                           class="nav-link"
-                          onClick={() => this.goTo('/admin/claims')}
-                          href="admin/settings/jobs"
+                          onClick={() => this.goTo('/admin/settings/jobs')}
                         >
                           Job
                         </a>
@@ -197,8 +203,7 @@ class SideBar extends React.Component {
                       <li class="nav-item">
                         <a
                           class="nav-link"
-                          onClick={() => this.goTo('/admin/claims')}
-                          href="admin/settings/zones"
+                          onClick={() => this.goTo('/admin/settings/zones')}
                         >
                           Zone
                         </a>
@@ -206,8 +211,7 @@ class SideBar extends React.Component {
                       <li class="nav-item">
                         <a
                           class="nav-link"
-                          onClick={() => this.goTo('/admin/claims')}
-                          href="admin/settings/countries"
+                          onClick={() => this.goTo('/admin/settings/countries')}
                         >
                           Country
                         </a>
