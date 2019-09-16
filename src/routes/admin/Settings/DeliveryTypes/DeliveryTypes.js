@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import SettingItem from '../../../../components/SettingItem';
-import s from './DeliveryTypes.css';
-
+import {
+  SETTING_COLUMNS_LABELS_ARRAY,
+  SETTING_ITEM_RECORD_ITEM_NAMES,
+} from '../../../../constants/constantData';
 class DeliveryTypes extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -16,9 +17,11 @@ class DeliveryTypes extends React.Component {
         editUrl="PropTypes.string.isRequired"
         addUrl="PropTypes.string.isRequired"
         cardTitle="Delivery Types"
-        modalTitle="Delivery Type"
+        title="Delivery Type"
+        columnLabels={SETTING_COLUMNS_LABELS_ARRAY}
+        recordItemNames={SETTING_ITEM_RECORD_ITEM_NAMES}
       />
     );
   }
 }
-export default withStyles(s)(DeliveryTypes);
+export default DeliveryTypes;

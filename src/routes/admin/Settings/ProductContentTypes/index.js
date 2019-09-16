@@ -8,18 +8,18 @@
  */
 
 import React from 'react';
-import AdminLayout from '../../../components/Admin/AdminLayout';
-import Settings from './Settings';
+import AdminLayout from '../../../../components/Admin/AdminLayout';
+import ProductContentTypes from './ProductContentTypes';
 
-const title = 'Settings';
+const title = 'ProductContentTypes';
 
 function action(context) {
   return {
-    chunks: ['adminSettings'],
+    chunks: ['adminProductContentTypes'],
     title,
     component: (
       <AdminLayout>
-        <Settings title={title} context={context} />
+        <ProductContentTypes context={context} />
       </AdminLayout>
     ),
   };

@@ -5,22 +5,23 @@ import {
   SETTING_COLUMNS_LABELS_ARRAY,
   SETTING_ITEM_RECORD_ITEM_NAMES,
 } from '../../../../constants/constantData';
-class AgeGroups extends React.Component {
+class Zones extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
   };
+
   render() {
     return (
       <SettingItem
         fetchUrl="PropTypes.string.isRequired"
         editUrl="PropTypes.string.isRequired"
         addUrl="PropTypes.string.isRequired"
-        cardTitle="Age Groups"
-        title="Age Group"
+        cardTitle="Zones"
+        title="Zone"
         columnLabels={SETTING_COLUMNS_LABELS_ARRAY}
         recordItemNames={SETTING_ITEM_RECORD_ITEM_NAMES}
       />
     );
   }
 }
-export default AgeGroups;
+export default Zones;

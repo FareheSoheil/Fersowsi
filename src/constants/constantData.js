@@ -192,6 +192,26 @@ const PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY = [
   'startDate',
   'endDate',
 ];
+const COUNTRIES_COLUMNS_LABELS_ARRAY = [
+  'Id',
+  'Name',
+  'Nice Name',
+  'ISO',
+  'ISO3',
+  'Num Code',
+  'Phone Code',
+];
+const COUNTRIES_RECORDE_ITEM_NAMES_ARRAY = [
+  'id',
+  'name',
+  'niceName',
+  'iso',
+  'iso3',
+  'numcode',
+  'phonecode',
+];
+const SETTING_ITEM_RECORD_ITEM_NAMES = ['id', 'name'];
+const SETTING_COLUMNS_LABELS_ARRAY = ['Id', 'Name'];
 const OPCODES = {
   checkbox: 1,
   range: 2,
@@ -223,4 +243,8 @@ export {
   OPCODES,
   PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
   PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY,
+  COUNTRIES_COLUMNS_LABELS_ARRAY,
+  COUNTRIES_RECORDE_ITEM_NAMES_ARRAY,
+  SETTING_COLUMNS_LABELS_ARRAY,
+  SETTING_ITEM_RECORD_ITEM_NAMES,
 };

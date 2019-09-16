@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import EditableCustomTable from '../EditableCustomTable';
 import Spinner from '../Admin/Spinner';
+import AddSettingItem from '../AddSettingItem';
 // import crypto from 'crypto';
 // import cookie from 'react-cookies';
 import s from './SettingItem.css';
@@ -16,6 +17,8 @@ class SettingItem extends React.Component {
     addUrl: PropTypes.string.isRequired,
     cardTitle: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    columnLabels: PropTypes.array.isRequired,
+    recordItemNames: PropTypes.array.isRequired,
   };
   constructor(props) {
     super(props);
@@ -38,15 +41,15 @@ class SettingItem extends React.Component {
     this.applyChanges = this.applyChanges.bind(this);
     this.addRecord = this.addRecord.bind(this);
     this.fetchRecords = this.fetchRecords.bind(this);
-    this.onNameChange = this.onNameChange.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
   }
   componentDidMount() {
     // this.fetchRecords();
   }
-  onNameChange(event, number) {
+  onInputChange(event, number, label) {
     let records = this.state.currentRecords;
-    records[number].name = event.target.value;
+    records[number][label] = event.target.value;
     this.setState({
       records: records,
     });
@@ -118,7 +121,6 @@ class SettingItem extends React.Component {
     this.fetchRecords();
   }
   addRecord(name) {
-    window.alert(name);
     this.setState({
       isLoading: true,
     });
@@ -149,27 +151,32 @@ class SettingItem extends React.Component {
       <div className="container-fluid dashboard-content">
         <div className="row">
           {this.state.isLoading ? (
-            <div style={{ top: '300px' }}>
-              Hellow {true}
-              {this.state.isLoading}
-            </div>
+            <Spinner />
           ) : (
             <div className="offset-xl-1 col-xl-10 col-lg-12 col-md-6 col-sm-12 col-12">
               <div className="card">
                 <h4 className="card-header">{this.props.cardTitle}</h4>
                 <div className="card-body p-0">
                   <div className="container-fluid">
+                    <AddSettingItem
+                      addRecord={this.props.addRecord}
+                      title={this.props.title}
+                    />
                     <EditableCustomTable
+                      style={{
+                        marginLeft: '70px',
+                        width: '250px',
+                      }}
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       isLoading={this.state.isLoading}
                       title={this.props.title}
-                      onNameChange={this.onNameChange}
+                      onInputChange={this.onInputChange}
                       applyChanges={this.applyChanges}
                       handlePageChange={this.handlePageChange}
-                      addRecord={this.addRecord}
                       records={this.state.currentRecords}
-                      recordItemNames={['id', 'name']}
+                      columnLabels={this.props.columnLabels}
+                      recordItemNames={this.props.recordItemNames}
                     />
                   </div>
                 </div>

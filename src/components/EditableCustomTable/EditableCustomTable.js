@@ -17,11 +17,12 @@ class EditableCustomTable extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
     currentPageNumber: PropTypes.number.isRequired,
+    columnLabels: PropTypes.array.isRequired,
+    recordItemNames: PropTypes.array.isRequired,
     records: PropTypes.array.isRequired,
     applyChanges: PropTypes.func.isRequired,
-    onNameChange: PropTypes.func.isRequired,
+    onInputChange: PropTypes.func.isRequired,
     handlePageChange: PropTypes.func.isRequired,
-    addRecord: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
   };
   constructor(props) {
@@ -40,8 +41,8 @@ class EditableCustomTable extends React.Component {
   }
 
   render() {
-    const labels = ['Id', 'Name'];
-    const recordItems = ['id', 'name'];
+    const labels = this.props.columnLabels;
+    const recordItems = this.props.recordItemNames;
     const tableHeaders = labels.map((label, i) => (
       <th className="border-0">{label}</th>
     ));
@@ -58,9 +59,13 @@ class EditableCustomTable extends React.Component {
               ) : (
                 <td>
                   <input
-                    className="form-control form-control-lg "
-                    value={record.name}
-                    onChange={e => this.props.onNameChange(e, i)}
+                    style={{
+                      marginLeft: this.props.style.marginLeft,
+                      width: this.props.style.width,
+                    }}
+                    className="form-control form-control-sm "
+                    value={record[label]}
+                    onChange={e => this.props.onInputChange(e, i, label)}
                   />
                 </td>
               ),
@@ -86,57 +91,15 @@ class EditableCustomTable extends React.Component {
 
     return (
       <div>
-        <div className="container-fluid">
-          <br />
-          <div className="row" style={{ verticalAlign: 'middle' }}>
-            <span
-              style={{
-                paddingTop: '9px',
-              }}
-            >
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>
-                Add {this.props.title} :{' '}
-              </b>
-            </span>
-            <div className="col-xl-4 col-lg-4 col-md-5 col-sm-12">
-              <input
-                value={this.state.newName}
-                className="form-control form-control-lg "
-                onChange={this.onChange}
-              />{' '}
-            </div>
-            <div className="col-1">
-              {' '}
-              <button
-                className="btn btn-success"
-                onClick={e => this.props.addRecord(this.state.newName)}
-              >
-                {' '}
-                Add
-              </button>
-            </div>
-            <div className="col-2">
-              {' '}
-              <button
-                className="btn btn-success"
-                onClick={this.props.applyChanges}
-              >
-                {' '}
-                Apply Changes
-              </button>
-            </div>
-          </div>
-          <br />
-        </div>
-
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" />
 
           {toDisplay}
         </div>
+
         {/* Pagination */}
         <div className="row">
-          <div className="col-12">
+          <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
             <ReactPaginate
               previousLabel="<"
               nextLabel=">"
@@ -151,7 +114,17 @@ class EditableCustomTable extends React.Component {
               disableInitialCallback
             />
           </div>
+          <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+            <button
+              className="btn btn-success"
+              onClick={this.props.applyChanges}
+            >
+              {' '}
+              Apply Changes
+            </button>
+          </div>
         </div>
+        <br />
       </div>
     );
   }
