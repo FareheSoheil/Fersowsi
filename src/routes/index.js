@@ -69,32 +69,47 @@ const routes = {
           ],
         },
         {
-          path: '/puborders',
+          path: '/publisherOrder',
           children: [
             {
               path: '',
               load: () =>
                 import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/PublisherOrderTable'),
             },
-            // {
-            //   path: '/:id',
-            //   load: () =>
-            //     import(/* webpackChunkName: 'adminProductDetails' */ './admin/ProductDetail'),
-            // },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/PublisherOrderDetail'),
+            },
           ],
         },
         {
-          path: '/cusorders',
+          path: '/customerOrder',
           children: [
             {
               path: '',
               load: () =>
                 import(/* webpackChunkName: 'adminCustomerOrderTable' */ './admin/CustomerOrderTable'),
             },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminCustomerOrderDetail' */ './admin/CustomerOrderDetail'),
+            },
+          ],
+        },
+        {
+          path: '/settings',
+          children: [
+            {
+              path: '/ageGroups',
+              load: () =>
+                import(/* webpackChunkName: 'adminAgeGroups' */ './admin/Settings/AgeGroups'),
+            },
             // {
-            //   path: '/:id',
+            //   path: '/productLanguage',
             //   load: () =>
-            //     import(/* webpackChunkName: 'adminProductDetails' */ './admin/ProductDetail'),
+            //     import(/* webpackChunkName: 'adminProductLanguage' */ './admin/Settings/ProductLanguage'),
             // },
           ],
         },

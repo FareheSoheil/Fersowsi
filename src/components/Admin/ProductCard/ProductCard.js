@@ -5,13 +5,15 @@ import s from './ProductCard.css';
 
 class ProductCard extends React.Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    imgSrc: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    descrption: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    discount: PropTypes.number.isRequired,
-    weight: PropTypes.number.isRequired,
+    product: {
+      id: PropTypes.string.isRequired,
+      coverImage: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      descrption: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      discount: PropTypes.number.isRequired,
+      weight: PropTypes.number.isRequired,
+    },
     onProductClick: PropTypes.func.isRequired,
   };
   constructor(props) {
@@ -23,15 +25,15 @@ class ProductCard extends React.Component {
         <div class="product-thumbnail">
           <div class="product-img-head">
             <div class="product-img">
-              <img src={this.props.imgSrc} alt="" class="img-fluid" />
+              <img
+                src="/assets/images/dribbble.png"
+                // {this.props.coverImage}
+                alt="No Cover Image"
+                class="img-fluid"
+              />
             </div>
             {/* <div class="ribbons" />
-            <div class="ribbons-text">New</div>
-            <div class="">
-              <a class="product-wishlist-btn">
-                <i class="fas fa-heart" />
-              </a>
-            </div> */}
+            <div class="ribbons-text">New</div> */}
           </div>
           <div class="product-content">
             <div class="product-content-head">
@@ -80,6 +82,10 @@ class ProductCard extends React.Component {
                 class="btn btn-outline-light"
               >
                 Details
+              </a>
+              <a class="product-delete-btn float-right">
+                {/* <i class="fas fa-heart" /> */}
+                <i class="fas fa-trash" />
               </a>
             </div>
           </div>

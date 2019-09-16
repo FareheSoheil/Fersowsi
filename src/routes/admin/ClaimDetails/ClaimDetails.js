@@ -95,10 +95,10 @@ class ClaimDetails extends React.Component {
           claim={{
             senderUsername: 'abbas',
             isFinished: true,
-            acceptedByAdmin: true,
+            acceptedByAdmin: false,
             b: 2,
             messageHtml: '<div><i>hello</i></div>',
-            messageStatus: { value: 3, label: 'Accepted' },
+            messageStatus: { value: 1, label: 'Accepted' },
           }}
         />
       ));

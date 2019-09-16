@@ -8,34 +8,221 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import ReactPaginate from 'react-paginate';
 import Spinner from '../../../components/Admin/Spinner';
 import CustomTable from '../../../components/CustomTabel';
 import history from '../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import ProductCard from '../../../components/Admin/ProductCard';
 import CustomerOrderSideFilter from '../../../components/Admin/CustomerOrderSideFilter';
+import {
+  CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
+  CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+  OPCODES,
+} from '../../../constants/constantData';
 
 import s from './CustomerOrderTable.css';
+
+// id: {
+//   type: DataType.INTEGER(11),
+//   allowNull: false,
+//   primaryKey: true,
+//   autoIncrement: true,
+// },
+// totalTaxCost:{
+//   type: DataType.DECIMAL(21,9),
+// },
+// totalDeliveryCost:{
+//   type: DataType.DECIMAL(21,9),
+// },
+// totalCost:{
+//   type: DataType.DECIMAL(21,9),
+// },
+// totalPrice:{
+//   type: DataType.DECIMAL(21,9),
+// },
+// seenByCustomerThisStatusChange:{
+//   type:DataType.BOOLEAN
+// },
+// seenByAdminThisStatusChange:{
+//   type:DataType.BOOLEAN
+// },
+
+// paymentvalueByCustomer:{
+//   type: DataType.DECIMAL(21,9),
+// }
+// Foreign keys
+// CustomerOrder.belongsTo(User, {
+//   foreignKey: 'userId',
+//   onUpdate: 'cascade',
+//   onDelete: 'set null',
+// });
+
+// CustomerOrder.belongsTo(User, {
+//   foreignKey: 'actionUserId',
+//   onUpdate: 'cascade',
+//   onDelete: 'set null',
+// });
+
+// CustomerOrder.belongsTo(Address, {
+//   foreignKey: 'deliveryAddressId',
+//   onUpdate: 'cascade',
+//   onDelete: 'set null',
+// });
+
+// CustomerOrder.belongsTo(PaymentStatus, {
+//   foreignKey: 'paymentToAdminByCustomerStatusId',
+//   onUpdate: 'cascade',
+//   onDelete: 'set null',
+// });
+
 class CustomerOrderTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
-      pageIndex: 0,
-      totalPageNumber: '',
-      pageSize: 15,
-      currentCustomerOrders: [],
+      firstRender: true,
+      pageIndex: 1,
+      pageSize: 9,
+      totalPageNum: 20,
+      currentCustomerOrders: [
+        { id: 1, address: 1 },
+        { a: 1 },
+        { a: 1 },
+        { a: 1 },
+      ],
       searchClear: true,
       allPublishers: '',
-      allContentTypes: '',
+      allProductContentTypes: '',
       allLanguages: '',
       allAgeGroups: '',
-      sortDate: false,
-      sortPrice: false,
-      sortWeight: false,
-      productsSearchFilter: {
+
+      customerOrderSearchFilter: {
+        customerUsername: '',
+        customerFirsName: '',
+        customerLastName: '',
+        customerEmail: '',
+        publishers: '',
+        singlProductTypes: '',
+        productTypes: '',
+        productContentTypes: '',
+        status: '',
+        paymentStatus: '',
+        languages: '',
+        ageGroups: '',
+        periods: '',
+        priceRange: { min: 5, max: 10 },
+        countRange: { min: 30, max: 400 },
+        sortCount: false,
+        sortTotlaPrice: false,
+        sortDate: false,
+      },
+    };
+    this.fetchCustomerOrders = this.fetchCustomerOrders.bind(this);
+    this.fetchAllInfo = this.fetchAllInfo.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.clearFilters = this.clearFilters.bind(this);
+    this.search = this.search.bind(this);
+  }
+  componentDidMount() {
+    // this.fetchAllInfo();
+    // this.fetchCustomerOrders();
+  }
+  onCustomerOrderClick(id) {
+    history.push(`/admin/customerOrder/${id}`);
+  }
+  fetchCustomerOrders() {
+    const url = `${SERVER}/getCustomerIds`;
+    this.setState({
+      isLoading: true,
+    });
+    const credentials = {
+      searchBy: this.state.customerOrderSearchFilter,
+      pageNumber: this.state.pageIndex,
+      pageSize: this.state.pageSize,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        that.setState({
+          currentCustomerOrders: response.currentRecords,
+          totalPageNum: response.totalPageNumber,
+          isLoading: false,
+          firstRender: false,
+        });
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  }
+  fetchAllInfo() {
+    const url = `${SERVER}/getAllInfo`;
+    this.setState({
+      isLoading: true,
+    });
+    const credentials = {
+      // searchBy: this.state.customerOrderSearchFilter,
+      // pageNumber: this.state.currentPageNumber,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        that.setState({
+          allPublishers: response.publishers,
+          allProductContentTypes: response.contentTypes,
+          allLanguages: response.languages,
+          allAgeGroups: response.ageGroups,
+        });
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  }
+  handleInputChange(opcode, stateName, event) {
+    let value;
+    if (opcode === OPCODES.checkbox) value = event.target.checked;
+    else if (opcode === OPCODES.simple) value = event.target.value;
+    else value = event;
+
+    let customerOrderSearchFilter = { ...this.state.customerOrderSearchFilter };
+    customerOrderSearchFilter[stateName] = value;
+    this.setState({ customerOrderSearchFilter, searchClear: false });
+  }
+  handleSelectChange = (selectedOption, op) => {
+    let customerOrderSearchFilter = { ...this.state.customerOrderSearchFilter };
+    customerOrderSearchFilter[op] = selectedOption;
+    this.setState({ customerOrderSearchFilter, searchClear: false });
+  };
+  handlePageChange(pageIndex) {
+    this.setState({ pageIndex: pageIndex.selected });
+    this.fetchCustomerOrders();
+  }
+  search() {
+    this.fetchCustomerOrders();
+  }
+  clearFilters() {
+    this.setState({
+      customerOrderSearchFilter: {
         publishers: '',
         singlProductTypes: '',
         productTypes: '',
@@ -45,50 +232,68 @@ class CustomerOrderTable extends React.Component {
         ageGroups: '',
         periods: '',
         priceRange: { min: 5, max: 10 },
-        weightRange: { min: 30, max: 400 },
+        countRange: { min: 30, max: 400 },
+        sortCount: false,
+        sortPrice: false,
+        sortDate: false,
       },
-    };
+      searchClear: true,
+    });
   }
-
-  onProductClick(id) {
-    history.push(`/admin/products/${id}`);
-  }
-
   render() {
-    return (
-      <div className="container-fluid dashboard-content">
-        <div className="row">
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div className="page-header">
-              <h2 className="pageheader-title">Customer Order List</h2>
-              <hr />
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
-            <div className="card">
-              <h4 className="card-header">Accounts</h4>
-              <div className="card-body p-0">
-                <div className="container-fluid">
-                  <CustomTable
-                    pageCount={20}
-                    pageIndex={this.state.pageIndex}
-                    records={this.state.currentAccounts}
-                    columnLabels={ACCOUNTS_COLUMNS_LABELS_ARRAY}
-                    recordItemNames={ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY}
-                    handlePageChange={this.handlePageChange}
-                    onRecordClick={this.onAccountClick}
-                  />
-                </div>
+    let content;
+    if (this.state.isLoading) content = <Spinner />;
+    else
+      content = (
+        <div>
+          <div className="row">
+            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div className="page-header">
+                <h2 className="pageheader-title">Customer Order List</h2>
+                <hr />
               </div>
             </div>
           </div>
+          <div className="row">
+            <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+              <div className="card">
+                <h4 className="card-header">Customer Orders</h4>
+                <div className="card-body p-0">
+                  <div className="container-fluid">
+                    <CustomTable
+                      pageCount={20}
+                      pageIndex={this.state.pageIndex}
+                      records={this.state.currentCustomerOrders}
+                      columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
+                      recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
+                      handlePageChange={this.handlePageChange}
+                      onRecordClick={this.onCustomerOrderClick}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <CustomerOrderSideFilter />
+            <CustomerOrderSideFilter
+              filters={this.state.customerOrderSearchFilter}
+              allPublishers={[
+                { value: 1, label: 'aa1' },
+                { value: 2, label: 'aa2' },
+                { value: 3, label: 'aa3' },
+                { value: 4, label: 'aa4' },
+              ]}
+              allProductContentTypes={this.state.allProductContentTypes}
+              allLanguages={this.state.allLanguages}
+              allAgeGroups={this.state.allAgeGroups}
+              handleSelectChange={this.handleSelectChange}
+              handleInputChange={this.handleInputChange}
+              handleClearSearch={this.clearFilters}
+              handleSearch={this.search}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    return <div className="container-fluid dashboard-content">{content}</div>;
   }
 }
 

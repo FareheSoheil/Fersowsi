@@ -94,14 +94,15 @@ class AccountsTable extends React.Component {
       searchClear: true,
     });
   }
-  fetchAccounts(pageIndex) {
+  fetchAccounts() {
     const url = fetchURL;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       searchBy: this.state.accountsSearchFilter,
-      pageIndex: pageIndex,
+      pageIndex: this.state.pageIndex,
+      pageSize: this.state.pageSize,
     };
     const options = {
       method: 'POST',
@@ -116,7 +117,6 @@ class AccountsTable extends React.Component {
       options,
       response => {
         that.setState({
-          pageIndex: pageIndex,
           currentAccounts: response.currentRecords,
           totalPageNum: response.totalPageNumber,
           isLoading: false,
@@ -192,6 +192,7 @@ class AccountsTable extends React.Component {
                       currentPageNumber={this.state.pageIndex}
                     />
                     <hr />
+
                     <CustomTable
                       pageCount={20}
                       pageIndex={this.state.pageIndex}

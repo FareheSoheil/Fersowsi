@@ -54,8 +54,9 @@ class ProfileProInfo extends React.Component {
         value: PropTypes.number.isRequired,
         label: PropTypes.string.isRequired,
       },
+      claims: PropTypes.arrayOf(PropTypes.object).isRequired,
     },
-    claims: PropTypes.arrayOf(PropTypes.object).isRequired,
+
     countries: PropTypes.arrayOf(PropTypes.object).isRequired,
     jobs: PropTypes.arrayOf(PropTypes.object).isRequired,
     siteLanguages: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -117,7 +118,7 @@ class ProfileProInfo extends React.Component {
                   <CustomTable
                     pageCount={20}
                     currentPageNumber={2}
-                    records={this.props.claims}
+                    records={this.props.user.claims}
                     columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
                     recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
                     // handlePageChange={this.handlePageChange}

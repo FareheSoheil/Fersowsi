@@ -11,7 +11,6 @@ const USER_SUBCATEGORY_ARRAY = [
   { id: 8, value: 8, name: 'Super Admin', label: 'Super Admin' },
   { id: 9, value: 9, name: 'Operator', label: 'Operator' },
 ];
-
 const ROLES_ARRAY = [
   { id: 1, value: 1, label: 'SuperAdmin', name: 'SuperAdmin' },
   { id: 2, value: 2, label: 'Operator', name: 'Operator' },
@@ -19,10 +18,10 @@ const ROLES_ARRAY = [
   { id: 4, value: 4, label: 'Customer', name: 'Customer' },
 ];
 const USER_ACTIVITION_STATUS_ARRAY = [
-  { id: 1, value: 4, label: 'waitForApproval', name: 'wait For Approval' },
-  { id: 2, value: 1, label: 'active', name: 'active' },
-  { id: 3, value: 2, label: 'deactive', name: 'deactive' },
-  { id: 4, value: 3, label: 'approved', name: 'approved' },
+  { id: 1, value: 4, label: 'Wait For Approval', name: 'Wait For Approval' },
+  { id: 2, value: 1, label: 'Active', name: 'Active' },
+  { id: 3, value: 2, label: 'Deactive', name: 'Deactive' },
+  { id: 4, value: 3, label: 'Approved', name: 'Approved' },
 ];
 const USER_ACTIVITION_STATUS = {
   WAITFORAPPROVAL: 1,
@@ -71,8 +70,8 @@ const PRODUCT_TYPE_ARRAY = [
 const PUBLISHER_ORDER_STATUS_ARRAY = [
   { value: 1, id: 1, name: 'Delayed', label: 'Delayed' },
   { value: 2, id: 2, name: 'Deflicted', label: 'Deflicted' },
-  { value: 3, id: 3, name: 'Cancel', label: 'Cancel' },
-  { value: 4, id: 4, name: 'Accept', label: 'Accept' },
+  { value: 3, id: 3, name: 'Cancel', label: 'Cancelled' },
+  { value: 4, id: 4, name: 'Accept', label: 'Accepted' },
   { value: 5, id: 5, name: 'Sent', label: 'Sent' },
   { value: 6, id: 6, name: 'Delivered', label: 'Delivered' },
 ];
@@ -93,7 +92,41 @@ const PAYMENT_STATUS_ARRAY = [
   { value: 2, id: 2, name: 'Partial Payment', label: 'Partial Payment' },
   { value: 3, id: 3, name: 'No Payment', label: 'No Payment' },
 ];
+const CUSTOMER_ORDER_STATUS_ARRAY = [
+  {
+    value: 1,
 
+    label: 'Wait For Admin Response',
+  },
+  {
+    value: 2,
+    label: 'Admin Rejected',
+  },
+  {
+    value: 3,
+    label: 'Admin Suspend',
+  },
+  {
+    value: 4,
+    label: 'Admin Edited',
+  },
+  {
+    value: 5,
+    label: 'Sent E-Factor',
+  },
+  {
+    value: 6,
+    label: 'Payment Done',
+  },
+  {
+    value: 7,
+    label: 'Publisher Order Created',
+  },
+  {
+    value: 8,
+    label: 'Delivered',
+  },
+];
 const USER_NUMBER_ARRAY = [
   { value: 'Mobile Number', label: 'Mobile Number' },
   { value: 'Phone Number', label: 'Phone Number' },
@@ -131,6 +164,39 @@ const ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY = [
   'username',
   'email',
 ];
+const CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY = [
+  'Id',
+  'Customer Username',
+  'Payment Status',
+  'Total Cost',
+  'Address',
+];
+const CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY = [
+  'id',
+  'username',
+  'paymentStatus',
+  'totalCost',
+  'address',
+];
+const PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY = [
+  'Id',
+  'Count',
+  'Available Count',
+  'Start Date',
+  'End Date',
+];
+const PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY = [
+  'id',
+  'count',
+  'availableCount',
+  'startDate',
+  'endDate',
+];
+const OPCODES = {
+  checkbox: 1,
+  range: 2,
+  simple: 3,
+};
 export {
   USER_SUBCATEGORY_ARRAY,
   USER_ACTIVITION_STATUS_ARRAY,
@@ -151,4 +217,10 @@ export {
   CLAIM_STATUS,
   MESSAGE_STATUS,
   CLAIM_STATUS_ARRAY,
+  CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
+  CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+  CUSTOMER_ORDER_STATUS_ARRAY,
+  OPCODES,
+  PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+  PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY,
 };

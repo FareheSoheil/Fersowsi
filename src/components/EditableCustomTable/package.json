@@ -1,0 +1,7 @@
+{
+    "name": "EditableCustomTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./EditableCustomTable.js"
+  }
+  

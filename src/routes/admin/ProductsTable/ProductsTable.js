@@ -16,6 +16,7 @@ import ProductSideFilter from '../../../components/Admin/ProductSideFilter';
 import Spinner from '../../../components/Admin/Spinner';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import { SERVER } from '../../../constants';
+import { OPCODES } from '../../../constants/constantData';
 
 import s from './ProductsTable.css';
 
@@ -133,11 +134,11 @@ class ProductsTable extends React.Component {
       },
     );
   }
-  handleInputChange(stateName, event) {
+  handleInputChange(opcode, stateName, event) {
     let value;
-    if (event.target.type === 'checkbox') value = event.target.checked;
+    if (opcode === OPCODES.checkbox) value = event.target.checked;
+    else if (opcode === OPCODES.simple) value = event.target.value;
     else value = event;
-
     let productsSearchFilter = { ...this.state.productsSearchFilter };
     productsSearchFilter[stateName] = value;
     this.setState({ productsSearchFilter, searchClear: false });

@@ -3,157 +3,494 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
 import InputRange from 'react-input-range';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import s from './CustomerOrderSideFilter.css';
+import {
+  CUSTOMER_ORDER_STATUS_ARRAY,
+  PRODUCT_PERIOD_ARRAY,
+  SINGLE_PRODUCT_TYPE_ARRAY,
+  PRODUCT_TYPE_ARRAY,
+  PAYMENT_STATUS_ARRAY,
+  OPCODES,
+} from '../../../constants/constantData';
 class CustomerOrderSideFilter extends React.Component {
   static propTypes = {
-    allPublishers: PropTypes.object.isRequired,
-    allProductContentTypes: PropTypes.object.isRequired,
-    allProductTypes: PropTypes.object.isRequired,
-    allStatuZ: PropTypes.object.isRequired,
-    allLanguages: PropTypes.object.isRequired,
-    allAgeGroups: PropTypes.object.isRequired,
-    allPeriods: PropTypes.object.isRequired,
+    allPublishers: PropTypes.array.isRequired,
+    allLanguages: PropTypes.array.isRequired,
+    allAgeGroups: PropTypes.array.isRequired,
+    allProductContentTypes: PropTypes.array.isRequired,
 
-    publishers: PropTypes.object.isRequired,
-    productContentTypes: PropTypes.object.isRequired,
-    productTypes: PropTypes.object.isRequired,
-    status: PropTypes.object.isRequired,
-    languages: PropTypes.object.isRequired,
-    ageGroups: PropTypes.object.isRequired,
-    periods: PropTypes.object.isRequired,
+    filters: {
+      publishers: PropTypes.array.isRequired,
+      singlProductTypes: PropTypes.array.isRequired,
+      productTypes: PropTypes.array.isRequired,
+      status: PropTypes.array.isRequired,
+      paymentStatus: PropTypes.array.isRequired,
+      languages: PropTypes.array.isRequired,
+      ageGroups: PropTypes.array.isRequired,
+      periods: PropTypes.array.isRequired,
+      priceRange: PropTypes.object.isRequired,
+      counttRange: PropTypes.object.isRequired,
+    },
+    handleInputChange: PropTypes.func.isRequired,
+    handleSelectChange: PropTypes.func.isRequired,
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      price: { min: 5, max: 8 },
-      weight: { min: 5, max: 8 },
-    };
-  }
+
   render() {
     return (
       <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
         <div class="product-sidebar">
-          <div class="product-sidebar-widget">
-            <h4 class="mb-0">Products Filter</h4>
+          <div
+            class="product-sidebar-widget"
+            // style={{ backgroundColor: 'aqua', textAlign: 'center' }}
+          >
+            <h4 class="mb-0">Filters</h4>
           </div>
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Sort By</h4>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="price" />
-              <label class="custom-control-label" for="price">
-                Price
-              </label>
+            <div class="product-sidebar-widget-title">
+              Search By{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#searchCollapse"
+                aria-expanded="false"
+                aria-controls="searchCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="weight" />
-              <label class="custom-control-label" for="weight">
-                Weight
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="date" />
-              <label class="custom-control-label" for="date">
-                Date
-              </label>
-            </div>
-          </div>
+            <form id="searchCollapse" className="collapse">
+              <div className="form-group">
+                <label>Customer Username</label>
+                <br />
+                <input
+                  name="customerUsername"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.customerUsername}
+                  onChange={e =>
+                    this.props.handleInputChange(
+                      OPCODES.simple,
+                      'customerUsername',
+                      e,
+                    )
+                  }
+                />
+              </div>
 
+              <div className="form-group">
+                <label>Customer First Name</label>
+                <br />
+                <input
+                  name="customerFirstName"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.customerFirstName}
+                  onChange={e =>
+                    this.props.handleInputChange(
+                      OPCODES.simple,
+                      'customerFirstName',
+                      e,
+                    )
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label>Customer Last Name</label>
+                <br />
+                <input
+                  name="customerLastName"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.customerLastName}
+                  onChange={e =>
+                    this.props.handleInputChange(
+                      OPCODES.simple,
+                      'customerLastName',
+                      e,
+                    )
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label>Customer Email</label>
+                <br />
+                <input
+                  name="customerEmail"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.customerEmail}
+                  onChange={e =>
+                    this.props.handleInputChange(
+                      OPCODES.simple,
+                      'customerEmail',
+                      e,
+                    )
+                  }
+                />
+              </div>
+            </form>
+          </div>
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Publisher</h4>
+            <div class="product-sidebar-widget-title">
+              Sort By{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#sortCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
+            <div id="sortCollapse" class="collapse">
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  onChange={e =>
+                    this.props.handleInputChange(
+                      OPCODES.checkbox,
+                      'sortTotlaPrice',
+                      e,
+                    )
+                  }
+                  class="custom-control-input"
+                  name="sortTotalPrice"
+                  checked={this.props.filters.sortTotlaPrice}
+                  id="price"
+                />
+                <label class="custom-control-label" for="price">
+                  Total Price
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  name="sortWeight"
+                  onChange={e =>
+                    this.props.handleInputChange(
+                      OPCODES.checkbox,
+                      'sortWeight',
+                      e,
+                    )
+                  }
+                  id="weight"
+                  checked={this.props.filters.sortWeight}
+                />
+                <label class="custom-control-label" for="weight">
+                  Weight
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  onChange={e =>
+                    this.props.handleInputChange(
+                      OPCODES.checkbox,
+                      'sortDate',
+                      e,
+                    )
+                  }
+                  name="sortDate"
+                  id="date"
+                  checked={this.props.filters.sortDate}
+                />
+                <label class="custom-control-label" for="date">
+                  Date
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="product-sidebar-widget">
+            <div class="product-sidebar-widget-title">
+              Publisher{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#PublisherCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
             <Select
+              id="PublisherCollapse"
+              className="collapse"
               isMulti
               isSearchable
               options={this.props.allPublishers}
-              value={this.props.publishers}
+              value={this.props.filters.publishers}
+              onChange={so => this.props.handleSelectChange(so, 'publishers')}
             />
           </div>
-
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Product Content Type</h4>
+            <div class="product-sidebar-widget-title">
+              Product Content Type{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#pctCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
             <Select
+              id="pctCollapse"
+              className="collapse"
               isMulti
               isSearchable
               options={this.props.allProductContentTypes}
-              value={this.props.productTypes}
+              value={this.props.filters.productContentTypes}
+              onChange={so =>
+                this.props.handleSelectChange(so, 'productContentTypes')
+              }
             />
           </div>
-
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Product Types</h4>
+            <div class="product-sidebar-widget-title">
+              Product Types{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#ptCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
             <Select
+              id="ptCollapse"
+              className="collapse"
               isMulti
               isSearchable
-              options={this.props.allProductTypes}
-              value={this.props.productTypes}
+              options={PRODUCT_TYPE_ARRAY}
+              value={this.props.filters.productTypes}
+              onChange={so => this.props.handleSelectChange(so, 'productTypes')}
             />
           </div>
-
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Status</h4>
+            <div class="product-sidebar-widget-title">
+              Single Product Types<span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#sptCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
             <Select
+              id="sptCollapse"
+              className="collapse"
               isMulti
               isSearchable
-              options={this.props.allStatuZ}
-              value={this.props.status}
+              options={SINGLE_PRODUCT_TYPE_ARRAY}
+              value={this.props.filters.singlProductTypes}
+              onChange={so =>
+                this.props.handleSelectChange(so, 'singlProductTypes')
+              }
+            />
+          </div>
+          <div class="product-sidebar-widget">
+            <div class="product-sidebar-widget-title">
+              Order Status{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#statCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
+            <Select
+              id="statCollapse"
+              className="collapse"
+              isMulti
+              isSearchable
+              options={CUSTOMER_ORDER_STATUS_ARRAY}
+              value={this.props.filters.status}
+              onChange={so => this.props.handleSelectChange(so, 'status')}
+            />
+          </div>
+          <div class="product-sidebar-widget">
+            <div class="product-sidebar-widget-title">
+              Payment Status{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#payCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
+            <Select
+              id="payCollapse"
+              className="collapse"
+              isMulti
+              isSearchable
+              options={PAYMENT_STATUS_ARRAY}
+              value={this.props.filters.paymentStatus}
+              onChange={so =>
+                this.props.handleSelectChange(so, 'paymentStatus')
+              }
             />
           </div>
 
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Language</h4>
+            <div class="product-sidebar-widget-title">
+              Language<span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#langCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
             <Select
+              id="langCollapse"
+              className="collapse"
               isMulti
               isSearchable
               options={this.props.allLanguages}
-              value={this.props.languages}
+              value={this.props.filters.languages}
+              onChange={so => this.props.handleSelectChange(so, 'languages')}
             />
           </div>
-
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Age Gropu</h4>
+            <div class="product-sidebar-widget-title">
+              Age Group{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#agCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
             <Select
+              id="agCollapse"
+              className="collapse"
               isMulti
               isSearchable
               options={this.props.allAgeGroups}
-              value={this.props.ageGroups}
+              value={this.props.filters.ageGroups}
+              onChange={so => this.props.handleSelectChange(so, 'ageGroups')}
             />
           </div>
 
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Period</h4>
+            <div class="product-sidebar-widget-title">
+              Period{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#perCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
             <Select
+              id="perCollapse"
+              className="collapse"
               isMulti
               isSearchable
-              options={this.props.allPeriods}
-              value={this.props.periods}
+              options={PRODUCT_PERIOD_ARRAY}
+              onChange={so => this.props.handleSelectChange(so, 'periods')}
+              value={this.props.filters.periods}
             />
           </div>
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Price</h4>
+            <div class="product-sidebar-widget-title">
+              Creation Date{' '}
+              <span
+                class="float-right slider collapsed"
+                data-toggle="collapse"
+                data-target="#dateCollapse"
+                aria-expanded="false"
+                aria-controls="searcNamesCollapse"
+              >
+                <i class="fa" aria-hidden="true" />
+              </span>
+            </div>
+            <div id="dateCollapse" className="collapse">
+              {/* <div className="form-group"> */}
+              <label className="mb-0">Start Date </label>
+              <br />
+              <DatePicker
+                name="creationDate"
+                selected={this.props.filters.startDate}
+                onChange={date => this.props.onDateInput(date, 'startDate')}
+              />
+              {/* </div> */}
+              {/* <div className="form-group"> */}
+              <label className="mb-0">End Date </label>
+              <br />
+              <DatePicker
+                name="creationDate"
+                selected={this.props.filters.endDate}
+                onChange={date => this.props.onDateInput(date, 'endDate')}
+              />
+              {/* </div> */}
+            </div>
+          </div>
+          <div class="product-sidebar-widget">
+            <div class="product-sidebar-widget-title">Totla Price</div>
             <InputRange
-              maxValue={20}
-              minValue={0}
-              value={this.state.price}
-              onChange={price => this.setState({ price })}
+              maxValue={50}
+              minValue={1}
+              formatLabel={value => `${value}$`}
+              value={this.props.filters.priceRange}
+              onChange={price =>
+                this.props.handleInputChange(OPCODES.range, 'priceRange', price)
+              }
             />
           </div>
           <div class="product-sidebar-widget">
-            <h4 class="product-sidebar-widget-title">Weight</h4>
+            <div class="product-sidebar-widget-title">Count</div>
             <InputRange
-              maxValue={20}
-              minValue={0}
-              formatLabel={value => `${value} kg`}
-              value={this.state.weight}
-              onChange={weight => this.setState({ weight })}
-              onChangeComplete={value => console.log(weight)}
+              maxValue={2000}
+              minValue={1}
+              value={this.props.filters.countRange}
+              onChange={count =>
+                this.props.handleInputChange(OPCODES.range, 'countRange', count)
+              }
             />
           </div>
-          <div class="product-sidebar-widget">
-            <a class="btn btn-outline-light">Reset Filterss</a>
-          </div>
+        </div>
+
+        <div class="product-sidebar-widget">
+          <a
+            class="btn btn-outline-light"
+            onClick={this.props.handleClearSearch}
+          >
+            Clear
+          </a>
+          &nbsp;&nbsp;
+          <a class="btn btn-outline-light" onClick={this.props.handleSearch}>
+            Search
+          </a>
         </div>
       </div>
     );
   }
 }
-
 export default withStyles(s)(CustomerOrderSideFilter);

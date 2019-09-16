@@ -40,7 +40,7 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
     })
     .catch(error => {
       toastr.error(ERRORS.TITLE, 'time out');
-      window.alert('--------------------time OUt ------------------------');
+      // window.alert('--------------------time OUt ------------------------');
       // this happens on TIME_OUT
       rejectCallback(error);
     });
