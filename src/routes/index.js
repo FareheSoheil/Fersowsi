@@ -47,6 +47,11 @@ const routes = {
                 import(/* webpackChunkName: 'adminAccounts' */ './admin/AccountsTable'),
             },
             {
+              path: '/add',
+              load: () =>
+                import(/* webpackChunkName: 'adminAddUser' */ './admin/AddUser'),
+            },
+            {
               path: '/:id',
               load: () =>
                 import(/* webpackChunkName: 'adminProfileDetails' */ './admin/ProfileDetail'),
@@ -67,6 +72,11 @@ const routes = {
                 import(/* webpackChunkName: 'adminProducts' */ './admin/ProductsTable'),
             },
             {
+              path: '/add',
+              load: () =>
+                import(/* webpackChunkName: 'adminAddProduct' */ './admin/AddProduct'),
+            },
+            {
               path: '/:id',
               load: () =>
                 import(/* webpackChunkName: 'adminProductDetails' */ './admin/ProductDetail'),
@@ -82,6 +92,11 @@ const routes = {
                 import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/PublisherOrderTable'),
             },
             {
+              path: '/add',
+              load: () =>
+                import(/* webpackChunkName: 'adminAddPublisherOrder' */ './admin/AddPublisherOrder'),
+            },
+            {
               path: '/:id',
               load: () =>
                 import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/PublisherOrderDetail'),
@@ -95,6 +110,11 @@ const routes = {
               path: '',
               load: () =>
                 import(/* webpackChunkName: 'adminCustomerOrderTable' */ './admin/CustomerOrderTable'),
+            },
+            {
+              path: '/add',
+              load: () =>
+                import(/* webpackChunkName: 'adminAddCustomerOrder' */ './admin/AddCustomerOrder'),
             },
             {
               path: '/:id',

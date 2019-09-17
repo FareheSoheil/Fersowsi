@@ -21,59 +21,6 @@ import {
 
 import s from './CustomerOrderTable.css';
 
-// id: {
-//   type: DataType.INTEGER(11),
-//   allowNull: false,
-//   primaryKey: true,
-//   autoIncrement: true,
-// },
-// totalTaxCost:{
-//   type: DataType.DECIMAL(21,9),
-// },
-// totalDeliveryCost:{
-//   type: DataType.DECIMAL(21,9),
-// },
-// totalCost:{
-//   type: DataType.DECIMAL(21,9),
-// },
-// totalPrice:{
-//   type: DataType.DECIMAL(21,9),
-// },
-// seenByCustomerThisStatusChange:{
-//   type:DataType.BOOLEAN
-// },
-// seenByAdminThisStatusChange:{
-//   type:DataType.BOOLEAN
-// },
-
-// paymentvalueByCustomer:{
-//   type: DataType.DECIMAL(21,9),
-// }
-// Foreign keys
-// CustomerOrder.belongsTo(User, {
-//   foreignKey: 'userId',
-//   onUpdate: 'cascade',
-//   onDelete: 'set null',
-// });
-
-// CustomerOrder.belongsTo(User, {
-//   foreignKey: 'actionUserId',
-//   onUpdate: 'cascade',
-//   onDelete: 'set null',
-// });
-
-// CustomerOrder.belongsTo(Address, {
-//   foreignKey: 'deliveryAddressId',
-//   onUpdate: 'cascade',
-//   onDelete: 'set null',
-// });
-
-// CustomerOrder.belongsTo(PaymentStatus, {
-//   foreignKey: 'paymentToAdminByCustomerStatusId',
-//   onUpdate: 'cascade',
-//   onDelete: 'set null',
-// });
-
 class CustomerOrderTable extends React.Component {
   constructor(props) {
     super(props);
@@ -122,11 +69,15 @@ class CustomerOrderTable extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
+    this.addCustomerOrder = this.addCustomerOrder.bind(this);
     this.search = this.search.bind(this);
   }
   componentDidMount() {
     // this.fetchAllInfo();
     // this.fetchCustomerOrders();
+  }
+  addCustomerOrder() {
+    history.push('/admin/customerOrder/add');
   }
   onCustomerOrderClick(id) {
     history.push(`/admin/customerOrder/${id}`);
@@ -260,6 +211,18 @@ class CustomerOrderTable extends React.Component {
                 <h4 className="card-header">Customer Orders</h4>
                 <div className="card-body p-0">
                   <div className="container-fluid">
+                    <br />
+                    <div className="row">
+                      <div className="col-xl-12">
+                        <button
+                          onClick={this.addCustomerOrder}
+                          className="btn btn-primary"
+                        >
+                          Add Customer Order
+                        </button>
+                      </div>
+                    </div>
+                    <br />
                     <CustomTable
                       pageCount={20}
                       pageIndex={this.state.pageIndex}

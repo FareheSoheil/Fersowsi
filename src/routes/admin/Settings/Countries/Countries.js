@@ -137,7 +137,6 @@ class Countries extends React.Component {
         newPhoneCode: this.state.newPhoneCode,
       },
     };
-    console.log(credentials);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -191,24 +190,6 @@ class Countries extends React.Component {
                           onChange={this.onChange}
                         />
                       </div>
-                      <div className="col-xl-1 col-lg-1 col-sm-12">
-                        <input
-                          placeholder="Iso"
-                          className="form-control"
-                          value={this.state.newISO}
-                          name="newISO"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                      <div className="col-xl-1 col-lg-1 col-sm-12">
-                        <input
-                          placeholder="Iso3"
-                          className="form-control"
-                          value={this.state.newISO3}
-                          name="newISO3"
-                          onChange={this.onChange}
-                        />
-                      </div>
                       <div className="col-xl-2 col-lg-2 col-sm-12">
                         <input
                           placeholder="Num Code"
@@ -227,17 +208,38 @@ class Countries extends React.Component {
                           onChange={this.onChange}
                         />
                       </div>
-                      <br />
-                      <button
-                        onClick={this.addCountry}
-                        className="btn btn-success float-right"
-                      >
-                        add
-                      </button>
+                      <div className="col-xl-1 col-lg-1 col-sm-12">
+                        <input
+                          placeholder="Iso"
+                          className="form-control"
+                          value={this.state.newISO}
+                          name="newISO"
+                          onChange={this.onChange}
+                        />
+                      </div>
+                      <div className="col-xl-1 col-lg-1 col-sm-12">
+                        <input
+                          placeholder="Iso3"
+                          className="form-control"
+                          value={this.state.newISO3}
+                          name="newISO3"
+                          onChange={this.onChange}
+                        />
+                      </div>
+
+                      <div className="col-xl-1 col-lg-1 col-sm-12">
+                        <button
+                          onClick={this.addCountry}
+                          className="btn btn-success"
+                          style={{ height: '35px' }}
+                        >
+                          Add
+                        </button>
+                      </div>
+
                       {/* <div className /> */}
                     </div>
                     <br />
-                    <div className="float-right"> </div>
                   </div>
                   <div className="container-fluid">
                     <hr />
