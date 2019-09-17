@@ -48,7 +48,7 @@ class AccountSearch extends React.Component {
     clearFilters: PropTypes.func.isRequired,
   };
   onAddUser() {
-    history.push('/admin/addUser');
+    history.push('/admin/accounts/add');
   }
   render() {
     return (

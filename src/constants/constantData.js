@@ -210,6 +210,20 @@ const COUNTRIES_RECORDE_ITEM_NAMES_ARRAY = [
   'numcode',
   'phonecode',
 ];
+const CURRENCIES_COLUMNS_LABELS_ARRAY = [
+  'Id',
+  'Name',
+  'USD Ratio',
+  'Abbriviation',
+  'Is Automatic',
+];
+const CURRENCIES_RECORDE_ITEM_NAMES_ARRAY = [
+  'id',
+  'name',
+  'usdRatio',
+  'abrr',
+  'isAutomatic',
+];
 const SETTING_ITEM_RECORD_ITEM_NAMES = ['id', 'name'];
 const SETTING_COLUMNS_LABELS_ARRAY = ['Id', 'Name'];
 const OPCODES = {
@@ -247,4 +261,6 @@ export {
   COUNTRIES_RECORDE_ITEM_NAMES_ARRAY,
   SETTING_COLUMNS_LABELS_ARRAY,
   SETTING_ITEM_RECORD_ITEM_NAMES,
+  CURRENCIES_COLUMNS_LABELS_ARRAY,
+  CURRENCIES_RECORDE_ITEM_NAMES_ARRAY,
 };

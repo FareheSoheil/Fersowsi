@@ -67,7 +67,11 @@ class Claim extends React.Component {
                       value={this.props.claim.messageStatus}
                       options={MESSAGE_STATUS_ARRAY}
                       onChange={so =>
-                        this.props.handleSelectChange(id, so, 'messageStatus')
+                        this.props.handleSelectChange(
+                          this.props.claim.id,
+                          so,
+                          'messageStatus',
+                        )
                       }
                     />
                   </div>

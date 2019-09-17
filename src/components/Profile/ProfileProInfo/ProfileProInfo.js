@@ -25,6 +25,7 @@ import s from './ProfileProInfo.css';
 
 class ProfileProInfo extends React.Component {
   static propTypes = {
+    pageCount: PropTypes.number.isRequired,
     user: {
       role: {
         value: PropTypes.number.isRequired,
@@ -116,7 +117,7 @@ class ProfileProInfo extends React.Component {
                 <h5 class="card-header">Claims Of This User</h5>
                 <div class="card-body">
                   <CustomTable
-                    pageCount={20}
+                    pageCount={this.props.pageCount}
                     currentPageNumber={2}
                     records={this.props.user.claims}
                     columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}

@@ -49,6 +49,7 @@ class AddSettingItem extends React.Component {
           <div className="col-xl-4 col-lg-4 col-md-5 col-sm-12">
             <input
               value={this.state.newName}
+              placeholder={`${this.props.title} Name`}
               className="form-control form-control-lg "
               onChange={this.props.onChange}
             />{' '}
