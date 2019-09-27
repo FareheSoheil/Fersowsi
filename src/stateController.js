@@ -1,4 +1,3 @@
-// wiki.js - Wiki route module.
 import express from 'express';
 import sqlite from 'sqlite';
 import { databasePath } from './sqliteManager';

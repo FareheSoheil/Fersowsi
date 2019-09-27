@@ -32,7 +32,9 @@ const routes = {
                 import(/* webpackChunkName: 'adminClaims' */ './admin/ClaimsTable'),
             },
             {
-              path: '/id=:cid & orderId=:oid',
+              path: '/claim',
+
+              // query: '?id=:cid&orderId=:oid',
               load: () =>
                 import(/* webpackChunkName: 'adminClaimDetails' */ './admin/ClaimDetails'),
             },
@@ -183,6 +185,11 @@ const routes = {
           load: () =>
             import(/* webpackChunkName: 'userHome' */ './user/userHome'),
         },
+        {
+          path: '/address',
+          load: () =>
+            import(/* webpackChunkName: 'userAddressBook' */ './user/AddressBook'),
+        },
       ],
     },
     {
@@ -192,6 +199,10 @@ const routes = {
     {
       path: '/register',
       load: () => import(/* webpackChunkName: 'register' */ './register'),
+    },
+    {
+      path: '/forget',
+      load: () => import(/* webpackChunkName: 'forget' */ './forget'),
     },
     {
       path: '/about',
@@ -214,7 +225,7 @@ const routes = {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.reactstarterkit.com`;
+    route.title = `${route.title || 'Untitled Page'} - Ferdosi`;
     route.description = route.description || '';
 
     return route;

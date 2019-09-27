@@ -111,6 +111,7 @@ class AccountsTable extends React.Component {
         'Content-Type': 'application/json',
       },
     };
+    console.log('search ', credentials);
     const that = this;
     fetchWithTimeOut(
       'http://localhost:3000/getUsers',
@@ -195,7 +196,7 @@ class AccountsTable extends React.Component {
 
                     <CustomTable
                       pageCount={20}
-                      pageIndex={this.state.pageIndex}
+                      currentPageNumber={this.state.pageIndex}
                       records={this.state.currentAccounts}
                       columnLabels={ACCOUNTS_COLUMNS_LABELS_ARRAY}
                       recordItemNames={ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY}

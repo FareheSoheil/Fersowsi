@@ -15,6 +15,7 @@ import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import ReactPaginate from 'react-paginate';
 import Spinner from '../../../components/Admin/Spinner';
 import Claim from '../../../components/Claim';
+import history from '../../../history';
 import s from './ClaimDetails.css';
 
 class ClaimDetails extends React.Component {
@@ -37,6 +38,22 @@ class ClaimDetails extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.sendClaim = this.sendClaim.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(id, event) {
+    let state, value;
+    if (event.target.type === 'radio') {
+      state = 'accountStatus';
+      value = parseInt(event.target.value);
+    } else {
+      state = event.target.name;
+      value = event.target.value;
+    }
+
+    let accountsSearchFilter = { ...this.state.accountsSearchFilter };
+    accountsSearchFilter[state] = value;
+    this.setState({ accountsSearchFilter, searchClear: false });
   }
   handleEditorChange(e) {
     console.log('Content was updated:', e.target.getContent());
@@ -85,6 +102,8 @@ class ClaimDetails extends React.Component {
     window.alert('send new claim with user id and trigger user id');
   }
   render() {
+    console.log('context : ', this.props.context);
+    console.log('history : ', history.location);
     let claims = <div>Nothing</div>;
     if (
       this.state.allClaimsOfOrder !== undefined &&

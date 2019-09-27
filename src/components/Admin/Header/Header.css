@@ -30,38 +30,23 @@
   font-size: 1.75em; /* ~28px */
 }
 
-.brandTxt {
-  margin-left: 10px;
-}
-
-.banner {
+.headerDropDown {
+  min-width: 120px !important;
   text-align: center;
+  margin-top: 3.5px;
 }
 
-.bannerTitle {
-  margin: 0;
-  padding: 10px;
-  font-weight: normal;
-  font-size: 4em;
-  line-height: 1em;
-}
 
-.bannerDesc {
-  padding: 0;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.25em;
-  margin: 0;
+.headerDropDown a{
+  cursor: pointer;
+
 }
-.rtl_dropDown_menu {
-  text-align: right;
-  /* border: 3px solid salmon; */
-  right: 2px;
-  margin-top: 24px;
-  min-width: 13rem;
-}
-.dropDown_pointer::after {
-  margin-right: 0.5em;
-}
+.headerDropDown a:hover{
+  background-image: linear-gradient(to bottom right,#31585b,#47aab0,#60daab, #61ebf4);
+  /* #60daab; */
+  
+  }
+
 .fixed {
   background-color: #373277 !important;
   height: 90px;

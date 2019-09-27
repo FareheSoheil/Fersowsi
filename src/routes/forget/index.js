@@ -9,17 +9,17 @@
 
 import React from 'react';
 import LoginLayout from '../../components/Login/LoginLayout';
-import Register from './Register';
+import Forget from './Forget';
 
-const title = 'New User Registration';
+const title = 'Forget Password';
 
 function action(context) {
   return {
-    chunks: ['register'],
+    chunks: ['forget'],
     title,
     component: (
       <LoginLayout>
-        <Register title={title} context={context} />
+        <Forget title={title} context={context} />
       </LoginLayout>
     ),
   };

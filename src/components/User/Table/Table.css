@@ -1,0 +1,37 @@
+.userHoverableTr tr {
+    cursor: pointer;
+}
+.userHoverableTr tr:hover {
+    background-color: #c4ecf8;
+}
+.userTable {
+    padding-right: 25px;
+    padding-left: 25px;
+    margin-bottom: 30px;
+}
+.empty{
+    border: 1px solid red;
+    width:10px !important;
+}
+.noRecords {
+    text-align: center;
+    width: 100%;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.tableHeader>th:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #ebebeb;
+}
+.tableHeader>th{
+    background-color: #ebebeb;
+}
+.tableHeader>th:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #ebebeb;
+}

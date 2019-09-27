@@ -20,7 +20,7 @@ class SideBar extends React.Component {
   render() {
     return (
       <div className="nav-left-sidebar sidebar-dark">
-        <div className={`menu-list ${s.scrollbar}`}>
+        <div className={` ${s.scrollbar}`}>
           <nav
             className="navbar navbar-expand-lg navbar-light"
             style={{ marginBottom: '80px' }}

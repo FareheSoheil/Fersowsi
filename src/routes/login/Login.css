@@ -154,3 +154,6 @@
   border-bottom: 1px solid #ddd;
   content: '';
 }
+.footerLinks a:hover {
+  cursor: pointer;
+}

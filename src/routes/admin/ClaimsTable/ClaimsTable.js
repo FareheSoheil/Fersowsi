@@ -121,9 +121,14 @@ class ClaimsTable extends React.Component {
     this.fetchClaims();
   }
   onClaimClick(id, orderId) {
-    history.push(`/admin/claims/id=${id} & orderId=${orderId}`);
+    history.push({
+      pathname: `/admin/claims/claim`,
+      search: `id=${id}&orderId=${orderId}`,
+      state: { ab: 'ab' },
+    });
   }
   render() {
+    console.log('context : ', this.props.context);
     return (
       <div className="container-fluid dashboard-content">
         <div className="row">

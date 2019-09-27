@@ -9,7 +9,6 @@
 
 import React from 'react';
 import LoginLayout from '../../components/Login/LoginLayout';
-import Layout from '../../components/Layout';
 import Login from './Login';
 
 const title = 'Log In';
@@ -19,11 +18,9 @@ function action(context) {
     chunks: ['login'],
     title,
     component: (
-      // <Layout context={context}>
       <LoginLayout>
         <Login title={title} context={context} />
       </LoginLayout>
-      // </Layout>
     ),
   };
 }

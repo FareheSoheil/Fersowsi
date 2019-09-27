@@ -13,13 +13,13 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
-import s from './UserLayout.css';
+import s from './UserSimpleLayout.css';
 import Header from '../Header';
 import SideBar from '../SideBar';
 // import Feedback from '../Feedback';
 import Footer from '../../Footer';
 
-class UserLayout extends React.Component {
+class UserSimpleLayout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
@@ -46,7 +46,6 @@ class UserLayout extends React.Component {
             // width: '100%',
           }}
         >
-          <SideBar />
           <div className={`${s.userContentContainer}`}>
             {' '}
             {this.props.children}
@@ -58,4 +57,4 @@ class UserLayout extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, s)(UserLayout);
+export default withStyles(normalizeCss, s)(UserSimpleLayout);

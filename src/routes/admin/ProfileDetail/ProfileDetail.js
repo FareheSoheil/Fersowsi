@@ -22,28 +22,27 @@ class ProfileDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // id:context,
       isLoading: false,
       user: {
-        firstName: 'faree', //
-        lastName: 'soheil', //
-        username: '', //
-        contractName: '', //
-        phoneNumber: '', //
-        mobileNumber: '', //
-        faxNumber: '', //
-        homepage: '', //
-        VatId: '', //
-        email: '', //
-        dateOfBirth: new Date(), //
-        psn: '', //
-        discount: '', //
-        emailConfirmed: true, //
-        profilePic: '/assets/images/bitbucket.png', //
+        firstName: '',
+        lastName: '',
+        username: '',
+        contractName: '',
+        phoneNumber: '',
+        mobileNumber: '',
+        faxNumber: '',
+        homepage: '',
+        VatId: '',
+        email: '',
+        dateOfBirth: new Date(),
+        psn: '',
+        discount: '',
+        emailConfirmed: true,
+        profilePic: '/assets/images/bitbucket.png',
         bio: '', //
         claims: '',
-        createdAt: 'datetime',
-        updatedAt: 'datetime',
+        createdAt: '',
+        updatedAt: '',
 
         // pro info
         role: {
@@ -53,36 +52,36 @@ class ProfileDetail extends React.Component {
         },
         country: {
           //
-          value: 'id of the  country',
-          label: 'name of the country (string)',
+          value: '',
+          label: '',
         },
         currency: {
           //
 
-          value: 'id of the   currency',
-          label: 'name of the currency (string)',
+          value: '',
+          label: '',
         },
         subCategory: {
           //
-          value: 'id of the  subCategory',
-          label: 'name of the subCategory (string)',
+          value: '',
+          label: '',
         },
         activitionStatus: {
           //
-          value: 'id of the   activitionStatus',
-          label: 'name of the activitionStatus (string)',
+          value: '',
+          label: '',
         },
         siteLanguage: {
           //
 
-          value: 'id of the  language',
-          label: 'name of the language (string)',
+          value: '',
+          label: '',
         },
         job: {
           //
 
-          value: 'id of the  job',
-          label: 'name of the job (string)',
+          value: '',
+          label: '',
         },
       },
 
@@ -189,6 +188,7 @@ class ProfileDetail extends React.Component {
   }
   componentDidMount() {}
   render() {
+    // console.log('history : ', history);
     return (
       <div class="influence-profile">
         <div class="container-fluid dashboard-content ">
@@ -265,7 +265,7 @@ class ProfileDetail extends React.Component {
                     bio: this.state.user.bio,
                     claims: [
                       {
-                        id: 'Product#1',
+                        id: 'Product1',
                         senderUserName: 'id22222',
                         receiverUserName: 'farehe1',
                         repliedMSGId: '3000',
@@ -273,7 +273,7 @@ class ProfileDetail extends React.Component {
                         status: 'pending',
                       },
                       {
-                        id: 'Product#2',
+                        id: 'Product2',
                         senderUserName: 'id22222',
                         receiverUserName: 'farehe2',
                         repliedMsgId: '300tt',
@@ -281,7 +281,7 @@ class ProfileDetail extends React.Component {
                         status: 'rej',
                       },
                       {
-                        id: 'Product#3',
+                        id: 'Product3',
                         senderUserName: 'id22222',
                         receiverUserName: 'farehe3',
                         repliedMSGId: '7ujfh65',

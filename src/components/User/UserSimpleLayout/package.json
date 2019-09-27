@@ -1,0 +1,7 @@
+{
+    "name": "UserSimpleLayout",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./UserSimpleLayout.js"
+  }
+  

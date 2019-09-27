@@ -1,19 +1,10 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import s from './CustomTabel.css';
+import s from './Table.css';
 
-class CustomTabel extends React.Component {
+class Table extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
     currentPageNumber: PropTypes.number.isRequired,
@@ -26,18 +17,22 @@ class CustomTabel extends React.Component {
 
   render() {
     const tableHeaders = this.props.columnLabels.map((label, i) => (
-      <th className="border-0">{label}</th>
+      <th>{label}</th>
     ));
     let records = '';
     let toDisplay = <div className={s.noRecords}> No Match Found</div>;
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
-          onClick={() => {
-            this.props.onRecordClick(record.id, record.customerOrderId);
-          }}
+        // onClick={() =>
+        //   this.commentDetails(comment.productName, comment.text)
+        // }
+        // class="btn btn-primary"
+
+        // onClick={() => {
+        //   this.props.onRecordClick(record.id, record.customerOrderId);
+        // }}
         >
-          <td>{i + 1}</td>
           {this.props.recordItemNames.map(
             label =>
               label === 'profilePic' ? (
@@ -55,16 +50,12 @@ class CustomTabel extends React.Component {
           )}
         </tr>
       ));
+      // table-hover
       toDisplay = (
-        <div className={`table-responsive ${s.table}`}>
-          <table
-            className={`table table-hover table-bordered ${s.hoverableTr}`}
-          >
-            <thead className="bg-light">
-              <th>#</th>
-              {tableHeaders}
-            </thead>
-            <tbody>{records}</tbody>
+        <div className={`user-table-responsive ${s.userTable}`}>
+          <table className={`user-table ${s.userHoverableTr}`}>
+            <thead className={s.tableHeader}>{tableHeaders}</thead>
+            <tbody>{records} </tbody>
           </table>
         </div>
       );
@@ -72,23 +63,22 @@ class CustomTabel extends React.Component {
 
     return (
       <div>
-        {/* <h4 className="card-header">{this.props.title}</h4> */}
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" />
           {toDisplay}
         </div>
         {/* Pagination */}
         <div className="row">
-          <div className="col-12">
+          <div className="col-5">
             <ReactPaginate
               previousLabel="<"
               nextLabel=">"
               pageCount={this.props.pageCount}
               pageRangeDisplayed={3}
               onPageChange={this.props.handlePageChange}
-              containerClassName="paginate"
-              subContainerClassName="pages paginate"
-              activeClassName="active-page"
+              containerClassName="user-paginate"
+              subContainerClassName="user-pages user-paginate"
+              activeClassName="user-active-page"
               breakClassName="break-me"
               initialPage={this.props.currentPageNumber}
               disableInitialCallback
@@ -100,4 +90,4 @@ class CustomTabel extends React.Component {
   }
 }
 
-export default withStyles(s)(CustomTabel);
+export default withStyles(s)(Table);
