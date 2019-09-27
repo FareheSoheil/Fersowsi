@@ -1,0 +1,72 @@
+.usersidebar {
+    margin: 0;
+    padding: 5px;
+    width: 350px;
+    text-align: center;
+    background-color: white;
+    position: relative;
+    float: left;
+    height: 100%;
+    overflow: auto;
+  }
+  .toggler {
+      display: none;
+  }
+  /* Sidebar links */
+  .usersidebar a:first-child{
+    padding-top: 20px;
+      height: 65px;
+      margin-bottom: 18px;
+  }
+  .usersidebar a {
+      cursor: pointer;
+    display: block;
+    margin:5px 0px 5px 0px;
+    height: 45px;
+    font-size: 14px;
+    color: rgb(41, 40, 40);
+    padding: 10px;
+    border: 1px solid #d6d6d6;
+    border-radius: 15px;
+    background-color: #ebebeb;
+    text-decoration: none;
+  }
+  
+  /* Active/current link */
+  .usersidebar a.useractive {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  /* Links on mouse-over */
+  .usersidebar a:hover:not(.useractive) {
+    background-color: #555;
+    color: white;
+  }
+  
+  /* Page content.user The value of the margin-left property should match the value of the sidebar's width property */
+  div.usercontent {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  
+  /* On screens that are less than 700px wide, make the sidebar into a topbar */
+  @media screen and (max-width: 700px) {
+    .usersidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      /* display: none; */
+    }
+    .usersidebar a {float: left;}
+    div.usercontent {margin-left: 0;}
+  }
+  
+  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+  @media screen and (max-width: 400px) {
+    .usersidebar a {
+      text-align: center;
+      float: none;
+    }
+  }

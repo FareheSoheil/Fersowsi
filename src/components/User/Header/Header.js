@@ -7,7 +7,7 @@ class Header extends React.Component {
   render() {
     return (
       <nav
-        class={` navbar navbar-expand-lg bg-dark navbar-dark ${
+        class={` navbar navbar-expand-lg navbar-fixed-top bg-dark navbar-dark ${
           s.userHeaderContainer
         }`}
       >

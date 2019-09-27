@@ -70,27 +70,29 @@ InitializeSQLite();
 async function Authorize(req, res, next) {
   const statePat = new RegExp('/state/');
   const forgetPat = new RegExp('/forget');
+  const registerPat = new RegExp('/register');
   const loginPat = new RegExp('/login');
   const newPassPat = new RegExp('/newpass');
-  console.log(
-    '*****************authorize***************',
-    req.path,
-    loginPat.test(req.path),
-  );
+  // console.log(
+  //   '*****************authorize***************',
+  //   req.path,
+  //   loginPat.test(req.path),
+  // );
   if (statePat.test(req.path) && req.method === 'POST') {
     return next();
   }
   if (
     loginPat.test(req.path) ||
     forgetPat.test(req.path) ||
-    newPassPat.test(req.path)
+    newPassPat.test(req.path) ||
+    registerPat.test(req.path)
   ) {
     if (req.cookies.TokenId === undefined) {
-      console.log('###### coockie undefined ######');
+      // console.log('###### coockie undefined ######');
       return next();
     }
-    console.log('###### coockie defined ######');
-    res.redirect('/');
+    // console.log('###### coockie defined ######');
+    res.redirect('/admin');
   } else if (req.cookies.TokenId === undefined) {
     res.redirect('/login');
   } else if (req.cookies.TokenId !== undefined) {
@@ -254,22 +256,16 @@ if (module.hot) {
 
 // Server mimic controllers :
 app.post('/login', (req, res, next) => {
-  console.log('###### in login controller######', req.body.username);
+  // console.log('###### in login controller######', req.body.username);
   const user = req.body.username;
-  let data = {};
-  if (user) {
-    data = {
-      TokenId: 'inAlakieAzizam',
-      role: 'Admin',
-      name: 'فارهه',
-      lastName: 'سهیل',
-      error: 'Nothing',
-    };
-  } else {
-    data = {
-      error: 'wrongUserName',
-    };
-  }
+  const data = {
+    TokenId: 'inAlakieAzizam',
+    role: 'Admin',
+    name: 'فارهه',
+    lastName: 'سهیل',
+    error: 'Nothing',
+  };
+
   res.send(data);
 });
 let comments = [
@@ -290,7 +286,7 @@ let comments = [
     status: 'rej',
   },
   {
-    id: 'Product#3',
+    id: 'Product3',
     senderUserName: 'id22222',
     receiverUserName: 'farehe3',
     repliedMSGId: '7ujfh65',
@@ -361,7 +357,10 @@ let Users = [
 ];
 
 app.post('/getUsers', (req, res, next) => {
-  console.log('--------------------- in users controller--------------');
+  console.log(
+    '--------------------- in req headres--------------',
+    req.headers,
+  );
   const role = req.cookies;
   if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
   else {

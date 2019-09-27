@@ -74,7 +74,9 @@ class Html extends React.Component {
             href="/assets/vendor/fonts/circular-std/style.css"
             rel="stylesheet"
           />
+
           <link rel="stylesheet" href="/assets/libs/css/style.css" />
+          <link rel="stylesheet" href="/assets/libs/css/user.css" />
           <link
             rel="stylesheet"
             href="/assets/vendor/fonts/fontawesome/css/fontawesome-all.css"

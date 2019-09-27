@@ -1,9 +1,8 @@
 .userContentContainer {
+
     border: 2px solid blue;
     position: relative;
     left: 0;
-    margin-left: 365px;
-    padding-bottom: 50px;
     min-height: 570px !important;
 }
 @media only screen and (max-width:480px) {

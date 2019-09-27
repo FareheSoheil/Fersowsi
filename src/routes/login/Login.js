@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import crypto from 'crypto';
 import cookie from 'react-cookies';
 import { toastr } from 'react-redux-toastr';
 import history from '../../history';
@@ -16,8 +15,21 @@ class Login extends React.Component {
   };
   constructor(props) {
     super(props);
+    this.state = {
+      name: '',
+      password: '',
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log('context from login', this.props.context);
+    this.goTo = this.goTo.bind(this);
+    this.inputOnChange = this.inputOnChange.bind(this);
+  }
+  goTo(url) {
+    history.push(url);
+  }
+  inputOnChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   }
   handleSubmit = event => {
     event.preventDefault();
@@ -34,11 +46,8 @@ class Login extends React.Component {
     //     .digest('base64'),
     // };
     const credentials = {
-      username: 'farehe',
-      password: crypto
-        .createHash('sha256')
-        .update('sherlock74')
-        .digest('base64'),
+      name: this.state.name,
+      password: this.state.password,
     };
     const loginOptions = {
       method: 'POST',
@@ -47,11 +56,13 @@ class Login extends React.Component {
         'Content-Type': 'application/json',
       },
     };
+    console.log('loginOptions : ', loginOptions);
     const that = this;
     fetchWithTimeOut(
       loginURL,
       loginOptions,
       data => {
+        console.log('data : ', data);
         // that.props.loginProp(data);
         const setStateURL = `${SERVER}/state/setState`;
         const setStateOptions = {
@@ -78,7 +89,7 @@ class Login extends React.Component {
               expires,
             });
             localStorage.setItem('TokenId', data.TokenId);
-            if (data.role === 'Admin') history.push('/admin/home');
+            if (data.role === 'Admin') history.push('/admin/');
             else history.push('/');
           },
           () => {},
@@ -112,18 +123,20 @@ class Login extends React.Component {
               <div class="form-group">
                 <input
                   class="form-control form-control-lg"
-                  id="username"
+                  name="name"
                   type="text"
-                  placeholder="Username"
+                  placeholder="Username or Email"
                   autocomplete="off"
+                  onChange={e => this.inputOnChange(e)}
                 />
               </div>
               <div class="form-group">
                 <input
                   class="form-control form-control-lg"
-                  id="password"
+                  name="password"
                   type="password"
                   placeholder="Password"
+                  onChange={e => this.inputOnChange(e)}
                 />
               </div>
               <div class="form-group">
@@ -141,20 +154,25 @@ class Login extends React.Component {
               </button>
             </form>
           </div>
-          <div class="card-footer bg-white p-0  ">
+          <div class={`${s.footerLinks} card-footer bg-white p-0`}>
             <div class="card-footer-item card-footer-item-bordered">
-              <a href="#" class="footer-link">
+              <a
+                onClick={() => this.goTo('/register')}
+                class="footer-link text-secondary"
+              >
                 Create An Account
               </a>
             </div>
             <div class="card-footer-item card-footer-item-bordered">
-              <a href="#" class="footer-link">
+              <a
+                onClick={() => this.goTo('/forget')}
+                class="footer-link text-secondary"
+              >
                 Forgot Password
               </a>
             </div>
           </div>
         </div>
-        hellow
       </div>
     );
   }

@@ -23,7 +23,7 @@ class CommentTable extends React.Component {
     this.state = {
       isLoading: true,
       firstRender: true,
-      currentPageNumber: 1,
+      currentPageNumber: 0,
       totalPageNum: '',
       currentComments: '',
       searchFilter: '',

@@ -1,7 +1,6 @@
 .userHeaderContainer {
     background-color: #1a1a1a !important;
     height: 55px;
-    /* border: 2px solid yellow; */
     color: white;
     padding: 15px 70px 10px 100px;
 }
@@ -19,16 +18,13 @@
     
 }
 .headerIconContainer i {
-    /* border: 1px solid    violet; */
-    /* border-radius: 60px; */
-    /* box-shadow: 0px 0px 2px #888; */
+
     margin: 0px 1px 0px 1px;
     padding: 8px;
 }
 .headerIconContainer i:hover {
     cursor: pointer;
     color: gray;
-    /* background: whitesmoke; */
    
 }
 .headerIconContainer input {

@@ -65,8 +65,12 @@ class ProfileProInfo extends React.Component {
     handleSelectInputChange: PropTypes.func.isRequired,
     handleSimpleInputChange: PropTypes.func.isRequired,
   };
-  onClaimClick(id) {
-    history.push(`/admin/claims/${id}`);
+  onClaimClick(id, orderId) {
+    history.push({
+      pathname: `/admin/claims/claim`,
+      search: `id=${id}&orderId=${orderId}`,
+      state: { ab: 'ab' },
+    });
   }
   componentDidMount() {}
   render() {

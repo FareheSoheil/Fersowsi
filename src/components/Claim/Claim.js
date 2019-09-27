@@ -11,6 +11,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import history from '../../history';
 import {
   MESSAGE_STATUS,
   MESSAGE_STATUS_ARRAY,
@@ -25,6 +26,13 @@ class Claim extends React.Component {
     handleSimpleInputChange: PropTypes.func.isRequired,
     handleSelectChange: PropTypes.func.isRequired,
   };
+  constructor(props) {
+    super(props);
+    this.goToOrder = this.goToOrder.bind(this);
+  }
+  goToOrder() {
+    history.push(`/admin/customerOrder/${this.props.claim.customerOrderId}`);
+  }
   render() {
     return (
       // <div className={s.root}>
@@ -39,13 +47,34 @@ class Claim extends React.Component {
                 <label>To :&nbsp;</label>
                 {this.props.claim.receiverUsername}aaaaaaaaaaaaaaaaaaa
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-4 col-sm-4">
-                <label>Order Id :&nbsp;</label>assssssssssssssss{' '}
-                {this.props.claim.customerOrderId}
+              <div
+                className="col-xl-3 col-lg-3 col-md-4 col-sm-4"
+                style={{ cursor: 'pointer', color: '#69C9D3' }}
+              >
+                <label>Order Id :&nbsp;</label>{' '}
+                <span onClick={this.goToOrder}>
+                  <u>assssssssssssssss {this.props.claim.customerOrderId}</u>
+                </span>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-4 col-sm-4">
-                <label>Replied To :&nbsp;</label>assssssssssssssss{' '}
-                {this.props.claim.repliedMessageId}
+              <div className="col-xl-3 col-lg-3 col-md-3">
+                {/*  */}
+                <label class="custom-color-theme custom-control custom-radio custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="isFinished"
+                    class="custom-control-input"
+                    value={!this.props.claim.isFinished}
+                    onClick={e =>
+                      this.props.handleSimpleInputChange(this.props.claim.id, e)
+                    }
+                    defaultChecked={
+                      this.props.claim.isFinished === 'true' ||
+                      this.props.claim.isFinished === true
+                    }
+                  />
+
+                  <span class="custom-control-label">Is Finished</span>
+                </label>
               </div>
             </div>
             <div className="row ">
@@ -89,24 +118,6 @@ class Claim extends React.Component {
               ) : (
                 ''
               )}
-              <div className="col-xl-3 col-lg-3 col-md-3">
-                {/*  */}
-                <label class="custom-color-theme custom-control custom-radio custom-control-inline">
-                  <input
-                    type="checkbox"
-                    name="isFinished"
-                    class="custom-control-input"
-                    value={!this.props.claim.isFinished}
-                    onClick={e => this.props.handleSimpleInputChange(id, e)}
-                    defaultChecked={
-                      this.props.claim.isFinished === 'true' ||
-                      this.props.claim.isFinished === true
-                    }
-                  />
-
-                  <span class="custom-control-label">Is Finished</span>
-                </label>
-              </div>
             </div>
           </div>
           <hr />

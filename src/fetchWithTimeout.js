@@ -11,11 +11,10 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
       isTimedOut = true;
       reject(ERRORS.TIME_OUT);
     }, REQUEST_TIMEOUT);
-    if (options.body) {
-      const modifiedOptions = JSON.parse(options.body);
-      modifiedOptions.TokenId = cookie.load('TokenId');
-    }
-    //
+    console.log('this is options', options.headers);
+    const headers = options.headers;
+    options.headers.Authorization = cookie.load('TokenId');
+    console.log('loadAll() : ', cookie.loadAll());
 
     // START of fetching data
     fetch(url, options)
@@ -24,7 +23,6 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
       .then(data => {
         clearTimeout(timeOut);
         resolve(data);
-        console.log('loadAll() : ', cookie.loadAll());
       })
       .catch(error => {
         if (isTimedOut) return;

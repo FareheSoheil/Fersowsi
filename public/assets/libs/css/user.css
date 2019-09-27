@@ -1,0 +1,128 @@
+.user-paginate {
+    display: flex;
+    list-style: none;
+  }
+  .user-paginate > li {
+    border: .5px solid rgb(208, 208, 208);
+    /* min-width: 5%; */
+    width: 25px;
+    cursor: pointer;
+    padding: 4px;
+    vertical-align: middle;
+    /* width: auto; */
+    text-align: center;
+    border-collapse: collapse;
+    margin: 1px;
+  }
+  
+  .user-paginate > li:not(:first-child):not(:last-child):hover , .user-active-page{
+    background-color: rgb(102, 173, 197);
+    /* border:  1px solid rgb(138, 217, 243)!important; */
+    
+  }
+  .user-paginate > li.active-page > a {
+    color: white !important;
+  }
+  
+  .user-paginate > li > a {
+    outline: 0;
+    color: rgb(75, 75, 75) !important;
+  
+  }
+  .next {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+  .previous {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  /* ================================================ user table =============================== */
+  .user-table {
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+    margin-bottom: 0px;
+    width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+}
+.user-table td,
+.user-table th {
+    text-align: center;
+    
+    padding: 10px;
+    
+    vertical-align: middle;
+
+    font-weight: normal;
+}
+
+.user-table thead th {
+    vertical-align: bottom;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.user-table thead th,
+.user-table th {
+    color: #3d405c;
+    font-family: 'Circular Std Medium';
+}
+.user-table tr {
+    background-color: #b4e6f5;
+    padding-bottom: 10px;
+    
+}
+
+.user-table td:last-child{
+    /* border-right: 20px solid white; */
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+ }
+ .user-table td:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+ }
+
+.user-table-bordered {
+    border: 1px solid #e6e6f2;
+}
+
+.user-table-bordered td,
+.user-table-bordered th {
+    border: 1px solid #e6e6f2;
+}
+
+.user-table-striped tbody tr:nth-of-type(odd) {
+    background-color: red;
+    /* rgba(230, 230, 242, .5); */
+}
+
+.user-table-hover tbody tr:hover {
+    background-color: rgba(230, 230, 242, .5);
+}
+.user-table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+  /* ===================================== React Select Styles =========================== */
+  .reactSelectContainer{
+    padding-left: .5em;
+    margin: 15px 5px 15px 5px;
+    padding: 10px 1px 10px 1px;
+  }
+  .reactSelectLabel {
+    padding-top: 10px;
+    color: #3d405c;
+  }
+  
+  .reactSelect > div:first-of-type:focus{
+    /* border: 2px solid var(--theme-color); */
+    background-color: rgb(102, 173, 197);;
+    outline: 0px;
+  }
+  
+  .user-table-responsive>.user-table-bordered {
+    border: 1px solid #e6e6f2 !important;
+  }

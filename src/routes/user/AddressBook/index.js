@@ -8,19 +8,17 @@
  */
 
 import React from 'react';
-import LoginLayout from '../../components/Login/LoginLayout';
-import Register from './Register';
+import AddressBook from './AddressBook';
+import UserLayout from '../../../components/User/UserLayout';
 
-const title = 'New User Registration';
-
-function action(context) {
+async function action(context) {
   return {
-    chunks: ['register'],
-    title,
+    title: 'Ferdowsi',
+    chunks: ['userAddressBook'],
     component: (
-      <LoginLayout>
-        <Register title={title} context={context} />
-      </LoginLayout>
+      <UserLayout>
+        <AddressBook context={context} />
+      </UserLayout>
     ),
   };
 }
