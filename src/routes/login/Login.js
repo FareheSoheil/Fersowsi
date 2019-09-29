@@ -34,17 +34,7 @@ class Login extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     window.alert('logging in');
-    // const errMsg = this.finalValidation();
-    // if (errMsg) toastr.error(ERRORS.TITLE, errMsg);
-    // else {
     const loginURL = `${SERVER}/login`;
-    // const credentials = {
-    //   username: this.state.username,
-    //   password: crypto
-    //     .createHash('sha256')
-    //     .update(this.state.password)
-    //     .digest('base64'),
-    // };
     const credentials = {
       name: this.state.name,
       password: this.state.password,

@@ -273,14 +273,17 @@ label {
     background-image: none;
     border: 1px solid #d2d2e4;
     border-radius: 2px;
+    outline: none !important;
 }
-
+input[type="text"], input[type="password"], textarea, select { 
+    outline: none !important;
+}
 .form-control:focus {
     color: #71748d;
     background-color: #fff;
-    border-color: var(--theme-color-hover);;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem var(--theme-color-hover);
+    /* border-color: var(--theme-color-hover);; */
+    outline: none !important;
+    /* box-shadow: 0 0 0 0.2rem var(--theme-color-hover); */
 }
 
 input[type=file] {
@@ -295,8 +298,9 @@ input[type=file] {
     font-size: 15px;
 }
 
-input {}
-
+input:focus {
+    outline: 0 !important;
+}
 button {}
 
 button:focus {

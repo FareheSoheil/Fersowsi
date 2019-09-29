@@ -106,6 +106,18 @@
     width: 100%;
     overflow-x: auto;
 }
+.add-modal {
+  padding-left: 60px;
+  color: rgb(83, 83, 83);
+}
+.add-modal-header {
+
+}
+.user-modal {
+  border-radius: 20px;
+  padding: 20px;
+  min-width: 550px;
+}
   /* ===================================== React Select Styles =========================== */
   .reactSelectContainer{
     padding-left: .5em;

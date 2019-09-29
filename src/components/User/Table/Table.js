@@ -29,9 +29,9 @@ class Table extends React.Component {
         // }
         // class="btn btn-primary"
 
-        // onClick={() => {
-        //   this.props.onRecordClick(record.id, record.customerOrderId);
-        // }}
+        onClick={() => {
+          this.props.onRecordClick(record.id, record.customerOrderId);
+        }}
         >
           {this.props.recordItemNames.map(
             label =>
