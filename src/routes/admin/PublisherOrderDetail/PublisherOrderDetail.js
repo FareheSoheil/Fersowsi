@@ -55,7 +55,7 @@ class PublisherOrderDetail extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3000/getUserDetails',
+      'http://localhost:3004/getUserDetails',
       options,
       response => {
         that.setState({

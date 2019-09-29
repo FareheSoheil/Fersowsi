@@ -33,7 +33,7 @@ class Login extends React.Component {
   }
   handleSubmit = event => {
     event.preventDefault();
-    window.alert('logging in');
+    // window.alert('logging in');
     // const errMsg = this.finalValidation();
     // if (errMsg) toastr.error(ERRORS.TITLE, errMsg);
     // else {
@@ -45,6 +45,7 @@ class Login extends React.Component {
     //     .update(this.state.password)
     //     .digest('base64'),
     // };
+    
     const credentials = {
       name: this.state.name,
       password: this.state.password,
@@ -56,13 +57,13 @@ class Login extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-    console.log('loginOptions : ', loginOptions);
     const that = this;
+
     fetchWithTimeOut(
       loginURL,
       loginOptions,
       data => {
-        console.log('data : ', data);
+        window.alert(JSON.stringify(data));
         // that.props.loginProp(data);
         const setStateURL = `${SERVER}/state/setState`;
         const setStateOptions = {
@@ -80,11 +81,13 @@ class Login extends React.Component {
             const expires = new Date();
             const now = new Date();
             expires.setDate(now.getDate() + COOKIE_EXPIRATION);
-            cookie.save('TokenId', data.TokenId, {
+            window.alert(data.TokenId)
+
+            cookie.save('role', data.role, {
               path: '/',
               expires,
             });
-            cookie.save('role', data.role, {
+            cookie.save('TokenId', data.TokenId, {
               path: '/',
               expires,
             });

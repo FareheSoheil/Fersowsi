@@ -114,7 +114,7 @@ class AccountsTable extends React.Component {
     console.log('search ', credentials);
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3000/getUsers',
+      'http://localhost:3004/getUsers',
       options,
       response => {
         that.setState({

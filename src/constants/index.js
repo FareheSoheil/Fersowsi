@@ -23,8 +23,8 @@ const AccountStats = {
 };
 const COOKIE_EXPIRATION = 356;
 const REQUEST_TIMEOUT = 4000;
-const SERVER = 'http://localhost:3000';
-const fetchURL = 'http://localhost:3000/getComments';
+const SERVER = 'http://localhost:3004';
+const fetchURL = 'http://localhost:3004/getComments';
 const ROLES = {
   admin: 'Admin',
   operator: 'Operator',

@@ -60,7 +60,7 @@ class ClaimDetails extends React.Component {
     this.setState({ newClaim: e.target.getContent() });
   }
   fetchClaims() {
-    const url = 'http://localhost:3000/getClaimsOfOrder';
+    const url = 'http://localhost:3004/getClaimsOfOrder';
     this.setState({
       isLoading: true,
     });

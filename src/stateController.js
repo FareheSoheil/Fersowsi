@@ -56,6 +56,8 @@ router.post('/getState', async (req, res, next) => {
     const db = await dbPromise;
     const state = await Promise.all([db.get(selectQuery, req.body.idToken)]);
     if (state[0] === undefined) {
+      window.alert("no state found");
+      console.log("no state found");
       result = {
         status: 'error',
         payload: 'IdToken Not Valid',
