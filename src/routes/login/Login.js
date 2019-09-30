@@ -7,7 +7,7 @@ import history from '../../history';
 // import { loginAction } from '../../actions/login_action';
 import s from './Login.css';
 import { fetchWithTimeOut } from '../../fetchWithTimeout';
-import { COOKIE_EXPIRATION, SERVER, ERRORS } from '../../constants';
+import { COOKIE_EXPIRATION, SERVER, ERRORS, SSRSERVER } from '../../constants';
 
 class Login extends React.Component {
   static propTypes = {
@@ -45,7 +45,7 @@ class Login extends React.Component {
     //     .update(this.state.password)
     //     .digest('base64'),
     // };
-    
+
     const credentials = {
       name: this.state.name,
       password: this.state.password,
@@ -64,24 +64,20 @@ class Login extends React.Component {
       loginOptions,
       data => {
         window.alert(JSON.stringify(data));
-        // that.props.loginProp(data);
-        const setStateURL = `${SERVER}/state/setState`;
-        const setStateOptions = {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        const thatthat = that;
-        fetchWithTimeOut(
-          setStateURL,
-          setStateOptions,
-          () => {
+        if (data.error === undefined) {
+          const setStateURL = `${SSRSERVER}/state/setState`;
+          const setStateOptions = {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          };
+          fetchWithTimeOut(setStateURL, setStateOptions, () => {
             const expires = new Date();
             const now = new Date();
             expires.setDate(now.getDate() + COOKIE_EXPIRATION);
-            window.alert(data.TokenId)
+            window.alert(data.TokenId);
 
             cookie.save('role', data.role, {
               path: '/',
@@ -93,14 +89,16 @@ class Login extends React.Component {
             });
             localStorage.setItem('TokenId', data.TokenId);
             if (data.role === 'Admin') history.push('/admin/');
-            else history.push('/');
-          },
-          () => {},
-        );
+            else history.push('/user/');
+          });
+        } else {
+          toastr.error(data.error.title, data.error.description);
+          console.log('login error : ', error);
+        }
       },
-      error => {
-        toastr.error(ERRORS.TITLE, ERRORS.REPEATED_USER);
-        console.log('login error : ', error);
+      () => {
+        // toastr.error('sala', ERRORS.REPEATED_USER);
+        // console.log('login error : ', error);
       },
     );
     // }

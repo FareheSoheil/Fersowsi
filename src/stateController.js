@@ -56,8 +56,8 @@ router.post('/getState', async (req, res, next) => {
     const db = await dbPromise;
     const state = await Promise.all([db.get(selectQuery, req.body.idToken)]);
     if (state[0] === undefined) {
-      window.alert("no state found");
-      console.log("no state found");
+      window.alert('no state found');
+      console.log('no state found');
       result = {
         status: 'error',
         payload: 'IdToken Not Valid',
@@ -77,7 +77,7 @@ router.post('/getState', async (req, res, next) => {
   res.send(result);
 });
 router.post('/removeState', async (req, res, next) => {
-  const pk = req.body.idToken;
+  const pk = req.body.tokenId;
   const result = await removeState(pk);
   res.send(result);
 });

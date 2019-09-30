@@ -51,7 +51,6 @@ class Html extends React.Component {
           ))}
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="apple-touch-icon" href="/icon.png" />
-
           {/* <link rel="stylesheet" href="/ag-grid.css" />
           <link rel="stylesheet" href="/ag-theme-balham.css" />
           <link rel="stylesheet" href="/ag-theme-balham-dark.css" />
@@ -66,6 +65,11 @@ class Html extends React.Component {
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossOrigin="anonymous"
           /> */}
+          {/* react-redux-toastr/lib/css/react-redux-toastr.min.css */}
+          <link
+            rel="stylesheet"
+            href="/assets/libs/css/react-redux-toastr.min.css"
+          />
           <link
             rel="stylesheet"
             href="/assets/vendor/bootstrap/css/bootstrap.min.css"
@@ -74,7 +78,6 @@ class Html extends React.Component {
             href="/assets/vendor/fonts/circular-std/style.css"
             rel="stylesheet"
           />
-
           <link rel="stylesheet" href="/assets/libs/css/style.css" />
           <link rel="stylesheet" href="/assets/libs/css/user.css" />
           <link
@@ -99,7 +102,6 @@ class Html extends React.Component {
             href="/assets/vendor/fonts/flag-icon-css/flag-icon.min.css"
           />
           <link rel="stylesheet" href="/main.css" />
-
           {styles.map(style => (
             <style
               key={style.id}

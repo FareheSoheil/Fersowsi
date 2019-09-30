@@ -98,6 +98,11 @@ async function Authorize(req, res, next) {
   } else if (req.cookies.TokenId !== undefined) {
     const fetchedState = await readTokenIdFromDB(req.cookies.TokenId);
     if (fetchedState === undefined) {
+      console.log(
+        'cookie is defined : ',
+        req.cookies.TokenId,
+        ' but no state found',
+      );
       res.clearCookie('TokenId');
       res.redirect('/login');
     } else {
@@ -302,7 +307,7 @@ app.post('/getComments', (req, res, next) => {
   else {
     let data = {};
     const filter = req.body.searchBy;
-    console.log('^^^^^^^^^^^^^^^^^^ search By^^^^^^^^^ : ', filter);
+    // console.log('^^^^^^^^^^^^^^^^^^ search By^^^^^^^^^ : ', filter);
     const pn = req.body.pageNumber;
     data = {
       currentRecords: comments,
@@ -312,9 +317,10 @@ app.post('/getComments', (req, res, next) => {
   }
 });
 app.post('/modifyComments', (req, res, next) => {
-  console.log(
-    '--------------------- in modifyComments controller--------------',
-  );
+  console
+    .log
+    // '--------------------- in modifyComments controller--------------',
+    ();
   const role = req.cookies;
   if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
   else {
@@ -359,7 +365,7 @@ let Users = [
 
 app.post('/getUsers', (req, res, next) => {
   console.log(
-    '--------------------- in req headres--------------',
+    // '--------------------- in req headres--------------',
     req.headers,
   );
   const role = req.cookies;

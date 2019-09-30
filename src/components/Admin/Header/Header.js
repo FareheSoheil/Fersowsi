@@ -11,6 +11,8 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cookie from 'react-cookies';
 import history from '../../../history';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import { SSRSERVER } from '../../../constants';
 import s from './Header.css';
 
 class Header extends React.Component {
@@ -19,9 +21,28 @@ class Header extends React.Component {
     this.logOut = this.logOut.bind(this);
   }
   logOut() {
-    cookie.remove('TokenId');
-    cookie.remove('role');
-    history.push('/login');
+    const token = cookie.load('TokenId');
+    const removeStateURL = `${SSRSERVER}/state/removeState`;
+    const removeStateOptions = {
+      tokenId: token,
+    };
+    const logoutOptions = {
+      method: 'POST',
+      body: JSON.stringify(removeStateOptions),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    fetchWithTimeOut(
+      removeStateURL,
+      logoutOptions,
+      () => {
+        cookie.remove('TokenId', { path: '/' });
+        cookie.remove('role', { path: '/' });
+        history.push('/login');
+      },
+      () => {},
+    );
   }
 
   render() {

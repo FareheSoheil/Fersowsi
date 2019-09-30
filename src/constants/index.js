@@ -22,8 +22,9 @@ const AccountStats = {
   approved: 'approved',
 };
 const COOKIE_EXPIRATION = 356;
-const REQUEST_TIMEOUT = 4000;
+const REQUEST_TIMEOUT = 6000;
 const SERVER = 'http://localhost:3004';
+const SSRSERVER = 'http://localhost:3000';
 const fetchURL = 'http://localhost:3004/getComments';
 const ROLES = {
   admin: 'Admin',
@@ -51,6 +52,7 @@ export {
   ERRORS,
   COOKIE_EXPIRATION,
   SERVER,
+  SSRSERVER,
   USER_LOGIN,
   fetchURL,
   ROLES,

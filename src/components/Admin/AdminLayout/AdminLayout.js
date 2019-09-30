@@ -10,7 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
+import ReduxToastr from 'react-redux-toastr';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
 import s from './AdminLayout.css';
@@ -27,6 +27,16 @@ class AdminLayout extends React.Component {
   render() {
     return (
       <div className="dashboard-main-wrapper">
+        <ReduxToastr
+          timeOut={3000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-center"
+          transitionIn="bounceIn"
+          transitionOut="fadeOut"
+          progressBar
+          closeOnToastrClick
+        />
         <Header />
         <SideBar />
         <div className="dashboard-wrapper">{this.props.children}</div>
