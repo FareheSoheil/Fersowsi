@@ -13,6 +13,7 @@ class SettingItem extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
     fetchUrl: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     editUrl: PropTypes.string.isRequired,
     addUrl: PropTypes.string.isRequired,
     cardTitle: PropTypes.string.isRequired,
@@ -27,15 +28,7 @@ class SettingItem extends React.Component {
       pageSize: 10,
       pageIndex: 0,
       newName: '',
-      currentRecords: [
-        { a: 1 },
-        { a: 1 },
-        { a: 1 },
-        { a: 1 },
-        { a: 1 },
-        { a: 1 },
-        { a: 1 },
-      ],
+      currentRecords: [],
       totalPageNum: 10,
     };
     this.applyChanges = this.applyChanges.bind(this);
@@ -45,7 +38,7 @@ class SettingItem extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
   componentDidMount() {
-    // this.fetchRecords();
+    this.fetchRecords();
   }
   onInputChange(event, number, label) {
     let records = this.state.currentRecords;
@@ -105,7 +98,7 @@ class SettingItem extends React.Component {
       options,
       response => {
         that.setState({
-          currentRecords: response.currentRecords,
+          currentRecords: response[this.props.type],
           totalPageNum: response.totalPageNumber,
           isLoading: false,
           firstRender: false,

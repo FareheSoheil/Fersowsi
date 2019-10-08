@@ -7,6 +7,7 @@ import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import {
   COUNTRIES_COLUMNS_LABELS_ARRAY,
   COUNTRIES_RECORDE_ITEM_NAMES_ARRAY,
+  SERVER,
 } from '../../../../constants/constantData';
 import s from './Countries.css';
 class Countries extends React.Component {
@@ -41,7 +42,7 @@ class Countries extends React.Component {
     this.fetchCountries = this.fetchCountries.bind(this);
   }
   componentDidMount() {
-    // this.fetchCountries();
+    this.fetchCountries();
   }
   onInputChange(event, number, label) {
     let records = this.state.currentCountries;
@@ -87,7 +88,7 @@ class Countries extends React.Component {
     );
   }
   fetchCountries() {
-    const url = 'fetchURL';
+    const url = `${SERVER}/getAllCountries`;
     this.setState({
       isLoading: true,
     });

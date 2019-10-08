@@ -71,14 +71,14 @@ class SideBar extends React.Component {
                   </a>
                 </li>
                 {/* Currencies item */}
-                <li className="nav-item ">
+                {/* <li className="nav-item ">
                   <a
                     className="nav-link"
                     onClick={() => this.goTo('/admin/currencies')}
                   >
                     <i className="far fa-money-bill-alt" />Currencies{' '}
                   </a>
-                </li>
+                </li> */}
                 {/* CMS item */}
                 <li className="nav-item ">
                   <a
@@ -176,10 +176,10 @@ class SideBar extends React.Component {
                         <a
                           class="nav-link"
                           onClick={() =>
-                            this.goTo('/admin/settings/productCategories')
+                            this.goTo('/admin/settings/currencies')
                           }
                         >
-                          Product Category
+                          Currency
                         </a>
                       </li>
                       <li class="nav-item">

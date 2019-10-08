@@ -23,15 +23,17 @@ import s from './Claim.css';
 class Claim extends React.Component {
   static propTypes = {
     claim: PropTypes.object.isRequired,
+    orderId: PropTypes.string.isRequired,
     handleSimpleInputChange: PropTypes.func.isRequired,
     handleSelectChange: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
+    console.log('claims : ', this.props.claim);
     this.goToOrder = this.goToOrder.bind(this);
   }
   goToOrder() {
-    history.push(`/admin/customerOrder/${this.props.claim.customerOrderId}`);
+    history.push(`/admin/customerOrder/${this.props.orderId}`);
   }
   render() {
     return (
@@ -41,23 +43,38 @@ class Claim extends React.Component {
           <div className={s.header}>
             <div className="row">
               <div className="col-xl-3 col-lg-3 col-md-5 col-sm-4">
-                <label>From</label> : {this.props.claim.senderUsername}
+                <label>From</label> :{' '}
+                {`${this.props.claim.senderUser.firstName} ${
+                  this.props.claim.senderUser.lastName
+                }`}
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-4">
                 <label>To :&nbsp;</label>
-                {this.props.claim.receiverUsername}aaaaaaaaaaaaaaaaaaa
+                {`${this.props.claim.receiverUser.firstName} ${
+                  this.props.claim.receiverUser.lastName
+                }`}
               </div>
+              {this.props.claim.actionUser.id !==
+              this.props.claim.receiverUser.id ? (
+                <div className="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                  <label>Action User :&nbsp;</label>
+                  {`${this.props.claim.actionUser.firstName} ${
+                    this.props.claim.actionUser.lastName
+                  }`}
+                </div>
+              ) : (
+                ''
+              )}
               <div
                 className="col-xl-3 col-lg-3 col-md-4 col-sm-4"
                 style={{ cursor: 'pointer', color: '#69C9D3' }}
               >
                 <label>Order Id :&nbsp;</label>{' '}
                 <span onClick={this.goToOrder}>
-                  <u>assssssssssssssss {this.props.claim.customerOrderId}</u>
+                  <u> {this.props.orderId}</u>
                 </span>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-3">
-                {/*  */}
+              {/* <div className="col-xl-3 col-lg-3 col-md-3">
                 <label class="custom-color-theme custom-control custom-radio custom-control-inline">
                   <input
                     type="checkbox"
@@ -75,7 +92,7 @@ class Claim extends React.Component {
 
                   <span class="custom-control-label">Is Finished</span>
                 </label>
-              </div>
+              </div> */}
             </div>
             <div className="row ">
               <div className="col-xl-4 col-lg-4 col-md-5 ">
@@ -113,7 +130,9 @@ class Claim extends React.Component {
               MESSAGE_STATUS.Accepted ? (
                 <div className="col-xl-3">
                   <label>Accepted By : </label>
-                  {this.props.claim.acceptedAdminUsername}
+                  {`${this.props.claim.acceptedAdmin.firstName} ${
+                    this.props.claim.acceptedAdmin.lastName
+                  }`}
                 </div>
               ) : (
                 ''

@@ -20,7 +20,7 @@ import {
   ACCOUNTS_COLUMNS_LABELS_ARRAY,
   ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY,
 } from '../../../constants/constantData';
-
+import { SERVER } from '../../../constants';
 class AccountsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -38,14 +38,14 @@ class AccountsTable extends React.Component {
         firstName: '',
         lastName: '',
         contractName: '',
-        Email: '',
-        userName: '',
+        email: '',
+        userName: '', //remove
         country: '',
         role: '',
-        subcategory: '',
+        userSubCategory: '',
         job: '',
-        hasOpenClaim: '',
-        accountStatus: '',
+        hasOpenClaim: '', //remove
+        userActivitionStatus: '',
         numberType: '',
         numberValue: '',
       },
@@ -64,7 +64,7 @@ class AccountsTable extends React.Component {
   handleInputChange(event) {
     let state, value;
     if (event.target.type === 'radio') {
-      state = 'accountStatus';
+      state = 'userActivitionStatus';
       value = parseInt(event.target.value);
     } else {
       state = event.target.name;
@@ -87,7 +87,7 @@ class AccountsTable extends React.Component {
         role: '',
         job: '',
         hasOpenClaim: '',
-        accountStatus: '',
+        userActivitionStatus: '',
         numberType: '',
         numberValue: '',
       },
@@ -104,6 +104,7 @@ class AccountsTable extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
+
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -114,7 +115,7 @@ class AccountsTable extends React.Component {
     console.log('search ', credentials);
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3004/getUsers',
+      `${SERVER}/getAllUsers`,
       options,
       response => {
         that.setState({

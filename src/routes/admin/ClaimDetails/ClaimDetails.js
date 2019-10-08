@@ -17,7 +17,7 @@ import Spinner from '../../../components/Admin/Spinner';
 import Claim from '../../../components/Claim';
 import history from '../../../history';
 import s from './ClaimDetails.css';
-
+import { SERVER } from '../../../constants';
 class ClaimDetails extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -25,9 +25,9 @@ class ClaimDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      orderId: this.props.context.params.oid,
-      claimId: this.props.context.params.cid,
+      isLoading: true,
+      customerOrderId: this.props.context.query.orderId,
+      claimId: this.props.context.query.id,
       pageIndex: 1,
       pageSize: 3,
       pageCount: 5,
@@ -40,7 +40,9 @@ class ClaimDetails extends React.Component {
     this.sendClaim = this.sendClaim.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
-
+  componentDidMount() {
+    this.fetchClaims();
+  }
   handleInputChange(id, event) {
     let state, value;
     if (event.target.type === 'radio') {
@@ -60,13 +62,14 @@ class ClaimDetails extends React.Component {
     this.setState({ newClaim: e.target.getContent() });
   }
   fetchClaims() {
-    const url = 'http://localhost:3004/getClaimsOfOrder';
+    console.log('this.props.context.params : ', this.props.context);
+    const url = `${SERVER}/getClaim`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
-      orderId: this.state.orderId,
-      searchBy: 'this.state.claimsSearchFilter',
+      customerOrderId: this.state.customerOrderId,
+      searchBy: this.state.claimsSearchFilter,
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
@@ -83,8 +86,8 @@ class ClaimDetails extends React.Component {
       options,
       response => {
         that.setState({
-          allClaimsOfOrder: response.allCalims,
-          totalPageNum: response.totalPageNumber,
+          allClaimsOfOrder: response,
+          // totalPageNum: response.totalPageNumber,
           isLoading: false,
           firstRender: false,
         });
@@ -96,7 +99,7 @@ class ClaimDetails extends React.Component {
   }
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected });
-    // this.fetchClaims();
+    this.fetchClaims();
   }
   sendClaim() {
     window.alert('send new claim with user id and trigger user id');
@@ -106,20 +109,12 @@ class ClaimDetails extends React.Component {
     console.log('history : ', history.location);
     let claims = <div>Nothing</div>;
     if (
+      !this.state.isLoading &&
       this.state.allClaimsOfOrder !== undefined &&
       this.state.allClaimsOfOrder.length !== 0
     )
       claims = this.state.allClaimsOfOrder.map((claim, i) => (
-        <Claim
-          claim={{
-            senderUsername: 'abbas',
-            isFinished: true,
-            acceptedByAdmin: false,
-            b: 2,
-            messageHtml: '<div><i>hello</i></div>',
-            messageStatus: { value: 1, label: 'Accepted' },
-          }}
-        />
+        <Claim claim={claim} orderId={this.state.customerOrderId} />
       ));
     return (
       <div className="container-fluid dashboard-content">
@@ -130,7 +125,7 @@ class ClaimDetails extends React.Component {
             {/* {} */}
             <div className={s.claimsListContainer}>
               {claims}
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-12">
                   <ReactPaginate
                     previousLabel="<"
@@ -147,7 +142,7 @@ class ClaimDetails extends React.Component {
                     disableInitialCallback
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className={s.rixtContainer}>
               <hr />

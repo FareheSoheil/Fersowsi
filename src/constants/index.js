@@ -23,7 +23,7 @@ const AccountStats = {
 };
 const COOKIE_EXPIRATION = 356;
 const REQUEST_TIMEOUT = 6000;
-const SERVER = 'http://localhost:3004';
+const SERVER = 'http://192.168.43.210:3004';
 const SSRSERVER = 'http://localhost:3000';
 const fetchURL = 'http://localhost:3004/getComments';
 const ROLES = {
@@ -42,6 +42,7 @@ const UserNumbersArray = [
   { value: 'Phone Number', label: 'Phone Number' },
   { value: 'Fax Number', label: 'Fax Number' },
 ];
+const AVATAR = '/assets/images/bitbucket.png';
 export {
   SET_RUNTIME_VARIABLE,
   selectQuery,
@@ -60,4 +61,5 @@ export {
   AccountStats,
   UserTypesArray,
   UserNumbersArray,
+  AVATAR,
 };

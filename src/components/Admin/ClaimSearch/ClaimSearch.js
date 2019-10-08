@@ -17,14 +17,14 @@ class ClaimSearch extends React.Component {
   static propTypes = {
     searchClear: PropTypes.bool.isRequired,
     claimsSearchFilter: {
-      senderFN: PropTypes.string.isRequired,
-      senderLN: PropTypes.string.isRequired,
+      customerFirstName: PropTypes.string.isRequired,
+      senderLastName: PropTypes.string.isRequired,
       senderEmail: PropTypes.string.isRequired,
-      senderUN: PropTypes.string.isRequired,
-      recieverFN: PropTypes.string.isRequired,
-      recieverLN: PropTypes.string.isRequired,
-      recieverEmail: PropTypes.string.isRequired,
-      recieverUN: PropTypes.string.isRequired,
+      // senderUN: PropTypes.string.isRequired,
+      publisherFirstName: PropTypes.string.isRequired,
+      publisherLastName: PropTypes.string.isRequired,
+      publisherEmail: PropTypes.string.isRequired,
+      // publisherUN: PropTypes.string.isRequired,
       isFinished: PropTypes.string.isRequired,
     },
     handleInputChange: PropTypes.func.isRequired,
@@ -102,10 +102,10 @@ class ClaimSearch extends React.Component {
                 </div>
               </div>
               <br />
-              {/* Sender INFO */}
+              {/* customer INFO */}
               <div className="row">
                 <div className="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 advancedSearchLabel">
-                  Sender Information :
+                  customer Information :
                 </div>
               </div>
               <br />
@@ -115,22 +115,24 @@ class ClaimSearch extends React.Component {
                     <div className="row">
                       <div class="col-md-2 col-sm-4 form-group">
                         <input
-                          id="sfn"
-                          name="senderFN"
+                          id="sFirstName"
+                          name="customerFirstName"
                           type="text"
                           placeholder="First Name"
-                          value={this.props.claimsSearchFilter.senderFN}
+                          value={
+                            this.props.claimsSearchFilter.customerFirstName
+                          }
                           class="form-control"
                           onChange={this.props.handleInputChange}
                         />
                       </div>
                       <div class="col-md-2 col-sm-4 form-group">
                         <input
-                          id="sln"
-                          name="senderLN"
+                          id="sLastName"
+                          name="customerLastName"
                           type="text"
                           placeholder="Last Name"
-                          value={this.props.claimsSearchFilter.senderLN}
+                          value={this.props.claimsSearchFilter.customerLastName}
                           class="form-control"
                           onChange={this.props.handleInputChange}
                         />
@@ -139,35 +141,35 @@ class ClaimSearch extends React.Component {
                         <div class="form-group">
                           <input
                             id="semail"
-                            name="senderEmail"
+                            name="customerEmail"
                             type="email"
                             placeholder="Email"
-                            value={this.props.claimsSearchFilter.senderEmail}
+                            value={this.props.claimsSearchFilter.customerEmail}
                             class="form-control"
                             onChange={this.props.handleInputChange}
                           />{' '}
                         </div>
                       </div>
-                      <div class="col-md-2 col-sm-4 form-group">
+                      {/* <div class="col-md-2 col-sm-4 form-group">
                         <input
                           id="sun"
-                          name="senderUN"
+                          name="customerUN"
                           type="text"
                           placeholder="User Name"
-                          value={this.props.claimsSearchFilter.senderUN}
+                          value={this.props.claimsSearchFilter.customerUN}
                           class="form-control"
                           onChange={this.props.handleInputChange}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </form>
                 </div>
               </div>
 
-              {/* Reciever INFO */}
+              {/* publisher INFO */}
               <div className="row">
                 <div className="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 advancedSearchLabel">
-                  Reciever Information :
+                  publisher Information :
                 </div>
               </div>
               <br />
@@ -177,22 +179,26 @@ class ClaimSearch extends React.Component {
                     <div className="row">
                       <div class="col-md-2 col-sm-4 form-group">
                         <input
-                          id="rfn"
-                          name="recieverFN"
+                          id="rFirstName"
+                          name="publisherFirstName"
                           type="text"
                           placeholder="First Name"
-                          value={this.props.claimsSearchFilter.recieverFN}
+                          value={
+                            this.props.claimsSearchFilter.publisherFirstName
+                          }
                           class="form-control"
                           onChange={this.props.handleInputChange}
                         />
                       </div>
                       <div class="col-md-2 col-sm-4 form-group">
                         <input
-                          id="rln"
-                          name="recieverLN"
+                          id="rLastName"
+                          name="publisherLastName"
                           type="text"
                           placeholder="Last Name"
-                          value={this.props.claimsSearchFilter.recieverLN}
+                          value={
+                            this.props.claimsSearchFilter.publisherLastName
+                          }
                           class="form-control"
                           onChange={this.props.handleInputChange}
                         />
@@ -201,26 +207,26 @@ class ClaimSearch extends React.Component {
                         <div class="form-group">
                           <input
                             id="remail"
-                            name="recieverEmail"
+                            name="publisherEmail"
                             type="email"
-                            value={this.props.claimsSearchFilter.recieverEmail}
+                            value={this.props.claimsSearchFilter.publisherEmail}
                             placeholder="Email"
                             class="form-control"
                             onChange={this.props.handleInputChange}
                           />{' '}
                         </div>
                       </div>
-                      <div class="col-md-2 col-sm-4 form-group">
+                      {/* <div class="col-md-2 col-sm-4 form-group">
                         <input
                           id="run"
-                          name="recieverUN"
+                          name="publisherUN"
                           type="text"
                           placeholder="User Name"
-                          value={this.props.claimsSearchFilter.recieverUN}
+                          value={this.props.claimsSearchFilter.publisherUN}
                           class="form-control"
                           onChange={this.props.handleInputChange}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </form>
                 </div>

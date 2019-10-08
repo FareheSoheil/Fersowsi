@@ -135,18 +135,16 @@ const USER_NUMBER_ARRAY = [
 const CLAIMS_COLUMNS_LABELS_ARRAY = [
   'Id',
   'Order Id',
-  'Sender',
-  'Receiver',
-  'Message Status',
-  'Replied to',
+  'Customer',
+  'Publisher',
+  'Is Finished',
 ];
 const CLAIMS_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
   'customerOrderId',
-  'senderUserName',
-  'receiverUserName',
-  'msgStatus',
-  'repliedMsgId',
+  'customerName',
+  'publisherName',
+  'isFinished',
 ];
 const ACCOUNTS_COLUMNS_LABELS_ARRAY = [
   'Avatar',
@@ -221,16 +219,17 @@ const CURRENCIES_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
   'name',
   'usdRatio',
-  'abrr',
+  'abbr',
   'isAutomatic',
 ];
-const SETTING_ITEM_RECORD_ITEM_NAMES = ['id', 'name'];
+const SETTING_ITEM_RECORD_ITEM_NAMES = ['value', 'label'];
 const SETTING_COLUMNS_LABELS_ARRAY = ['Id', 'Name'];
 const OPCODES = {
   checkbox: 1,
   range: 2,
   simple: 3,
 };
+const SERVER = 'http://192.168.43.210:3004';
 export {
   USER_SUBCATEGORY_ARRAY,
   USER_ACTIVITION_STATUS_ARRAY,
@@ -263,4 +262,5 @@ export {
   SETTING_ITEM_RECORD_ITEM_NAMES,
   CURRENCIES_COLUMNS_LABELS_ARRAY,
   CURRENCIES_RECORDE_ITEM_NAMES_ARRAY,
+  SERVER,
 };

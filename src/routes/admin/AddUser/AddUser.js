@@ -14,7 +14,7 @@ import ProfileInfo from '../../../components/Profile/ProfileInfo';
 import ProfileProInfo from '../../../components/Profile/ProfileProInfo';
 import Spinner from '../../../components/Admin/Spinner';
 import s from './AddUser.css';
-
+import { SERVER } from '../../../constants';
 class AddUser extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -80,7 +80,7 @@ class AddUser extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3004/getUserDetails',
+      `${SERVER}/getUserDetails`,
       options,
       response => {
         that.setState({
@@ -162,7 +162,7 @@ class AddUser extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3004/getUserDetails',
+      '${SERVER}/getUserDetails',
       options,
       response => {
         that.setState({

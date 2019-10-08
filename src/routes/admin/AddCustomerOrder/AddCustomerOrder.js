@@ -10,6 +10,7 @@ import {
   PAYMENT_STATUS_ARRAY,
   CUSTOMER_ORDER_STATUS_ARRAY,
 } from '../../../constants/constantData';
+import { SERVER } from '../../../constants';
 class AddCustomerOrder extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +57,7 @@ class AddCustomerOrder extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3004/getUserDetails',
+      `${SERVER}/getUserDetails`,
       options,
       response => {
         that.setState({

@@ -13,16 +13,21 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ProfileInfo from '../../../components/Profile/ProfileInfo';
 import ProfileProInfo from '../../../components/Profile/ProfileProInfo';
 import Spinner from '../../../components/Admin/Spinner';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import s from './ProfileDetail.css';
+import { SERVER, AVATAR } from '../../../constants';
 
 class ProfileDetail extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
   };
+
   constructor(props) {
     super(props);
+    console.log('context', this.props.context);
     this.state = {
-      isLoading: false,
+      isLoading: true,
+      id: this.props.context.params.id,
       user: {
         firstName: '',
         lastName: '',
@@ -38,7 +43,7 @@ class ProfileDetail extends React.Component {
         psn: '',
         discount: '',
         emailConfirmed: true,
-        profilePic: '/assets/images/bitbucket.png',
+        profilePic: AVATAR,
         bio: '', //
         claims: '',
         createdAt: '',
@@ -47,8 +52,8 @@ class ProfileDetail extends React.Component {
         // pro info
         role: {
           //
-          value: 'id of the  role',
-          label: 'name of the role (string)',
+          value: '',
+          label: '',
         },
         country: {
           //
@@ -61,12 +66,12 @@ class ProfileDetail extends React.Component {
           value: '',
           label: '',
         },
-        subCategory: {
+        userSubCategory: {
           //
           value: '',
           label: '',
         },
-        activitionStatus: {
+        userActivitionStatus: {
           //
           value: '',
           label: '',
@@ -94,9 +99,13 @@ class ProfileDetail extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
+  componentDidMount() {
+    this.fetchAllInfo();
+    this.fetchUser();
+  }
   // TO DO
   fetchUser() {
-    const url = fetchURL;
+    const url = `${SERVER}/getUser`;
     this.setState({
       isLoading: true,
     });
@@ -112,9 +121,10 @@ class ProfileDetail extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3004/getUserDetails',
+      url,
       options,
       response => {
+        console.log('claims:', response.user.claims);
         that.setState({
           user: response.user,
           isLoading: false,
@@ -126,7 +136,7 @@ class ProfileDetail extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAuxInfoForAll`;
     this.setState({
       isLoading: true,
     });
@@ -147,10 +157,11 @@ class ProfileDetail extends React.Component {
       options,
       response => {
         that.setState({
-          countries: response.countries,
-          siteLanguage: response.siteLanguage,
-          jobs: response.jobs,
-          currencies: response.currencies,
+          countries: response.Country,
+          siteLanguage: response.SiteLanguage,
+          jobs: response.Job,
+          currencies: response.Currency,
+          isLoading: false,
         });
       },
       error => {
@@ -186,7 +197,7 @@ class ProfileDetail extends React.Component {
   onAct() {
     window.alert('send act ajax with this user id and current userId');
   }
-  componentDidMount() {}
+  // componentDidMount() {}
   render() {
     // console.log('history : ', history);
     return (
@@ -238,7 +249,10 @@ class ProfileDetail extends React.Component {
                     psn: this.state.user.psn,
                     discount: this.state.user.discount,
                     emailConfirmed: this.state.user.emailConfirmed,
-                    profilePic: this.state.user.profilePic,
+                    profilePic:
+                      this.state.user.profilePic === null
+                        ? AVATAR
+                        : this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
                   handleSimpleInputChange={this.onChangeInput}
@@ -250,8 +264,8 @@ class ProfileDetail extends React.Component {
                     role: this.state.user.role,
                     country: this.state.user.country,
                     currency: this.state.user.currency,
-                    subCategory: this.state.user.subCategory,
-                    activitionStatus: this.state.user.activitionStatus,
+                    subCategory: this.state.user.userSubCategory,
+                    activitionStatus: this.state.user.userActivitionStatus,
                     siteLanguage: this.state.user.siteLanguage,
                     job: this.state.user.job,
                     homepage: this.state.user.homepage,
@@ -263,32 +277,7 @@ class ProfileDetail extends React.Component {
                     emailConfirmed: this.state.user.emailConfirmed,
                     profilePic: this.state.user.profilePic,
                     bio: this.state.user.bio,
-                    claims: [
-                      {
-                        id: 'Product1',
-                        senderUserName: 'id22222',
-                        receiverUserName: 'farehe1',
-                        repliedMSGId: '3000',
-                        msgStatus: 'sd',
-                        status: 'pending',
-                      },
-                      {
-                        id: 'Product2',
-                        senderUserName: 'id22222',
-                        receiverUserName: 'farehe2',
-                        repliedMsgId: '300tt',
-                        msgStatus: 'ef',
-                        status: 'rej',
-                      },
-                      {
-                        id: 'Product3',
-                        senderUserName: 'id22222',
-                        receiverUserName: 'farehe3',
-                        repliedMSGId: '7ujfh65',
-                        msgStatus: 'e',
-                        status: 'acc',
-                      },
-                    ],
+                    claims: this.state.user.claims,
                     handleSimpleInputChange: this.onChangeInput,
                     handleDateInputChange: this.handleDateChange,
                   }}

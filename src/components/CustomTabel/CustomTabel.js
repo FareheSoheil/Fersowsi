@@ -49,6 +49,18 @@ class CustomTabel extends React.Component {
                     height="50"
                   />
                 </td>
+              ) : record[label] === false ? (
+                <td>
+                  <i
+                    style={{ color: 'red' }}
+                    class="fa fa-times"
+                    aria-hidden="true"
+                  />
+                </td>
+              ) : record[label] === true ? (
+                <td>
+                  <i style={{ color: 'green' }} class="fas fa-check" />
+                </td>
               ) : (
                 <td>{record[label]}</td>
               ),
@@ -72,7 +84,6 @@ class CustomTabel extends React.Component {
 
     return (
       <div>
-        {/* <h4 className="card-header">{this.props.title}</h4> */}
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" />
           {toDisplay}

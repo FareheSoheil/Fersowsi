@@ -11,6 +11,7 @@ import {
   SINGLE_PRODUCT_TYPE_ARRAY,
   PRODUCT_STATUS_ARRAY,
 } from '../../../constants/constantData';
+import { SERVER } from '../../../constants';
 class AddProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -67,7 +68,7 @@ class AddProduct extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      'http://localhost:3004/getUserDetails',
+      `${SERVER}/getUserDetails`,
       options,
       response => {
         that.setState({

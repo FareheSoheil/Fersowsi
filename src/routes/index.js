@@ -154,9 +154,9 @@ const routes = {
                 import(/* webpackChunkName: 'adminProductContentTypes' */ './admin/Settings/ProductContentTypes'),
             },
             {
-              path: '/productCategories',
+              path: '/currencies',
               load: () =>
-                import(/* webpackChunkName: 'adminProductCategories' */ './admin/Settings/ProductCategories'),
+                import(/* webpackChunkName: 'adminCurrencies' */ './admin/Currencies'),
             },
             {
               path: '/jobs',

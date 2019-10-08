@@ -5,6 +5,7 @@ import SettingItem from '../../../../components/SettingItem';
 import {
   SETTING_COLUMNS_LABELS_ARRAY,
   SETTING_ITEM_RECORD_ITEM_NAMES,
+  SERVER,
 } from '../../../../constants/constantData';
 class Jobs extends React.Component {
   static propTypes = {
@@ -14,7 +15,8 @@ class Jobs extends React.Component {
   render() {
     return (
       <SettingItem
-        fetchUrl="PropTypes.string.isRequired"
+        fetchUrl={`${SERVER}/getAuxInfoForAll`}
+        type="Job"
         editUrl="PropTypes.string.isRequired"
         addUrl="PropTypes.string.isRequired"
         cardTitle="Jobs"

@@ -4,6 +4,7 @@ import SettingItem from '../../../../components/SettingItem';
 import {
   SETTING_COLUMNS_LABELS_ARRAY,
   SETTING_ITEM_RECORD_ITEM_NAMES,
+  SERVER,
 } from '../../../../constants/constantData';
 class ProductContentTypes extends React.Component {
   static propTypes = {
@@ -13,7 +14,8 @@ class ProductContentTypes extends React.Component {
   render() {
     return (
       <SettingItem
-        fetchUrl="PropTypes.string.isRequired"
+        fetchUrl={`${SERVER}/getAuxInfoForAll`}
+        type="ProductContentType"
         editUrl="PropTypes.string.isRequired"
         addUrl="PropTypes.string.isRequired"
         cardTitle="Product Content Types"

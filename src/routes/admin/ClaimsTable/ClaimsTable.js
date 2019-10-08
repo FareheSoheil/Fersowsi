@@ -13,7 +13,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 import history from '../../../history';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import { fetchURL, SERVER } from '../../../constants';
+// import { fetchURL, SERVER } from '../../../constants';
 import s from './ClaimsTable.css';
 import Spinner from '../../../components/Admin/Spinner';
 import CustomTable from '../../../components/CustomTabel';
@@ -21,27 +21,27 @@ import ClaimSearch from '../../../components/Admin/ClaimSearch';
 import {
   CLAIMS_COLUMNS_LABELS_ARRAY,
   CLAIMS_RECORDE_ITEM_NAMES_ARRAY,
+  SERVER,
 } from '../../../constants/constantData';
 
 class ClaimsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      isLoading: false,
       firstRender: true,
       pageIndex: 0,
+      pageSize: 15,
       totalPageNum: '',
       currentClaims: '',
       searchClear: true,
       claimsSearchFilter: {
-        senderFN: '',
-        senderLN: '',
-        senderEmail: '',
-        senderUN: '',
-        recieverFN: '',
-        recieverLN: '',
-        recieverEmail: '',
-        recieverUN: '',
+        customerFirstName: '',
+        customerLastName: '',
+        customerEmail: '',
+        publisherFirstName: '',
+        publisherLastName: '',
+        publisherEmail: '',
         isFinished: '',
       },
     };
@@ -70,27 +70,26 @@ class ClaimsTable extends React.Component {
   clearFilters() {
     this.setState({
       claimsSearchFilter: {
-        senderFN: '',
-        senderLN: '',
-        senderEmail: '',
-        senderUN: '',
-        recieverFN: '',
-        recieverLN: '',
-        recieverEmail: '',
-        recieverUN: '',
+        customerFirstName: '',
+        customerLastName: '',
+        customerEmail: '',
+        publisherFirstName: '',
+        publisherLastName: '',
+        publisherEmail: '',
         isFinished: '',
       },
       searchClear: true,
     });
   }
   fetchClaims() {
-    const url = fetchURL;
+    const url = `${SERVER}/getAllClaims`;
     this.setState({
-      isLoading: true,
+      // isLoading: true,
     });
     const credentials = {
       searchBy: this.state.claimsSearchFilter,
       pageIndex: this.state.pageIndex,
+      pageSize: this.state.pageSize,
     };
     const options = {
       method: 'POST',
@@ -149,7 +148,7 @@ class ClaimsTable extends React.Component {
                     />
                     <hr />
                     <CustomTable
-                      pageCount={20}
+                      pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentClaims}
                       columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}

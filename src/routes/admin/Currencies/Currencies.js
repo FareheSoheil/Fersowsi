@@ -7,6 +7,7 @@ import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import {
   CURRENCIES_COLUMNS_LABELS_ARRAY,
   CURRENCIES_RECORDE_ITEM_NAMES_ARRAY,
+  SERVER,
 } from '../../../constants/constantData';
 import s from './Currencies.css';
 class Countries extends React.Component {
@@ -39,7 +40,7 @@ class Countries extends React.Component {
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
   }
   componentDidMount() {
-    // this.fetchCurrencies();
+    this.fetchCurrencies();
   }
   onInputChange(event, number, label) {
     let records = this.state.currentCurrencies;
@@ -85,7 +86,7 @@ class Countries extends React.Component {
     );
   }
   fetchCurrencies() {
-    const url = 'fetchURL';
+    const url = `${SERVER}/getAllCurrencies`;
     this.setState({
       isLoading: true,
     });
