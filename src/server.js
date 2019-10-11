@@ -155,6 +155,7 @@ app.get('*', async (req, res, next) => {
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
+    console.log('store : ', store.getState());
     store.dispatch(
       setRuntimeVariable({
         name: 'initialNow',
@@ -269,7 +270,6 @@ app.post('/login', (req, res, next) => {
     role: 'Admin',
     name: 'فارهه',
     lastName: 'سهیل',
-    error: 'Nothing',
   };
 
   res.send(data);

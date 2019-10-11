@@ -187,8 +187,18 @@ const routes = {
         },
         {
           path: '/address',
-          load: () =>
-            import(/* webpackChunkName: 'userAddressBook' */ './user/AddressBook'),
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'userAddressBook' */ './user/AddressBook'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'userAddressDetail' */ './user/AddressDetail'),
+            },
+          ],
         },
       ],
     },

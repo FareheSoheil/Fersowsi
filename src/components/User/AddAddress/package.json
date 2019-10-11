@@ -1,0 +1,7 @@
+{
+    "name": "AddAddress",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./AddAddress.js"
+  }
+  

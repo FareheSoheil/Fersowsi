@@ -229,7 +229,7 @@ const OPCODES = {
   range: 2,
   simple: 3,
 };
-const SERVER = 'http://192.168.43.210:3004';
+const SERVER = 'http://localhost:3000';
 export {
   USER_SUBCATEGORY_ARRAY,
   USER_ACTIVITION_STATUS_ARRAY,

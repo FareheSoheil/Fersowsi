@@ -76,12 +76,11 @@ class AccountsTable extends React.Component {
     this.setState({ accountsSearchFilter, searchClear: false });
   }
   clearFilters() {
-    // localStorage.removeItem('accountsSearchFilter');
     this.setState({
       accountsSearchFilter: {
         firstName: '',
         lastName: '',
-        Email: '',
+        email: '',
         userName: '',
         country: '',
         role: '',
@@ -95,7 +94,6 @@ class AccountsTable extends React.Component {
     });
   }
   fetchAccounts() {
-    const url = fetchURL;
     this.setState({
       isLoading: true,
     });
@@ -115,7 +113,7 @@ class AccountsTable extends React.Component {
     console.log('search ', credentials);
     const that = this;
     fetchWithTimeOut(
-      `${SERVER}/getAllUsers`,
+      `${SERVER}/getUsers`,
       options,
       response => {
         that.setState({
@@ -159,8 +157,9 @@ class AccountsTable extends React.Component {
     );
   }
   handlePageChange(pageIndex) {
-    this.setState({ pageIndex: pageIndex.selected });
-    this.fetchAccounts();
+    this.setState({ pageIndex: pageIndex.selected }, () => {
+      this.fetchAccounts();
+    });
   }
   handleSelectChange = (selectedOption, op) => {
     let accountsSearchFilter = { ...this.state.accountsSearchFilter };

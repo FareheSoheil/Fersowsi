@@ -1,18 +1,14 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
-import ReactPaginate from 'react-paginate';
 import s from './Table.css';
 
 class Table extends React.Component {
   static propTypes = {
-    pageCount: PropTypes.number.isRequired,
-    currentPageNumber: PropTypes.number.isRequired,
     records: PropTypes.array.isRequired,
     columnLabels: PropTypes.array.isRequired,
     recordItemNames: PropTypes.array.isRequired,
     onRecordClick: PropTypes.func.isRequired,
-    handlePageChange: PropTypes.func.isRequired,
   };
 
   render() {
@@ -24,14 +20,9 @@ class Table extends React.Component {
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
-        // onClick={() =>
-        //   this.commentDetails(comment.productName, comment.text)
-        // }
-        // class="btn btn-primary"
-
-        // onClick={() => {
-        //   this.props.onRecordClick(record.id, record.customerOrderId);
-        // }}
+          onClick={() => {
+            this.props.onRecordClick(record.id, record.customerOrderId);
+          }}
         >
           {this.props.recordItemNames.map(
             label =>
@@ -68,23 +59,6 @@ class Table extends React.Component {
           {toDisplay}
         </div>
         {/* Pagination */}
-        <div className="row">
-          <div className="col-5">
-            <ReactPaginate
-              previousLabel="<"
-              nextLabel=">"
-              pageCount={this.props.pageCount}
-              pageRangeDisplayed={3}
-              onPageChange={this.props.handlePageChange}
-              containerClassName="user-paginate"
-              subContainerClassName="user-pages user-paginate"
-              activeClassName="user-active-page"
-              breakClassName="break-me"
-              initialPage={this.props.currentPageNumber}
-              disableInitialCallback
-            />
-          </div>
-        </div>
       </div>
     );
   }

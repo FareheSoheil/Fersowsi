@@ -63,8 +63,8 @@ class Login extends React.Component {
       loginURL,
       loginOptions,
       data => {
-        window.alert(JSON.stringify(data));
         if (data.error === undefined) {
+          window.alert(JSON.stringify(data));
           const setStateURL = `${SSRSERVER}/state/setState`;
           const setStateOptions = {
             method: 'POST',

@@ -4,6 +4,27 @@ import s from './Header.css';
 import Link from '../../Link';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.drop = this.drop.bind(this);
+  }
+  componentDidMount() {
+    window.onclick = function(event) {
+      if (!event.target.matches('.userdropbtn')) {
+        var dropdowns = document.getElementsByClassName('userdropdown-content');
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('usershow')) {
+            openDropdown.classList.remove('usershow');
+          }
+        }
+      }
+    };
+  }
+  drop(id) {
+    document.getElementById(id).classList.toggle('usershow');
+  }
   render() {
     return (
       <nav
@@ -51,9 +72,43 @@ class Header extends React.Component {
           <div className={s.headerIconContainer}>
             {' '}
             <input type="text" />
-            <i class="fas fa-search" />
-            <i class="fa fa-globe" aria-hidden="true" />
-            <i class="far fa-user" />
+            <div class="userdropdown">
+              <button class="userdropbtn">
+                <i
+                  onClick={() => {
+                    this.drop('userDropDown');
+                  }}
+                  class="far fa-user userdropbtn"
+                />
+              </button>
+              <div id="userDropDown" class="userdropdown-content">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+              </div>
+            </div>
+            <div class="userdropdown">
+              <button class="userdropbtn">
+                <i
+                  onClick={() => {
+                    this.drop('globeDropDown');
+                  }}
+                  class="fa fa-globe userdropbtn"
+                />
+              </button>
+              <div id="globeDropDown" class="userdropdown-content">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+              </div>
+            </div>
+            <i
+              onClick={() => {
+                window.alert('hi');
+              }}
+              class="fas fa-search"
+            />
+            {/* <i class="fa fa-globe" aria-hidden="true" /> */}
           </div>
         </div>
       </nav>

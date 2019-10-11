@@ -13,27 +13,36 @@ class ContentHeader extends React.Component {
     hasDesc: PropTypes.bool.isRequired,
     description: PropTypes.string,
   };
+
   render() {
     return (
       <div className={`container-fluid ${s.container}`}>
         <div className="row">
-          <div className="col-xl-8 col-lg-8 col-md-4 col-sm-4">
+          <div className={`${s.title} col-xl-8 col-lg-8 col-md-4 col-sm-4`}>
             {this.props.title}
           </div>
-          <div className={`col-xl-4 col-lg-4 col-md-8 col-sm-8 ${s.sortLabel}`}>
-            <div className="row">
-              {' '}
-              <div className={`col-xl-4 ${s.label}`}>
-                <span>Sort By :</span>
-              </div>
-              <div className="col-xl-7">
-                <Select
-                  options={this.props.sortOptions}
-                  onChange={this.props.onSortFunc}
-                />
+          {this.props.hasSort ? (
+            <div
+              className={`col-xl-4 col-lg-4 col-md-8 col-sm-8 ${s.sortLabel}`}
+            >
+              <div className="row">
+                {' '}
+                <div className={`col-xl-4 ${s.label}`}>
+                  <span>Sort By :</span>
+                </div>
+                <div className="col-xl-7">
+                  <Select
+                    options={this.props.sortOptions}
+                    onChange={so => {
+                      this.props.onSortFunc(so, 'sortBy');
+                    }}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            ''
+          )}
         </div>
         {this.props.hasDesc ? (
           <div className="row">
