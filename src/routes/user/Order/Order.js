@@ -5,16 +5,16 @@ import ContentHeader from '../../../components/User/ContentHeader';
 import AddAddress from '../../../components/User/AddAddress';
 import Table from '../../../components/User/Table';
 import Spinner from '../../../components/User/Spinner';
-import s from './AddressBook.css';
+import s from './Order.css';
 import {
-  ADDRESS_TABLE_LABELS,
-  ADDRESS_RECORD_ITEMS,
-  ADDRESS_SORT_OPTION,
+  ORDER_RECORD_ITEMS,
+  ORDER_TABLE_LABELS,
   SERVER,
+  ORDER_SORT_OPTION,
 } from '../constants';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
-class AddressBook extends React.Component {
+class Order extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,62 +22,44 @@ class AddressBook extends React.Component {
       pageIndex: 0,
       pageSize: 15,
       totalPageNum: 15,
-      sortBy: { value: 1, label: 'Country' },
-      addresses: [
-        {
-          id: 1,
-          detailAddress:
-            'asjkdas;lkdas;kljm;ojernfmsakdjwqeifowemfngo;jfnasojfnoflmsejnpwfnwrjg;nm',
-          province: 'Mazandaran',
-          country: 'iran',
-          zipCode: '+98',
-          city: 'sari',
-        },
-        {
-          id: 2,
-          detailAddress:
-            'asjkdas;lkdasksldjfsdfhawluifhWYEFGSBDKQYUFGBldiysbxqiyfgdlbkxnelif;kljm;ojernfmsakdjwqeifowemfngo;jfnasojfnoflmsejnpwfnwrjg;nm',
-          province: 'Tehran',
-          country: 'iran',
-          zipCode: '+98',
-          city: 'Karaj',
-        },
+      // sortBy: { value: 1, label: 'Country' },
+      orders: [
+        { id: 1, address1: 2 },
         { id: 1, address1: 2 },
         { id: 1, address1: 2 },
         { id: 1, address1: 2 },
         { id: 1, address1: 2 },
         { id: 1, address1: 2 },
       ],
-      allCountries: [],
+      // allCountries: [],
     };
-    this.fetchAddresses = this.fetchAddresses.bind(this);
+    this.fetchOrders = this.fetchOrders.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
   componentDidMount() {
-    // this.fetchAddresses();
+    // this.fetchorders();
   }
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
-      this.fetchAddresses();
+      this.fetchOrders();
     });
   }
-  onAddressClick(id) {
-    history.push(`/user/address/${id}`);
+  onOrderClick(id) {
+    history.push(`/user/order/${id}`);
   }
   handleSelectChange = (selectedOption, op) => {
-    window.alert('op');
     this.setState(
       {
         [op]: selectedOption,
       },
       () => {
-        this.fetchAddresses();
+        this.fetchOrders();
       },
     );
   };
-  fetchAddresses() {
-    const url = `${SERVER}/getAllAddresses`;
+  fetchOrders() {
+    const url = `${SERVER}/getAllOrders`;
     const credentials = {
       pageIndex: this.state.name,
       pageSize: this.state.password,
@@ -98,8 +80,7 @@ class AddressBook extends React.Component {
       response => {
         if (response.error === undefined) {
           that.setState({
-            addresses: response.currentRecords,
-            allCountries: response.allCountries,
+            order: response.currentRecords,
             totalPageNum: response.totalPageNum,
             isLoading: false,
           });
@@ -122,37 +103,18 @@ class AddressBook extends React.Component {
         ) : (
           <div>
             <ContentHeader
-              title="Address List"
+              title="Order List"
               hasSort={true}
               onSortFunc={this.handleSelectChange}
-              sortOptions={ADDRESS_SORT_OPTION}
+              sortOptions={ORDER_SORT_OPTION}
             />
             <Table
-              onRecordClick={this.onAddressClick}
-              columnLabels={ADDRESS_TABLE_LABELS}
-              records={this.state.addresses}
-              recordItemNames={ADDRESS_RECORD_ITEMS}
+              onRecordClick={this.onOrderClick}
+              columnLabels={ORDER_TABLE_LABELS}
+              records={this.state.orders}
+              recordItemNames={ORDER_RECORD_ITEMS}
             />
-            <div className="row">
-              <div className="offset-xl-1 col-xl-3">
-                {' '}
-                <button
-                  data-toggle="modal"
-                  data-target="#addressModal"
-                  className={`btn ${s.addBtn}`}
-                >
-                  Add Address
-                </button>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                <AddAddress
-                  countries={this.state.allCountries}
-                  newAddress={this.state.newAddress}
-                />
-              </div>
-            </div>
+
             <div className="row">
               <div className="offset-xl-7 col-5 ">
                 <ReactPaginate
@@ -176,4 +138,4 @@ class AddressBook extends React.Component {
     );
   }
 }
-export default withStyles(s)(AddressBook);
+export default withStyles(s)(Order);

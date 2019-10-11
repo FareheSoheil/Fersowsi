@@ -1,0 +1,7 @@
+{
+    "name": "AddClaim",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./AddClaim.js"
+  }
+  

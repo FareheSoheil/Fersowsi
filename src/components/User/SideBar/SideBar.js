@@ -12,13 +12,13 @@ class SideBar extends React.Component {
       <div class={s.usersidebar}>
         <a onClick={() => this.goTo('/user/myAccount')}>My Account</a>
         <a onClick={() => this.goTo('/user/myAccount')}>Your Profile</a>
-        <a onClick={() => this.goTo('/user/myAccount')}>Order</a>
+        <a onClick={() => this.goTo('/user/order')}>Order</a>
         <a onClick={() => this.goTo('/user/address')}>Address Book</a>
-        <a onClick={() => this.goTo('/user/myAccount')}>Wishlist</a>
-        <a onClick={() => this.goTo('/user/myAccount')}>Claim</a>
-        <a onClick={() => this.goTo('/user/myAccount')}>Request</a>
+        <a onClick={() => this.goTo('/user/wishlist')}>Wishlist</a>
+        <a onClick={() => this.goTo('/user/claim')}>Claim</a>
+        {/* <a onClick={() => this.goTo('/user/myAccount')}>Request</a>
         <a onClick={() => this.goTo('/user/myAccount')}>Reviews</a>
-        <a onClick={() => this.goTo('/user/myAccount')}>Prefrences</a>
+        <a onClick={() => this.goTo('/user/myAccount')}>Prefrences</a> */}
       </div>
     );
   }

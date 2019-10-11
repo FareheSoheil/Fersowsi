@@ -14,16 +14,6 @@ class RichText extends React.Component {
     super(props);
   }
 
-  imagesUploadHandler(image, successFunction, failureFunction) {
-    // failure('failed');
-    setTimeout(function() {
-      /* no matter what you u pload, we will turn it into TinyMCE logo :)*/
-
-      successFunction(
-        'data:' + image.blob().type + ';base64,' + image.base64(),
-      );
-    }, 2000);
-  }
   render() {
     return (
       <TinyEditor
@@ -37,8 +27,13 @@ class RichText extends React.Component {
           image_advtab: true,
           images_upload_url: './index.js',
 
-          images_upload_handler: (blobInfo, success, failure) =>
-            imagesUploadHandler(blobInfo, success, failure),
+          images_upload_handler: (blobInfo, success, failure) => {
+            setTimeout(function() {
+              success(
+                'data:' + blobInfo.blob().type + ';base64,' + blobInfo.base64(),
+              );
+            }, 2000);
+          },
           paste_data_images: true,
           image_title: true,
           automatic_uploads: true,

@@ -25,19 +25,7 @@ class Table extends React.Component {
           }}
         >
           {this.props.recordItemNames.map(
-            label =>
-              label === 'profilePic' ? (
-                <td>
-                  <img
-                    class={s.profilePicContiner}
-                    src={record[label]}
-                    width="50"
-                    height="50"
-                  />
-                </td>
-              ) : (
-                <td>{record[label]}</td>
-              ),
+            label => (label !== 'id' ? <td>{record[label]}</td> : ''),
           )}
         </tr>
       ));

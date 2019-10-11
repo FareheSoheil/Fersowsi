@@ -200,6 +200,36 @@ const routes = {
             },
           ],
         },
+        {
+          path: '/order',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'userOrder' */ './user/Order'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'userOrderDetails' */ './user/Order/OrderDetails'),
+            },
+          ],
+        },
+        {
+          path: '/claim',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'userClaim' */ './user/Claim'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'userClaimDetails' */ './user/Claim/ClaimDetails'),
+            },
+          ],
+        },
       ],
     },
     {

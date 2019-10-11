@@ -33,7 +33,7 @@ class ClaimsTable extends React.Component {
       pageIndex: 0,
       pageSize: 15,
       totalPageNum: '',
-      currentClaims: '',
+      currentClaims: [{ a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
       claimsSearchFilter: {
         customerFirstName: '',
