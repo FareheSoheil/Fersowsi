@@ -1,5 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 
+const PRODUCT_SORT_OPTIONS = [
+  { value: 1, label: 'Weight' },
+  { value: 2, label: 'Date' },
+  { value: 3, label: 'Privce' },
+];
 const USER_SUBCATEGORY_ARRAY = [
   { id: 1, value: 1, name: 'Library', label: 'Library' },
   { id: 2, value: 2, name: 'Government', label: 'Government' },
@@ -230,6 +235,7 @@ const OPCODES = {
   simple: 3,
 };
 const SERVER = 'http://localhost:3000';
+
 export {
   USER_SUBCATEGORY_ARRAY,
   USER_ACTIVITION_STATUS_ARRAY,
@@ -263,4 +269,5 @@ export {
   CURRENCIES_COLUMNS_LABELS_ARRAY,
   CURRENCIES_RECORDE_ITEM_NAMES_ARRAY,
   SERVER,
+  PRODUCT_SORT_OPTIONS,
 };

@@ -4816,6 +4816,11 @@ inquirer@3.3.0, inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
+intl@^1.2:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
+  integrity sha1-giRKIZDE5Bn4Nx9ao02qNCDiq94=
+
 invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -6501,6 +6506,11 @@ moment-timezone@^0.5.14:
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
 
+moment@^2.22.1:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -8184,6 +8194,15 @@ react-hot-loader@^3.0.0-beta.6:
     redbox-react "^1.3.6"
     source-map "^0.6.1"
 
+react-i18nify@^1.11.8:
+  version "1.11.18"
+  resolved "https://registry.yarnpkg.com/react-i18nify/-/react-i18nify-1.11.18.tgz#8ac56b83ac493e7230bdeafb8b94d5016ba6d3e9"
+  integrity sha512-flSSBzMI2gvJvCC+byP6Cl7vtyUsNH88VxjyER4zj8Fdl5rsLmXoJ9K4kNz8A6JUTmdFMWbTIp6aPXVIEbpE8w==
+  dependencies:
+    intl "^1.2"
+    moment "^2.22.1"
+    prop-types "^15.6.1"
+
 react-images-upload@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/react-images-upload/-/react-images-upload-1.2.7.tgz#cae9037cdd4db1ae07e7814aa101826af3dd0f83"
@@ -8305,6 +8324,13 @@ react-proxy@^3.0.0-alpha.0:
   integrity sha1-RABCa8+oDKpnJMd1VpUxUgn6Swc=
   dependencies:
     lodash "^4.6.1"
+
+react-redux-i18n@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/react-redux-i18n/-/react-redux-i18n-1.9.3.tgz#c3bd2c83e99d939c78a35e00df16a85b851f6315"
+  integrity sha1-w70sg+mdk5x4o14A3xaoW4UfYxU=
+  dependencies:
+    react-i18nify "^1.11.8"
 
 react-redux-toastr@^7.5.1:
   version "7.5.1"
@@ -9429,10 +9455,19 @@ sql-template-strings@^2.2.2:
   resolved "https://registry.yarnpkg.com/sql-template-strings/-/sql-template-strings-2.2.2.tgz#3f11508a25addfce217a3042a9d300c3193b96ff"
   integrity sha1-PxFQiiWt384hejBCqdMAwxk7lv8=
 
-sqlite3@^4.0.0, sqlite3@^4.0.9:
+sqlite3@^4.0.0:
   version "4.0.9"
   resolved "https://registry.yarnpkg.com/sqlite3/-/sqlite3-4.0.9.tgz#cff74550fa5a1159956815400bdef69245557640"
   integrity sha512-IkvzjmsWQl9BuBiM4xKpl5X8WCR4w0AeJHRdobCdXZ8dT/lNc1XS6WqvY35N6+YzIIgzSBeY5prdFObID9F9tA==
+  dependencies:
+    nan "^2.12.1"
+    node-pre-gyp "^0.11.0"
+    request "^2.87.0"
+
+sqlite3@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/sqlite3/-/sqlite3-4.1.0.tgz#e051fb9c133be15726322a69e2e37ec560368380"
+  integrity sha512-RvqoKxq+8pDHsJo7aXxsFR18i+dU2Wp5o12qAJOV5LNcDt+fgJsc2QKKg3sIRfXrN9ZjzY1T7SNe/DFVqAXjaw==
   dependencies:
     nan "^2.12.1"
     node-pre-gyp "^0.11.0"

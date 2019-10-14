@@ -32,9 +32,10 @@ class Header extends React.Component {
           s.userHeaderContainer
         }`}
       >
-        <a class={`${s.UserNavBrand} navbar-brand`} href="#">
+        <img height="50" width="80" src="/assets/images/dropbox.png" />
+        {/* <a class={`${s.UserNavBrand} navbar-brand`} href="#">
           FERDOSI
-        </a>
+        </a> */}
         <button
           class="navbar-toggler"
           type="button"
@@ -49,10 +50,16 @@ class Header extends React.Component {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                Category <span class="sr-only">(current)</span>
+              <a class="nav-link " href="user/products">
+                Products
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Category
+              </a>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="#">
                 Services

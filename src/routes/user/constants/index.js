@@ -1,4 +1,9 @@
 const SERVER = 'https://localhost:3000';
+const OPCODES = {
+  checkbox: 1,
+  range: 2,
+  simple: 3,
+};
 const ADDRESS_TABLE_LABELS = [
   'Address',
   'Province',
@@ -71,4 +76,5 @@ export {
   CLAIMS_TABLE_LABELS,
   MESSAGE_STATUS,
   MESSAGE_STATUS_ARRAY,
+  OPCODES,
 };

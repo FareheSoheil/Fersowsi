@@ -1,0 +1,52 @@
+.container {
+    margin-top:3px;
+    margin-bottom:3px;
+    border: 1px solid pink;
+    min-height: 230px;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+    cursor: pointer;
+    /* border: none; */
+    /* margin-left: 5px; */
+}
+.title {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 20px;
+    color: blue;
+}
+.description {
+        padding-top:10px;
+        padding-bottom:10px;
+        color: rgb(145, 144, 144);
+}
+.imgContainer {
+    width: 144px;
+    border: 2px solid gray;
+    border-radius: 3px;
+    height: 184px;
+}
+.wishContainer {
+    vertical-align: middle;
+    font-size: 30px;
+    color: gray;
+    padding-left: 5px;
+    padding-top: 60px;
+    height: 100%;
+
+}
+.wishContainer i {
+    border: 1px solid rgb(207, 204, 204);
+    border-radius: 5px;
+    padding: 6px;
+    background-color: rgb(207, 204, 204);
+}
+.wishContainer i:hover {
+    color: red;
+    cursor: pointer;
+}
+.isWished {
+    color: red;
+}

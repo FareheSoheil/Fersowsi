@@ -1,6 +1,8 @@
 .userContentContainer {
-
-    border: 2px solid blue;
+background-color: #f9f6f6;
+    /* border: 2px solid blue; */
+    padding: 20px;
+    padding-top: 60px;
     position: relative;
     left: 0;
     min-height: 570px !important;
