@@ -191,6 +191,11 @@ const routes = {
             import(/* webpackChunkName: 'userProducts' */ './user/Products'),
         },
         {
+          path: '/wishlist',
+          load: () =>
+            import(/* webpackChunkName: 'userWishlist' */ './user/Wishlist'),
+        },
+        {
           path: '/address',
           children: [
             {

@@ -1,0 +1,16 @@
+.addressContainer {
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    padding: 30px 50px 10px 80px;
+    background-color: #ebebeb;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 300px;
+    color: rgb(65, 64, 64);
+    font-size: 15px;
+}
+.addBtn {
+    background-color: blue;
+    cursor: pointer;
+}

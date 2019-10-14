@@ -1,7 +1,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
-import Link from '../../Link';
+import history from '../../../history';
 
 class Header extends React.Component {
   constructor(props) {
@@ -21,6 +21,9 @@ class Header extends React.Component {
         }
       }
     };
+  }
+  goTo(url) {
+    history.push(url);
   }
   drop(id) {
     document.getElementById(id).classList.toggle('usershow');
@@ -50,7 +53,7 @@ class Header extends React.Component {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link " href="user/products">
+              <a class="nav-link" onClick={() => this.goTo('/user/products')}>
                 Products
               </a>
             </li>

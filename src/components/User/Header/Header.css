@@ -4,6 +4,9 @@
     color: white;
     padding: 15px 70px 10px 100px;
 }
+.userHeaderContainer a {
+    cursor: pointer;
+}
 .userHeaderContainer .nav-link {
  border: 1px solid chartreuse;
 }
