@@ -5,6 +5,7 @@ import { name, version } from '../../package.json';
 import rootReducer from '../reducers';
 import createHelpers from './createHelpers';
 import createLogger from './logger';
+import { syncTranslationWithStore } from 'react-redux-i18n';
 
 export default function configureStore(initialState, helpersConfig) {
   const helpers = createHelpers(helpersConfig);
@@ -29,7 +30,9 @@ export default function configureStore(initialState, helpersConfig) {
 
   // https://redux.js.org/docs/api/createStore.html
   const store = createStore(rootReducer, initialState, enhancer);
-
+  syncTranslationWithStore(store);
+  // store.dispatch(loadTranslations(translationsObject));
+  // store.dispatch(setLocale('nl'));
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (__DEV__ && module.hot) {
     module.hot.accept('../reducers', () =>

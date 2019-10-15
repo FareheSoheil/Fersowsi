@@ -186,9 +186,59 @@ const routes = {
             import(/* webpackChunkName: 'userHome' */ './user/userHome'),
         },
         {
-          path: '/address',
+          path: '/products',
           load: () =>
-            import(/* webpackChunkName: 'userAddressBook' */ './user/AddressBook'),
+            import(/* webpackChunkName: 'userProducts' */ './user/Products'),
+        },
+        {
+          path: '/wishlist',
+          load: () =>
+            import(/* webpackChunkName: 'userWishlist' */ './user/Wishlist'),
+        },
+        {
+          path: '/address',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'userAddressBook' */ './user/AddressBook'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'userAddressDetail' */ './user/AddressDetail'),
+            },
+          ],
+        },
+        {
+          path: '/order',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'userOrder' */ './user/Order'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'userOrderDetails' */ './user/Order/OrderDetails'),
+            },
+          ],
+        },
+        {
+          path: '/claim',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'userClaim' */ './user/Claim'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'userClaimDetails' */ './user/Claim/ClaimDetails'),
+            },
+          ],
         },
       ],
     },

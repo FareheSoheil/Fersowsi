@@ -1,0 +1,31 @@
+.claimContainer {
+    margin-top: 8px;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    padding: 30px 50px 10px 80px;
+    background-color: #ebebeb;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 300px;
+    color: rgb(65, 64, 64);
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.msgContainer {
+    background-color: white;
+    padding: 8px;
+    min-width: 600px;
+    word-break: break-word;
+    overflow-y: auto;
+    min-height: 110px;
+    max-height: 200px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+.claimBanner {
+    color:#369ac5;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 28px;
+}

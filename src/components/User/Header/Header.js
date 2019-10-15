@@ -1,9 +1,33 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
-import Link from '../../Link';
+import history from '../../../history';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.drop = this.drop.bind(this);
+  }
+  componentDidMount() {
+    window.onclick = function(event) {
+      if (!event.target.matches('.userdropbtn')) {
+        var dropdowns = document.getElementsByClassName('userdropdown-content');
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('usershow')) {
+            openDropdown.classList.remove('usershow');
+          }
+        }
+      }
+    };
+  }
+  goTo(url) {
+    history.push(url);
+  }
+  drop(id) {
+    document.getElementById(id).classList.toggle('usershow');
+  }
   render() {
     return (
       <nav
@@ -11,9 +35,10 @@ class Header extends React.Component {
           s.userHeaderContainer
         }`}
       >
-        <a class={`${s.UserNavBrand} navbar-brand`} href="#">
+        <img height="50" width="80" src="/assets/images/dropbox.png" />
+        {/* <a class={`${s.UserNavBrand} navbar-brand`} href="#">
           FERDOSI
-        </a>
+        </a> */}
         <button
           class="navbar-toggler"
           type="button"
@@ -28,10 +53,16 @@ class Header extends React.Component {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                Category <span class="sr-only">(current)</span>
+              <a class="nav-link" onClick={() => this.goTo('/user/products')}>
+                Products
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Category
+              </a>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="#">
                 Services
@@ -51,9 +82,43 @@ class Header extends React.Component {
           <div className={s.headerIconContainer}>
             {' '}
             <input type="text" />
-            <i class="fas fa-search" />
-            <i class="fa fa-globe" aria-hidden="true" />
-            <i class="far fa-user" />
+            <div class="userdropdown">
+              <button class="userdropbtn">
+                <i
+                  onClick={() => {
+                    this.drop('userDropDown');
+                  }}
+                  class="far fa-user userdropbtn"
+                />
+              </button>
+              <div id="userDropDown" class="userdropdown-content">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+              </div>
+            </div>
+            <div class="userdropdown">
+              <button class="userdropbtn">
+                <i
+                  onClick={() => {
+                    this.drop('globeDropDown');
+                  }}
+                  class="fa fa-globe userdropbtn"
+                />
+              </button>
+              <div id="globeDropDown" class="userdropdown-content">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+              </div>
+            </div>
+            <i
+              onClick={() => {
+                window.alert('hi');
+              }}
+              class="fas fa-search"
+            />
+            {/* <i class="fa fa-globe" aria-hidden="true" /> */}
           </div>
         </div>
       </nav>

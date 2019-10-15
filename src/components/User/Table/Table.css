@@ -8,6 +8,12 @@
     padding-right: 25px;
     padding-left: 25px;
     margin-bottom: 30px;
+    /* table-layout: fixed; */
+}
+.userTable td {
+    max-width: 35px;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
 }
 .empty{
     border: 1px solid red;

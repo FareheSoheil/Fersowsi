@@ -3,16 +3,19 @@
     list-style: none;
   }
   .user-paginate > li {
-    border: .5px solid rgb(208, 208, 208);
+    /* border: .5px solid rgb(208, 208, 208); */
     /* min-width: 5%; */
     width: 25px;
     cursor: pointer;
-    padding: 4px;
+    padding: 2px;
     vertical-align: middle;
     /* width: auto; */
     text-align: center;
     border-collapse: collapse;
-    margin: 1px;
+    /* margin: 1px; */
+  }
+  .user-paginate li  a {
+    color: red;
   }
   
   .user-paginate > li:not(:first-child):not(:last-child):hover , .user-active-page{
@@ -126,3 +129,75 @@
   .user-table-responsive>.user-table-bordered {
     border: 1px solid #e6e6f2 !important;
   }
+  .addInputContainer input {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 6px;
+    width: 230px;
+    box-shadow: inset 0 0 1px 1px #e6e2e2;
+    background: #fff;
+  }
+  .addInputContainer span {
+    color: rgb(110, 109, 109);
+  }
+  .addInputContainer button {
+    min-width: 70px;
+    max-height: 40px;
+  }
+  .user-btn {
+    background-color: rebeccapurple;
+    border-radius: 5px;
+    min-width: 100px;
+    min-height: 30px;
+    padding: 3px 5px 3px 5px;
+    cursor: pointer;
+  }
+  .edit-btn {
+    border: 1px solid #2e74ab;
+    background-color: #2e74ab;
+    color: white;
+  }
+  .delete-btn {
+    border: 1px solid gray;
+    background-color: gray;
+    color: white;
+  }
+
+  .userdropbtn {
+    background-color: black;
+    color: white;
+    /* padding: 16px; */
+    /* font-size: 16px; */
+    border: none;
+    cursor: pointer;
+  }
+  
+  .userdropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .userdropdown-content {
+    display: none;
+    position: absolute;
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top: 40px;
+    right: 0;
+    z-index: 1;
+  }
+  
+  .userdropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .userdropdown a:hover {background-color: #ddd;}
+  
+  .usershow {display: block;}

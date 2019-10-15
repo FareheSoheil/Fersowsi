@@ -16,12 +16,16 @@ import s from './CustomTabel.css';
 class CustomTabel extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
+    hasPagination: PropTypes.bool.isRequired,
     currentPageNumber: PropTypes.number.isRequired,
     records: PropTypes.array.isRequired,
     columnLabels: PropTypes.array.isRequired,
     recordItemNames: PropTypes.array.isRequired,
     onRecordClick: PropTypes.func.isRequired,
     handlePageChange: PropTypes.func.isRequired,
+  };
+  static defaultProps = {
+    hasPagination: true,
   };
 
   render() {
@@ -91,19 +95,23 @@ class CustomTabel extends React.Component {
         {/* Pagination */}
         <div className="row">
           <div className="col-12">
-            <ReactPaginate
-              previousLabel="<"
-              nextLabel=">"
-              pageCount={this.props.pageCount}
-              pageRangeDisplayed={3}
-              onPageChange={this.props.handlePageChange}
-              containerClassName="paginate"
-              subContainerClassName="pages paginate"
-              activeClassName="active-page"
-              breakClassName="break-me"
-              initialPage={this.props.currentPageNumber}
-              disableInitialCallback
-            />
+            {this.props.hasPagination ? (
+              <ReactPaginate
+                previousLabel="<"
+                nextLabel=">"
+                pageCount={this.props.pageCount}
+                pageRangeDisplayed={3}
+                onPageChange={this.props.handlePageChange}
+                containerClassName="paginate"
+                subContainerClassName="pages paginate"
+                activeClassName="active-page"
+                breakClassName="break-me"
+                initialPage={this.props.currentPageNumber}
+                disableInitialCallback
+              />
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>

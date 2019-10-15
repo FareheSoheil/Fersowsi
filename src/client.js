@@ -10,7 +10,8 @@ import configureStore from './store/configureStore';
 import history from './history';
 import { updateMeta } from './DOMUtils';
 import router from './router';
-
+import { loadTranslations, setLocale } from 'react-redux-i18n';
+import { translationsObject } from './constants/index';
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
 const context = {
@@ -34,6 +35,25 @@ const context = {
   role: '',
 };
 
+console.log(
+  'start',
+  window.App.state,
+  ' local storage : ',
+  localStorage.getItem('aad'),
+);
+// so I can read from localstorage
+
+// window.alert('start', window.applicationCache.state);
+const locale = localStorage.getItem('locale');
+// window.alert('locale ', locale);
+if (locale === null) {
+  localStorage.setItem('locale', 'en');
+  context.store.dispatch(setLocale('en'));
+} else context.store.dispatch(setLocale(locale));
+context.store.dispatch(loadTranslations(translationsObject));
+
+console.log('start', window.App.state);
+// window.alert('end');
 const container = document.getElementById('app');
 let currentLocation = history.location;
 let appInstance;

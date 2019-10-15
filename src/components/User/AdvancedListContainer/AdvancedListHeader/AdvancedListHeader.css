@@ -1,0 +1,14 @@
+.container {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: white;
+    margin-bottom: 8px;
+    /* border: none; */
+    /* margin-left: 5px; */
+}
+.label {
+    color: blue;
+    vertical-align: middle;
+    padding-top: 8px;
+}

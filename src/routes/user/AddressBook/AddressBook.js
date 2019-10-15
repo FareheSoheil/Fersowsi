@@ -1,116 +1,177 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import ReactPaginate from 'react-paginate';
 import ContentHeader from '../../../components/User/ContentHeader';
+import AddAddress from '../../../components/User/AddAddress';
 import Table from '../../../components/User/Table';
+import Spinner from '../../../components/User/Spinner';
 import s from './AddressBook.css';
+import {
+  ADDRESS_TABLE_LABELS,
+  ADDRESS_RECORD_ITEMS,
+  ADDRESS_SORT_OPTION,
+  SERVER,
+} from '../constants';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import history from '../../../history';
 class AddressBook extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false,
+      pageIndex: 0,
+      pageSize: 15,
+      totalPageNum: 15,
+      sortBy: { value: 1, label: 'Country' },
+      addresses: [
+        {
+          id: 1,
+          detailAddress:
+            'asjkdas;lkdas;kljm;ojernfmsakdjwqeifowemfngo;jfnasojfnoflmsejnpwfnwrjg;nm',
+          province: 'Mazandaran',
+          country: 'iran',
+          zipCode: '+98',
+          city: 'sari',
+        },
+        {
+          id: 2,
+          detailAddress:
+            'asjkdas;lkdasksldjfsdfhawluifhWYEFGSBDKQYUFGBldiysbxqiyfgdlbkxnelif;kljm;ojernfmsakdjwqeifowemfngo;jfnasojfnoflmsejnpwfnwrjg;nm',
+          province: 'Tehran',
+          country: 'iran',
+          zipCode: '+98',
+          city: 'Karaj',
+        },
+        { id: 1, address1: 2 },
+        { id: 1, address1: 2 },
+        { id: 1, address1: 2 },
+        { id: 1, address1: 2 },
+        { id: 1, address1: 2 },
+      ],
+      allCountries: [],
+    };
+    this.fetchAddresses = this.fetchAddresses.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+  }
+  componentDidMount() {
+    // this.fetchAddresses();
+  }
+  handlePageChange(pageIndex) {
+    this.setState({ pageIndex: pageIndex.selected }, () => {
+      this.fetchAddresses();
+    });
+  }
+  onAddressClick(id) {
+    history.push(`/user/address/${id}`);
+  }
+  handleSelectChange = (selectedOption, op) => {
+    window.alert('op');
+    this.setState(
+      {
+        [op]: selectedOption,
+      },
+      () => {
+        this.fetchAddresses();
+      },
+    );
+  };
+  fetchAddresses() {
+    const url = `${SERVER}/getAllAddresses`;
+    const credentials = {
+      pageIndex: this.state.name,
+      pageSize: this.state.password,
+      sortBy: this.state.sortBy.value,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error === undefined) {
+          that.setState({
+            addresses: response.currentRecords,
+            allCountries: response.allCountries,
+            totalPageNum: response.totalPageNum,
+            isLoading: false,
+          });
+        } else {
+          toastr.error(response.error.title, response.error.description);
+        }
+      },
+      () => {
+        // toastr.error('sala', ERRORS.REPEATED_USER);
+        // console.log('login e rror : ', error);
+      },
+    );
+  }
   render() {
     return (
       <div>
-        <ContentHeader title="Address List" hasSort={true} />
-        <Table
-          columnLabels={['Address1', 'Address2', 'Zip Code', 'City', 'Country']}
-          records={[
-            { id: 1, address1: 2 },
-            { id: 1, address1: 2 },
-            { id: 1, address1: 2 },
-            { id: 1, address1: 2 },
-            { id: 1, address1: 2 },
-            { id: 1, address1: 2 },
-          ]}
-          recordItemNames={['id', 'address1', 'address2', 'country', 'city']}
-        />
-        <div className="row">
-          <div className="col-12">
-            <div class="card-body">
-              <div>
-                <div
-                  class="modal fade"
-                  id="addressModal"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-labelledby="addressModalLabel"
-                  aria-hidden="true"
+        {' '}
+        {this.state.isLoading ? (
+          <Spinner />
+        ) : (
+          <div>
+            <ContentHeader
+              title="Address List"
+              hasSort={true}
+              onSortFunc={this.handleSelectChange}
+              sortOptions={ADDRESS_SORT_OPTION}
+            />
+            <Table
+              onRecordClick={this.onAddressClick}
+              columnLabels={ADDRESS_TABLE_LABELS}
+              records={this.state.addresses}
+              recordItemNames={ADDRESS_RECORD_ITEMS}
+            />
+            <div className="row">
+              <div className="offset-xl-1 col-xl-3">
+                {' '}
+                <button
+                  data-toggle="modal"
+                  data-target="#addressModal"
+                  className={`btn ${s.addBtn}`}
                 >
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="addressModalLabel">
-                          Add Address{' '}
-                        </h5>
-                        <a
-                          href="#"
-                          class="close"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                        >
-                          <span aria-hidden="true">&times;</span>
-                        </a>
-                      </div>
-                      <div class="modal-body">
-                        <div className="row mb-3">
-                          <div className="col-xl-3 float-right">
-                            Address1* :{' '}
-                          </div>
-                          <div className="col-xl-7">
-                            <input />
-                          </div>
-                        </div>
-                        <div className="row mb-3">
-                          <div className="col-xl-3">Address2 : </div>
-                          <div className="col-xl-4">
-                            <input />
-                          </div>
-                        </div>
-                        <div className="row mb-3">
-                          <div className="col-xl-3">Zip Code : </div>
-                          <div className="col-xl-4">
-                            <input />
-                          </div>
-                        </div>
-                        <div className="row mb-3">
-                          <div className="col-xl-3">State : </div>
-                          <div className="col-xl-4">
-                            <input />
-                          </div>
-                        </div>
-                        <div className="row mb-3">
-                          <div className="col-xl-3">Country : </div>
-                          <div className="col-xl-4">
-                            <input />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <a
-                          data-dismiss="modal"
-                          href="#"
-                          class="btn btn-info"
-
-                          // onClick={() => this.modifyComment('accept')}
-                        >
-                          Add
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  Add Address
+                </button>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <AddAddress
+                  countries={this.state.allCountries}
+                  newAddress={this.state.newAddress}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="offset-xl-7 col-5 ">
+                <ReactPaginate
+                  previousLabel="<"
+                  nextLabel=">"
+                  pageCount={this.state.totalPageNum}
+                  pageRangeDisplayed={3}
+                  onPageChange={this.handlePageChange}
+                  containerClassName="user-paginate"
+                  subContainerClassName="user-pages user-paginate"
+                  activeClassName="user-active-page"
+                  breakClassName="break-me"
+                  initialPage={this.state.pageIndex}
+                  disableInitialCallback
+                />
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-xl-12">
-            {' '}
-            <button
-              data-toggle="modal"
-              data-target="#addressModal"
-              className={`float-right btn ${s.addBtn}`}
-            >
-              Add Address
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     );
   }

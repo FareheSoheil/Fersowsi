@@ -12,10 +12,8 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RichText from '../../../components/RichText';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import ReactPaginate from 'react-paginate';
 import Spinner from '../../../components/Admin/Spinner';
 import Claim from '../../../components/Claim';
-import history from '../../../history';
 import s from './ClaimDetails.css';
 import { SERVER } from '../../../constants';
 class ClaimDetails extends React.Component {
@@ -25,13 +23,109 @@ class ClaimDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      isLoading: false,
       customerOrderId: this.props.context.query.orderId,
       claimId: this.props.context.query.id,
-      pageIndex: 1,
-      pageSize: 3,
-      pageCount: 5,
-      allClaimsOfOrder: [{ a: 1 }, { a: 1 }, { a: 1 }],
+
+      allClaimsOfOrder: [
+        {
+          id: 1,
+          messageHtml: '<html><head></head><body>Hello</body></html>',
+          messageStatus: { value: 1, label: 'accepted' },
+          senderUser: {
+            id: 6,
+            email: 'customer1@gmail.com',
+            firstName: 'Customer',
+            lastName: 'Customer',
+            profilePic: null,
+          },
+          receiverUser: {
+            id: 4,
+            email: 'publisher1@gmail.com',
+            firstName: 'Publisher',
+            lastName: 'Publisher',
+            profilePic: null,
+          },
+          actionUser: {
+            id: 6,
+            email: 'customer1@gmail.com',
+            firstName: 'Customer',
+            lastName: 'Customer',
+            profilePic: null,
+          },
+          messageStatusId: 3,
+          repliedMessageId: 0,
+          imageAddress: '',
+          createdAt: '2019-10-08T13:53:59.000Z',
+          updatedAt: '2019-10-08T13:53:59.000Z',
+          customerOrderId: 1,
+        },
+        {
+          id: 2,
+          messageHtml: '<html><head></head><body>Hello My Friend</body></html>',
+          messageStatus: { value: 1, label: 'accepted' },
+          senderUser: {
+            id: 4,
+            email: 'publisher1@gmail.com',
+            firstName: 'Publisher',
+            lastName: 'Publisher',
+            profilePic: null,
+          },
+          receiverUser: {
+            id: 6,
+            email: 'customer1@gmail.com',
+            firstName: 'Customer',
+            lastName: 'Customer',
+            profilePic: null,
+          },
+          actionUser: {
+            id: 4,
+            email: 'publisher1@gmail.com',
+            firstName: 'Publisher',
+            lastName: 'Publisher',
+            profilePic: null,
+          },
+          messageStatusId: 3,
+          repliedMessageId: 0,
+          imageAddress: '',
+          createdAt: '2019-10-08T13:53:59.000Z',
+          updatedAt: '2019-10-08T13:53:59.000Z',
+          customerOrderId: 1,
+        },
+        {
+          id: 3,
+          messageStatus: { value: 1, label: 'accepted' },
+          messageHtml:
+            '<html><head></head><body>My magazine was not delivered yet</body></html>',
+          senderUser: {
+            id: 6,
+            email: 'customer1@gmail.com',
+            firstName: 'Customer',
+            lastName: 'Customer',
+            profilePic: null,
+          },
+          receiverUser: {
+            id: 4,
+            email: 'publisher1@gmail.com',
+            firstName: 'Publisher',
+            lastName: 'Publisher',
+            profilePic: null,
+          },
+          actionUser: {
+            id: 6,
+            email: 'customer1@gmail.com',
+            firstName: 'Customer',
+            lastName: 'Customer',
+            profilePic: null,
+          },
+          messageStatusId: 3,
+          repliedMessageId: 0,
+          imageAddress: '',
+          createdAt: '2019-10-08T13:53:59.000Z',
+          updatedAt: '2019-10-08T13:53:59.000Z',
+          customerOrderId: 1,
+        },
+      ],
       newClaim: '',
     };
     this.fetchClaims = this.fetchClaims.bind(this);
@@ -41,7 +135,7 @@ class ClaimDetails extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount() {
-    this.fetchClaims();
+    // this.fetchClaims();
   }
   handleInputChange(id, event) {
     let state, value;
@@ -87,7 +181,6 @@ class ClaimDetails extends React.Component {
       response => {
         that.setState({
           allClaimsOfOrder: response,
-          // totalPageNum: response.totalPageNumber,
           isLoading: false,
           firstRender: false,
         });
@@ -105,8 +198,6 @@ class ClaimDetails extends React.Component {
     window.alert('send new claim with user id and trigger user id');
   }
   render() {
-    console.log('context : ', this.props.context);
-    console.log('history : ', history.location);
     let claims = <div>Nothing</div>;
     if (
       !this.state.isLoading &&
@@ -153,7 +244,7 @@ class ClaimDetails extends React.Component {
               <RichText
                 min_height={300}
                 width="80%"
-                initialValue="sala azizam"
+                initialValue="new claim ..."
                 handleEditorChange={this.handleEditorChange}
               />
               <br />
