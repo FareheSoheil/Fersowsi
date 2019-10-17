@@ -10,6 +10,7 @@ class Header extends React.Component {
   }
   componentDidMount() {
     window.onclick = function(event) {
+      console.log(event.target);
       if (!event.target.matches('.userdropbtn')) {
         var dropdowns = document.getElementsByClassName('userdropdown-content');
         var i;
@@ -92,9 +93,8 @@ class Header extends React.Component {
                 />
               </button>
               <div id="userDropDown" class="userdropdown-content">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a onClick={() => this.goTo('/user')}>My Account</a>
+                <a onClick={() => this.goTo('/')}>logOut</a>
               </div>
             </div>
             <div class="userdropdown">
@@ -107,7 +107,6 @@ class Header extends React.Component {
                 />
               </button>
               <div id="globeDropDown" class="userdropdown-content">
-                <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
               </div>

@@ -30,41 +30,127 @@ class Landing extends React.Component {
         <div className="row">
           <div className={`${s.mapContainer} col-12`}>
             {' '}
-            <h2>Ferdowsiinfo</h2>{' '}
-            <div>Subscription Services With Free-Delivery</div>
-            <br />
-            <span>World Wide</span>
+            <img
+              height="600"
+              style={{ width: '100%' }}
+              src="/assets/images/World_map.png"
+            />
+            <div className={s.mapTxt}>
+              <h2>Ferdowsiinfo</h2>{' '}
+              <div>Subscription Services With Free-Delivery</div>
+              <br />
+              <span>World Wide</span>
+            </div>
           </div>
+        </div>
+        <div className="row">
           <div className={`${s.whiteContainer} col-12`}>
             <div className={`${s.whiteBanner} row`}>
               <div className="col-12">
-                {' '}
                 Built for Professionals <br /> from Freelancer to Agency
               </div>
             </div>
-            <div className={`${s.row} row`}>
-              <div className="col-xl-6 col-md-6 col-lg-6 col-sm-12">txt</div>
+            <div className={`${s.img} row`}>
+              <div className="offset-xl-1 col-xl-4 col-md-6 col-lg-6 col-sm-12">
+                <br />
+                <h2>Expansion and history</h2>
+                <div className={s.justify}>
+                  <div>
+                    For fifty years from the book store's establishment, the
+                    logo designed by Ramos herself was used which consists of
+                    the name of the store on a white background and surrounded
+                    by a red and white stripe design.
+                  </div>
+                </div>
+              </div>
               <div className="col-xl-6 col-md-6 col-lg-6 col-sm-12">
                 <img
-                  src="/assets/images/green.png"
-                  className={s.imgContainer}
+                  src="/assets/images/greenC.png"
+                  className={s.greenImgContainer}
                 />
               </div>
             </div>{' '}
-            <div className={`${s.row} row`}>
-              <div className="col-xl-6 col-md-6 col-lg-6 col-sm-12">txt</div>
-              <div className="col-xl-6 col-md-6 col-lg-6 col-sm-12">
-                picture
+            <div className={`${s.img} row`}>
+              <div className="offset-xl-1 col-xl-5 col-md-6 col-lg-6 col-sm-12">
+                <img
+                  src="/assets/images/pinkC.png"
+                  className={s.pinkImgContainer}
+                />
+              </div>
+              <div className="col-xl-4 col-md-6 col-lg-6 col-sm-12">
+                <br />
+                <br />
+                <br />
+                <h2>Get More Traffic Ads &amp; Conversations </h2>
+                <div className={s.justify}>
+                  <div>
+                    For fifty years from the book store's establishment, the
+                    logo designed by Ramos herself was used which consists of
+                    the name of the store on a white background and surrounded
+                    by a red and white stripe design.
+                  </div>
+                </div>
               </div>
             </div>{' '}
           </div>
+        </div>
+        <div className="row">
+          {' '}
           <div className={`${s.woodContainer} col-12`}>
             {' '}
             <img
-              height="300"
+              height="600"
               style={{ width: '100%' }}
-              src="/assets/images/wood.jpg"
+              src="/assets/images/table.png"
             />
+          </div>
+        </div>
+        <div className={`${s.grayCardRow} row`}>
+          <div className="col-12">
+            <div className="row">
+              <div className="offset-xl-4">
+                <h2>Technology For Institutions</h2>
+              </div>
+            </div>
+          </div>
+          <div className="offset-xl-2 col-3">
+            <div className={s.grayCard}>
+              <h1>
+                <i class="fas fa-gift" />
+              </h1>
+
+              <h3>Gift Card</h3>
+              <div>
+                Login to obtain your course materials , view order history, and
+                more. All materials will be displayed for each course
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className={s.grayCard}>
+              <h1>
+                <i class="fa fa-cog" aria-hidden="true" />
+              </h1>
+
+              <h3>Settings</h3>
+              <div>
+                Login to obtain your course materials , view order history, and
+                more. All materials will be displayed for each course
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className={s.grayCard}>
+              <h1>
+                <i class="fa fa-shopping-basket" aria-hidden="true" />
+              </h1>
+
+              <h3>Basket</h3>
+              <div>
+                Login to obtain your course materials , view order history, and
+                more. All materials will be displayed for each course
+              </div>
+            </div>
           </div>
         </div>
       </div>

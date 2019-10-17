@@ -3,37 +3,95 @@
   text-align: center;
 }
 .mapContainer {
-  padding-top: 10px;
+  position: relative;
   color: white;
-  min-height: 350px;
-  /* rgb(39, 37, 37),rgb(66, 60, 60),rgb(83, 74, 74)  262929*/
-  background-image: linear-gradient(to bottom,#242424,#252425,#252827,#2a3f40,#356567,#3c8085,#46a6ac,#57d6de, #61ebf4,#5fe9f2,#60daab);
+  min-height: 600px;
+  padding: 0px;
+  /* background-image: url("../../../public/assets/images/World_map.png") ; */
+  background-repeat: no-repeat;
+  /* no-repeat; */
+  /* background-size:contain; */
+   /* linear-gradient(to bottom,#242424,#252425,#252827,#2a3f40,#356567,#3c8085,#46a6ac,#57d6de, #61ebf4,#5fe9f2,#60daab); */
 }
 .mapContainer h2 {
   color:white;
 }
 .whiteContainer {
-  min-height: 500px;
-  border: 1px solid salmon;
-}
-.imgContainer {
-  height: 250px; width:500px;
-  border: 2px solid red;
+  min-height: 600px;
+  background-color: white;
+  padding-bottom: 30px;
 }
 .whiteBanner {
-  padding-top: 20px;
-  color: rgb(31, 28, 28);
-  font-size: 20px;
+  padding-top: 40px;
+  color: rgb(54, 48, 48);
+  margin-bottom: 20px;
+  font-size: 26px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+.greenImgContainer {
+  height: 100%;
+  width :  60%;
+}
+.pinkImgContainer {
+  height: 100%;
+  width :  80%;
+}
+.img >div {
+  height: 300px;
+}
+
 .woodContainer {
-  min-height: 300px;
+  min-height: 400px;
   padding: 0px;
-  /* background-image: url('../../../public/assets/images/wood.jpg'); */
-  /* background-size:  300px; */
 }
 .row {
   padding-top: 30px;
   height: 250px;
+  /* text-align: center; */
+}
+.mapTxt {
+  position: absolute;
+  top: 6%;
+  left: 40%;
+}
+.justify {
+
+  padding: 6px 20px 2px 70px;
+
+}
+.justify div {
+  /* text-justify: inter-word; */
+  /* text-align: justify; */
+  text-align: justify;
+  line-height: 3ch;
+  width: 290px;
+  color: rgb(94, 94, 94);
+}
+.grayCard {
+  border: 1px solid #f9f6f6;
+  border-radius: 2px;
+  padding: 25px 25px 10px 25px;
   text-align: center;
+  color: black;
+  height: 270px;
+  width: 220px;
+  background-color: #f9f6f6;
+}
+.grayCard div {
+  color: gray;
+}
+.grayCard h3 {color: black;}
+.grayCardRow {
+  min-height: 600px;
+  padding-top: 85px;
+  padding-bottom: 80px;
+  background-color: white;
+}
+
+@media only screen and (max-width:480px) {
+  .mapTxt {
+    position: absolute;
+    top: 6%;
+    left: 20%;
+  }
 }
