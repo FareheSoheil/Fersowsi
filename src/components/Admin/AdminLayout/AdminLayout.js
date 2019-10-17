@@ -14,8 +14,8 @@ import ReduxToastr from 'react-redux-toastr';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
 import s from './AdminLayout.css';
-import Header from '../Header';
-import SideBar from '../SideBar';
+import Header from './Header';
+import SideBar from './SideBar';
 // import Feedback from '../Feedback';
 // import Footer from '../Footer';
 

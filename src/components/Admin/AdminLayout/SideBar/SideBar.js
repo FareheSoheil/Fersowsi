@@ -10,7 +10,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './SideBar.css';
-import history from '../../../history';
+import history from '../../../../history';
 
 class SideBar extends React.Component {
   goTo(url) {
@@ -89,13 +89,40 @@ class SideBar extends React.Component {
                   </a>
                 </li>
                 {/* Product item */}
-                <li className="nav-item ">
+                <li class="nav-item">
                   <a
-                    className="nav-link"
-                    onClick={() => this.goTo('/admin/products')}
+                    class="nav-link"
+                    href="#products"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                    data-target="#products"
+                    aria-controls="products"
                   >
-                    <i className=" fab fa-product-hunt" />Products{' '}
+                    <i className=" fab fa-product-hunt" />Products
                   </a>
+                  <div
+                    id="products"
+                    class={`collapse submenu ${s.submenuContainer} `}
+                  >
+                    <ul class="nav flex-column">
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/products')}
+                        >
+                          <i className=" fab fa-product-hunt" />Products List{' '}
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/products/add')}
+                        >
+                          <i class="fas fa-list" />Add Product{' '}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
                 {/* Customer Order item */}
                 <li className="nav-item ">

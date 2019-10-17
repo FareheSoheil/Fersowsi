@@ -14,7 +14,7 @@ import AdminLayout from '../../../../components/Admin/AdminLayout';
 async function action(context) {
   return {
     title: 'Ferdowsi',
-    chunks: ['adminAddProducts'],
+    chunks: ['adminAddProduct'],
     component: (
       <AdminLayout>
         <AddProduct context={context} />

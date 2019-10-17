@@ -1,21 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ProductDetail.css';
-import DatePicker from 'react-datepicker';
 import Spinner from '../../../../components/Admin/Spinner';
 import PageHeader from '../../../../components/Admin/PageHeader';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import SubproductTable from '../../../../components/Admin/Product/SubproductTable';
 import ProductPriceTable from '../../../../components/Admin/Product/ProductPriceTable';
 import ProductTranlationTable from '../../../../components/Admin/Product/ProductTranlationTable';
+import ProductDetailsContainer from '../../../../components/Admin/Product/ProductDetailsContainer';
 import 'react-datepicker/dist/react-datepicker.css';
-import {
-  PRODUCT_TYPES,
-  SINGLE_PRODUCT_TYPE_ARRAY,
-  PRODUCT_STATUS_ARRAY,
-} from '../../../../constants/constantData';
+import { PRODUCT_TYPES } from '../../../../constants/constantData';
 import { SERVER } from '../../../../constants';
 
 class ProductDetail extends React.Component {
@@ -444,288 +438,21 @@ class ProductDetail extends React.Component {
                       <div class="card">
                         <h5 class="card-header">Product Details</h5>
                         <div class={`${s.cardContainer} card-body`}>
-                          <div className="row">
-                            <div
-                              className={`col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30 ${
-                                s.productImgContainer
-                              }`}
-                            >
-                              <img
-                                className="d-block"
-                                height="330"
-                                width="350"
-                                id="productCoverImg"
-                                src={this.state.product.coverImage}
-                                alt="First slide"
-                                onClick={this.uploadImage}
-                              />
-                              <div>
-                                <input
-                                  onChange={this.handleUploadedImage}
-                                  style={{ display: 'none' }}
-                                  type="file"
-                                  id="fileInput"
-                                  name="fileInput"
-                                />
-                              </div>
-                              <div
-                                className={`product-description offset-xl-1 col-10 ${
-                                  s.advancedContainer
-                                }`}
-                              >
-                                <h4 className="mb-1">Original Title </h4>
-                                <form className={s.dropDownContainer}>
-                                  <div className="form-group">
-                                    <input
-                                      name="originalTitle"
-                                      type="text"
-                                      className="form-control form-control-lg "
-                                      value={this.state.product.originalTitle}
-                                      onChange={this.onChangeInput}
-                                    />
-                                  </div>
-                                  <div>
-                                    <label>Product Language </label>
-                                    <br />
-                                    <Select
-                                      name="productLanguage"
-                                      options={this.state.allLanguages}
-                                      value={this.state.product.productLanguage}
-                                      onChange={so =>
-                                        this.handleSelectChange(
-                                          so,
-                                          'productLanguage',
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                  {this.state.product.productType.value ===
-                                  PRODUCT_TYPES.Single ? (
-                                    <div>
-                                      <label>Single Product Type </label>
-                                      <br />
-                                      <Select
-                                        name="singlProductType"
-                                        options={SINGLE_PRODUCT_TYPE_ARRAY}
-                                        value={
-                                          this.state.product.singleProductType
-                                        }
-                                        onChange={so =>
-                                          this.handleSelectChange(
-                                            so,
-                                            'singlProductType',
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                  ) : (
-                                    ''
-                                  )}
-
-                                  <div>
-                                    <label>Product Content Category </label>
-                                    <br />
-                                    <Select
-                                      name="contentCategory"
-                                      options={this.state.allContentCategories}
-                                      value={this.state.product.contentCategory}
-                                      isMulti
-                                      onChange={so =>
-                                        this.handleSelectChange(
-                                          so,
-                                          'contentCategory',
-                                        )
-                                      }
-                                    />
-                                  </div>
-
-                                  <div>
-                                    <label>Product Age Group </label>
-                                    <br />
-                                    <Select
-                                      name="ageGroup"
-                                      options={this.state.allAgeGroups}
-                                      value={this.state.product.ageGroup}
-                                      onChange={so =>
-                                        this.handleSelectChange(so, 'ageGroup')
-                                      }
-                                    />
-                                  </div>
-
-                                  {/* <div>
-                                    <label>Product Period </label>
-                                    <br />
-                                    <Select
-                                      name="publisherPeriod"
-                                      options={PRODUCT_PERIOD_ARRAY}
-                                      value={this.state.product.publisherPeriod}
-                                      onChange={so =>
-                                        this.handleSelectChange(
-                                          so,
-                                          'publisherPeriod',
-                                        )
-                                      }
-                                    />
-                                  </div> */}
-
-                                  <div>
-                                    <label>Product Status </label>
-                                    <br />
-                                    <Select
-                                      name="productStatus"
-                                      options={PRODUCT_STATUS_ARRAY}
-                                      value={this.state.product.productStatus}
-                                      onChange={so =>
-                                        this.handleSelectChange(
-                                          so,
-                                          'productStatus',
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                  <div>
-                                    <label>Publisher </label>
-                                    <br />
-                                    <Select
-                                      name="publisher"
-                                      options={this.state.allPublishers}
-                                      value={this.state.product.publisher}
-                                      onChange={so =>
-                                        this.handleSelectChange(so, 'publisher')
-                                      }
-                                    />
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <div
-                              className={`${
-                                s.noPaddR
-                              } col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30`}
-                            >
-                              <div className="product-details">
-                                <div className="border-bottom pb-3 mb-3">
-                                  <form className={s.productsmallInfoContainer}>
-                                    <div className="form-group">
-                                      <label className="mb-0">Discount</label>
-                                      <br />
-                                      <input
-                                        name="discount"
-                                        type="text"
-                                        className="form-control form-control-sm"
-                                        value={this.state.product.discount}
-                                        onChange={this.onChangeInput}
-                                      />
-                                    </div>
-                                    <div className="form-group">
-                                      <label className="mb-0">Tax</label>
-                                      <br />
-                                      <input
-                                        name="tax"
-                                        type="text"
-                                        className="form-control form-control-sm"
-                                        value={this.state.product.tax}
-                                        onChange={this.onChangeInput}
-                                      />
-                                    </div>
-                                    <div className="form-group">
-                                      <label className="mb-0">ISSN</label>
-                                      <br />
-                                      <input
-                                        name="issn"
-                                        type="text"
-                                        className="form-control form-control-sm"
-                                        value={this.state.product.issn}
-                                        onChange={this.onChangeInput}
-                                      />
-                                    </div>
-                                    <div className="form-group">
-                                      <label>Dewey</label>
-                                      <br />
-                                      <input
-                                        name="dewey"
-                                        type="text"
-                                        className="form-control form-control-sm"
-                                        value={this.state.product.dewey}
-                                        onChange={this.onChangeInput}
-                                      />
-                                    </div>
-                                    <div className="form-group">
-                                      <label>ASB</label>
-                                      <br />
-                                      <input
-                                        name="asb"
-                                        type="text"
-                                        className="form-control form-control-sm"
-                                        value={this.state.product.asb}
-                                        onChange={this.onChangeInput}
-                                      />
-                                    </div>
-                                    <div className="form-group">
-                                      <label>weight</label>
-                                      <br />
-                                      <input
-                                        name="weight"
-                                        type="text"
-                                        className="form-control form-control-sm"
-                                        value={this.state.product.weight}
-                                        onChange={this.onChangeInput}
-                                      />
-                                    </div>
-                                    <div className="form-group">
-                                      <label className="mb-0">
-                                        Created At{' '}
-                                      </label>
-                                      <br />
-                                      <DatePicker
-                                        name="creationDate"
-                                        selected={new Date()}
-                                        onChange={date =>
-                                          this.handleDateChange(
-                                            date,
-                                            'creationDate',
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                    <div className="form-group">
-                                      <label className="mb-0">
-                                        Price Updated At{' '}
-                                      </label>
-                                      <br />
-                                      <DatePicker
-                                        name="priceUpdatedAt"
-                                        selected={
-                                          this.state.product.priceUpdatedAt
-                                        }
-                                        onChange={date =>
-                                          this.handleDateChange(
-                                            date,
-                                            'priceUpdatedAt',
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                    <div
-                                      className={`product-description ${
-                                        s.productDescription
-                                      }`}
-                                    >
-                                      <label className="mb-1">
-                                        Descriptions
-                                      </label>
-                                      <textarea
-                                        onChange={this.onChangeInput}
-                                        value={this.state.product.originalDesc}
-                                        name="originalDesc"
-                                        rows="12"
-                                      />
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <ProductDetailsContainer
+                            hasType={false}
+                            product={this.state.product}
+                            allAgeGroups={this.state.allAgeGroups}
+                            allContentCategories={
+                              this.state.allContentCategories
+                            }
+                            allLanguages={this.state.allLanguages}
+                            allPublishers={this.state.allPublishers}
+                            uploadImage={this.uploadImage}
+                            handleDateChange={this.handleDateChange}
+                            handleSelectChange={this.handleSelectChange}
+                            handleUploadedImage={this.handleUploadedImage}
+                            onChangeInput={this.onChangeInput}
+                          />
                         </div>
                       </div>
                     </div>

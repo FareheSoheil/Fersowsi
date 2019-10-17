@@ -38,7 +38,7 @@ class ProductsTable extends React.Component {
 
       productsSearchFilter: {
         publishers: '',
-        singlProductTypes: '',
+        singleProductTypes: '',
         productTypes: '',
         productContentTypes: '',
         status: '',
@@ -159,7 +159,7 @@ class ProductsTable extends React.Component {
     this.setState({
       productsSearchFilter: {
         publishers: '',
-        singlProductTypes: '',
+        singleProductTypes: '',
         productTypes: '',
         productContentTypes: '',
         status: '',
