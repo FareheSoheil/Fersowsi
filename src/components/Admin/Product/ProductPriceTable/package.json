@@ -1,0 +1,7 @@
+{
+    "name": "ProductPriceTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./ProductPriceTable.js"
+  }
+  

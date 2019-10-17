@@ -1,0 +1,7 @@
+{
+    "name": "SubproductTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./SubproductTable.js"
+  }
+  

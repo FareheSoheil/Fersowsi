@@ -1,0 +1,7 @@
+{
+    "name": "ProductTranlationTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./ProductTranlationTable.js"
+  }
+  

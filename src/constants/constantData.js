@@ -62,16 +62,18 @@ const PRODUCT_STATUS_ARRAY = [
   {
     id: 1,
     value: 1,
-    label: 'WaitForAcceptByAdmin',
+    label: 'Wait For Accept By Admin',
     name: 'Wait For AcceptBy Admin',
   },
   { id: 2, value: 2, label: 'Ready', name: 'Ready' },
-  { id: 3, value: 3, label: 'NotAvailable', name: 'Not Available' },
+  { id: 3, value: 3, label: 'Not Available', name: 'Not Available' },
 ];
 const PRODUCT_TYPE_ARRAY = [
   { id: 1, value: 1, label: 'SingleProduct', name: 'SingleProduct' },
   { id: 2, value: 2, label: 'Package', name: 'Package' },
 ];
+const PRODUCT_TYPES = { Single: 1, Package: 2 };
+
 const PUBLISHER_ORDER_STATUS_ARRAY = [
   { value: 1, id: 1, name: 'Delayed', label: 'Delayed' },
   { value: 2, id: 2, name: 'Deflicted', label: 'Deflicted' },
@@ -270,4 +272,5 @@ export {
   CURRENCIES_RECORDE_ITEM_NAMES_ARRAY,
   SERVER,
   PRODUCT_SORT_OPTIONS,
+  PRODUCT_TYPES,
 };

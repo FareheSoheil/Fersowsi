@@ -94,6 +94,7 @@ class AccountsTable extends React.Component {
     });
   }
   fetchAccounts() {
+    const url = `http://localhost:3004/getAllUsers`;
     this.setState({
       isLoading: true,
     });
@@ -113,7 +114,7 @@ class AccountsTable extends React.Component {
     console.log('search ', credentials);
     const that = this;
     fetchWithTimeOut(
-      `${SERVER}/getUsers`,
+      url,
       options,
       response => {
         that.setState({

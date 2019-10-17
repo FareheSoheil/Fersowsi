@@ -1,0 +1,7 @@
+.hoverableTr tr {
+    cursor: pointer;
+}
+
+.table tr td {
+    min-width: 60px;
+}

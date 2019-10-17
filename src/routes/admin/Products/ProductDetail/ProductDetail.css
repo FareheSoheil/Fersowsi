@@ -1,0 +1,97 @@
+.productDescription {
+    word-break: break-word;
+    height: auto;
+    /* border: 1px solid #cccccc; */
+    border-radius: 5px;
+    max-height: auto;
+    text-align: justify;
+    /* overflow-y: auto; */
+}
+.productDescription textarea {
+    border: 1px solid #d2d2e4;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+}
+.productImgContainer {
+    background-color: white;
+    align-content: center;
+    text-align: center;
+}
+.productImgContainer img {
+    display: block;
+    margin: 20px auto 15px auto;
+    cursor: pointer;
+    border: 1px solid #ded8d8;
+    
+
+}
+.productTitle {
+    font-size: 18px;
+    color: #4a5158;
+}
+.productsmallInfoContainer {
+    padding: 5px 20px 5px 15px;
+    text-align: center;
+}
+.productsmallInfoContainer>div {
+    text-align: left;
+}
+.productsmallInfoContainer input{
+    display: inline;
+    width: auto;
+}
+/* .productDetailContainer{
+    border:1px solid #ded8d8;
+} */
+
+.dropDownContainer>div{
+    margin-bottom: 12px;
+    /* border: 1px solid violet; */
+}
+.dropDownContainer>div>label , .productsmallInfoContainer>div>label{ 
+    color: rgb(80, 78, 78);
+}
+.advancedContainer {
+    /* border: 1px solid greenyellow; */
+    text-align: left;
+    padding: 10px;
+}
+.cardContainer {
+    border-bottom: 1px solid #ded8d8;
+    box-shadow: 7px 12px #b9b9b9;
+    margin-top: 3px;
+    border-radius: 3px;
+    padding-bottom: 20px;
+}
+.cardContainer input {
+    color: black;
+    padding: 6px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+.noPaddR {
+    padding-right: 0px;
+}
+.productDescription textarea {
+    color :gray;
+    line-height: 20px;
+}
+/* .advancedContainer */
+
+.btnContainer {
+    /* width: 90%; */
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 20px 10px 20px 10px;
+}
+.btnContainer button {
+    color: white;
+}
+.btnContainer button:hover {
+    /* color: black; */
+}

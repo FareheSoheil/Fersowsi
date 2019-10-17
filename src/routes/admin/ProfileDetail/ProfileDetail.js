@@ -89,7 +89,6 @@ class ProfileDetail extends React.Component {
           label: '',
         },
       },
-
       countries: '',
       jobs: '',
       siteLanguages: '',
@@ -100,6 +99,7 @@ class ProfileDetail extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
   componentDidMount() {
+    // window.alert;
     this.fetchAllInfo();
     this.fetchUser();
   }
@@ -156,6 +156,7 @@ class ProfileDetail extends React.Component {
       url,
       options,
       response => {
+        console.log('response : ', response);
         that.setState({
           countries: response.Country,
           siteLanguage: response.SiteLanguage,
@@ -245,7 +246,7 @@ class ProfileDetail extends React.Component {
                     homepage: this.state.user.homepage,
                     VatId: this.state.user.VatId,
                     email: this.state.user.email,
-                    dateOfBirth: this.state.user.dateOfBirth,
+                    dateOfBirth: new Date(this.state.user.dateOfBirth),
                     psn: this.state.user.psn,
                     discount: this.state.user.discount,
                     emailConfirmed: this.state.user.emailConfirmed,
@@ -281,6 +282,7 @@ class ProfileDetail extends React.Component {
                     handleSimpleInputChange: this.onChangeInput,
                     handleDateInputChange: this.handleDateChange,
                   }}
+                  pageCount={this.state.user.claims.length / 15}
                   countries={this.state.countries}
                   jobs={this.state.jobs}
                   currencies={this.state.currencies}

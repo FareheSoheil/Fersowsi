@@ -4,7 +4,11 @@ import { REQUEST_TIMEOUT, ERRORS } from './constants';
 
 const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
   let isTimedOut = false;
-
+  // if()
+  // let c = { a: 'a', b: 'b', c: 'c' };
+  // window.alert(localStorage.getItem('TokenId'));
+  // localStorage.setItem('dummy', JSON.stringify(c));
+  // window.alert
   // this is for time out on fetch
   new Promise((resolve, reject) => {
     const timeOut = setTimeout(() => {
@@ -13,21 +17,26 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
     }, REQUEST_TIMEOUT);
     options.headers.Authorization = cookie.load('TokenId');
 
-    console.log('Body : ', JSON.parse(options.body));
+    // console.log('Body : ', JSON.parse(options.body));
     // --------------------------------------------------- START of fetching data
     fetch(url, options)
       // fetch was successful
-      .then(response => response.json())
+      .then(response =>
+        // console.log('response : ', response.body.getReader());
+        response.json(),
+      )
       .then(data => {
         clearTimeout(timeOut);
+        console.log('data is fetched: ', url, ' ', data);
         resolve(data);
       })
       .catch(error => {
+        console.log('error : unsuccessful error', error);
         if (isTimedOut) {
-          console.log('timedOut : unsuccessful fetch');
+          // console.log('timedOut : unsuccessful fetch');
           return;
         }
-        console.log('error : unsuccessful error', error);
+
         // TODO: check the response Header and handle Errors
         reject(error);
       });
@@ -35,12 +44,12 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
   })
     .then(data => {
       // this happens on data being fetched
-      console.log(' resolveCallback promise', data);
+      // console.log(' resolveCallback promise', data);
       resolveCallback(data);
     })
     .catch(error => {
       // this happens on TIME_OUT
-      console.log(' rejectCallback(error) promise', error);
+      // console.log(' rejectCallback(error) promise', error);
       rejectCallback(error);
     });
 };

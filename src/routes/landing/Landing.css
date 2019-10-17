@@ -1,0 +1,39 @@
+.mainContainer {
+  padding: 0px;
+  text-align: center;
+}
+.mapContainer {
+  padding-top: 10px;
+  color: white;
+  min-height: 350px;
+  /* rgb(39, 37, 37),rgb(66, 60, 60),rgb(83, 74, 74)  262929*/
+  background-image: linear-gradient(to bottom,#242424,#252425,#252827,#2a3f40,#356567,#3c8085,#46a6ac,#57d6de, #61ebf4,#5fe9f2,#60daab);
+}
+.mapContainer h2 {
+  color:white;
+}
+.whiteContainer {
+  min-height: 500px;
+  border: 1px solid salmon;
+}
+.imgContainer {
+  height: 250px; width:500px;
+  border: 2px solid red;
+}
+.whiteBanner {
+  padding-top: 20px;
+  color: rgb(31, 28, 28);
+  font-size: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.woodContainer {
+  min-height: 300px;
+  padding: 0px;
+  /* background-image: url('../../../public/assets/images/wood.jpg'); */
+  /* background-size:  300px; */
+}
+.row {
+  padding-top: 30px;
+  height: 250px;
+  text-align: center;
+}

@@ -7,6 +7,10 @@ const routes = {
   // Keep in mind, routes are evaluated in order
   children: [
     {
+      path: '',
+      load: () => import(/* webpackChunkName: 'landing' */ './landing'),
+    },
+    {
       path: '/admin',
       children: [
         {
@@ -71,17 +75,17 @@ const routes = {
             {
               path: '',
               load: () =>
-                import(/* webpackChunkName: 'adminProducts' */ './admin/ProductsTable'),
+                import(/* webpackChunkName: 'adminProducts' */ './admin/Products/ProductsTable'),
             },
             {
               path: '/add',
               load: () =>
-                import(/* webpackChunkName: 'adminAddProduct' */ './admin/AddProduct'),
+                import(/* webpackChunkName: 'adminAddProduct' */ './admin/Products/AddProduct'),
             },
             {
               path: '/:id',
               load: () =>
-                import(/* webpackChunkName: 'adminProductDetails' */ './admin/ProductDetail'),
+                import(/* webpackChunkName: 'adminProductDetails' */ './admin/Products/ProductDetail'),
             },
           ],
         },
