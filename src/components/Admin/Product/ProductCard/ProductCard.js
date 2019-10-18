@@ -5,29 +5,21 @@ import s from './ProductCard.css';
 
 class ProductCard extends React.Component {
   static propTypes = {
-    product: {
-      id: PropTypes.string.isRequired,
-      coverImage: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      descrption: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      discount: PropTypes.number.isRequired,
-      weight: PropTypes.number.isRequired,
-    },
+    product: PropTypes.object.isRequired,
     onProductClick: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
   }
   render() {
+    console.log(this.props.product);
     return (
       <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 product-card">
         <div class="product-thumbnail">
           <div class="product-img-head">
             <div class="product-img">
               <img
-                src="/assets/images/dribbble.png"
-                // {this.props.coverImage}
+                src={this.props.product.coverImage}
                 alt="No Cover Image"
                 class="img-fluid"
               />
@@ -37,7 +29,7 @@ class ProductCard extends React.Component {
           </div>
           <div class="product-content">
             <div class="product-content-head">
-              <h3 class="product-title">{this.props.title}</h3>
+              <h3 class="product-title">{this.props.product.originalTitle}</h3>
               <hr />
               {/* <div class="product-rating d-inline-block">
                 <i class="fa fa-fw fa-star" />
@@ -47,11 +39,11 @@ class ProductCard extends React.Component {
                 <i class="fa fa-fw fa-star" />
               </div> */}
               <div class="product-price">
-                Price :
+                Publisher :
                 <label>
                   {' '}
                   &nbsp;
-                  {this.props.price}
+                  {this.props.product.publisher.label}
                 </label>
               </div>
               <div class="product-price">
@@ -59,7 +51,7 @@ class ProductCard extends React.Component {
                 <label>
                   {' '}
                   &nbsp;
-                  {this.props.discount}
+                  {this.props.product.discount}
                 </label>
               </div>
               <div class="product-price">
@@ -67,18 +59,16 @@ class ProductCard extends React.Component {
                 <label>
                   {' '}
                   &nbsp;
-                  {this.props.weight}
+                  {this.props.product.weight}
                 </label>
               </div>
               <div class={s.productDescription}>
-                {this.props.descrption}
-                sdkllllllllllllllllllllllllllllllllgkja;smlcaxmzxc,mnqoei;ruoweyt249873842009;
-                sdkllllllllllllllllllllllllllllllllgkja;smlcaxmzxc,mnqoei;ruoweyt249873842009
+                {this.props.product.originalDesc}
               </div>
             </div>
             <div class="product-btn">
               <a
-                onClick={() => this.props.onProductClick(this.props.id)}
+                onClick={() => this.props.onProductClick(this.props.product.id)}
                 class="btn btn-outline-light"
               >
                 Details

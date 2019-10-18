@@ -26,25 +26,33 @@ class ProductsTable extends React.Component {
     this.state = {
       isLoading: true,
       firstRender: true,
-      pageIndex: 1,
+      pageIndex: 0,
       pageSize: 9,
-      totalPageNum: 20,
+      totalPageNum: '',
       currentproducts: [{ a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
       allPublishers: '',
       allProductContentTypes: '',
       allLanguages: '',
       allAgeGroups: '',
-
       productsSearchFilter: {
         publishers: '',
-        singleProductTypes: '',
-        productTypes: '',
+        singlProductTypes: '',
+        productType: '', //remove s
         productContentTypes: '',
-        status: '',
-        languages: '',
+        productStatus: '',
+        productLanguages: '',
         ageGroups: '',
+        originalTitle: '',
+        originalDesc: '',
         periods: '',
+        originalTitle: '',
+        originalDesc: '',
+        issn: '',
+        asb: '',
+        dewey: '',
+
+        hasDiscount: '',
         priceRange: { min: 5, max: 10 },
         weightRange: { min: 30, max: 400 },
         sortDate: false,
@@ -62,19 +70,19 @@ class ProductsTable extends React.Component {
   }
   componentDidMount() {
     // this.fetchAllInfo();
-    // this.fetchProducts();
+    this.fetchProducts();
   }
   onProductClick(id) {
     history.push(`/admin/products/6002`);
   }
   fetchProducts() {
-    const url = `${SERVER}/getProducts`;
+    const url = `${SERVER}/getAllProducts`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       searchBy: this.state.productsSearchFilter,
-      pageNumber: this.state.pageIndex,
+      pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
     const options = {
@@ -125,7 +133,7 @@ class ProductsTable extends React.Component {
         that.setState({
           allPublishers: response.publishers,
           allProductContentTypes: response.contentTypes,
-          allLanguages: response.languages,
+          allLanguages: response.productLanguages,
           allAgeGroups: response.ageGroups,
         });
       },
@@ -159,11 +167,11 @@ class ProductsTable extends React.Component {
     this.setState({
       productsSearchFilter: {
         publishers: '',
-        singleProductTypes: '',
-        productTypes: '',
+        singlProductTypes: '',
+        productType: '',
         productContentTypes: '',
-        status: '',
-        languages: '',
+        productStatus: '',
+        productLanguages: '',
         ageGroups: '',
         periods: '',
         priceRange: { min: 5, max: 10 },
@@ -183,12 +191,7 @@ class ProductsTable extends React.Component {
         (product, i) =>
           (products = (
             <ProductCard
-              id="id for teste"
-              title="abbas"
-              price="666"
-              discount="55"
-              description="sladjas;ldkjas;ldkans;lkdjas;dlkajsdlkasjalskdjasldkjasdlkajs44"
-              imgSrc="/assets/images/eco-product-img-1.png"
+              product={product}
               onProductClick={this.onProductClick}
             />
           )),
@@ -203,46 +206,50 @@ class ProductsTable extends React.Component {
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
-            <div class="row">{products}</div>
-            <div class="row">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <ReactPaginate
-                  previousLabel="<"
-                  nextLabel=">"
-                  pageCount={this.state.totalPageNum}
-                  pageRangeDisplayed={3}
-                  onPageChange={this.handlePageChange}
-                  marginPagesDisplayed={1}
-                  containerClassName="paginate"
-                  subContainerClassName="pages paginate"
-                  activeClassName="active-page"
-                  breakClassName="break-me"
-                  initialPage={this.props.pageIndex}
-                  disableInitialCallback
-                />
+        {this.state.isLoading ? (
+          <Spinner />
+        ) : (
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+              <div class="row">{products}</div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <ReactPaginate
+                    previousLabel="<"
+                    nextLabel=">"
+                    pageCount={this.state.totalPageNum}
+                    pageRangeDisplayed={3}
+                    onPageChange={this.handlePageChange}
+                    marginPagesDisplayed={1}
+                    containerClassName="paginate"
+                    subContainerClassName="pages paginate"
+                    activeClassName="active-page"
+                    breakClassName="break-me"
+                    initialPage={this.props.pageIndex}
+                    disableInitialCallback
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <ProductSideFilter
-            filters={this.state.productsSearchFilter}
-            allPublishers={[
-              { value: 1, label: 'aa1' },
-              { value: 2, label: 'aa2' },
-              { value: 3, label: 'aa3' },
-              { value: 4, label: 'aa4' },
-            ]}
-            allProductContentTypes={this.state.allProductContentTypes}
-            allLanguages={this.state.allLanguages}
-            allAgeGroups={this.state.allAgeGroups}
-            handleSelectChange={this.handleSelectChange}
-            handleInputChange={this.handleInputChange}
-            handleClearSearch={this.clearFilters}
-            handleSearch={this.search}
-          />
-        </div>
+            <ProductSideFilter
+              filters={this.state.productsSearchFilter}
+              allPublishers={[
+                { value: 1, label: 'aa1' },
+                { value: 2, label: 'aa2' },
+                { value: 3, label: 'aa3' },
+                { value: 4, label: 'aa4' },
+              ]}
+              allProductContentTypes={this.state.allProductContentTypes}
+              allLanguages={this.state.allLanguages}
+              allAgeGroups={this.state.allAgeGroups}
+              handleSelectChange={this.handleSelectChange}
+              handleInputChange={this.handleInputChange}
+              handleClearSearch={this.clearFilters}
+              handleSearch={this.search}
+            />
+          </div>
+        )}
       </div>
     );
   }

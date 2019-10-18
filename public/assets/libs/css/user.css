@@ -163,6 +163,46 @@
     color: white;
   }
 /* dropdown  */
+  .languagedropbtn {
+    background-color: #1a1a1a !important;
+    color: white;
+    /* padding: 16px; */
+    /* font-size: 16px; */
+    border: none;
+    cursor: pointer;
+  }
+  
+  .languagedropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .languagedropdown-content {
+    display: none;
+    position: absolute;
+    border-radius: 2px;
+    background-color: white;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top: 40px;
+    right: 0;
+    z-index: 1;
+  }
+  
+  .languagedropdown-content a {
+    color: black !important;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .languagedropdown a:hover {background-color: #ddd;}
+  
+  .languageshow {display: block;}
+
+  /* dropdown  */
   .userdropbtn {
     background-color: #1a1a1a !important;
     color: white;

@@ -19,6 +19,7 @@ class ProductItem extends React.Component {
   };
 
   render() {
+    // console.log('lael : ', );
     return (
       <div
         class={`${s.container} col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 `}
@@ -32,7 +33,7 @@ class ProductItem extends React.Component {
                 <img
                   width="140"
                   height="180"
-                  src="/assets/images/blank_avatar.png"
+                  src={this.props.product.coverImage}
                 />
               </div>
             </div>
@@ -42,15 +43,19 @@ class ProductItem extends React.Component {
             >
               <div className={`${s.title} row`}>
                 <div className="col-12">
-                  <u>Title</u>
+                  <u>{this.props.product.originalTitle}</u>
                 </div>
               </div>
               <div className="row">
-                <div className="col-12">details</div>
+                <div className="col-12">
+                  {this.props.product.ageGroup.label} |{' '}
+                </div>
               </div>
               <div className="row">
                 <div className="col-12">
-                  <div className={s.description}>description</div>
+                  <div className={s.description}>
+                    {this.props.product.originalDesc}
+                  </div>
                 </div>
               </div>
             </div>

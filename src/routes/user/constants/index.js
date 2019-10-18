@@ -1,4 +1,4 @@
-const SERVER = 'https://localhost:3000';
+const SERVER = 'http://localhost:3004';
 const OPCODES = {
   checkbox: 1,
   range: 2,

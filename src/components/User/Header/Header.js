@@ -10,7 +10,6 @@ class Header extends React.Component {
   }
   componentDidMount() {
     window.onclick = function(event) {
-      console.log(event.target);
       if (!event.target.matches('.userdropbtn')) {
         var dropdowns = document.getElementsByClassName('userdropdown-content');
         var i;
@@ -21,13 +20,26 @@ class Header extends React.Component {
           }
         }
       }
+      if (!event.target.matches('.languagedropbtn')) {
+        var dropdowns = document.getElementsByClassName(
+          'languagedropdown-content',
+        );
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+
+          if (openDropdown.classList.contains('languageshow')) {
+            openDropdown.classList.remove('languageshow');
+          }
+        }
+      }
     };
   }
   goTo(url) {
     history.push(url);
   }
-  drop(id) {
-    document.getElementById(id).classList.toggle('usershow');
+  drop(id, className) {
+    document.getElementById(id).classList.toggle(className);
   }
   render() {
     return (
@@ -87,7 +99,7 @@ class Header extends React.Component {
               <button class="userdropbtn">
                 <i
                   onClick={() => {
-                    this.drop('userDropDown');
+                    this.drop('userDropDown', 'usershow');
                   }}
                   class="far fa-user userdropbtn"
                 />
@@ -97,16 +109,16 @@ class Header extends React.Component {
                 <a onClick={() => this.goTo('/')}>logOut</a>
               </div>
             </div>
-            <div class="userdropdown">
-              <button class="userdropbtn">
+            <div class="languagedropdown">
+              <button class="languagedropbtn">
                 <i
                   onClick={() => {
-                    this.drop('globeDropDown');
+                    this.drop('globeDropDown', 'languageshow');
                   }}
-                  class="fa fa-globe userdropbtn"
+                  class="fa fa-globe languagedropbtn"
                 />
               </button>
-              <div id="globeDropDown" class="userdropdown-content">
+              <div id="globeDropDown" class="languagedropdown-content">
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
               </div>

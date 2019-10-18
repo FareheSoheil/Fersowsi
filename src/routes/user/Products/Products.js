@@ -15,35 +15,43 @@ class Products extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      pageIndex: 2,
-      pageSize: 15,
-      totalPageNum: 15,
+      isLoading: true,
+      pageIndex: 0,
+      pageSize: 9,
+      totalPageNum: '',
       sortBy: '',
       searchClear: true,
       allPublishers: '',
       allProductContentTypes: '',
       allLanguages: '',
       allAgeGroups: '',
-      currentproducts: ['a', 'b', 'c', 'd'],
+      allCountries: [],
+
+      currentproducts: [],
       productsSearchFilter: {
-        productName: '',
         publishers: '',
         singlProductTypes: '',
-        productTypes: '',
+        productType: '', //remove s
         productContentTypes: '',
-        status: '',
-        languages: '',
+        productStatus: '',
+        productLanguages: '',
         ageGroups: '',
+        originalTitle: '',
+        originalDesc: '',
         periods: '',
+        originalTitle: '',
+        originalDesc: '',
+        issn: '',
+        asb: '',
+        dewey: '',
+
+        hasDiscount: '',
         priceRange: { min: 5, max: 10 },
         weightRange: { min: 30, max: 400 },
         sortDate: false,
         sortPrice: false,
         sortWeight: false,
       },
-
-      allCountries: [],
     };
     this.fetchProducts = this.fetchProducts.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
@@ -55,14 +63,14 @@ class Products extends React.Component {
     this.search = this.search.bind(this);
   }
   componentDidMount() {
-    // this.fetchAllInfo();
-    // this.fetchProducts();
+    this.fetchAllInfo();
+    this.fetchProducts();
   }
   onProductClick(id) {
     history.push(`/admin/products/${id}`);
   }
   fetchProducts() {
-    const url = `${SERVER}/getProducts`;
+    const url = `${SERVER}/getAllProducts`;
     this.setState({
       isLoading: true,
     });
@@ -86,7 +94,7 @@ class Products extends React.Component {
       response => {
         that.setState({
           currentproducts: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
+          totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
         });
@@ -97,14 +105,13 @@ class Products extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAuxInfoForAllProducts`;
     this.setState({
       isLoading: true,
     });
 
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -213,7 +220,11 @@ class Products extends React.Component {
   render() {
     let products = <div className={s.warning}>No Products Available</div>;
     const receivedProducts = this.state.currentproducts;
-    if (receivedProducts !== undefined && receivedProducts.length !== 0)
+    if (
+      !this.props.isLoading &&
+      receivedProducts !== undefined &&
+      receivedProducts.length !== 0
+    ) {
       products = this.state.currentproducts.map(
         (product, i) =>
           (products = (
@@ -224,6 +235,7 @@ class Products extends React.Component {
             />
           )),
       );
+    }
     return (
       <div>
         {' '}
