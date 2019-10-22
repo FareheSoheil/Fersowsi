@@ -15,6 +15,7 @@ import AdvancedListHeader from './AdvancedListHeader/AdvancedListHeader';
 class AdvancedListContainer extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    sortBy: PropTypes.object.isRequired,
     handleSelectChange: PropTypes.func.isRequired,
   };
 
@@ -25,6 +26,7 @@ class AdvancedListContainer extends React.Component {
           <div className="row">
             <AdvancedListHeader
               handleSelectChange={this.props.handleSelectChange}
+              sortBy={this.props.sortBy}
             />
           </div>
           <div className="row">{this.props.children}</div>

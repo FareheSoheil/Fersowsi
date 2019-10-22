@@ -26,7 +26,6 @@ class Products extends React.Component {
       allLanguages: '',
       allAgeGroups: '',
       allCountries: [],
-
       currentproducts: [],
       productsSearchFilter: {
         publishers: '',
@@ -39,15 +38,12 @@ class Products extends React.Component {
         originalTitle: '',
         originalDesc: '',
         periods: '',
-        originalTitle: '',
-        originalDesc: '',
         issn: '',
         asb: '',
         dewey: '',
-
         hasDiscount: '',
-        priceRange: { min: 5, max: 10 },
-        weightRange: { min: 30, max: 400 },
+        priceRange: { min: 1, max: 100 },
+        weightRange: { min: 10, max: 2000 },
         sortDate: false,
         sortPrice: false,
         sortWeight: false,
@@ -70,6 +66,7 @@ class Products extends React.Component {
     history.push(`/admin/products/${id}`);
   }
   fetchProducts() {
+    console.log('product search : ', this.state.productsSearchFilter);
     const url = `${SERVER}/getAllProducts`;
     this.setState({
       isLoading: true,
@@ -80,6 +77,7 @@ class Products extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
+    console.log('credentials : ', credentials);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -92,12 +90,18 @@ class Products extends React.Component {
       url,
       options,
       response => {
-        that.setState({
-          currentproducts: response.currentRecords,
-          totalPageNum: response.totalPageNum,
-          isLoading: false,
-          firstRender: false,
-        });
+        console.log('products : ', response);
+        that.setState(
+          {
+            currentproducts: response.currentRecords,
+            totalPageNum: response.totalPageNum,
+            isLoading: false,
+            firstRender: false,
+          },
+          () => {
+            window.scroll(10, 20);
+          },
+        );
       },
       error => {
         console.log(error);
@@ -149,39 +153,60 @@ class Products extends React.Component {
     this.setState({ productsSearchFilter, searchClear: false });
   };
   handleSortChange = selectedOption => {
-    window.alert('hi');
-    this.setState({ sortBy: selectedOption, searchClear: false }, () => {
-      window.alert('hi');
-      this.fetchProducts();
-    });
+    let preState = { ...this.state.productsSearchFilter };
+    if (selectedOption.label == 'Weight') preState.sortWeight = true;
+    else if (selectedOption.label == 'Date') preState.sortDate = true;
+    else preState.sortPrice = true;
+    this.setState(
+      {
+        productsSearchFilter: preState,
+        sortBy: selectedOption,
+        searchClear: false,
+      },
+      () => {
+        this.fetchProducts();
+      },
+    );
   };
   handlePageChange(pageIndex) {
-    this.setState({ pageIndex: pageIndex.selected });
-    this.fetchProducts();
+    this.setState({ pageIndex: pageIndex.selected }, () => {
+      this.fetchProducts();
+    });
   }
   search() {
+    // console.log('search filters : ', this.state.productsSearchFilter);
     this.fetchProducts();
   }
   clearFilters() {
-    this.setState({
-      productsSearchFilter: {
-        productName: '',
-        publishers: '',
-        singlProductTypes: '',
-        productTypes: '',
-        productContentTypes: '',
-        status: '',
-        languages: '',
-        ageGroups: '',
-        periods: '',
-        priceRange: { min: 5, max: 10 },
-        weightRange: { min: 30, max: 400 },
-        sortDate: false,
-        sortPrice: false,
-        sortWeight: false,
+    this.setState(
+      {
+        productsSearchFilter: {
+          publishers: '',
+          singlProductTypes: '',
+          productType: '', //remove s
+          productContentTypes: '',
+          productStatus: '',
+          productLanguages: '',
+          ageGroups: '',
+          originalTitle: '',
+          originalDesc: '',
+          periods: '',
+          issn: '',
+          asb: '',
+          dewey: '',
+          hasDiscount: '',
+          priceRange: { min: 5, max: 10 },
+          weightRange: { min: 30, max: 400 },
+          sortDate: false,
+          sortPrice: false,
+          sortWeight: false,
+        },
+        searchClear: true,
       },
-      searchClear: true,
-    });
+      () => {
+        this.fetchProducts();
+      },
+    );
   }
   handleOnWish(id) {
     const url = `${SERVER}/addToFavorite`;
@@ -218,24 +243,23 @@ class Products extends React.Component {
     );
   }
   render() {
-    let products = <div className={s.warning}>No Products Available</div>;
+    let products;
     const receivedProducts = this.state.currentproducts;
     if (
       !this.props.isLoading &&
       receivedProducts !== undefined &&
       receivedProducts.length !== 0
     ) {
-      products = this.state.currentproducts.map(
+      products = receivedProducts.map(
         (product, i) =>
-          (products = (
-            <ProductItem
-              product={product}
-              //  isWished
-              handleOnWish={this.handleOnWish}
-            />
-          )),
+          (products = <ProductItem hasWish={true} product={product} />),
       );
-    }
+    } else if (this.props.isLoading && receivedProducts === undefined)
+      products = (
+        <div className="col-12">
+          <div className={s.warning}>No Products Found :-(</div>
+        </div>
+      );
     return (
       <div>
         {' '}
@@ -246,12 +270,7 @@ class Products extends React.Component {
             <div className="row">
               <ProductSideFilter
                 filters={this.state.productsSearchFilter}
-                allPublishers={[
-                  { value: 1, label: 'aa1' },
-                  { value: 2, label: 'aa2' },
-                  { value: 3, label: 'aa3' },
-                  { value: 4, label: 'aa4' },
-                ]}
+                allPublishers={this.state.allPublishers}
                 allProductContentTypes={this.state.allProductContentTypes}
                 allLanguages={this.state.allLanguages}
                 allAgeGroups={this.state.allAgeGroups}
@@ -260,7 +279,10 @@ class Products extends React.Component {
                 handleClearSearch={this.clearFilters}
                 handleSearch={this.search}
               />
-              <AdvancedListContainer handleSelectChange={this.handleSortChange}>
+              <AdvancedListContainer
+                sortBy={this.state.sortBy}
+                handleSelectChange={this.handleSortChange}
+              >
                 {products}
               </AdvancedListContainer>
             </div>

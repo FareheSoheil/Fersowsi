@@ -35,12 +35,6 @@ const context = {
   role: '',
 };
 
-console.log(
-  'start',
-  window.App.state,
-  ' local storage : ',
-  localStorage.getItem('aad'),
-);
 // so I can read from localstorage
 
 // window.alert('start', window.applicationCache.state);
@@ -52,7 +46,6 @@ if (locale === null) {
 } else context.store.dispatch(setLocale(locale));
 context.store.dispatch(loadTranslations(translationsObject));
 
-console.log('start', window.App.state);
 // window.alert('end');
 const container = document.getElementById('app');
 let currentLocation = history.location;

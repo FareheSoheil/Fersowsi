@@ -18,11 +18,17 @@ class ProductSideFilter extends React.Component {
     allAgeGroups: PropTypes.array.isRequired,
 
     filters: {
+      issn: PropTypes.string.isRequired,
+      asb: PropTypes.string.isRequired,
+      dewey: PropTypes.string.isRequired,
+      originalTitle: PropTypes.string.isRequired,
+      originalDesc: PropTypes.string.isRequired,
       publishers: PropTypes.array.isRequired,
       singlProductTypes: PropTypes.array.isRequired,
-      productTypes: PropTypes.array.isRequired,
-      status: PropTypes.array.isRequired,
-      languages: PropTypes.array.isRequired,
+      productType: PropTypes.array.isRequired,
+      productContentTypes: PropTypes.array.isRequired, //*
+      productStatus: PropTypes.array.isRequired, //*
+      productLanguages: PropTypes.array.isRequired,
       ageGroups: PropTypes.array.isRequired,
       periods: PropTypes.array.isRequired,
       priceRange: PropTypes.object.isRequired,
@@ -42,7 +48,7 @@ class ProductSideFilter extends React.Component {
           <div class="product-sidebar-widget">
             <h4 class="mb-0"> Refine Your Search</h4>
           </div>
-          <div class="product-sidebar-widget">
+          <div class={`${s.simpleFilter} product-sidebar-widget`}>
             <div class="product-sidebar-widget-title">
               Search By{' '}
               <span
@@ -60,14 +66,14 @@ class ProductSideFilter extends React.Component {
                 <label>Product Name</label>
                 <br />
                 <input
-                  name="productName"
+                  name="originalTitle"
                   type="text"
                   className="form-control form-control-sm"
-                  value={this.props.filters.productName}
+                  value={this.props.filters.originalTitle}
                   onChange={e =>
                     this.props.handleInputChange(
                       OPCODES.simple,
-                      'productName',
+                      'originalTitle',
                       e,
                     )
                   }
@@ -75,19 +81,42 @@ class ProductSideFilter extends React.Component {
               </div>
 
               <div className="form-group">
-                <label>Product ISSN | DEWEY | ASB </label>
+                <label>Product ISSN </label>
                 <br />
                 <input
-                  name="productNumbers"
+                  name="issn"
                   type="text"
                   className="form-control form-control-sm"
-                  value={this.props.filters.productNumbers}
+                  value={this.props.filters.issn}
                   onChange={e =>
-                    this.props.handleInputChange(
-                      OPCODES.simple,
-                      'productNumbers',
-                      e,
-                    )
+                    this.props.handleInputChange(OPCODES.simple, 'issn', e)
+                  }
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Product DEWEY </label>
+                <br />
+                <input
+                  name="dewey"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.dewey}
+                  onChange={e =>
+                    this.props.handleInputChange(OPCODES.simple, 'dewey', e)
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label>Product asb </label>
+                <br />
+                <input
+                  name="asb"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.asb}
+                  onChange={e =>
+                    this.props.handleInputChange(OPCODES.simple, 'asb', e)
                   }
                 />
               </div>
@@ -163,8 +192,8 @@ class ProductSideFilter extends React.Component {
               isMulti
               isSearchable
               options={PRODUCT_TYPE_ARRAY}
-              value={this.props.filters.productTypes}
-              onChange={so => this.props.handleSelectChange(so, 'productTypes')}
+              value={this.props.filters.productType}
+              onChange={so => this.props.handleSelectChange(so, 'productType')}
             />
           </div>
           <div class="product-sidebar-widget">
@@ -210,8 +239,10 @@ class ProductSideFilter extends React.Component {
               isMulti
               isSearchable
               options={PRODUCT_STATUS_ARRAY}
-              value={this.props.filters.status}
-              onChange={so => this.props.handleSelectChange(so, 'status')}
+              value={this.props.filters.productStatus}
+              onChange={so =>
+                this.props.handleSelectChange(so, 'productStatus')
+              }
             />
           </div>
 
@@ -233,8 +264,10 @@ class ProductSideFilter extends React.Component {
               isMulti
               isSearchable
               options={this.props.allLanguages}
-              value={this.props.filters.languages}
-              onChange={so => this.props.handleSelectChange(so, 'languages')}
+              value={this.props.filters.productLanguages}
+              onChange={so =>
+                this.props.handleSelectChange(so, 'productLanguages')
+              }
             />
           </div>
 
@@ -288,7 +321,7 @@ class ProductSideFilter extends React.Component {
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">Price</div>
             <InputRange
-              maxValue={50}
+              maxValue={100}
               minValue={1}
               formatLabel={value => `${value}$`}
               value={this.props.filters.priceRange}
@@ -301,7 +334,7 @@ class ProductSideFilter extends React.Component {
             <div class="product-sidebar-widget-title">Weight</div>
             <InputRange
               maxValue={2000}
-              minValue={20}
+              minValue={10}
               formatLabel={value => `${value}g`}
               value={this.props.filters.weightRange}
               onChange={weight =>

@@ -7059,8 +7059,8 @@ Media Query
 /* =========================== Range Slider ================= */
 .input-range__slider {
   appearance: none;
-  background: var(--theme-color);
-  border: 1px solid var(--theme-color);
+  background:#1d2c39;
+  border: 2px solid lightgray;
   border-radius: 100%;
   cursor: pointer;
   display: block;
@@ -7132,7 +7132,7 @@ Media Query
   top: 50%; }
 
 .input-range__track--active {
-  background: var(--theme-color); }
+  background: #1d2c39; }
 
 .input-range {
   height: 1rem;

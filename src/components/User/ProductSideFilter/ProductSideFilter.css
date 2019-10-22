@@ -3,4 +3,9 @@
     color: black;
     /* padding-bottom: 10px; */
 }
+.simpleFilter label {
+    /* background-color: blueviolet; */
+    color: black;
+    font-size: inherit;
+}
 /* .filterContainer div div { color: red;} */

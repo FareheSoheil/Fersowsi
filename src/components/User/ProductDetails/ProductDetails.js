@@ -4,22 +4,21 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
-import { SSRSERVER, SERVER } from '../../../constants';
-import s from './ProductItem.css';
-class ProductItem extends React.Component {
+import Spinner from '../Spinner';
+import { SSRSERVER } from '../../../constants';
+import s from './ProductDetails.css';
+class ProductDetails extends React.Component {
   static propTypes = {
     product: PropTypes.object.isRequired,
-    hasWish: PropTypes.bool.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
   };
   constructor(props) {
     super(props);
     this.state = {
+      // isLoading: true,
       selectedPrice: '',
     };
     this.onPriceChange = this.onPriceChange.bind(this);
     this.addToWishList = this.addToWishList.bind(this);
-    this.gotoProductDetails = this.gotoProductDetails.bind(this);
   }
   onPriceChange(so) {
     this.setState({
@@ -27,7 +26,7 @@ class ProductItem extends React.Component {
     });
   }
   addToWishList() {
-    const url = `${SERVER}/addToWishList`;
+    const url = `${SSRSERVER}/addToWishList`;
     this.setState({
       isLoading: true,
     });
@@ -46,29 +45,22 @@ class ProductItem extends React.Component {
       url,
       options,
       response => {
-        window.alert('added successfully');
         that.setState({
           selectedPrice: '',
           isLoading: false,
         });
       },
       error => {
-        window.alert('added errorily');
         console.log(error);
       },
     );
   }
-  gotoProductDetails() {
-    // window.alert('hi');
-    window.location.replace(`/user/products/${this.props.product.id}`);
-    // history.push(`/user/products/${this.props.product.id}`);
-  }
+
   render() {
     let prices = this.props.product.productPriceAndCost;
     let categories = this.props.product.contentCategory;
     let manCategories = '';
     let manPrices = [];
-
     if (prices.length > 0) {
       prices.map((price, i) => {
         manPrices.some(
@@ -76,10 +68,7 @@ class ProductItem extends React.Component {
             item.id ===
             `${price.productSubscriptionTypeId} # ${price.productPeriodId}`,
         )
-          ? console.log(
-              'item : ',
-              `${price.productSubscriptionTypeId} # ${price.productPeriodId}`,
-            )
+          ? ''
           : manPrices.push({
               label: `${price.ProductSubscriptionTypeName} with ${
                 price.productPeriodName
@@ -110,7 +99,6 @@ class ProductItem extends React.Component {
               <div className={s.imgContainer}>
                 {' '}
                 <img
-                  onClick={this.gotoProductDetails}
                   width="140"
                   height="180"
                   src={this.props.product.coverImage}
@@ -118,7 +106,7 @@ class ProductItem extends React.Component {
               </div>
             </div>
             <div
-              className="offset-xl-1 col-xl-8 col-lg-9 col-md-11"
+              className="col-xl-9 col-lg-9 col-md-11"
               style={{ paddingLeft: '20px' }}
             >
               <div className={`${s.title} row`}>
@@ -133,13 +121,55 @@ class ProductItem extends React.Component {
                   {this.props.product.productLanguage.label}
                 </div>
               </div>
+
               <div className="row">
                 <div className="col-10">
-                  <div className={s.categories}>
+                  <div className={s.details}>
                     <label>Categories :</label> {manCategories}
                   </div>
                 </div>
               </div>
+              <div className="row">
+                <div className="col-10">
+                  <div className={s.details}>
+                    <label>asb :</label> {this.props.product.asb}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-10">
+                  <div className={s.details}>
+                    <label>issn :</label> {this.props.product.issn}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-10">
+                  <div className={s.details}>
+                    <label>dewey :</label> {this.props.product.dewey}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-10">
+                  <div className={s.details}>
+                    <label>Product Type :</label>{' '}
+                    {this.props.product.productType.label}
+                  </div>
+                </div>
+              </div>
+              {this.props.product.productType.value === 1 ? (
+                <div className="row">
+                  <div className="col-10">
+                    <div className={s.SingleType}>
+                      <label>Single Product Type :</label>{' '}
+                      {this.props.product.singleProductType.label}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
               <div className="row">
                 <div className="col-12">
                   <div className={s.description}>
@@ -150,7 +180,6 @@ class ProductItem extends React.Component {
               <div className={`${s.select} row`}>
                 <div className="col-xl-5 col-lg-6 col-md-8 col-sm-12">
                   <Select
-                    isDisabled={this.props.isDisabled}
                     options={manPrices}
                     value={this.state.selectedPrice}
                     onChange={this.onPriceChange}
@@ -166,23 +195,18 @@ class ProductItem extends React.Component {
                 </div>
               </div>
             </div>
-
-            {this.props.hasWish ? (
-              <div className="col-xl-1">
-                <div className={s.wishContainer}>
-                  <i
-                    onClick={this.addToWishList}
-                    class={
-                      this.props.isWished
-                        ? `${s.isWished} fas fa-heart`
-                        : 'fas fa-heart'
-                    }
-                  />
-                </div>
+            <div className="col-xl-1">
+              <div className={s.wishContainer}>
+                <i
+                  onClick={this.addToWishList}
+                  class={
+                    this.props.isWished
+                      ? `${s.isWished} fas fa-heart`
+                      : 'fas fa-heart'
+                  }
+                />
               </div>
-            ) : (
-              ''
-            )}
+            </div>
           </div>
         </div>
       </div>
@@ -190,4 +214,4 @@ class ProductItem extends React.Component {
   }
 }
 
-export default withStyles(s)(ProductItem);
+export default withStyles(s)(ProductDetails);

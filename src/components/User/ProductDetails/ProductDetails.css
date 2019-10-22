@@ -1,9 +1,10 @@
 .container {
     margin-top:3px;
     margin-bottom:3px;
-    border: 1px solid lightgray;
+    border: 3px solid lightgray;
     border-radius: 8px;
-    height: 280px;
+    max-height: 400px;
+    height: 100%;
     padding: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -31,7 +32,7 @@
 .select span {
     color: red;
 }
-.categories {
+.details , .SingleType {
     /* font-weight:  */
     color: rgb(87, 84, 84);
     /* padding: 3px; */
@@ -42,7 +43,7 @@
     height: 30px;
      /* word-wrap: break-word;  */
 }
-.categories label {
+.details label , .SingleType label {
     color: black;
 }
 .description {

@@ -362,7 +362,14 @@ let Users = [
     id: 'Product3',
   },
 ];
-
+app.post('/addToWishList', (req, res, next) => {
+  const id = req.body.productId;
+  data = {
+    currentRecords: 'comments',
+    totalPageNumber: 20,
+  };
+  res.send(data);
+});
 app.post('/getUsers', (req, res, next) => {
   console.log(
     // '--------------------- in req headres--------------',
