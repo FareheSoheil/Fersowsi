@@ -6,8 +6,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-import Promise from 'bluebird';
-//
 import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -28,7 +26,6 @@ import schema from './data/schema';
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
-import { userIsLoggedIn } from './actions/userLoggin';
 import config from './config';
 import { InitializeSQLite, readTokenIdFromDB } from './sqliteManager';
 import stateController from './stateController';
@@ -418,6 +415,46 @@ let publisherOrders = [
     deliveryCost: 539.0, //
   },
 ];
+let customerOrders = [
+  {
+    id: 22011,
+    vatNo: 600.0, //
+    totalPrice: 476.0, //
+    totalTaxCost: 20.0, //
+    totalCost: 554.25,
+    discount: 0.0, //
+    cancelPrice: 0.0, //
+    description: '', //
+    createdAt: '2011-03-01 12:17:40', //
+    updatedAt: '2019-10-16 01:56:52', //
+    status: { value: 1, label: 'Wait For Admin Response ' }, //
+    userOrderNo: 10001, //
+    customerId: 6004, //
+    currency: { value: 5, label: 'Euro' }, //
+    deliveryAddress: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' }, //
+    totalDeliveryCost: 539.0, //
+    publisherOrders: publisherOrders,
+  },
+  {
+    id: 22031,
+    vatNo: 6300.0, //
+    totalPrice: 476.0, //
+    totalTaxCost: 32.0, //
+    totalDeliveryCost: 539.0, //
+    totalCost: 554.25,
+    discount: 30.0, //
+    cancelPrice: 0.0, //
+    description: '', //
+    createdAt: '2011-03-01 12:17:40', //
+    updatedAt: '2019-10-16 01:56:52', //
+    status: { value: 1, label: 'Wait For Admin Response ' }, //
+    userOrderNo: 10001, //
+    customerId: 60044, //
+    currency: { value: 5, label: 'dollsr' }, //
+    deliveryAddress: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' }, //
+    publisherOrders: publisherOrders,
+  },
+];
 app.post('/addToWishList', (req, res, next) => {
   const data = {
     currentRecords: 'comments',
@@ -437,6 +474,18 @@ app.post('/getAllPublisherOrders', (req, res, next) => {
   };
   res.send(data);
 });
+app.post('/getAllCustomerOrders', (req, res, next) => {
+  console.log(
+    '--------------------- in req getAllCustomerOrders--------------',
+    req.headers,
+  );
+
+  const data = {
+    currentRecords: customerOrders,
+    totalPageNumber: 104,
+  };
+  res.send(data);
+});
 app.post('/getPublisherOrder', (req, res, next) => {
   console.log(
     '--------------------- in req getPublisherOrder --------------',
@@ -448,6 +497,20 @@ app.post('/getPublisherOrder', (req, res, next) => {
   else publisherOrder = publisherOrders[1];
   const data = {
     publisherOrder: publisherOrder,
+  };
+  res.send(data);
+});
+app.post('/getCustomerOrder', (req, res, next) => {
+  console.log(
+    '--------------------- in req getPublisherOrder --------------',
+    req.headers,
+  );
+  let customerOrder;
+  const id = req.body.customerOrderId;
+  if (id == 22011) customerOrder = customerOrders[0];
+  else customerOrder = customerOrders[1];
+  const data = {
+    customerOrder: customerOrder,
   };
   res.send(data);
 });

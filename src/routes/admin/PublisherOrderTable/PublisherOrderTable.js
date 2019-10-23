@@ -26,8 +26,7 @@ class PublisherOrderTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      firstRender: true,
+      isLoading: true,
       pageIndex: 0,
       pageSize: 9,
       totalPageNum: 20,

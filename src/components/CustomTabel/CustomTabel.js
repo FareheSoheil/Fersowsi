@@ -53,13 +53,14 @@ class CustomTabel extends React.Component {
                     height="50"
                   />
                 </td>
-              ) : record[label] === false ? (
+              ) : label === 'status' ? (
                 <td>
-                  <i
+                  {record[label].label}
+                  {/* <i
                     style={{ color: 'red' }}
                     class="fa fa-times"
                     aria-hidden="true"
-                  />
+                  /> */}
                 </td>
               ) : record[label] === true ? (
                 <td>

@@ -1,4 +1,26 @@
 
+.container {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: white;
+}
+.link {
+    padding-left: 20px;
+    color: blue;
+    cursor: pointer;
+    font-size: 17px;
+}
+.orderNo {
+    padding-left: 20px;
+    color: gray;
+    cursor: pointer;
+    font-size: 17px; 
+}
+.container label {
+    color:black;
+}
 .orderSmallInfoContainer {
     padding: 5px 20px 5px 15px;
     text-align: center;
@@ -9,6 +31,17 @@
 .orderSmallInfoContainer input{
     display: inline;
     width: auto;
+}
+.imageContainer {
+    text-align: center;
+}
+.imageUploader {
+    width: 200px !important;
+    border: 1px solid red;
+}
+.imageContainer img {
+    border: 2px solid lightgray;
+    border-radius: 3px;
 }
 
 
@@ -28,14 +61,14 @@
     padding: 10px;
     background-color: white;
 }
-.customerOrderDetailContainer form {
+.publisherOrderDetailContainer form {
     width: 100%;
     display: inline-block;
 }
-.customerOrderDetailContainer label {
+.publisherOrderDetailContainer label {
     display: inline-block;
 }
-.customerOrderDetailContainer input{
+.publisherOrderDetailContainer input{
     margin-left: 5px;
     width:100px;
     display: inline-block;

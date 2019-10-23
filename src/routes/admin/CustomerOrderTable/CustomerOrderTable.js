@@ -18,24 +18,20 @@ import {
   CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
   OPCODES,
 } from '../../../constants/constantData';
-
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import { SSRSERVER, SERVER } from '../../../constants';
 import s from './CustomerOrderTable.css';
 
 class CustomerOrderTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       firstRender: true,
       pageIndex: 1,
-      pageSize: 9,
+      pageIndex: 9,
       totalPageNum: 20,
-      currentCustomerOrders: [
-        { id: 1, address: 1 },
-        { a: 1 },
-        { a: 1 },
-        { a: 1 },
-      ],
+      currentCustomerOrders: [],
       searchClear: true,
       allPublishers: '',
       allProductContentTypes: '',
@@ -74,7 +70,7 @@ class CustomerOrderTable extends React.Component {
   }
   componentDidMount() {
     // this.fetchAllInfo();
-    // this.fetchCustomerOrders();
+    this.fetchCustomerOrders();
   }
   addCustomerOrder() {
     history.push('/admin/customerOrder/add');
@@ -83,14 +79,14 @@ class CustomerOrderTable extends React.Component {
     history.push(`/admin/customerOrder/${id}`);
   }
   fetchCustomerOrders() {
-    const url = `${SERVER}/getCustomerIds`;
+    const url = `${SSRSERVER}/getAllCustomerOrders`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       searchBy: this.state.customerOrderSearchFilter,
       pageNumber: this.state.pageIndex,
-      pageSize: this.state.pageSize,
+      pageIndex: this.state.pageIndex,
     };
     const options = {
       method: 'POST',

@@ -171,17 +171,17 @@ const ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY = [
 ];
 const CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY = [
   'Id',
-  'Customer Username',
-  'Payment Status',
-  'Total Cost',
-  'Address',
+  'Delivery Cost',
+  'Total Price',
+  'Status',
+  'Discount',
 ];
 const CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
-  'username',
-  'paymentStatus',
-  'totalCost',
-  'address',
+  'totalDeliveryCost',
+  'totalPrice',
+  'status',
+  'discount',
 ];
 const PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY = [
   'Id',

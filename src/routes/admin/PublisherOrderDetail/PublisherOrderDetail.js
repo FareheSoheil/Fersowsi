@@ -1,10 +1,10 @@
 import React from 'react';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './PublisherOrderDetail.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PageHeader from '../../../components/Admin/PageHeader';
+import Spinner from '../../../components/Admin/Spinner';
 import {
   PAYMENT_STATUS_ARRAY,
   CUSTOMER_ORDER_STATUS_ARRAY,
@@ -12,6 +12,7 @@ import {
 import { SERVER, SSRSERVER } from '../../../constants';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
+import s from './PublisherOrderDetail.css';
 class PublisherOrderDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -477,16 +478,11 @@ class PublisherOrderDetail extends React.Component {
                                     <label>Order Status </label>
                                     <br />
                                     <Select
-                                      name="orderStatus"
+                                      name="starus"
                                       options={CUSTOMER_ORDER_STATUS_ARRAY}
-                                      value={
-                                        this.state.publisherOrder.orderStatus
-                                      }
+                                      value={this.state.publisherOrder.starus}
                                       onChange={so =>
-                                        this.handleSelectChange(
-                                          so,
-                                          'orderStatus',
-                                        )
+                                        this.handleSelectChange(so, 'starus')
                                       }
                                     />
                                   </div>
@@ -681,7 +677,7 @@ class PublisherOrderDetail extends React.Component {
             </div>
           </div>
         ) : (
-          ''
+          <Spinner />
         )}
       </div>
     );
