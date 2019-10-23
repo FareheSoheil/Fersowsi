@@ -16,22 +16,25 @@ import {
 } from '../../../constants/constantData';
 class CustomerOrderSideFilter extends React.Component {
   static propTypes = {
-    allPublishers: PropTypes.array.isRequired,
-    allLanguages: PropTypes.array.isRequired,
-    allAgeGroups: PropTypes.array.isRequired,
-    allProductContentTypes: PropTypes.array.isRequired,
+    allCurrencies: PropTypes.array.isRequired,
+    allDeliveryAddresses: PropTypes.array.isRequired,
 
     filters: {
-      publishers: PropTypes.array.isRequired,
-      singlProductTypes: PropTypes.array.isRequired,
-      productTypes: PropTypes.array.isRequired,
-      status: PropTypes.array.isRequired,
-      paymentStatus: PropTypes.array.isRequired,
-      languages: PropTypes.array.isRequired,
-      ageGroups: PropTypes.array.isRequired,
-      periods: PropTypes.array.isRequired,
-      priceRange: PropTypes.object.isRequired,
-      counttRange: PropTypes.object.isRequired,
+      vatNo: 6300.0, //
+      totalPrice: 476.0, //
+      totalTaxCost: 32.0,
+      totalCost: 554.25,
+      totalDeliveryCost: 539.0,
+      cancelPrice: 0.0,
+      discount: 30.0,
+
+      status: { value: 1, label: 'Wait For Admin Response ' },
+      userOrderNo: 10001, //
+      currency: { value: 5, label: 'dollsr' },
+      deliveryAddress: {
+        value: 2662,
+        label: 'alkjsdhaskjdnasdjkasndasjdlasnd',
+      },
     },
     handleInputChange: PropTypes.func.isRequired,
     handleSelectChange: PropTypes.func.isRequired,
@@ -62,17 +65,17 @@ class CustomerOrderSideFilter extends React.Component {
             </div>
             <form id="searchCollapse" className="collapse">
               <div className="form-group">
-                <label>Customer Username</label>
+                <label>User Order No</label>
                 <br />
                 <input
-                  name="customerUsername"
+                  name="userOrderNo"
                   type="text"
                   className="form-control form-control-sm"
-                  value={this.props.filters.customerUsername}
+                  value={this.props.filters.userOrderNo}
                   onChange={e =>
                     this.props.handleInputChange(
                       OPCODES.simple,
-                      'customerUsername',
+                      'userOrderNo',
                       e,
                     )
                   }
@@ -80,53 +83,15 @@ class CustomerOrderSideFilter extends React.Component {
               </div>
 
               <div className="form-group">
-                <label>Customer First Name</label>
+                <label>Vat No</label>
                 <br />
                 <input
-                  name="customerFirstName"
+                  name="vatNo"
                   type="text"
                   className="form-control form-control-sm"
-                  value={this.props.filters.customerFirstName}
+                  value={this.props.filters.vatNo}
                   onChange={e =>
-                    this.props.handleInputChange(
-                      OPCODES.simple,
-                      'customerFirstName',
-                      e,
-                    )
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Customer Last Name</label>
-                <br />
-                <input
-                  name="customerLastName"
-                  type="text"
-                  className="form-control form-control-sm"
-                  value={this.props.filters.customerLastName}
-                  onChange={e =>
-                    this.props.handleInputChange(
-                      OPCODES.simple,
-                      'customerLastName',
-                      e,
-                    )
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Customer Email</label>
-                <br />
-                <input
-                  name="customerEmail"
-                  type="text"
-                  className="form-control form-control-sm"
-                  value={this.props.filters.customerEmail}
-                  onChange={e =>
-                    this.props.handleInputChange(
-                      OPCODES.simple,
-                      'customerEmail',
-                      e,
-                    )
+                    this.props.handleInputChange(OPCODES.simple, 'vatNo', e)
                   }
                 />
               </div>
@@ -169,25 +134,6 @@ class CustomerOrderSideFilter extends React.Component {
                 <input
                   type="checkbox"
                   class="custom-control-input"
-                  name="sortWeight"
-                  onChange={e =>
-                    this.props.handleInputChange(
-                      OPCODES.checkbox,
-                      'sortWeight',
-                      e,
-                    )
-                  }
-                  id="weight"
-                  checked={this.props.filters.sortWeight}
-                />
-                <label class="custom-control-label" for="weight">
-                  Weight
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
                   onChange={e =>
                     this.props.handleInputChange(
                       OPCODES.checkbox,
@@ -205,101 +151,7 @@ class CustomerOrderSideFilter extends React.Component {
               </div>
             </div>
           </div>
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Publisher{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#PublisherCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <Select
-              id="PublisherCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={this.props.allPublishers}
-              value={this.props.filters.publishers}
-              onChange={so => this.props.handleSelectChange(so, 'publishers')}
-            />
-          </div>
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Product Content Type{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#pctCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <Select
-              id="pctCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={this.props.allProductContentTypes}
-              value={this.props.filters.productContentTypes}
-              onChange={so =>
-                this.props.handleSelectChange(so, 'productContentTypes')
-              }
-            />
-          </div>
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Product Types{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#ptCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <Select
-              id="ptCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={PRODUCT_TYPE_ARRAY}
-              value={this.props.filters.productTypes}
-              onChange={so => this.props.handleSelectChange(so, 'productTypes')}
-            />
-          </div>
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Single Product Types<span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#sptCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <Select
-              id="sptCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={SINGLE_PRODUCT_TYPE_ARRAY}
-              value={this.props.filters.singlProductTypes}
-              onChange={so =>
-                this.props.handleSelectChange(so, 'singlProductTypes')
-              }
-            />
-          </div>
+
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
               Order Status{' '}
@@ -325,7 +177,7 @@ class CustomerOrderSideFilter extends React.Component {
           </div>
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
-              Payment Status{' '}
+              Currency{' '}
               <span
                 class="float-right slider collapsed"
                 data-toggle="collapse"
@@ -341,63 +193,14 @@ class CustomerOrderSideFilter extends React.Component {
               className="collapse"
               isMulti
               isSearchable
-              options={PAYMENT_STATUS_ARRAY}
-              value={this.props.filters.paymentStatus}
-              onChange={so =>
-                this.props.handleSelectChange(so, 'paymentStatus')
-              }
-            />
-          </div>
-
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Language<span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#langCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <Select
-              id="langCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={this.props.allLanguages}
-              value={this.props.filters.languages}
-              onChange={so => this.props.handleSelectChange(so, 'languages')}
+              options={this.props.allCurrencies}
+              value={this.props.filters.currency}
+              onChange={so => this.props.handleSelectChange(so, 'currency')}
             />
           </div>
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
-              Age Group{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#agCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <Select
-              id="agCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={this.props.allAgeGroups}
-              value={this.props.filters.ageGroups}
-              onChange={so => this.props.handleSelectChange(so, 'ageGroups')}
-            />
-          </div>
-
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Period{' '}
+              Delivery Address{' '}
               <span
                 class="float-right slider collapsed"
                 data-toggle="collapse"
@@ -413,65 +216,67 @@ class CustomerOrderSideFilter extends React.Component {
               className="collapse"
               isMulti
               isSearchable
-              options={PRODUCT_PERIOD_ARRAY}
-              onChange={so => this.props.handleSelectChange(so, 'periods')}
-              value={this.props.filters.periods}
+              options={this.props.allDeliveryAddresses}
+              onChange={so =>
+                this.props.handleSelectChange(so, 'deliveryAddress')
+              }
+              value={this.props.filters.deliveryAddress}
             />
           </div>
+
           <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Creation Date{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#dateCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <div id="dateCollapse" className="collapse">
-              {/* <div className="form-group"> */}
-              <label className="mb-0">Start Date </label>
-              <br />
-              <DatePicker
-                name="creationDate"
-                selected={this.props.filters.startDate}
-                onChange={date => this.props.onDateInput(date, 'startDate')}
-              />
-              {/* </div> */}
-              {/* <div className="form-group"> */}
-              <label className="mb-0">End Date </label>
-              <br />
-              <DatePicker
-                name="creationDate"
-                selected={this.props.filters.endDate}
-                onChange={date => this.props.onDateInput(date, 'endDate')}
-              />
-              {/* </div> */}
-            </div>
-          </div>
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">Totla Price</div>
+            <div class="product-sidebar-widget-title">Total Price</div>
             <InputRange
-              maxValue={50}
+              maxValue={100}
               minValue={1}
               formatLabel={value => `${value}$`}
-              value={this.props.filters.priceRange}
+              value={this.props.filters.totalPrice}
               onChange={price =>
-                this.props.handleInputChange(OPCODES.range, 'priceRange', price)
+                this.props.handleInputChange(OPCODES.range, 'totalPrice', price)
               }
             />
           </div>
           <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">Count</div>
+            <div class="product-sidebar-widget-title">Total Cost</div>
             <InputRange
-              maxValue={2000}
+              maxValue={100}
               minValue={1}
-              value={this.props.filters.countRange}
-              onChange={count =>
-                this.props.handleInputChange(OPCODES.range, 'countRange', count)
+              formatLabel={value => `${value}$`}
+              value={this.props.filters.totalCost}
+              onChange={price =>
+                this.props.handleInputChange(OPCODES.range, 'totalCost', price)
+              }
+            />
+          </div>
+          <div class="product-sidebar-widget">
+            <div class="product-sidebar-widget-title">Total Delivery Cost</div>
+            <InputRange
+              maxValue={100}
+              minValue={1}
+              formatLabel={value => `${value}$`}
+              value={this.props.filters.totalDeliveryCost}
+              onChange={price =>
+                this.props.handleInputChange(
+                  OPCODES.range,
+                  'totalDeliveryCost',
+                  price,
+                )
+              }
+            />
+          </div>
+          <div class="product-sidebar-widget">
+            <div class="product-sidebar-widget-title">Total Tax Cost</div>
+            <InputRange
+              maxValue={100}
+              minValue={1}
+              formatLabel={value => `${value}$`}
+              value={this.props.filters.totalTaxCost}
+              onChange={price =>
+                this.props.handleInputChange(
+                  OPCODES.range,
+                  'totalTaxCost',
+                  price,
+                )
               }
             />
           </div>

@@ -28,32 +28,24 @@ class CustomerOrderTable extends React.Component {
     this.state = {
       isLoading: true,
       firstRender: true,
-      pageIndex: 1,
+      pageIndex: 0,
       pageIndex: 9,
       totalPageNum: 20,
       currentCustomerOrders: [],
       searchClear: true,
-      allPublishers: '',
-      allProductContentTypes: '',
-      allLanguages: '',
-      allAgeGroups: '',
-
+      allCurrencies: '',
+      allDeliveryAddresses: '',
       customerOrderSearchFilter: {
-        customerUsername: '',
-        customerFirsName: '',
-        customerLastName: '',
-        customerEmail: '',
-        publishers: '',
-        singlProductTypes: '',
-        productTypes: '',
-        productContentTypes: '',
+        vatNo: '',
+        totalPrice: { min: 2, max: 100 },
+        totalTaxCost: { min: 2, max: 100 },
+        totalCost: { min: 2, max: 100 },
+        totalDeliveryCost: { min: 2, max: 100 },
         status: '',
-        paymentStatus: '',
-        languages: '',
-        ageGroups: '',
-        periods: '',
-        priceRange: { min: 5, max: 10 },
-        countRange: { min: 30, max: 400 },
+        userOrderNo: '',
+        currency: '',
+        deliveryAddress: '',
+
         sortCount: false,
         sortTotlaPrice: false,
         sortDate: false,
@@ -113,17 +105,13 @@ class CustomerOrderTable extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAllAuxInfoForAllCustomerOrders`;
     this.setState({
       isLoading: true,
     });
-    const credentials = {
-      // searchBy: this.state.customerOrderSearchFilter,
-      // pageNumber: this.state.currentPageNumber,
-    };
+
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -134,10 +122,8 @@ class CustomerOrderTable extends React.Component {
       options,
       response => {
         that.setState({
-          allPublishers: response.publishers,
-          allProductContentTypes: response.contentTypes,
-          allLanguages: response.languages,
-          allAgeGroups: response.ageGroups,
+          allCurrencies: response.currencies,
+          allDeliveryAddresses: response.deliveryAddresses,
         });
       },
       error => {
@@ -170,18 +156,18 @@ class CustomerOrderTable extends React.Component {
   clearFilters() {
     this.setState({
       customerOrderSearchFilter: {
-        publishers: '',
-        singlProductTypes: '',
-        productTypes: '',
-        productContentTypes: '',
+        vatNo: '',
+        totalPrice: { min: 2, max: 100 },
+        totalTaxCost: { min: 2, max: 100 },
+        totalCost: { min: 2, max: 100 },
+        totalDeliveryCost: { min: 2, max: 100 },
         status: '',
-        languages: '',
-        ageGroups: '',
-        periods: '',
-        priceRange: { min: 5, max: 10 },
-        countRange: { min: 30, max: 400 },
+        userOrderNo: '',
+        currency: '',
+        deliveryAddress: '',
+
         sortCount: false,
-        sortPrice: false,
+        sortTotlaPrice: false,
         sortDate: false,
       },
       searchClear: true,
@@ -235,15 +221,8 @@ class CustomerOrderTable extends React.Component {
 
             <CustomerOrderSideFilter
               filters={this.state.customerOrderSearchFilter}
-              allPublishers={[
-                { value: 1, label: 'aa1' },
-                { value: 2, label: 'aa2' },
-                { value: 3, label: 'aa3' },
-                { value: 4, label: 'aa4' },
-              ]}
-              allProductContentTypes={this.state.allProductContentTypes}
-              allLanguages={this.state.allLanguages}
-              allAgeGroups={this.state.allAgeGroups}
+              allCurrencies={this.state.allCurrencies}
+              allDeliveryAddresses={this.state.allDeliveryAddresses}
               handleSelectChange={this.handleSelectChange}
               handleInputChange={this.handleInputChange}
               handleClearSearch={this.clearFilters}

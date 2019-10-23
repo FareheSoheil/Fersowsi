@@ -42,17 +42,10 @@ class CustomerOrderDetail extends React.Component {
           label: 'alkjsdhaskjdnasdjkasndasjdlasnd',
         }, //
       },
-      allPeriods: '', //
-      allAddresses: '', //
-      allSubscriptions: '',
-      allDeliveryTypes: '', //
-      allCurrencies: '', //
     };
     this.fetchcustomerOrder = this.fetchcustomerOrder.bind(this);
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.uploadImage = this.uploadImage.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.gotoUser = this.gotoUser.bind(this);
     this.onPublisherOrderClick = this.onPublisherOrderClick.bind(this);
@@ -63,24 +56,7 @@ class CustomerOrderDetail extends React.Component {
   onPublisherOrderClick(id) {
     history.push(`/admin/publisherOrder/${id}`);
   }
-  uploadImage() {
-    let inp = document.getElementById('imageUploader');
-    if (inp.files && inp.files[0]) {
-      var reader = new FileReader();
-      const that = this;
-      reader.onload = function(e) {
-        let img = document.getElementById('imgHolder');
-        img.src = e.target.result;
-        let customerOrder = { ...that.state.customerOrder };
-        customerOrder.paymentImage = e.target.result;
-        that.setState({
-          customerOrder: customerOrder,
-        });
-      };
 
-      reader.readAsDataURL(inp.files[0]);
-    }
-  }
   componentDidMount() {
     // this.fetchAllInfo();
     this.fetchcustomerOrder();
@@ -116,7 +92,7 @@ class CustomerOrderDetail extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAllAuxInfoForAllCustomerOrders`;
     this.setState({
       isLoading: true,
     });
@@ -133,11 +109,8 @@ class CustomerOrderDetail extends React.Component {
       options,
       response => {
         that.setState({
-          allPeriods: response.periods,
+          allDeliveryAddresess: response.deliveryAddresses,
           allCurrencies: response.currencies,
-          allSubscriptions: response.subscriptions,
-          allDeliveryTypes: response.deliveryTypes,
-          allAddresses: response.addresses,
         });
       },
       error => {
@@ -153,11 +126,7 @@ class CustomerOrderDetail extends React.Component {
     customerOrder[state] = value;
     this.setState({ customerOrder });
   }
-  handleDateChange(date, stateName) {
-    let customerOrder = { ...this.state.customerOrder };
-    customerOrder[stateName] = date;
-    this.setState({ customerOrder });
-  }
+
   handleSelectChange = (selectedOption, op) => {
     let customerOrder = { ...this.state.customerOrder };
     customerOrder[op] = selectedOption;
@@ -436,7 +405,7 @@ class CustomerOrderDetail extends React.Component {
                                   <br />
                                   <Select
                                     name="deliveryAddress"
-                                    options={this.state.allAddresses}
+                                    options={this.state.allDeliveryAddresess}
                                     value={
                                       this.state.customerOrder.deliveryAddress
                                     }
