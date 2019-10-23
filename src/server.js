@@ -362,11 +362,92 @@ let Users = [
     id: 'Product3',
   },
 ];
+let publisherOrders = [
+  {
+    id: 22011,
+    count: 1,
+    startDate: '2011-01-01 00:00:00',
+    endDate: '2011-12-31 00:00:00',
+    deliveryType: { value: 2, label: 'Air Mail' },
+    publisherPrice: 600.0,
+    totalCost: 476.0,
+    customerPrice: 600.0,
+    tax: 0.0,
+    discount: 0.0,
+    cancelPrice: 0.0,
+    paymentImage: '',
+    publicationNote: '',
+    paymentNote: '',
+    createdAt: '2011-03-01 12:17:40',
+    updatedAt: '2019-10-16 01:56:52',
+    status: { value: 1, label: 'Wait For Admin Response ' },
+    paymentStatus: { value: 1, label: 'Fully Paid ' },
+    customerOrderId: 10001,
+    productId: 6004,
+    productPeriod: { value: 1, label: 'Daily' },
+    productionSubscription: { value: 3, label: '6-Monthly' },
+    currency: { value: 5, label: 'Euro' },
+    address: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' },
+    deliveryCost: 539.0,
+  },
+  {
+    id: 22012,
+    count: 3, //
+    startDate: '2011-01-01 00:00:00',
+    endDate: '2011-12-31 00:00:00',
+    deliveryType: { value: 2, label: 'Air Mail' },
+    publisherPrice: 600.0, //
+    totalCost: 476.0, //
+    customerPrice: 600.0, //
+    tax: 0.0, //
+    discount: 0.0, //
+    cancelPrice: 0.0, //
+    paymentImage: 'http://localhost:3004/2jk7Vgg.jpg',
+    publicationNote: 'heu ',
+    paymentNote: 'and it cut me like a knife when you walked out of my life',
+    createdAt: '2011-03-01 12:17:40',
+    updatedAt: '2019-10-16 01:56:52',
+    status: { value: 1, label: 'Wait For Admin Response ' },
+    paymentStatus: { value: 2, label: 'half Paid ' },
+    customerOrderId: 10001, //
+    productId: 6004,
+    productPeriod: { value: 1, label: 'Daily' },
+    productionSubscription: { value: 3, label: '6-Monthly' },
+    currency: { value: 5, label: 'Euro' },
+    address: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' },
+    deliveryCost: 539.0, //
+  },
+];
 app.post('/addToWishList', (req, res, next) => {
-  const id = req.body.productId;
-  data = {
+  const data = {
     currentRecords: 'comments',
     totalPageNumber: 20,
+  };
+  res.send(data);
+});
+app.post('/getAllPublisherOrders', (req, res, next) => {
+  console.log(
+    '--------------------- in req getAllPublisherOrders--------------',
+    req.headers,
+  );
+
+  const data = {
+    currentRecords: publisherOrders,
+    totalPageNumber: 1204,
+  };
+  res.send(data);
+});
+app.post('/getPublisherOrder', (req, res, next) => {
+  console.log(
+    '--------------------- in req getPublisherOrder --------------',
+    req.headers,
+  );
+  let publisherOrder;
+  const id = req.body.publisherOrderId;
+  if (id == 22011) publisherOrder = publisherOrders[0];
+  else publisherOrder = publisherOrders[1];
+  const data = {
+    publisherOrder: publisherOrder,
   };
   res.send(data);
 });

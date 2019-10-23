@@ -186,14 +186,16 @@ const CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY = [
 const PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY = [
   'Id',
   'Count',
-  'Available Count',
+  'Customer Order Id',
+  'Product Id',
   'Start Date',
   'End Date',
 ];
 const PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
   'count',
-  'availableCount',
+  'customerOrderId',
+  'productId',
   'startDate',
   'endDate',
 ];

@@ -18,6 +18,8 @@ import {
   PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
   OPCODES,
 } from '../../../constants/constantData';
+import { SSRSERVER, SERVER } from '../../../constants';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import s from './PublisherOrderTable.css';
 
 class PublisherOrderTable extends React.Component {
@@ -26,34 +28,32 @@ class PublisherOrderTable extends React.Component {
     this.state = {
       isLoading: false,
       firstRender: true,
-      pageIndex: 1,
+      pageIndex: 0,
       pageSize: 9,
       totalPageNum: 20,
-      currentPublisherOrders: [
-        { id: 1, address: 1 },
-        { a: 1 },
-        { a: 1 },
-        { a: 1 },
-      ],
+      currentPublisherOrders: [],
       searchClear: true,
-      allPublishers: '',
-      allProductContentTypes: '',
-      allLanguages: '',
-      allAgeGroups: '',
+      allProducts: '',
+      allSubscriptions: '',
+      allDeliverTypes: '',
+      allPeriods: '',
 
       publisherOrderSearchFilter: {
-        productName: '',
-
-        publishers: '',
-        singlProductTypes: '',
-        productTypes: '',
-        productContentTypes: '',
+        count: '',
+        startDate: '',
+        endDate: '',
+        deliveryType: '',
         status: '',
-        languages: '',
-        ageGroups: '',
-        periods: '',
-        priceRange: { min: 5, max: 10 },
-        countRange: { min: 30, max: 400 },
+        paymentStatus: '',
+        productPeriod: '',
+        productionSubscription: '',
+        currency: '',
+        totalCost: { min: 1, max: 100 },
+        deliveryCost: { min: 1, max: 100 },
+        customerPrice: { min: 1, max: 100 },
+        cancelPrice: { min: 1, max: 100 },
+        publisherPrice: { min: 1, max: 100 },
+        product: '',
         sortCount: false,
         sortPrice: false,
         sortDate: false,
@@ -64,18 +64,19 @@ class PublisherOrderTable extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.search = this.search.bind(this);
   }
   componentDidMount() {
     // this.fetchAllInfo();
-    // this.fetchPublisherOrders();
+    this.fetchPublisherOrders();
   }
   onCustomerOrderClick(id) {
     history.push(`/admin/publisherOrder/${id}`);
   }
   fetchPublisherOrders() {
-    const url = `${SERVER}/getCustomerIds`;
+    const url = `${SSRSERVER}/getAllPublisherOrders`;
     this.setState({
       isLoading: true,
     });
@@ -113,13 +114,9 @@ class PublisherOrderTable extends React.Component {
     this.setState({
       isLoading: true,
     });
-    const credentials = {
-      // searchBy: this.state.publisherOrderSearchFilter,
-      // pageNumber: this.state.currentPageNumber,
-    };
+
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -130,10 +127,10 @@ class PublisherOrderTable extends React.Component {
       options,
       response => {
         that.setState({
-          allPublishers: response.publishers,
-          allProductContentTypes: response.contentTypes,
-          allLanguages: response.languages,
-          allAgeGroups: response.ageGroups,
+          allProducts: response.products,
+          allSubscriptions: response.subscriptions,
+          allDeliverTypes: response.deliveryTypes,
+          allPeriods: response.periods,
         });
       },
       error => {
@@ -161,31 +158,46 @@ class PublisherOrderTable extends React.Component {
     this.setState({ publisherOrderSearchFilter, searchClear: false });
   };
   handlePageChange(pageIndex) {
-    this.setState({ pageIndex: pageIndex.selected });
-    this.fetchPublisherOrders();
+    this.setState({ pageIndex: pageIndex.selected }, () => {
+      this.fetchPublisherOrders();
+    });
+  }
+  handleDateChange(date, op) {
+    // window.alert(JSON.stringify(date));
+    let publisherOrderSearchFilter = {
+      ...this.state.publisherOrderSearchFilter,
+    };
+    publisherOrderSearchFilter[op] = date;
+    this.setState({ publisherOrderSearchFilter, searchClear: false });
   }
   search() {
-    this.fetchPublisherOrders();
+    console.log('search : ', this.state.publisherOrderSearchFilter);
+    // this.fetchPublisherOrders();
   }
   clearFilters() {
-    this.setState({
-      publisherOrderSearchFilter: {
-        publishers: '',
-        singlProductTypes: '',
-        productTypes: '',
-        productContentTypes: '',
-        status: '',
-        languages: '',
-        ageGroups: '',
-        periods: '',
-        priceRange: { min: 5, max: 10 },
-        countRange: { min: 30, max: 400 },
-        sortCount: false,
-        sortPrice: false,
-        sortDate: false,
+    this.setState(
+      {
+        publisherOrderSearchFilter: {
+          publishers: '',
+          singlProductTypes: '',
+          productTypes: '',
+          productContentTypes: '',
+          status: '',
+          languages: '',
+          ageGroups: '',
+          periods: '',
+          priceRange: { min: 5, max: 100 },
+          countRange: { min: 1, max: 400 },
+          sortCount: false,
+          sortPrice: false,
+          sortDate: false,
+        },
+        searchClear: true,
       },
-      searchClear: true,
-    });
+      () => {
+        this.fetchPublisherOrders();
+      },
+    );
   }
   render() {
     let content;
@@ -209,7 +221,7 @@ class PublisherOrderTable extends React.Component {
                 <div className="card-body p-0">
                   <div className="container-fluid">
                     <CustomTable
-                      pageCount={20}
+                      pageCount={this.state.totalPageNum}
                       pageIndex={this.state.pageIndex}
                       records={this.state.currentPublisherOrders}
                       columnLabels={PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY}
@@ -226,17 +238,13 @@ class PublisherOrderTable extends React.Component {
 
             <PublisherOrderSideFilter
               filters={this.state.publisherOrderSearchFilter}
-              allPublishers={[
-                { value: 1, label: 'aa1' },
-                { value: 2, label: 'aa2' },
-                { value: 3, label: 'aa3' },
-                { value: 4, label: 'aa4' },
-              ]}
-              allProductContentTypes={this.state.allProductContentTypes}
-              allLanguages={this.state.allLanguages}
-              allAgeGroups={this.state.allAgeGroups}
+              allProducts={this.state.allProducts}
+              allSubscriptions={this.state.allSubscriptions}
+              allDeliverTypes={this.state.allDeliverTypes}
+              allPeriods={this.state.allPeriods}
               handleSelectChange={this.handleSelectChange}
               handleInputChange={this.handleInputChange}
+              onDateInput={this.handleDateChange}
               handleClearSearch={this.clearFilters}
               handleSearch={this.search}
             />

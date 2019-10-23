@@ -51,10 +51,9 @@ class ProductsTable extends React.Component {
         issn: '',
         asb: '',
         dewey: '',
-
         hasDiscount: '',
-        priceRange: { min: 5, max: 10 },
-        weightRange: { min: 30, max: 400 },
+        priceRange: { min: 1, max: 100 },
+        weightRange: { min: 10, max: 2000 },
         sortDate: false,
         sortPrice: false,
         sortWeight: false,
@@ -73,7 +72,7 @@ class ProductsTable extends React.Component {
     this.fetchProducts();
   }
   onProductClick(id) {
-    history.push(`/admin/products/6002`);
+    history.push(`/admin/products/${id}`);
   }
   fetchProducts() {
     const url = `${SERVER}/getAllProducts`;
@@ -168,14 +167,22 @@ class ProductsTable extends React.Component {
       productsSearchFilter: {
         publishers: '',
         singlProductTypes: '',
-        productType: '',
+        productType: '', //remove s
         productContentTypes: '',
         productStatus: '',
         productLanguages: '',
         ageGroups: '',
+        originalTitle: '',
+        originalDesc: '',
         periods: '',
-        priceRange: { min: 5, max: 10 },
-        weightRange: { min: 30, max: 400 },
+        originalTitle: '',
+        originalDesc: '',
+        issn: '',
+        asb: '',
+        dewey: '',
+        hasDiscount: '',
+        priceRange: { min: 1, max: 100 },
+        weightRange: { min: 10, max: 2000 },
         sortDate: false,
         sortPrice: false,
         sortWeight: false,

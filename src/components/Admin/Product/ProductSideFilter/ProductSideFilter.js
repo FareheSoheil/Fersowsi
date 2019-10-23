@@ -72,19 +72,41 @@ class ProductSideFilter extends React.Component {
               </div>
 
               <div className="form-group">
-                <label>Product ISSN | DEWEY | ASB </label>
+                <label>Product ISSN </label>
                 <br />
                 <input
-                  name="productNumbers"
+                  name="issn"
                   type="text"
                   className="form-control form-control-sm"
-                  value={this.props.filters.productNumbers}
+                  value={this.props.filters.issn}
                   onChange={e =>
-                    this.props.handleInputChange(
-                      OPCODES.simple,
-                      'productNumbers',
-                      e,
-                    )
+                    this.props.handleInputChange(OPCODES.simple, 'issn', e)
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label>Product DEWEY </label>
+                <br />
+                <input
+                  name="dewey"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.dewey}
+                  onChange={e =>
+                    this.props.handleInputChange(OPCODES.simple, 'dewey', e)
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label>Product ASB </label>
+                <br />
+                <input
+                  name="asb"
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={this.props.filters.asb}
+                  onChange={e =>
+                    this.props.handleInputChange(OPCODES.simple, 'asb', e)
                   }
                 />
               </div>
@@ -358,7 +380,7 @@ class ProductSideFilter extends React.Component {
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">Price</div>
             <InputRange
-              maxValue={50}
+              maxValue={100}
               minValue={1}
               formatLabel={value => `${value}$`}
               value={this.props.filters.priceRange}
@@ -371,7 +393,7 @@ class ProductSideFilter extends React.Component {
             <div class="product-sidebar-widget-title">Weight</div>
             <InputRange
               maxValue={2000}
-              minValue={20}
+              minValue={10}
               formatLabel={value => `${value}g`}
               value={this.props.filters.weightRange}
               onChange={weight =>

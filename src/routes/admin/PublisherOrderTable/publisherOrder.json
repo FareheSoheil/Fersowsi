@@ -1,0 +1,26 @@
+searchBy = {
+    deliveryType:  [{id: 2, value: 2, name: "Weekly", label: "Weekly"} ,
+                {id: 4, value: 4, name: "ThreeWeekly", label: "ThreeWeekly"}]
+paymentStatus: [{id: 2, value: 2, name: "Weekly", label: "Weekly"} ,
+                {id: 4, value: 4, name: "ThreeWeekly", label: "ThreeWeekly"}]
+priceRange: {min: 1, max: 100}
+product: [{id: 2, value: 2, name: "Weekly", label: "Weekly"} ,
+                {id: 4, value: 4, name: "ThreeWeekly", label: "ThreeWeekly"}]
+productPeriod: [{id: 2, value: 2, name: "Weekly", label: "Weekly"} ,
+                {id: 4, value: 4, name: "ThreeWeekly", label: "ThreeWeekly"}]
+productionSubscription: [{id: 2, value: 2, name: "Weekly", label: "Weekly"} ,
+                {id: 4, value: 4, name: "ThreeWeekly", label: "ThreeWeekly"}]
+status: [{id: 2, value: 2, name: "Weekly", label: "Weekly"} ,
+                {id: 4, value: 4, name: "ThreeWeekly", label: "ThreeWeekly"}]                
+publisherPrice: {min: 7, max: 67},
+cancelPrice: {min: 1, max: 100},
+count: {min: 7, max: 67},
+countRange: {min: 1, max: 400},
+customerPrice: {min: 31, max: 78},
+deliveryCost: {min: 1, max: 100},
+totalCost: {min: 15, max: 100}
+sortDate: false
+sortPrice: true
+startDate: Tue Oct 01 2019 00:00:00 GMT+0330 (Iran Standard Time)
+endDate: Fri Oct 18 2019 00:00:00 GMT+0330 (Iran Standard Time)
+}

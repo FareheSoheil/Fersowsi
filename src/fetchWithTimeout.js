@@ -4,12 +4,7 @@ import { REQUEST_TIMEOUT, ERRORS } from './constants';
 
 const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
   let isTimedOut = false;
-  // if()
-  // let c = { a: 'a', b: 'b', c: 'c' };
-  // window.alert(localStorage.getItem('TokenId'));
-  // localStorage.setItem('dummy', JSON.stringify(c));
-  // window.alert
-  // this is for time out on fetch
+
   new Promise((resolve, reject) => {
     const timeOut = setTimeout(() => {
       isTimedOut = true;
@@ -21,13 +16,10 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
     // --------------------------------------------------- START of fetching data
     fetch(url, options)
       // fetch was successful
-      .then(response =>
-        // console.log('response : ', response.body.getReader());
-        response.json(),
-      )
+      .then(response => response.json())
       .then(data => {
         clearTimeout(timeOut);
-        console.log('data is fetched: ', url, ' ', data);
+        // console.log('data is fetched: ', url, ' ', data);
         resolve(data);
       })
       .catch(error => {
