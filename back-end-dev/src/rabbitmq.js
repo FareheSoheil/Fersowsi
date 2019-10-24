@@ -2,7 +2,7 @@ import amqp from 'amqplib/callback_api';
 // const amqp = require('amqplib/callback_api');
 const rabbitMq = {};
 
-const rabbitMqServer = 'amqp://guest:guest@localhost:5672';
+const rabbitMqServer = 'amqp://guest:guest@45.89.139.182:5672';
 
 rabbitMq.newOrderQueue = 'order';
 const queues = ['order', 'ETH/BTC', 'INVO/BTC', 'TRZ/BTC'];

@@ -5,7 +5,7 @@
     "title": "NYDAX API",
     "description": "NYDAX digital asset exchange endpoint."
   },
-  "host": "localhost:3004",
+  "host": "45.89.139.182:3004",
   "basePath": "",
   "schemes": ["http"],
   "consumes": ["application/json"],

@@ -238,7 +238,7 @@ const OPCODES = {
   range: 2,
   simple: 3,
 };
-const SERVER = 'http://localhost:3000';
+const SERVER = 'http://45.89.139.182:3000';
 
 export {
   USER_SUBCATEGORY_ARRAY,

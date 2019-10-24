@@ -112,7 +112,7 @@ promise.then(() => {
     console.info(
       `The server is running at ${
         config.environment === 'development' ? 'http' : 'https'
-      }://localhost:${config.port}/`,
+      }://45.89.139.182:${config.port}/`,
     ),
   );
   websocketServer.listen(
@@ -120,7 +120,7 @@ promise.then(() => {
     console.info(
       `The websocket server is running at ${
         config.environment === 'development' ? 'http' : 'https'
-      }://localhost:${config.websocketPort}/`,
+      }://45.89.139.182:${config.websocketPort}/`,
     ),
   );
 });

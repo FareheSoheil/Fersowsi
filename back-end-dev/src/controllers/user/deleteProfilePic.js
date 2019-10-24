@@ -27,7 +27,7 @@
 //   try {
 //     const fs = require('fs');
 //     fs.unlinkSync(
-//       `./public${userProfile.picture.replace('http://localhost:3004', '')}`,
+//       `./public${userProfile.picture.replace('http://45.89.139.182:3004', '')}`,
 //     );
 //   } catch (error) {
 //     console.log(error);

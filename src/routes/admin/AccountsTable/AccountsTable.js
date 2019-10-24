@@ -94,7 +94,7 @@ class AccountsTable extends React.Component {
     });
   }
   fetchAccounts() {
-    const url = `http://localhost:3004/getAllUsers`;
+    const url = `http://45.89.139.182:3004/getAllUsers`;
     this.setState({
       isLoading: true,
     });

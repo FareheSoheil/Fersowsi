@@ -16,7 +16,7 @@
         <div class="col-md-4">
           <h1 class="text-center">Payment Info</h1>
 
-          <form action="http://localhost:3004/v1/payment/submit" method="post" id="payment-form">
+          <form action="http://45.89.139.182:3004/v1/payment/submit" method="post" id="payment-form">
             <div class="form-row">
               <input id="reqKey" name="reqKey" hidden type="hidden" value="">
 
@@ -126,7 +126,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:3004/v1/payment?reqKey=" + reqKey,
+            url: "http://45.89.139.182:3004/v1/payment?reqKey=" + reqKey,
             success: function(data){
               $('#tokenSymbol').html(data.tokenSymbol);
               $('#tokenAmount').html(data.tokenAmount);

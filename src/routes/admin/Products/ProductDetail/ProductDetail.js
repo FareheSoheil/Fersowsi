@@ -79,7 +79,7 @@ class ProductDetail extends React.Component {
   }
   fetchProduct() {
     const url = `${SERVER}/getProduct`;
-    // const url = `http://localhost:3004/getProduct`;
+    // const url = `http://45.89.139.182:3004/getProduct`;
     this.setState({
       isLoading: true,
     });

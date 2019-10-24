@@ -37,7 +37,7 @@ All notable changes to this project will be documented in this file.
 > 2016-02-27
 
 - Replace RESTful API endpoint (`src/api`) with GraphQL (`src/data`)
-- Add a sample GraphQL endpoint [localhost:3000/graphql](https://localhost:3000/graphql)
+- Add a sample GraphQL endpoint [45.89.139.182:3000/graphql](https://45.89.139.182:3000/graphql)
 - Change the default Node.js server port from `5000` to `3000`
 - Add a JWT-based authentication cookies (see `src/server.js`)
 - Add a reference implementation of Facebook authentication strategy (`src/core/passport.js`)
