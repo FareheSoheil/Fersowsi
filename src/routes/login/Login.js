@@ -64,7 +64,7 @@ class Login extends React.Component {
       loginOptions,
       data => {
         if (data.error === undefined) {
-          window.alert(JSON.stringify(data));
+          // window.alert(JSON.stringify(data));
           const setStateURL = `${SSRSERVER}/state/setState`;
           const setStateOptions = {
             method: 'POST',
@@ -77,7 +77,7 @@ class Login extends React.Component {
             const expires = new Date();
             const now = new Date();
             expires.setDate(now.getDate() + COOKIE_EXPIRATION);
-            window.alert(data.TokenId);
+            // window.alert(data.TokenId);
 
             cookie.save('role', data.role, {
               path: '/',
