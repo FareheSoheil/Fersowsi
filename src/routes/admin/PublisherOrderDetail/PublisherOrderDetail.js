@@ -88,7 +88,7 @@ class PublisherOrderDetail extends React.Component {
     }
   }
   componentDidMount() {
-    // this.fetchAllInfo();
+    this.fetchAllInfo();
     this.fetchpublisherOrder();
   }
   fetchpublisherOrder() {

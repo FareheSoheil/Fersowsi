@@ -68,7 +68,7 @@ class PublisherOrderTable extends React.Component {
     this.search = this.search.bind(this);
   }
   componentDidMount() {
-    // this.fetchAllInfo();
+    this.fetchAllInfo();
     this.fetchPublisherOrders();
   }
   onCustomerOrderClick(id) {
