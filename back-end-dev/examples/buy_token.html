@@ -16,7 +16,7 @@
         <div class="col-md-4">
           <h1 class="text-center">Buy Token</h1>
 
-          <form action="http://localhost:3004/v1/payment/" method="post" id="payment-form">
+          <form action="http://45.89.139.182:3004/v1/payment/" method="post" id="payment-form">
             <div class="form-row">
 
               <label for="tokenAmount">Choose your desired symbol:</label>
@@ -44,7 +44,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:3004/v1/token",
+            url: "http://45.89.139.182:3004/v1/token",
             success: function(tokens){
                 $.each(tokens, function(i, token) {
                   console.log(token);

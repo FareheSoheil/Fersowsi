@@ -3,16 +3,16 @@
 module.exports = {
   // Node.js app
   port: process.env.BED_PORT || 3004,
-  host: process.env.BED_HOST || 'http://localhost:3004',
+  host: process.env.BED_HOST || 'http://45.89.139.182:3004',
   gatewayHost:
     process.env.API_GATEWAY_HOST ||
-    `http://localhost:${process.env.BED_PORT || 3004}`,
+    `http://45.89.139.182:${process.env.BED_PORT || 3004}`,
   websocketPort: process.env.WEBSOCKET_PORT || 3003,
 
-  frontEndServer: process.env.FED_HOST || 'http://localhost:3004',
+  frontEndServer: process.env.FED_HOST || 'http://45.89.139.182:3004',
 
-  ethereumNodeAPI: process.env.ETH_HOST || 'http://localhost:4040',
-  bitcoinNodeAPI: process.env.BTC_HOST || 'http://localhost:5050',
+  ethereumNodeAPI: process.env.ETH_HOST || 'http://45.89.139.182:4040',
+  bitcoinNodeAPI: process.env.BTC_HOST || 'http://45.89.139.182:5050',
 
   platformName: process.env.PLATFORM_NAME || 'FERDOSI',
 
@@ -20,10 +20,10 @@ module.exports = {
   // databaseUrl:
   //   process.env.DATABASE_URL ||
   //   `mysql://${process.env.DB_USER || 'root'}:${process.env.DB_PASS ||
-  //     ''}@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT ||
+  //     ''}@${process.env.DB_HOST || '45.89.139.182'}:${process.env.DB_PORT ||
   //     '3306'}/${process.env.DB_NAME || 'ferdosi'}`,
 
-  databaseUrl: `mysql://admin:123456@localhost:3306/ferdosi`,
+  databaseUrl: `mysql://admin:123456@45.89.139.182:3306/ferdosi`,
 
   initializeDB: false,
   alterDB: false, // eslint-disable-line

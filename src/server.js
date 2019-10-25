@@ -244,7 +244,7 @@ const promise = models.sync().catch(err => console.error(err.stack));
 if (!module.hot) {
   promise.then(() => {
     app.listen(config.port, () => {
-      console.info(`The server is running at http://localhost:${config.port}/`);
+      console.info(`The server is running at http://45.89.139.182:${config.port}/`);
     });
   });
 }
@@ -399,7 +399,7 @@ let publisherOrders = [
     tax: 0.0, //
     discount: 0.0, //
     cancelPrice: 0.0, //
-    paymentImage: 'http://localhost:3004/2jk7Vgg.jpg',
+    paymentImage: 'http://45.89.139.182:3004/2jk7Vgg.jpg',
     publicationNote: 'heu ',
     paymentNote: 'and it cut me like a knife when you walked out of my life',
     createdAt: '2011-03-01 12:17:40',

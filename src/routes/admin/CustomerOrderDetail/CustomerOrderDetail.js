@@ -58,7 +58,7 @@ class CustomerOrderDetail extends React.Component {
   }
 
   componentDidMount() {
-    // this.fetchAllInfo();
+    this.fetchAllInfo();
     this.fetchcustomerOrder();
   }
   fetchcustomerOrder() {
@@ -109,8 +109,9 @@ class CustomerOrderDetail extends React.Component {
       options,
       response => {
         that.setState({
-          allDeliveryAddresess: response.deliveryAddresses,
-          allCurrencies: response.currencies,
+          allDeliveryAddresess: response.Address,
+          allCurrencies: response.Currency,
+          isLoading: false,
         });
       },
       error => {

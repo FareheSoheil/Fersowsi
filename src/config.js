@@ -29,7 +29,7 @@ module.exports = {
     // API URL to be used in the server-side code
     serverUrl:
       process.env.API_SERVER_URL ||
-      `http://localhost:${process.env.PORT || 4000}`,
+      `http://45.89.139.182:${process.env.PORT || 4000}`,
   },
 
   // Database
