@@ -62,7 +62,7 @@ class CustomerOrderDetail extends React.Component {
     this.fetchcustomerOrder();
   }
   fetchcustomerOrder() {
-    const url = `${SSRSERVER}/getCustomerOrder`;
+    const url = `${SERVER}/getCustomerOrder`;
     this.setState({
       isLoading: true,
     });
@@ -82,7 +82,7 @@ class CustomerOrderDetail extends React.Component {
       options,
       response => {
         that.setState({
-          customerOrder: response.customerOrder,
+          customerOrder: response,
           isLoading: false,
         });
       },

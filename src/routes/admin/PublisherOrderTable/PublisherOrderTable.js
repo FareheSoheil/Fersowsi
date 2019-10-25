@@ -68,20 +68,20 @@ class PublisherOrderTable extends React.Component {
     this.search = this.search.bind(this);
   }
   componentDidMount() {
-    // this.fetchAllInfo();
+    this.fetchAllInfo();
     this.fetchPublisherOrders();
   }
   onCustomerOrderClick(id) {
     history.push(`/admin/publisherOrder/${id}`);
   }
   fetchPublisherOrders() {
-    const url = `${SSRSERVER}/getAllPublisherOrders`;
+    const url = `${SERVER}/getAllPublisherOrders`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       searchBy: this.state.publisherOrderSearchFilter,
-      pageNumber: this.state.pageIndex,
+      pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
     const options = {
@@ -91,6 +91,7 @@ class PublisherOrderTable extends React.Component {
         'Content-Type': 'application/json',
       },
     };
+
     const that = this;
     fetchWithTimeOut(
       url,
@@ -109,7 +110,7 @@ class PublisherOrderTable extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAllAuxInfoForPublisherOrders`;
     this.setState({
       isLoading: true,
     });
@@ -126,10 +127,10 @@ class PublisherOrderTable extends React.Component {
       options,
       response => {
         that.setState({
-          allProducts: response.products,
-          allSubscriptions: response.subscriptions,
-          allDeliverTypes: response.deliveryTypes,
-          allPeriods: response.periods,
+          allProducts: response.Products,
+          allSubscriptions: response.ProductSubscriptionType,
+          allDeliverTypes: response.DeliveryType,
+          allPeriods: response.ProductPeriod,
         });
       },
       error => {
@@ -161,6 +162,7 @@ class PublisherOrderTable extends React.Component {
       this.fetchPublisherOrders();
     });
   }
+
   handleDateChange(date, op) {
     // window.alert(JSON.stringify(date));
     let publisherOrderSearchFilter = {
@@ -171,7 +173,7 @@ class PublisherOrderTable extends React.Component {
   }
   search() {
     console.log('search : ', this.state.publisherOrderSearchFilter);
-    // this.fetchPublisherOrders();
+    this.fetchPublisherOrders();
   }
   clearFilters() {
     this.setState(
@@ -221,7 +223,7 @@ class PublisherOrderTable extends React.Component {
                   <div className="container-fluid">
                     <CustomTable
                       pageCount={this.state.totalPageNum}
-                      pageIndex={this.state.pageIndex}
+                      currentPageNumber={this.state.pageIndex}
                       records={this.state.currentPublisherOrders}
                       columnLabels={PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY}
                       recordItemNames={

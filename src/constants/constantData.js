@@ -158,7 +158,7 @@ const ACCOUNTS_COLUMNS_LABELS_ARRAY = [
   'Id',
   'First Name',
   'Last Name',
-  'Username',
+  'Contract Name',
   'Email',
 ];
 const ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY = [
@@ -166,7 +166,7 @@ const ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
   'firstName',
   'lastName',
-  'username',
+  'contractName',
   'email',
 ];
 const CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY = [

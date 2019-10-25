@@ -28,7 +28,7 @@ class AccountsTable extends React.Component {
       isLoading: false,
       firstRender: true,
       pageIndex: 0,
-      pageSize: 15,
+      pageSize: 10,
       totalPageNum: '',
       currentAccounts: '',
       searchClear: true,
@@ -94,7 +94,7 @@ class AccountsTable extends React.Component {
     });
   }
   fetchAccounts() {
-    const url = `http://localhost:3004/getAllUsers`;
+    const url = `${SERVER}/getAllUsers`;
     this.setState({
       isLoading: true,
     });

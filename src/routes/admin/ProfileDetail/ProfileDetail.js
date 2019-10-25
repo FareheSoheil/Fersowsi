@@ -97,6 +97,8 @@ class ProfileDetail extends React.Component {
     this.onChangeInput = this.onChangeInput.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.fetchAllInfo = this.fetchAllInfo.bind(this);
+    this.fetchUser = this.fetchUser.bind(this);
   }
   componentDidMount() {
     // window.alert;
@@ -140,13 +142,8 @@ class ProfileDetail extends React.Component {
     this.setState({
       isLoading: true,
     });
-    const credentials = {
-      // searchBy: this.state.productsSearchFilter,
-      // pageNumber: this.state.currentPageNumber,
-    };
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -156,10 +153,9 @@ class ProfileDetail extends React.Component {
       url,
       options,
       response => {
-        console.log('response : ', response);
         that.setState({
           countries: response.Country,
-          siteLanguage: response.SiteLanguage,
+          siteLanguages: response.SiteLanguage,
           jobs: response.Job,
           currencies: response.Currency,
           isLoading: false,
@@ -285,6 +281,7 @@ class ProfileDetail extends React.Component {
                   pageCount={this.state.user.claims.length / 15}
                   countries={this.state.countries}
                   jobs={this.state.jobs}
+                  siteLanguages={this.state.siteLanguages}
                   currencies={this.state.currencies}
                   handleSelectInputChange={this.handleSelectChange}
                   handleSimpleInputChange={this.onChangeInput}

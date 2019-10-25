@@ -42,7 +42,7 @@ const UserNumbersArray = [
   { value: 'Phone Number', label: 'Phone Number' },
   { value: 'Fax Number', label: 'Fax Number' },
 ];
-const AVATAR = '/assets/images/bitbucket.png';
+const AVATAR = '/assets/images/blank_avatar.png';
 const en = {
   application: {
     title: 'Awesome app with i18n!',

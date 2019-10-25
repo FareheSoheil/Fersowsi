@@ -21,14 +21,14 @@ import ClaimSearch from '../../../components/Admin/ClaimSearch';
 import {
   CLAIMS_COLUMNS_LABELS_ARRAY,
   CLAIMS_RECORDE_ITEM_NAMES_ARRAY,
-  SERVER,
 } from '../../../constants/constantData';
+import { SERVER } from '../../../constants';
 
 class ClaimsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       firstRender: true,
       pageIndex: 0,
       pageSize: 15,
@@ -123,7 +123,6 @@ class ClaimsTable extends React.Component {
     history.push({
       pathname: `/admin/claims/claim`,
       search: `id=${id}&orderId=${orderId}`,
-      state: { ab: 'ab' },
     });
   }
   render() {

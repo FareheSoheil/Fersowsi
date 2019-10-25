@@ -22,7 +22,7 @@ class PublisherOrderDetail extends React.Component {
       publisherOrder: {
         id: 22012,
         count: 3,
-        startDate: '2011-01-01 00:00:00',
+        startDate: '',
         endDate: '2011-12-31 00:00:00',
         deliveryType: { value: 2, label: 'Air Mail' },
         status: { value: 1, label: 'Wait For Admin Response ' },
@@ -88,11 +88,11 @@ class PublisherOrderDetail extends React.Component {
     }
   }
   componentDidMount() {
-    // this.fetchAllInfo();
+    this.fetchAllInfo();
     this.fetchpublisherOrder();
   }
   fetchpublisherOrder() {
-    const url = `${SSRSERVER}/getPublisherOrder`;
+    const url = `${SERVER}/getPublisherOrder`;
     this.setState({
       isLoading: true,
     });
@@ -112,7 +112,7 @@ class PublisherOrderDetail extends React.Component {
       options,
       response => {
         that.setState({
-          publisherOrder: response.publisherOrder,
+          publisherOrder: response,
           isLoading: false,
         });
       },
@@ -122,7 +122,7 @@ class PublisherOrderDetail extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAllAuxInfoForOnePulisherOrder`;
     this.setState({
       isLoading: true,
     });
@@ -139,11 +139,12 @@ class PublisherOrderDetail extends React.Component {
       options,
       response => {
         that.setState({
-          allPeriods: response.periods,
-          allCurrencies: response.currencies,
-          allSubscriptions: response.subscriptions,
-          allDeliveryTypes: response.deliveryTypes,
-          allAddresses: response.addresses,
+          allPeriods: response.ProductPeriod,
+          allCurrencies: response.Currency,
+          allSubscriptions: response.ProductSubscriptionType,
+          allDeliveryTypes: response.DeliveryType,
+          allAddresses: response.Address,
+          isLoading: false,
         });
       },
       error => {
@@ -182,7 +183,7 @@ class PublisherOrderDetail extends React.Component {
   render() {
     return (
       <div className="dashboard-ecommerce">
-        {!this.state.isLoading ? (
+        {!this.state.isLoading && this.state.publisherOrder.startDate !== '' ? (
           <div className={` container-fluid dashboard-content`}>
             <PageHeader
               title="Publisher Order Details"
@@ -480,7 +481,7 @@ class PublisherOrderDetail extends React.Component {
                                     <Select
                                       name="starus"
                                       options={CUSTOMER_ORDER_STATUS_ARRAY}
-                                      value={this.state.publisherOrder.starus}
+                                      value={this.state.publisherOrder.status}
                                       onChange={so =>
                                         this.handleSelectChange(so, 'starus')
                                       }
@@ -498,7 +499,7 @@ class PublisherOrderDetail extends React.Component {
                                       name="deliveyType"
                                       options={this.state.allDeliveryTypes}
                                       value={
-                                        this.state.publisherOrder.deliveyType
+                                        this.state.publisherOrder.deliveryType
                                       }
                                       onChange={so =>
                                         this.handleSelectChange(

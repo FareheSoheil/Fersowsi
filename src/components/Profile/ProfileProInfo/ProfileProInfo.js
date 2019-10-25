@@ -190,6 +190,7 @@ class ProfileProInfo extends React.Component {
                                 'siteLanguage',
                               )
                             }
+                            isMulti
                             options={this.props.siteLanguages}
                             isSearchable
                             value={this.props.user.siteLanguage}

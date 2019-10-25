@@ -29,7 +29,7 @@ class CustomerOrderTable extends React.Component {
       isLoading: true,
       firstRender: true,
       pageIndex: 0,
-      pageIndex: 9,
+      pageSize: 9,
       totalPageNum: 20,
       currentCustomerOrders: [],
       searchClear: true,
@@ -61,7 +61,7 @@ class CustomerOrderTable extends React.Component {
     this.search = this.search.bind(this);
   }
   componentDidMount() {
-    // this.fetchAllInfo();
+    this.fetchAllInfo();
     this.fetchCustomerOrders();
   }
   addCustomerOrder() {
@@ -71,13 +71,13 @@ class CustomerOrderTable extends React.Component {
     history.push(`/admin/customerOrder/${id}`);
   }
   fetchCustomerOrders() {
-    const url = `${SSRSERVER}/getAllCustomerOrders`;
+    const url = `${SERVER}/getAllCustomerOrders`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       searchBy: this.state.customerOrderSearchFilter,
-      pageNumber: this.state.pageIndex,
+      pageSize: this.state.pageSize,
       pageIndex: this.state.pageIndex,
     };
     const options = {
@@ -122,8 +122,9 @@ class CustomerOrderTable extends React.Component {
       options,
       response => {
         that.setState({
-          allCurrencies: response.currencies,
-          allDeliveryAddresses: response.deliveryAddresses,
+          allCurrencies: response.Currency,
+          allDeliveryAddresses: response.Address,
+          firstRender: false,
         });
       },
       error => {
@@ -207,7 +208,7 @@ class CustomerOrderTable extends React.Component {
                     <br />
                     <CustomTable
                       pageCount={20}
-                      pageIndex={this.state.pageIndex}
+                      currentPageNumber={this.state.pageIndex}
                       records={this.state.currentCustomerOrders}
                       columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
                       recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}

@@ -38,7 +38,7 @@ class CustomTabel extends React.Component {
       records = this.props.records.map((record, i) => (
         <tr
           onClick={() => {
-            this.props.onRecordClick(record.id, record.customerOrderId);
+            this.props.onRecordClick(record.id, record.publisherOrderId);
           }}
         >
           <td>{i + 1}</td>
@@ -54,17 +54,18 @@ class CustomTabel extends React.Component {
                   />
                 </td>
               ) : label === 'status' ? (
-                <td>
-                  {record[label].label}
-                  {/* <i
-                    style={{ color: 'red' }}
-                    class="fa fa-times"
-                    aria-hidden="true"
-                  /> */}
-                </td>
+                <td>{record[label].label}</td>
               ) : record[label] === true ? (
                 <td>
                   <i style={{ color: 'green' }} class="fas fa-check" />
+                </td>
+              ) : record[label] === false ? (
+                <td>
+                  <i
+                    style={{ color: 'red' }}
+                    class="fa fa-times"
+                    aria-hidden="true"
+                  />
                 </td>
               ) : (
                 <td>{record[label]}</td>
@@ -88,6 +89,7 @@ class CustomTabel extends React.Component {
     }
 
     return (
+      // window.alert(this.props.pa)
       <div>
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" />
