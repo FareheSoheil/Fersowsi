@@ -97,19 +97,11 @@
     /* color: black; */
 }
 
-.pending {
-    background-color: #ffc108;
 
-}
-.ready {
-    background-color: green;
-}
-.notAvailable {
-    background-color: red;
-    color: white;
-}
 .statusBtns {
-    border: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    /* border-radius: 5px; */
     padding: 15px 5px 15px 5px;
 }
 .statusBtns button{
@@ -117,4 +109,5 @@
 }
 .statusBtns label {
     padding-top: 8px;
+    color: #4a5158;
 }

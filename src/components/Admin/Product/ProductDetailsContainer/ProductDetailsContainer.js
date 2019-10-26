@@ -72,7 +72,7 @@ class ProductDetailsLeftContainer extends React.Component {
       <div>
         <div className={`${s.statusBtns} row mt-1 mb-3 pl-4`}>
           <div className="offset-xl-1 ">
-            <label>Product Status : </label>
+            <label className="mr-5">Product Status : </label>
           </div>
           <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
             {' '}

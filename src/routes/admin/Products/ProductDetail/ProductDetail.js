@@ -613,11 +613,11 @@ class ProductDetail extends React.Component {
                       aria-labelledby="pills-details-tab"
                     >
                       <div class="card">
-                        <h5
+                        <h4
                           class={
                             this.state.product.productStatus.value ===
                             PRODUCT_STATUS.Pending.value
-                              ? `${s.pending} card-header`
+                              ? `${s.pending}  card-header`
                               : this.state.product.productStatus.value ===
                                 PRODUCT_STATUS.Ready.value
                                 ? `${s.ready} card-header`
@@ -625,7 +625,7 @@ class ProductDetail extends React.Component {
                           }
                         >
                           Product Details
-                        </h5>
+                        </h4>
                         <div class={`${s.cardContainer} card-body`}>
                           <ProductDetailsContainer
                             hasType={true}

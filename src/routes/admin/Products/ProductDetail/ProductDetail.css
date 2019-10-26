@@ -95,12 +95,14 @@
 .btnContainer button:hover {
     /* color: black; */
 }
+
 .pending {
     background-color: #ffc108;
 
 }
 .ready {
     background-color: green;
+    color: white;
 }
 .notAvailable {
     background-color: red;

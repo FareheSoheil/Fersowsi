@@ -3288,6 +3288,8 @@ btn-link
 
 .card-header {
     background-color: #fff;
+    height: 60px;
+    padding-top:10px;
     border-bottom: 1px solid #e6e6f2;
 }
 
