@@ -51,6 +51,40 @@ class ProductDetail extends React.Component {
       allPublishers: '',
       allLanguages: '',
       allAgeGroups: '',
+      allPeriods: '',
+      allZones: [
+        {
+          value: 1,
+          label: 'Europe',
+        },
+        {
+          value: 2,
+          label: 'US and Canada',
+        },
+        {
+          value: 3,
+          label: 'Other',
+        },
+        {
+          value: 4,
+          label: 'Local',
+        },
+      ],
+      allDeliveries: [
+        {
+          value: 1,
+          label: 'Surface Mail',
+        },
+        {
+          value: 2,
+          label: 'Air Mail',
+        },
+      ],
+      allSunbscriptions: [
+        { value: 1, label: 'six-monthly' },
+        { value: 2, label: 'yearly' },
+        { value: 3, label: 'two-weekly' },
+      ],
       allProducts: '',
     };
     this.fetchProduct = this.fetchProduct.bind(this);
@@ -111,7 +145,7 @@ class ProductDetail extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAuxInfoForAllProducts`;
+    const url = `${SERVER}/getAllAuxInfoForProducts`;
     this.setState({
       isLoading: true,
     });
@@ -128,10 +162,11 @@ class ProductDetail extends React.Component {
       options,
       response => {
         that.setState({
-          allContentCategories: response.contentTypes,
-          allPublishers: response.publishers,
-          allLanguages: response.languages,
-          allAgeGroups: response.ageGroups,
+          allContentCategories: response.ProductContentTypes,
+          allPublishers: response.Publishers,
+          allLanguages: response.Languages,
+          allAgeGroups: response.AgeGroups,
+          allPeriods: response.Periods,
           allProducts: response.products,
           isLoading: false,
         });
@@ -184,6 +219,9 @@ class ProductDetail extends React.Component {
     } else if (name == 'deliveryType') {
       product.productPriceAndCost[index].deliveryTypeName = so.label;
       product.productPriceAndCost[index].deliveryTypeId = so.value;
+    } else if (name == 'subscription') {
+      product.productPriceAndCost[index].productSubscriptionTypeName = so.label;
+      product.productPriceAndCost[index].productSubscriptionTypeId = so.value;
     } else {
       product.productPriceAndCost[index].productPeriodName = so.label;
       product.productPriceAndCost[index].productPeriodId = so.value;
@@ -420,7 +458,10 @@ class ProductDetail extends React.Component {
                           <ProductPriceTable
                             productId={this.state.product.id}
                             prices={this.state.product.productPriceAndCost}
-                            zoneOptions={this.state.allAgeGroups}
+                            zoneOptions={this.state.allZones}
+                            periodOptions={this.state.allPeriods}
+                            deliveryOptions={this.state.allDeliveries}
+                            subscriptionOptions={this.state.allSunbscriptions}
                             onPriceInputChange={this.onPriceInputChange}
                             onPriceSelectChange={this.onPriceSelectChange}
                             onAddPrice={this.onAddPrice}

@@ -12,7 +12,7 @@ class ProductCard extends React.Component {
     super(props);
   }
   delete(e) {
-    e.preventDefault();
+    e.stopPropagation();
     window.alert('delete');
   }
   render() {

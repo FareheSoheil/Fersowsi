@@ -195,7 +195,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="discount"
                     type="text"
                     className="form-control form-control-sm"
-                    value={this.props.product.discount}
+                    value={parseFloat(this.props.product.discount)}
                     onChange={this.onChangeInput}
                   />
                 </div>
@@ -206,7 +206,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="tax"
                     type="text"
                     className="form-control form-control-sm"
-                    value={this.props.product.tax}
+                    value={parseFloat(this.props.product.tax)}
                     onChange={this.onChangeInput}
                   />
                 </div>
@@ -228,7 +228,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="dewey"
                     type="text"
                     className="form-control form-control-sm"
-                    value={this.props.product.dewey}
+                    value={parseFloat(this.props.product.dewey)}
                     onChange={this.onChangeInput}
                   />
                 </div>

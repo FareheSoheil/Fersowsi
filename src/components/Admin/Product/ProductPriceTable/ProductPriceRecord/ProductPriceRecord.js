@@ -73,6 +73,21 @@ class ProductPriceRecord extends React.Component {
           {/*  */}
         </td>
         <td>
+          {' '}
+          <Select
+            options={this.props.subscriptionOptions}
+            value={{
+              value: this.props.cost.productSubscriptionTypeId,
+              label: this.props.cost.productSubscriptionTypeName,
+            }}
+            className={this.props.isRelative ? s.dropDown : ''}
+            onChange={so =>
+              this.props.onSelectChange(so, 'subscription', this.props.index)
+            }
+          />
+          {/*  */}
+        </td>
+        <td>
           <form>
             {' '}
             <div className="form-group">
@@ -80,7 +95,7 @@ class ProductPriceRecord extends React.Component {
                 name="publisherPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.cost.publisherPrice}
+                value={parseFloat(this.props.cost.publisherPrice)}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -94,7 +109,7 @@ class ProductPriceRecord extends React.Component {
                 name="institutionalCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.cost.institutionalCustomerPrice}
+                value={parseFloat(this.props.cost.institutionalCustomerPrice)}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -108,7 +123,7 @@ class ProductPriceRecord extends React.Component {
                 name="privateCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.cost.privateCustomerPrice}
+                value={parseFloat(this.props.cost.privateCustomerPrice)}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -122,7 +137,7 @@ class ProductPriceRecord extends React.Component {
                 name="postalCost"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.cost.postalCost}
+                value={parseFloat(this.props.cost.postalCost)}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>

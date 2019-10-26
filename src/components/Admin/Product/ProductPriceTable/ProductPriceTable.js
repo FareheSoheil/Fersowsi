@@ -29,10 +29,10 @@ class ProductPriceTable extends React.Component {
         zoneName: '',
         deliveryTypeId: '',
         deliveryTypeName: '',
-        privateCustomerPrice: '',
-        institutionalCustomerPrice: '',
-        publisherPrice: '',
-        postalCost: '',
+        privateCustomerPrice: 0,
+        institutionalCustomerPrice: 0,
+        publisherPrice: 0,
+        postalCost: 0,
       },
     };
     this.onSelectChange = this.onSelectChange.bind(this);
@@ -50,6 +50,10 @@ class ProductPriceTable extends React.Component {
       } else if (name == 'deliveryType') {
         newCost.deliveryTypeName = so.label;
         newCost.deliveryTypeId = so.value;
+        this.setState({ newCost });
+      } else if (name == 'subscription') {
+        newCost.productSubscriptionTypeName = so.label;
+        newCost.productSubscriptionTypeId = so.value;
         this.setState({ newCost });
       } else {
         newCost.productPeriodName = so.label;
@@ -78,10 +82,10 @@ class ProductPriceTable extends React.Component {
         zoneName: '',
         deliveryTypeId: '',
         deliveryTypeName: '',
-        privateCustomerPrice: '',
-        institutionalCustomerPrice: '',
-        publisherPrice: '',
-        postalCost: '',
+        privateCustomerPrice: 0,
+        institutionalCustomerPrice: 0,
+        publisherPrice: 0,
+        postalCost: 0,
       },
     });
   }
@@ -110,14 +114,17 @@ class ProductPriceTable extends React.Component {
       <div className={`table-responsive ${s.table}`}>
         <table className={`table table-hover table-bordered ${s.hoverableTr}`}>
           <thead className="bg-light">
-            <th width="160" className="border-0">
+            <th width="120" className="border-0">
               Zone
             </th>
             <th width="130" className="border-0">
               Delivery Type
             </th>
-            <th width="170" className="border-0">
+            <th width="120" className="border-0">
               Period
+            </th>
+            <th width="120" className="border-0">
+              Subscription
             </th>
             <th className="border-0">Publisher Price</th>
             <th className="border-0">Inst. Price</th>
@@ -136,6 +143,7 @@ class ProductPriceTable extends React.Component {
               zoneOptions={this.props.zoneOptions}
               deliveryOptions={this.props.deliveryOptions}
               periodOptions={this.props.periodOptions}
+              subscriptionOptions={this.props.subscriptionOptions}
               onSelectChange={this.onSelectChange}
               onInputChange={this.onInputChange}
               onAddPrice={this.add}
