@@ -6,6 +6,8 @@ import ProductPriceRecord from './ProductPriceRecord';
 
 class ProductPriceTable extends React.Component {
   static propTypes = {
+    privateRatio: PropTypes.number.isRequired,
+    instRatio: PropTypes.number.isRequired,
     productId: PropTypes.string.isRequired,
     prices: PropTypes.array.isRequired,
     onEditPrices: PropTypes.func.isRequired,
@@ -39,6 +41,10 @@ class ProductPriceTable extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.add = this.add.bind(this);
   }
+  isNumber(string) {
+    if (/^[0-9]+$/.test(string)) return true;
+    else return false;
+  }
   onSelectChange(so, name, index) {
     let newCost = { ...this.state.newCost };
 
@@ -67,8 +73,26 @@ class ProductPriceTable extends React.Component {
     if (index < 0) {
       const value = event.target.value;
       const state = event.target.name;
-      newCost[state] = value;
-      this.setState({ newCost });
+      if (state === 'publisherPrice' && this.isNumber(value)) {
+        if (this.props.privateRatio === '' || this.props.instRatio === '')
+          window.alert('please fill the ratio inputs');
+        if (
+          parseFloat(this.props.instRatio) +
+            parseFloat(this.props.privateRatio) >
+          100
+        )
+          window.alert('please fill the ratio inputs with currect values');
+        else {
+          newCost.privateCustomerPrice = this.props.privateRatio * value / 100;
+          newCost.institutionalCustomerPrice =
+            this.props.instRatio * value / 100;
+          newCost[state] = value;
+          this.setState({ newCost });
+        }
+      } else if (state !== 'publisherPrice') {
+        newCost[state] = value;
+        this.setState({ newCost });
+      }
     } else this.props.onPriceInputChange(e, index);
   }
   add() {
@@ -98,7 +122,7 @@ class ProductPriceTable extends React.Component {
         <ProductPriceRecord
           index={i}
           hasAdd={false}
-          isRelative={i === length - 1 ? true : false}
+          isRelative={true}
           cost={record}
           zoneOptions={this.props.zoneOptions}
           deliveryOptions={this.props.deliveryOptions}
@@ -114,16 +138,14 @@ class ProductPriceTable extends React.Component {
       <div className={`table-responsive ${s.table}`}>
         <table className={`table table-hover table-bordered ${s.hoverableTr}`}>
           <thead className="bg-light">
-            <th width="120" className="border-0">
+            <th width="160" className="border-0">
               Zone
             </th>
-            <th width="130" className="border-0">
+            <th width="170" className="border-0">
               Delivery Type
             </th>
-            <th width="120" className="border-0">
-              Period
-            </th>
-            <th width="120" className="border-0">
+
+            <th width="160" className="border-0">
               Subscription
             </th>
             <th className="border-0">Publisher Price</th>
@@ -138,6 +160,7 @@ class ProductPriceTable extends React.Component {
             {' '}
             <ProductPriceRecord
               index={-1}
+              isRelative={true}
               hasAdd={true}
               cost={this.state.newCost}
               zoneOptions={this.props.zoneOptions}

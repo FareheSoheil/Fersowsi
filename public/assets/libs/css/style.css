@@ -167,8 +167,7 @@ option {
    ========================================================================== */
 
 body {
-    font-family: 'Circular Std Book';
-    font-style: normal;
+    font-family: serif;
     font-weight: normal;
     font-size: 14px;
     /* color: #71748d; */
@@ -7148,6 +7147,8 @@ margin-bottom: 22px; }
 
 .product-card{
     cursor: pointer;
+    /* width:245px; */
+    /* max-width: 100%;  */
 }
 .tox-menubar {
     background-color: rgb(228, 227, 227) !important;

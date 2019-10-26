@@ -36,3 +36,12 @@
 .details label {
     color: black;
 }
+.image {
+    width: 94%;
+    height: 350px;
+    border: 2px solid rgb(121, 187, 165);
+    border-radius: 3px;
+}
+.imgContainer {
+
+}

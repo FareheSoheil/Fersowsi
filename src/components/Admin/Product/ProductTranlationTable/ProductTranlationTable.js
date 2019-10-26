@@ -68,7 +68,8 @@ class ProductTranlationTable extends React.Component {
     ) {
       records = this.props.translations.map((record, i) => (
         <ProductTranslationRecord
-          isRelative={i === length - 1 ? true : false}
+          isRelative={true}
+          // {i === length - 1 ? true : false}
           index={i}
           hasAdd={false}
           translation={record}
@@ -101,7 +102,7 @@ class ProductTranlationTable extends React.Component {
             {' '}
             <ProductTranslationRecord
               index={-1}
-              isRelative={false}
+              isRelative={true}
               hasAdd={true}
               translation={this.state.newTranslation}
               languageOptions={this.props.languageOptions}

@@ -6,8 +6,8 @@ const PRODUCT_SORT_OPTIONS = [
   { value: 3, label: 'Privce' },
 ];
 const USER_SUBCATEGORY_ARRAY = [
-  { id: 1, value: 1, name: 'Library', label: 'Library' },
-  { id: 2, value: 2, name: 'Government', label: 'Government' },
+  { value: 1, name: 'Library', label: 'Library' },
+  { value: 2, name: 'Government', label: 'Government' },
   { id: 3, value: 3, name: 'School', label: 'School' },
   { id: 4, value: 4, name: 'Corporation', label: 'Corporation' },
   { id: 5, value: 5, name: 'Single Customer', label: 'Single Customer' },
@@ -73,8 +73,16 @@ const PRODUCT_STATUS_ARRAY = [
   { id: 2, value: 2, label: 'Ready', name: 'Ready' },
   { id: 3, value: 3, label: 'Not Available', name: 'Not Available' },
 ];
+const PRODUCT_STATUS = {
+  Pending: {
+    value: 1,
+    label: 'Wait For Accept By Admin',
+  },
+  Ready: { value: 2, label: 'Ready' },
+  NotAvailable: { value: 3, label: 'Not Available' },
+};
 const PRODUCT_TYPE_ARRAY = [
-  { id: 1, value: 1, label: 'SingleProduct', name: 'SingleProduct' },
+  { id: 1, value: 1, label: 'Single Product', name: 'SingleProduct' },
   { id: 2, value: 2, label: 'Package', name: 'Package' },
 ];
 const PRODUCT_TYPES = { Single: 1, Package: 2 };
@@ -180,6 +188,7 @@ const CLAIMS_RECORDE_ITEM_NAMES_ARRAY = [
   'publisherName',
   'isFinished',
 ];
+
 const ACCOUNTS_COLUMNS_LABELS_ARRAY = [
   'Avatar',
   'Id',
@@ -196,6 +205,24 @@ const ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY = [
   'contractName',
   'email',
 ];
+
+const PRODUCT_COLUMNS_LABELS_ARRAY = [
+  'Id',
+  'Cover',
+  'ISSN',
+  'Title',
+  'Publisher',
+  'Country',
+];
+const PRODUCT_RECORD_ITEM_NAMES_ARRAY = [
+  'id',
+  'coverImage',
+  'issn',
+  'originalTitle',
+  'publisher',
+  'country',
+];
+
 const CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY = [
   'Id',
   'Delivery Cost',
@@ -275,6 +302,7 @@ export {
   PRODUCT_PERIOD_ARRAY,
   SINGLE_PRODUCT_TYPE_ARRAY,
   PRODUCT_STATUS_ARRAY,
+  PRODUCT_STATUS,
   PRODUCT_TYPE_ARRAY,
   PUBLISHER_ORDER_STATUS_ARRAY,
   USER_NUMBER_ARRAY,
@@ -305,4 +333,6 @@ export {
   SERVER,
   PRODUCT_SORT_OPTIONS,
   PRODUCT_TYPES,
+  PRODUCT_COLUMNS_LABELS_ARRAY,
+  PRODUCT_RECORD_ITEM_NAMES_ARRAY,
 };

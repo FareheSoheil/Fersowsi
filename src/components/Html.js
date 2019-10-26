@@ -51,21 +51,7 @@ class Html extends React.Component {
           ))}
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="apple-touch-icon" href="/icon.png" />
-          {/* <link rel="stylesheet" href="/ag-grid.css" />
-          <link rel="stylesheet" href="/ag-theme-balham.css" />
-          <link rel="stylesheet" href="/ag-theme-balham-dark.css" />
-          <link rel="stylesheet" href="/ag-theme-blue.css" />
-          <link rel="stylesheet" href="/ag-theme-bootstrap.css" />
-          <link rel="stylesheet" href="/ag-theme-dark.css" />
-          <link rel="stylesheet" href="/ag-theme-fresh.css" />
-          <link rel="stylesheet" href="/ag-theme-material.css" />
-          <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossOrigin="anonymous"
-          /> */}
-          {/* react-redux-toastr/lib/css/react-redux-toastr.min.css */}
+
           <link
             rel="stylesheet"
             href="/assets/libs/css/react-redux-toastr.min.css"
@@ -96,7 +82,7 @@ class Html extends React.Component {
             rel="stylesheet"
             href="/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css"
           />
-          <link rel="stylesheet" href="/assets/vendor/charts/c3charts/c3.css" />
+          {/* <link rel="stylesheet" href="/assets/vendor/charts/c3charts/c3.css" /> */}
           <link
             rel="stylesheet"
             href="/assets/vendor/fonts/flag-icon-css/flag-icon.min.css"
@@ -134,7 +120,10 @@ class Html extends React.Component {
               defer
             />
           )}
-
+          <script
+            src="https://kit.fontawesome.com/1d4320cba5.js"
+            crossorigin="anonymous"
+          />
           <script src="/assets/vendor/jquery/jquery-3.3.1.min.js" />
           <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js" />
           <script src="/assets/vendor/slimscroll/jquery.slimscroll.js" />

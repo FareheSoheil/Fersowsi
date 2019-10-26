@@ -9,7 +9,10 @@ import ProductPriceTable from '../../../../components/Admin/Product/ProductPrice
 import ProductTranlationTable from '../../../../components/Admin/Product/ProductTranlationTable';
 import ProductDetailsContainer from '../../../../components/Admin/Product/ProductDetailsContainer';
 import 'react-datepicker/dist/react-datepicker.css';
-import { PRODUCT_TYPES } from '../../../../constants/constantData';
+import {
+  PRODUCT_TYPES,
+  PRODUCT_STATUS,
+} from '../../../../constants/constantData';
 import { SERVER } from '../../../../constants';
 
 class ProductDetail extends React.Component {
@@ -47,6 +50,8 @@ class ProductDetail extends React.Component {
         productPriceAndCost: [],
         subProducts: [],
       },
+      privateRatio: 0,
+      instRatio: 0,
       allContentCategories: '',
       allPublishers: '',
       allLanguages: '',
@@ -90,9 +95,12 @@ class ProductDetail extends React.Component {
     this.fetchProduct = this.fetchProduct.bind(this);
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
+    this.changeStatus = this.changeStatus.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleUploadedImage = this.handleUploadedImage.bind(this);
+    this.onProductEdit = this.onProductEdit.bind(this);
+
     // price handlers
     this.onPriceInputChange = this.onPriceInputChange.bind(this);
     this.onPriceSelectChange = this.onPriceSelectChange.bind(this);
@@ -111,9 +119,14 @@ class ProductDetail extends React.Component {
     this.fetchAllInfo();
     this.fetchProduct();
   }
+
+  isNumber(string) {
+    if (/^[0-9]+$/.test(string)) return true;
+    else return false;
+  }
+
   fetchProduct() {
     const url = `${SERVER}/getProduct`;
-    // const url = `http://45.89.139.182:3004/getProduct`;
     this.setState({
       isLoading: true,
     });
@@ -195,12 +208,23 @@ class ProductDetail extends React.Component {
       reader.readAsDataURL(inp.files[0]);
     }
   }
-  onChangeInput(event) {
-    const value = event.target.value;
-    const state = event.target.name;
-    let product = { ...this.state.product };
-    product[state] = value;
-    this.setState({ product });
+  changeStatus(status) {
+    let state = { ...this.state.product };
+    state.productStatus = status;
+    this.setState({ product: state });
+  }
+  onChangeInput(event, type) {
+    let value = event.target.value;
+    const attr = event.target.name;
+    let state = { ...this.state };
+
+    if (attr === 'privateRatio' || attr === 'instRatio') {
+      if (this.isNumber(value)) this.setState({ [attr]: value });
+    } else {
+      state = { ...this.state.product };
+      state[attr] = value;
+      this.setState({ product: state });
+    }
   }
   // price controllers
   onPriceInputChange(e, index) {
@@ -227,17 +251,17 @@ class ProductDetail extends React.Component {
       product.productPriceAndCost[index].productPeriodId = so.value;
     }
 
-    this.setState({ product });
+    this.setState({ product: product });
   }
   onAddPrice(newPrice) {
     let product = { ...this.state.product };
-    product.productPriceAndCost.push(newPrice);
-    this.setState({ product });
+    product.productPriceAndCost.unshift(newPrice);
+    this.setState({ product: product });
   }
   onDeletePrice(index) {
     let product = { ...this.state.product };
     product.productPriceAndCost.splice(index, 1);
-    this.setState({ product });
+    this.setState({ product: product });
   }
   // translation controllers
   onTranslationInputChange(e, index) {
@@ -245,7 +269,7 @@ class ProductDetail extends React.Component {
     const state = e.target.name;
     let product = { ...this.state.product };
     product.translations[index][state] = value;
-    this.setState({ product });
+    this.setState({ product: product });
   }
   onTranslationSelectChange(so, index) {
     let product = { ...this.state.product };
@@ -257,36 +281,37 @@ class ProductDetail extends React.Component {
   }
   onAddTranslation(newTranslation) {
     let product = { ...this.state.product };
-    product.translations.push(newTranslation);
-    this.setState({ product });
+    product.translations.unshift(newTranslation);
+    this.setState({ product: product });
   }
   onDeleteTranslation(index) {
     let product = { ...this.state.product };
     product.translations.splice(index, 1);
-    this.setState({ product });
+    this.setState({ product: product });
   }
   // subproducts controllers
   onAddSubproduct(newSub) {
     let product = { ...this.state.product };
     let nsp = { ...this.state.allProducts };
-    product.subProducts.push(nsp[newSub.index]);
+    product.subProducts.unshift(nsp[newSub.index]);
     window.alert(newSub);
-    this.setState({ product });
+    this.setState({ product: product });
   }
-  onDeleteSubproduct(index) {
+  onDeleteSubproduct(index, e) {
+    e.stopPropagation();
     let product = { ...this.state.product };
     product.subProducts.splice(index, 1);
-    this.setState({ product });
+    this.setState({ product: product });
   }
   handleDateChange(date, stateName) {
     let product = { ...this.state.product };
     product[stateName] = date;
-    this.setState({ product });
+    this.setState({ product: product });
   }
   handleSelectChange = (selectedOption, op) => {
     let product = { ...this.state.product };
     product[op] = selectedOption;
-    this.setState({ product });
+    this.setState({ product: product });
   };
   onExportProduct() {
     window.alert('send delete ajax with user id');
@@ -295,7 +320,37 @@ class ProductDetail extends React.Component {
     window.alert('send delete ajax with user id');
   }
   onProductEdit() {
-    window.alert('send edi ajax with all user info');
+    const url = `${SERVER}/updateProduct`;
+    this.setState({
+      isLoading: true,
+    });
+    const credentials = {
+      productId: this.state.id,
+      product: this.state.product,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        window.alert('Product Updated Successfully');
+        that.setState({
+          product: response.product,
+          isLoading: false,
+        });
+      },
+      error => {
+        window.alert('error');
+        console.log('an error occured', error);
+      },
+    );
   }
 
   render() {
@@ -311,11 +366,11 @@ class ProductDetail extends React.Component {
               <PageHeader
                 title="Product Detail"
                 breadCrumbs={[
-                  { link: '/admin/products', label: 'Products' },
+                  { link: '/admin/products/all', label: 'Products' },
                   { label: 'Product Detail' },
                 ]}
               />
-              <div class="col-xl-12 col-lg-8 col-md-6 col-sm-12 col-12">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className={`${s.btnContainer} row`}>
                   <div className="offset-xl-2 col-3">
                     <button className="btn  btn-secondary">
@@ -326,12 +381,16 @@ class ProductDetail extends React.Component {
                     <button className="btn btn-info">Export Product</button>
                   </div>
                   <div className="col-3">
-                    <a className="btn btn-success"> Apply Changes</a>
+                    <a className="btn btn-success" onClick={this.onProductEdit}>
+                      {' '}
+                      Apply Changes
+                    </a>
                   </div>
                 </div>
               </div>
               <div class="col-xl-12 col-lg-8 col-md-6 col-sm-12 col-12">
                 <div class="influence-profile-content pills-regular">
+                  {/* tab headers */}
                   <ul
                     class="nav nav-pills mb-3 nav-justified"
                     id="pills-tab"
@@ -407,7 +466,19 @@ class ProductDetail extends React.Component {
                       aria-labelledby="pills-subproducts-tab"
                     >
                       <div class="card">
-                        <h5 class="card-header">Product Subproducts</h5>
+                        <h5
+                          class={
+                            this.state.product.productStatus.value ===
+                            PRODUCT_STATUS.Pending.value
+                              ? `${s.pending} card-header`
+                              : this.state.product.productStatus.value ===
+                                PRODUCT_STATUS.Ready.value
+                                ? `${s.ready} card-header`
+                                : `${s.notAvailable} card-header`
+                          }
+                        >
+                          Product Subproducts
+                        </h5>
                         <div class="card-body">
                           <SubproductTable
                             productId={this.state.product.id}
@@ -427,7 +498,19 @@ class ProductDetail extends React.Component {
                       aria-labelledby="pills-translations-tab"
                     >
                       <div class="card">
-                        <h5 class="card-header">Product Translations</h5>
+                        <h5
+                          class={
+                            this.state.product.productStatus.value ===
+                            PRODUCT_STATUS.Pending.value
+                              ? `${s.pending} card-header`
+                              : this.state.product.productStatus.value ===
+                                PRODUCT_STATUS.Ready.value
+                                ? `${s.ready} card-header`
+                                : `${s.notAvailable} card-header`
+                          }
+                        >
+                          Product Translations
+                        </h5>
                         <div class="card-body">
                           <ProductTranlationTable
                             productId={this.state.product.id}
@@ -453,9 +536,62 @@ class ProductDetail extends React.Component {
                       aria-labelledby="pills-prices-tab"
                     >
                       <div class="card">
-                        <h5 class="card-header">Product Prices and Costs</h5>
+                        <h5
+                          class={
+                            this.state.product.productStatus.value ===
+                            PRODUCT_STATUS.Pending.value
+                              ? `${s.pending} card-header`
+                              : this.state.product.productStatus.value ===
+                                PRODUCT_STATUS.Ready.value
+                                ? `${s.ready} card-header`
+                                : `${s.notAvailable} card-header`
+                          }
+                        >
+                          Product Prices and Costs
+                        </h5>
                         <div class="card-body">
+                          <div className="row mt-2 mb-3 pl-4">
+                            <span>
+                              {' '}
+                              Private Price Ratio &nbsp;
+                              :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{' '}
+                            </span>
+                            <div className="col-xl-2">
+                              {' '}
+                              <div className="form-group">
+                                <input
+                                  name="privateRatio"
+                                  id="privateRatio"
+                                  type="text"
+                                  onKeyUp={e => this.enterNumber(e)}
+                                  className="form-control form-control-sm "
+                                  value={this.state.privateRatio}
+                                  onChange={e => this.onChangeInput(e)}
+                                />
+                              </div>
+                            </div>
+                            <span>%</span>
+                          </div>
+                          <div className="row mt-2 mb-3 pl-4">
+                            <span>Instituitional Price Ratio &nbsp; :</span>
+                            <div className="col-xl-2">
+                              {' '}
+                              <div className="form-group">
+                                <input
+                                  name="instRatio"
+                                  type="text"
+                                  id="instRatio"
+                                  className="form-control form-control-sm "
+                                  value={this.state.instRatio}
+                                  onChange={e => this.onChangeInput(e)}
+                                />
+                              </div>
+                            </div>
+                            <span>%</span>
+                          </div>
                           <ProductPriceTable
+                            privateRatio={this.state.privateRatio}
+                            instRatio={this.state.instRatio}
                             productId={this.state.product.id}
                             prices={this.state.product.productPriceAndCost}
                             zoneOptions={this.state.allZones}
@@ -477,10 +613,23 @@ class ProductDetail extends React.Component {
                       aria-labelledby="pills-details-tab"
                     >
                       <div class="card">
-                        <h5 class="card-header">Product Details</h5>
+                        <h5
+                          class={
+                            this.state.product.productStatus.value ===
+                            PRODUCT_STATUS.Pending.value
+                              ? `${s.pending} card-header`
+                              : this.state.product.productStatus.value ===
+                                PRODUCT_STATUS.Ready.value
+                                ? `${s.ready} card-header`
+                                : `${s.notAvailable} card-header`
+                          }
+                        >
+                          Product Details
+                        </h5>
                         <div class={`${s.cardContainer} card-body`}>
                           <ProductDetailsContainer
-                            hasType={false}
+                            hasType={true}
+                            changeStatus={this.changeStatus}
                             product={this.state.product}
                             allAgeGroups={this.state.allAgeGroups}
                             allContentCategories={

@@ -17,3 +17,12 @@
     position: relative;
     
 }
+.greenBg {
+    background-color: rgb(179, 240, 179) ;
+    border-top: 2px solid rgb(138, 245, 138);
+}
+.greenBg:hover {
+    background-color: rgb(252, 195, 195) !important;
+     border-top: 2px solid rgb(252, 195, 195);
+    cursor: pointer;
+}

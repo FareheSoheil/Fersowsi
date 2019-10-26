@@ -71,6 +71,7 @@
     margin-bottom: 3px;
     margin-top: 3px;
 }
+
 .noPaddR {
     padding-right: 0px;
 }
@@ -94,4 +95,26 @@
 }
 .btnContainer button:hover {
     /* color: black; */
+}
+
+.pending {
+    background-color: #ffc108;
+
+}
+.ready {
+    background-color: green;
+}
+.notAvailable {
+    background-color: red;
+    color: white;
+}
+.statusBtns {
+    border: 1px solid lightgray;
+    padding: 15px 5px 15px 5px;
+}
+.statusBtns button{
+    min-width: 110px;
+}
+.statusBtns label {
+    padding-top: 8px;
 }

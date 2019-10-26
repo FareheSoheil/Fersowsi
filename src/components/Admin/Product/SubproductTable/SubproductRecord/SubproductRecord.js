@@ -30,7 +30,7 @@ class SubproductRecord extends React.Component {
   }
   render() {
     return (
-      <tr onClick={this.goTo}>
+      <tr onClick={this.goTo} class={this.props.hasAdd ? '' : s.greenBg}>
         <td>
           <form>
             {' '}

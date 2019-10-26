@@ -16,7 +16,7 @@ class ProductSideFilter extends React.Component {
     allPublishers: PropTypes.array.isRequired,
     allLanguages: PropTypes.array.isRequired,
     allAgeGroups: PropTypes.array.isRequired,
-
+    hasChoiceForStatus: PropTypes.bool.isRequired,
     filters: {
       publishers: PropTypes.array.isRequired,
       singlProductTypes: PropTypes.array.isRequired,
@@ -283,30 +283,33 @@ class ProductSideFilter extends React.Component {
               }
             />
           </div>
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Status{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#statCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
+          {this.props.hasChoiceForStatus ? (
+            <div class="product-sidebar-widget">
+              <div class="product-sidebar-widget-title">
+                Status{' '}
+                <span
+                  class="float-right slider collapsed"
+                  data-toggle="collapse"
+                  data-target="#statCollapse"
+                  aria-expanded="false"
+                  aria-controls="searcNamesCollapse"
+                >
+                  <i class="fa" aria-hidden="true" />
+                </span>
+              </div>
+              <Select
+                id="statCollapse"
+                className="collapse"
+                isMulti
+                isSearchable
+                options={PRODUCT_STATUS_ARRAY}
+                value={this.props.filters.status}
+                onChange={so => this.props.handleSelectChange(so, 'status')}
+              />
             </div>
-            <Select
-              id="statCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={PRODUCT_STATUS_ARRAY}
-              value={this.props.filters.status}
-              onChange={so => this.props.handleSelectChange(so, 'status')}
-            />
-          </div>
-
+          ) : (
+            ''
+          )}
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
               Language<span

@@ -44,16 +44,18 @@ class CustomTabel extends React.Component {
           <td>{i + 1}</td>
           {this.props.recordItemNames.map(
             label =>
-              label === 'profilePic' ? (
+              label === 'profilePic' || label === 'coverImage' ? (
                 <td>
                   <img
-                    class={s.profilePicContiner}
+                    className={
+                      label === 'profilePic' ? s.profilePicContiner : ''
+                    }
                     src={record[label]}
-                    width="50"
-                    height="50"
+                    width="60"
+                    height="60"
                   />
                 </td>
-              ) : label === 'status' ? (
+              ) : label === 'status' || label === 'publisher' ? (
                 <td>{record[label].label}</td>
               ) : record[label] === true ? (
                 <td>

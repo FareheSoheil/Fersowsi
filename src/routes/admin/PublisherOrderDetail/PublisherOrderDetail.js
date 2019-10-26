@@ -138,6 +138,7 @@ class PublisherOrderDetail extends React.Component {
       url,
       options,
       response => {
+        // const  thatThat = that;
         that.setState({
           allPeriods: response.ProductPeriod,
           allCurrencies: response.Currency,

@@ -26,7 +26,7 @@ class ProductTranslationRecord extends React.Component {
   }
   render() {
     return (
-      <tr>
+      <tr class={this.props.hasAdd ? '' : s.greenBg}>
         <td>
           <Select
             options={this.props.languageOptions}
@@ -42,7 +42,7 @@ class ProductTranslationRecord extends React.Component {
               <input
                 name="title"
                 type="text"
-                className="form-control form-control-sm "
+                className="form-control form-control-m "
                 value={this.props.translation.title}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />

@@ -8,6 +8,8 @@ class ProductPriceRecord extends React.Component {
   static propTypes = {
     product: {
       // costId: PropTypes.number.isRequired,
+      privateRatio: PropTypes.number.isRequired,
+      instRatio: PropTypes.number.isRequired,
       hasAdd: PropTypes.bool.isRequired,
       isRelative: PropTypes.bool.isRequired,
       index: PropTypes.number.isRequired,
@@ -26,10 +28,18 @@ class ProductPriceRecord extends React.Component {
   };
   constructor(props) {
     super(props);
+    this.isNumberKey = this.isNumberKey.bind(this);
+  }
+  isNumberKey(evt) {
+    console.log('hi');
+    var charCode = evt.which ? evt.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+
+    return true;
   }
   render() {
     return (
-      <tr>
+      <tr className={this.props.hasAdd ? '' : s.greenBg}>
         <td>
           <Select
             options={this.props.zoneOptions}
@@ -57,21 +67,7 @@ class ProductPriceRecord extends React.Component {
             }
           />
         </td>
-        <td>
-          {' '}
-          <Select
-            options={this.props.periodOptions}
-            value={{
-              value: this.props.cost.productPeriodId,
-              label: this.props.cost.productPeriodName,
-            }}
-            className={this.props.isRelative ? s.dropDown : ''}
-            onChange={so =>
-              this.props.onSelectChange(so, 'productPeriod', this.props.index)
-            }
-          />
-          {/*  */}
-        </td>
+
         <td>
           {' '}
           <Select
@@ -93,9 +89,9 @@ class ProductPriceRecord extends React.Component {
             <div className="form-group">
               <input
                 name="publisherPrice"
-                type="text"
+                type="number"
                 className="form-control form-control-sm "
-                value={parseFloat(this.props.cost.publisherPrice)}
+                value={this.props.cost.publisherPrice}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -109,8 +105,9 @@ class ProductPriceRecord extends React.Component {
                 name="institutionalCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={parseFloat(this.props.cost.institutionalCustomerPrice)}
-                onChange={e => this.props.onInputChange(e, this.props.index)}
+                value={this.props.cost.institutionalCustomerPrice}
+                // onChange={e => this.props.onInputChange(e, this.props.index)}
+                disabled
               />
             </div>
           </form>
@@ -123,8 +120,9 @@ class ProductPriceRecord extends React.Component {
                 name="privateCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={parseFloat(this.props.cost.privateCustomerPrice)}
-                onChange={e => this.props.onInputChange(e, this.props.index)}
+                value={this.props.cost.privateCustomerPrice}
+                // onChange={e => this.props.onInputChange(e, this.props.index)}
+                disabled
               />
             </div>
           </form>

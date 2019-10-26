@@ -25,12 +25,7 @@ class ProductCard extends React.Component {
         >
           <div class="product-img-head">
             <div class="product-img">
-              <img
-                src={this.props.product.coverImage}
-                // class="img-fluid"
-                height="350"
-                width="243"
-              />
+              <img src={this.props.product.coverImage} class={s.image} />
             </div>
           </div>
           <div class="product-content">
@@ -57,7 +52,7 @@ class ProductCard extends React.Component {
 
               <div class={`${s.details} `}>
                 <label>Discount : &nbsp;</label>
-                {parseFloat(this.props.product.discount)}
+                {this.props.product.discount}
               </div>
               <div class={`${s.details} `}>
                 <label>Language : &nbsp;</label>

@@ -88,9 +88,24 @@ const routes = {
           path: '/products',
           children: [
             {
-              path: '',
+              path: '/all',
               load: () =>
                 import(/* webpackChunkName: 'adminProducts' */ './admin/Products/ProductsTable'),
+            },
+            {
+              path: '/pending',
+              load: () =>
+                import(/* webpackChunkName: 'adminPendingProducts' */ './admin/Products/ProductsTable/Pending'),
+            },
+            {
+              path: '/ready',
+              load: () =>
+                import(/* webpackChunkName: 'adminReadyProducts' */ './admin/Products/ProductsTable/Ready'),
+            },
+            {
+              path: 'notAvailable',
+              load: () =>
+                import(/* webpackChunkName: 'adminNotAvailableProducts' */ './admin/Products/ProductsTable/NotAvailable'),
             },
             {
               path: '/add',

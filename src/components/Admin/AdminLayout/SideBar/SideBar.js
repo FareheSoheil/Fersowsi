@@ -53,7 +53,7 @@ class SideBar extends React.Component {
                     data-target="#accounts"
                     aria-controls="accounts"
                   >
-                    <i className="fa fa-fw fa-user-circle" /> Users
+                    <i className="fa fa-fw fa-user-circle" />* Users
                   </a>
                   <div
                     id="accounts"
@@ -92,6 +92,14 @@ class SideBar extends React.Component {
                           onClick={() => this.goTo('/admin/accounts/operators')}
                         >
                           <i className="fa fa-fw fa-user-circle" />Operators{' '}
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/accounts/add')}
+                        >
+                          <i className="fa fa-fw fa-user-circle" />Add User{' '}
                         </a>
                       </li>
                     </ul>
@@ -138,18 +146,46 @@ class SideBar extends React.Component {
                       <li class="nav-item">
                         <a
                           class="nav-link"
-                          onClick={() => this.goTo('/admin/products')}
+                          onClick={() => this.goTo('/admin/products/all')}
                         >
-                          <i className=" fab fa-product-hunt" />Products List{' '}
+                          <i className=" fab fa-product-hunt" />All Products{' '}
                         </a>
                       </li>
                       <li class="nav-item">
                         <a
                           class="nav-link"
-                          onClick={() => this.goTo('/admin/products/add')}
+                          onClick={() => this.goTo('/admin/products/ready')}
                         >
-                          <i class="fas fa-plus" />Add Product{' '}
+                          <i className=" fab fa-product-hunt" />Ready Products{' '}
                         </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => this.goTo('/admin/products/pending')}
+                        >
+                          <i className=" fab fa-product-hunt" />Pending Products{' '}
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() =>
+                            this.goTo('/admin/products/notAvailable')
+                          }
+                        >
+                          <i className=" fab fa-product-hunt" />Not Available
+                          Products{' '}
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <i
+                          class="fas fa-plus nav-link"
+                          onClick={() => this.goTo('/admin/products/add')}
+                        />{' '}
+                        Add Product{' '}
+                        {/* </i>
+                        <a class="" /> */}
                       </li>
                     </ul>
                   </div>
@@ -178,7 +214,8 @@ class SideBar extends React.Component {
                             this.goTo('/admin/customerOrder/add', '')
                           }
                         >
-                          <i class="fa fa-plus" aria-hidden="true" />Add Order{' '}
+                          <i class="fa-plus-circle" aria-hidden="true" />Add
+                          Order{' '}
                         </a>
                       </li>
                       <li class="nav-item">
@@ -188,7 +225,7 @@ class SideBar extends React.Component {
                             this.goTo('/admin/customerOrder/all', '')
                           }
                         >
-                          <i className="fa fa-fw fa-user-circle" />All Orders{' '}
+                          <i class="fas fa-plus-circle" />All Orders{' '}
                         </a>
                       </li>
                       <li class="nav-item">

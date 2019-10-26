@@ -9,22 +9,18 @@
 
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import history from '../../../../history';
+import history from '../../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import CustomTabel from '../../../../components/CustomTabel';
-import AdvancedSearch from '../../../../components/Admin/Product/AdvancedSearch';
-import Spinner from '../../../../components/Admin/Spinner';
-import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
-import { SERVER } from '../../../../constants';
-import {
-  OPCODES,
-  PRODUCT_COLUMNS_LABELS_ARRAY,
-  PRODUCT_RECORD_ITEM_NAMES_ARRAY,
-} from '../../../../constants/constantData';
+import ProductCard from '../../../../../components/Admin/Product/ProductCard';
+import ProductSideFilter from '../../../../../components/Admin/Product/ProductSideFilter';
+import Spinner from '../../../../../components/Admin/Spinner';
+import { fetchWithTimeOut } from '../../../../../fetchWithTimeout';
+import { SERVER } from '../../../../../constants';
+import { OPCODES, PRODUCT_STATUS } from '../../../../../constants/constantData';
 
-import s from './ProductsTable.css';
+import s from './NotAvailable.css';
 
-class ProductsTable extends React.Component {
+class NotAvailable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,13 +35,12 @@ class ProductsTable extends React.Component {
       allProductContentTypes: '',
       allLanguages: '',
       allAgeGroups: '',
-      allPeriods: '',
       productsSearchFilter: {
         publishers: '',
         singlProductTypes: '',
         productType: '', //remove s
         productContentTypes: '',
-        productStatus: '',
+        productStatus: PRODUCT_STATUS.NotAvailable,
         productLanguages: '',
         ageGroups: '',
         originalTitle: '',
@@ -57,7 +52,7 @@ class ProductsTable extends React.Component {
         asb: '',
         dewey: '',
         hasDiscount: '',
-        priceRange: { min: 1, max: 2000 },
+        priceRange: { min: 1, max: 100 },
         weightRange: { min: 10, max: 2000 },
         sortDate: false,
         sortPrice: false,
@@ -73,7 +68,7 @@ class ProductsTable extends React.Component {
     this.search = this.search.bind(this);
   }
   componentDidMount() {
-    this.fetchAllInfo();
+    // this.fetchAllInfo();
     this.fetchProducts();
   }
   onProductClick(id) {
@@ -117,12 +112,17 @@ class ProductsTable extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllAuxInfoForProducts`;
+    const url = `${SERVER}/getAllInfo`;
     this.setState({
       isLoading: true,
     });
+    const credentials = {
+      // searchBy: this.state.productsSearchFilter,
+      // pageNumber: this.state.currentPageNumber,
+    };
     const options = {
       method: 'POST',
+      body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -133,11 +133,10 @@ class ProductsTable extends React.Component {
       options,
       response => {
         that.setState({
-          allPublishers: response.Publishers,
-          allPeriods: response.Periods,
-          allProductContentTypes: response.ProductContentTypes,
-          allLanguages: response.Languages,
-          allAgeGroups: response.AgeGroups,
+          allPublishers: response.publishers,
+          allProductContentTypes: response.contentTypes,
+          allLanguages: response.productLanguages,
+          allAgeGroups: response.ageGroups,
         });
       },
       error => {
@@ -165,7 +164,6 @@ class ProductsTable extends React.Component {
     );
   }
   search() {
-    console.log('FILTER ** : ', this.state.productsSearchFilter);
     this.fetchProducts();
   }
   clearFilters() {
@@ -175,7 +173,7 @@ class ProductsTable extends React.Component {
         singlProductTypes: '',
         productType: '', //remove s
         productContentTypes: '',
-        productStatus: '',
+        productStatus: PRODUCT_STATUS.NotAvailable,
         productLanguages: '',
         ageGroups: '',
         originalTitle: '',
@@ -187,7 +185,7 @@ class ProductsTable extends React.Component {
         asb: '',
         dewey: '',
         hasDiscount: '',
-        priceRange: { min: 1, max: 2000 },
+        priceRange: { min: 1, max: 100 },
         weightRange: { min: 10, max: 2000 },
         sortDate: false,
         sortPrice: false,
@@ -197,18 +195,18 @@ class ProductsTable extends React.Component {
     });
   }
   render() {
-    // let products = <div className={s.warning}>No Products Available</div>;
-    // const receivedProducts = this.state.currentproducts;
-    // if (receivedProducts !== undefined && receivedProducts.length !== 0)
-    //   products = this.state.currentproducts.map(
-    //     (product, i) =>
-    //       (products = (
-    //         <ProductCard
-    //           product={product}
-    //           onProductClick={this.onProductClick}
-    //         />
-    //       )),
-    //   );
+    let products = <div className={s.warning}>No Products Available</div>;
+    const receivedProducts = this.state.currentproducts;
+    if (receivedProducts !== undefined && receivedProducts.length !== 0)
+      products = this.state.currentproducts.map(
+        (product, i) =>
+          (products = (
+            <ProductCard
+              product={product}
+              onProductClick={this.onProductClick}
+            />
+          )),
+      );
     return (
       <div className="container-fluid dashboard-content">
         <div class="row">
@@ -222,44 +220,46 @@ class ProductsTable extends React.Component {
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
-            <div className="card">
-              <h4 className="card-header">Accounts</h4>
-              <div className="card-body p-0">
-                <div className="container-fluid">
-                  <AdvancedSearch
-                    hasChoiceForStatus={true}
-                    searchClear={this.state.searchClear}
-                    allPublishers={this.state.allPublishers}
-                    allProductContentTypes={this.state.allProductContentTypes}
-                    allLanguages={this.state.allLanguages}
-                    allAgeGroups={this.state.allAgeGroups}
-                    allPeriods={this.state.allPeriods}
-                    searchFilter={this.state.productsSearchFilter}
-                    handleInputChange={this.handleInputChange}
-                    handleSelectChange={this.handleSelectChange}
-                    fetchProducts={this.search}
-                    clearFilters={this.clearFilters}
-                    currentPageNumber={this.state.pageIndex}
-                  />
-                  <hr />
-
-                  <CustomTabel
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+              <div class="row">{products}</div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <ReactPaginate
+                    previousLabel="<"
+                    nextLabel=">"
                     pageCount={this.state.totalPageNum}
-                    currentPageNumber={this.state.pageIndex}
-                    records={this.state.currentproducts}
-                    columnLabels={PRODUCT_COLUMNS_LABELS_ARRAY}
-                    recordItemNames={PRODUCT_RECORD_ITEM_NAMES_ARRAY}
-                    allPublishers={this.state.allPublishers}
-                    allProductContentTypes={this.state.allProductContentTypes}
-                    allLanguages={this.state.allLanguages}
-                    allAgeGroups={this.state.allAgeGroups}
-                    handlePageChange={this.handlePageChange}
-                    onRecordClick={this.onProductClick}
+                    pageRangeDisplayed={3}
+                    onPageChange={this.handlePageChange}
+                    marginPagesDisplayed={1}
+                    containerClassName="paginate"
+                    subContainerClassName="pages paginate"
+                    activeClassName="active-page"
+                    breakClassName="break-me"
+                    initialPage={this.state.pageIndex}
+                    disableInitialCallback
                   />
                 </div>
               </div>
             </div>
+
+            <ProductSideFilter
+              filters={this.state.productsSearchFilter}
+              hasChoiceForStatus={false}
+              allPublishers={[
+                { value: 1, label: 'aa1' },
+                { value: 2, label: 'aa2' },
+                { value: 3, label: 'aa3' },
+                { value: 4, label: 'aa4' },
+              ]}
+              allProductContentTypes={this.state.allProductContentTypes}
+              allLanguages={this.state.allLanguages}
+              allAgeGroups={this.state.allAgeGroups}
+              handleSelectChange={this.handleSelectChange}
+              handleInputChange={this.handleInputChange}
+              handleClearSearch={this.clearFilters}
+              handleSearch={this.search}
+            />
           </div>
         )}
       </div>
@@ -267,4 +267,4 @@ class ProductsTable extends React.Component {
   }
 }
 
-export default withStyles(s)(ProductsTable);
+export default withStyles(s)(NotAvailable);

@@ -56,7 +56,7 @@ class SubproductTable extends React.Component {
         <SubproductRecord
           index={i}
           subProduct={record}
-          onDeleteSubproduct={() => this.props.onDeleteSubproduct(i)}
+          onDeleteSubproduct={e => this.props.onDeleteSubproduct(i, e)}
         />
       ));
     }
