@@ -167,7 +167,7 @@ option {
    ========================================================================== */
 
 body {
-    font-family: 'Circular Std Book';
+    font-family: serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -1680,7 +1680,7 @@ Left Navigation Sidebar
     width: 0;
     height: 0;
     position: absolute;
-    right: 20px;
+    right: 5px;
     vertical-align: 0.255em;
     content: "";
     border-top: 0.3em solid;

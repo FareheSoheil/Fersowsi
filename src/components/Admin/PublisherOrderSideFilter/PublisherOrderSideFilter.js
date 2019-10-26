@@ -15,6 +15,7 @@ import {
 } from '../../../constants/constantData';
 class PublisherOrderSideFilter extends React.Component {
   static propTypes = {
+    hasChoiceForStatus: PropTypes.bool.isRequired,
     allProducts: PropTypes.array.isRequired,
     allSubscriptions: PropTypes.array.isRequired,
     allDeliverTypes: PropTypes.array.isRequired,
@@ -141,29 +142,33 @@ class PublisherOrderSideFilter extends React.Component {
             />
           </div>
 
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Status{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#statCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
+          {this.props.hasChoiceForStatus ? (
+            <div class="product-sidebar-widget">
+              <div class="product-sidebar-widget-title">
+                Status{' '}
+                <span
+                  class="float-right slider collapsed"
+                  data-toggle="collapse"
+                  data-target="#statCollapse"
+                  aria-expanded="false"
+                  aria-controls="searcNamesCollapse"
+                >
+                  <i class="fa" aria-hidden="true" />
+                </span>
+              </div>
+              <Select
+                id="statCollapse"
+                className="collapse"
+                isMulti
+                isSearchable
+                options={PUBLISHER_ORDER_STATUS_ARRAY}
+                value={this.props.filters.status}
+                onChange={so => this.props.handleSelectChange(so, 'status')}
+              />
             </div>
-            <Select
-              id="statCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={PUBLISHER_ORDER_STATUS_ARRAY}
-              value={this.props.filters.status}
-              onChange={so => this.props.handleSelectChange(so, 'status')}
-            />
-          </div>
+          ) : (
+            ''
+          )}
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
               Payment Status{' '}

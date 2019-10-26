@@ -22,6 +22,11 @@ const ROLES_ARRAY = [
   { id: 3, value: 3, label: 'Publisher', name: 'Publisher' },
   { id: 4, value: 4, label: 'Customer', name: 'Customer' },
 ];
+const ROLES = {
+  customer: { label: 'Customer', value: 4 },
+  operator: { label: 'Operator', value: 2 },
+  publisher: { label: 'Publisher', value: 3 },
+};
 const USER_ACTIVITION_STATUS_ARRAY = [
   { id: 1, value: 4, label: 'Wait For Approval', name: 'Wait For Approval' },
   { id: 2, value: 1, label: 'Active', name: 'Active' },
@@ -75,13 +80,14 @@ const PRODUCT_TYPE_ARRAY = [
 const PRODUCT_TYPES = { Single: 1, Package: 2 };
 
 const PUBLISHER_ORDER_STATUS_ARRAY = [
-  { value: 1, id: 1, name: 'Delayed', label: 'Delayed' },
-  { value: 2, id: 2, name: 'Deflicted', label: 'Deflicted' },
-  { value: 3, id: 3, name: 'Cancel', label: 'Cancelled' },
-  { value: 4, id: 4, name: 'Accept', label: 'Accepted' },
-  { value: 5, id: 5, name: 'Sent', label: 'Sent' },
-  { value: 6, id: 6, name: 'Delivered', label: 'Delivered' },
+  { value: 2, id: 3, name: 'Cancelled', label: 'Cancelled' },
+  { value: 1, label: 'Accepted' },
 ];
+
+const PUBLISHER_ORDER_STATUS = {
+  Cancelled: { value: 2, label: 'Cancelled' },
+  Accepted: { value: 1, label: 'Accepted' },
+};
 const MESSAGE_STATUS_ARRAY = [
   { id: 1, value: 1, name: 'SeenByAdmin', label: 'Seen By Admin' },
   { id: 2, value: 2, name: 'Rejected', label: 'Rejected' },
@@ -103,37 +109,58 @@ const CUSTOMER_ORDER_STATUS_ARRAY = [
   {
     value: 1,
 
-    label: 'Wait For Admin Response',
+    label: 'New',
   },
   {
     value: 2,
-    label: 'Admin Rejected',
+    label: 'Ignored',
   },
   {
     value: 3,
-    label: 'Admin Suspend',
+    label: 'Cancelled',
   },
   {
     value: 4,
-    label: 'Admin Edited',
+    label: 'Delayed',
   },
   {
     value: 5,
-    label: 'Sent E-Factor',
+    label: 'In Progress',
   },
   {
     value: 6,
-    label: 'Payment Done',
-  },
-  {
-    value: 7,
-    label: 'Publisher Order Created',
-  },
-  {
-    value: 8,
-    label: 'Delivered',
+    label: 'Done',
   },
 ];
+
+const CUSTOMER_ORDER_STATUS = {
+  New: {
+    value: 1,
+
+    label: 'New',
+  },
+  Ignored: {
+    value: 2,
+    label: 'Ignored',
+  },
+  Cancelled: {
+    value: 3,
+    label: 'Cancelled',
+  },
+  Delayed: {
+    value: 4,
+    label: 'Delayed',
+  },
+  InProgress: {
+    value: 5,
+    label: 'In Progress',
+  },
+  Done: {
+    value: 6,
+    label: 'Done',
+  },
+};
+
 const USER_NUMBER_ARRAY = [
   { value: 'Mobile Number', label: 'Mobile Number' },
   { value: 'Phone Number', label: 'Phone Number' },
@@ -244,6 +271,7 @@ export {
   USER_SUBCATEGORY_ARRAY,
   USER_ACTIVITION_STATUS_ARRAY,
   ROLES_ARRAY,
+  ROLES,
   PRODUCT_PERIOD_ARRAY,
   SINGLE_PRODUCT_TYPE_ARRAY,
   PRODUCT_STATUS_ARRAY,
@@ -263,9 +291,11 @@ export {
   CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
   CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
   CUSTOMER_ORDER_STATUS_ARRAY,
+  CUSTOMER_ORDER_STATUS,
   OPCODES,
   PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
   PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY,
+  PUBLISHER_ORDER_STATUS,
   COUNTRIES_COLUMNS_LABELS_ARRAY,
   COUNTRIES_RECORDE_ITEM_NAMES_ARRAY,
   SETTING_COLUMNS_LABELS_ARRAY,

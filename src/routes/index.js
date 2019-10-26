@@ -48,9 +48,24 @@ const routes = {
           path: '/accounts',
           children: [
             {
-              path: '',
+              path: '/all',
               load: () =>
                 import(/* webpackChunkName: 'adminAccounts' */ './admin/AccountsTable'),
+            },
+            {
+              path: '/customers',
+              load: () =>
+                import(/* webpackChunkName: 'adminCustomers' */ './admin/AccountsTable/Customers'),
+            },
+            {
+              path: '/publishers',
+              load: () =>
+                import(/* webpackChunkName: 'adminPublishers' */ './admin/AccountsTable/Publishers'),
+            },
+            {
+              path: '/operators',
+              load: () =>
+                import(/* webpackChunkName: 'adminOperators' */ './admin/AccountsTable/Operators'),
             },
             {
               path: '/add',
@@ -93,9 +108,19 @@ const routes = {
           path: '/publisherOrder',
           children: [
             {
-              path: '',
+              path: '/all',
               load: () =>
                 import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/PublisherOrderTable'),
+            },
+            {
+              path: '/accepted',
+              load: () =>
+                import(/* webpackChunkName: 'adminAcceptedPublisherOrders' */ './admin/PublisherOrderTable/Accepted'),
+            },
+            {
+              path: '/cancelled',
+              load: () =>
+                import(/* webpackChunkName: 'adminCancelledPublisherOrders' */ './admin/PublisherOrderTable/Cancelled'),
             },
             {
               path: '/add',
@@ -113,9 +138,39 @@ const routes = {
           path: '/customerOrder',
           children: [
             {
-              path: '',
+              path: '/all',
               load: () =>
                 import(/* webpackChunkName: 'adminCustomerOrderTable' */ './admin/CustomerOrderTable'),
+            },
+            {
+              path: '/new',
+              load: () =>
+                import(/* webpackChunkName: 'adminNewCustomerOrders' */ './admin/CustomerOrderTable/New'),
+            },
+            {
+              path: '/ignored',
+              load: () =>
+                import(/* webpackChunkName: 'adminIgnoredCustomerOrders' */ './admin/CustomerOrderTable/Ignored'),
+            },
+            {
+              path: '/cancelled',
+              load: () =>
+                import(/* webpackChunkName: 'adminCancelledCustomerOrders' */ './admin/CustomerOrderTable/Cancelled'),
+            },
+            {
+              path: '/delayed',
+              load: () =>
+                import(/* webpackChunkName: 'adminDelayedCustomerOrders' */ './admin/CustomerOrderTable/Delayed'),
+            },
+            {
+              path: '/inProgress',
+              load: () =>
+                import(/* webpackChunkName: 'adminInProgressCustomerOrders */ './admin/CustomerOrderTable/InProgress'),
+            },
+            {
+              path: '/done',
+              load: () =>
+                import(/* webpackChunkName: 'adminDoneCustomerOrders' */ './admin/CustomerOrderTable/Done'),
             },
             {
               path: '/add',

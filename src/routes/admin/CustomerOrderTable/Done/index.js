@@ -8,16 +8,16 @@
  */
 
 import React from 'react';
-import Accounts from './Accounts';
-import AdminLayout from '../../../components/Admin/AdminLayout';
+import Done from './Done';
+import AdminLayout from '../../../../components/Admin/AdminLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
-    chunks: ['adminAccounts'],
+    chunks: ['adminDoneCustomerOrders'],
     component: (
       <AdminLayout>
-        <Accounts context={context} />
+        <Done context={context} />
       </AdminLayout>
     ),
   };

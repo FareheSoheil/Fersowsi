@@ -96,12 +96,15 @@ class ProductsTable extends React.Component {
       url,
       options,
       response => {
-        that.setState({
-          currentproducts: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
-          isLoading: false,
-          firstRender: false,
-        });
+        that.setState(
+          {
+            currentproducts: response.currentRecords,
+            totalPageNum: response.totalPageNumber,
+            isLoading: false,
+            firstRender: false,
+          },
+          () => window.scroll(10, 20),
+        );
       },
       error => {
         console.log(error);
@@ -156,8 +159,9 @@ class ProductsTable extends React.Component {
     this.setState({ productsSearchFilter, searchClear: false });
   };
   handlePageChange(pageIndex) {
-    this.setState({ pageIndex: pageIndex.selected });
-    this.fetchProducts();
+    this.setState({ pageIndex: pageIndex.selected }, () =>
+      this.fetchProducts(),
+    );
   }
   search() {
     this.fetchProducts();
@@ -232,7 +236,7 @@ class ProductsTable extends React.Component {
                     subContainerClassName="pages paginate"
                     activeClassName="active-page"
                     breakClassName="break-me"
-                    initialPage={this.props.pageIndex}
+                    initialPage={this.state.pageIndex}
                     disableInitialCallback
                   />
                 </div>

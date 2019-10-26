@@ -12,20 +12,16 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
     }, REQUEST_TIMEOUT);
     options.headers.Authorization = cookie.load('TokenId');
 
-    // console.log('Body : ', JSON.parse(options.body));
     // --------------------------------------------------- START of fetching data
     fetch(url, options)
       // fetch was successful
       .then(response => response.json())
       .then(data => {
         clearTimeout(timeOut);
-        // console.log('data is fetched: ', url, ' ', data);
         resolve(data);
       })
       .catch(error => {
-        console.log('error : unsuccessful error', error);
         if (isTimedOut) {
-          // console.log('timedOut : unsuccessful fetch');
           return;
         }
 
@@ -36,12 +32,10 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
   })
     .then(data => {
       // this happens on data being fetched
-      // console.log(' resolveCallback promise', data);
       resolveCallback(data);
     })
     .catch(error => {
       // this happens on TIME_OUT
-      // console.log(' rejectCallback(error) promise', error);
       rejectCallback(error);
     });
 };

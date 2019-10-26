@@ -24,6 +24,7 @@ import {
 
 class AccountSearch extends React.Component {
   static propTypes = {
+    hasChoiceForRole: PropTypes.bool.isRequired,
     searchClear: PropTypes.bool.isRequired,
     jobs: PropTypes.array.isRequired,
     countries: PropTypes.array.isRequired,
@@ -212,22 +213,25 @@ class AccountSearch extends React.Component {
               </div>
 
               {/* User Role */}
-              <div className="row reactSelectContainer">
-                <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 reactSelectLabel">
-                  User Role :
+              {this.props.hasChoiceForRole ? (
+                <div className="row reactSelectContainer">
+                  <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 reactSelectLabel">
+                    User Role :
+                  </div>
+                  <div className="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7">
+                    <Select
+                      value={this.props.accountsSearchFilter.role}
+                      onChange={so => this.props.handleSelectChange(so, 'role')}
+                      options={ROLES_ARRAY}
+                      isSearchable
+                      className="reactSelect"
+                      classNamePrefix="innerSelect"
+                    />
+                  </div>
                 </div>
-                <div className="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7">
-                  <Select
-                    value={this.props.accountsSearchFilter.role}
-                    onChange={so => this.props.handleSelectChange(so, 'role')}
-                    options={ROLES_ARRAY}
-                    isSearchable
-                    className="reactSelect"
-                    classNamePrefix="innerSelect"
-                  />
-                </div>
-              </div>
-
+              ) : (
+                ''
+              )}
               {/* User SubCategory */}
               <div className="row reactSelectContainer">
                 <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 reactSelectLabel">

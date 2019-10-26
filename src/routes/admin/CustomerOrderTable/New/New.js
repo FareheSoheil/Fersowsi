@@ -8,21 +8,22 @@
  */
 
 import React from 'react';
-import Spinner from '../../../components/Admin/Spinner';
-import CustomTable from '../../../components/CustomTabel';
-import history from '../../../history';
+import Spinner from '../../../../components/Admin/Spinner';
+import CustomTable from '../../../../components/CustomTabel';
+import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import CustomerOrderSideFilter from '../../../components/Admin/CustomerOrderSideFilter';
+import CustomerOrderSideFilter from '../../../../components/Admin/CustomerOrderSideFilter';
 import {
   CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
   CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+  CUSTOMER_ORDER_STATUS,
   OPCODES,
-} from '../../../constants/constantData';
-import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import { SSRSERVER, SERVER } from '../../../constants';
-import s from './CustomerOrderTable.css';
+} from '../../../../constants/constantData';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
+import { SSRSERVER, SERVER } from '../../../../constants';
+import s from './New.css';
 
-class CustomerOrderTable extends React.Component {
+class New extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +42,7 @@ class CustomerOrderTable extends React.Component {
         totalTaxCost: { min: 2, max: 100 },
         totalCost: { min: 2, max: 100 },
         totalDeliveryCost: { min: 2, max: 100 },
-        status: '',
+        status: CUSTOMER_ORDER_STATUS.New,
         userOrderNo: '',
         currency: '',
         deliveryAddress: '',
@@ -128,7 +129,7 @@ class CustomerOrderTable extends React.Component {
         });
       },
       error => {
-        console.log(error);
+        console.log('error in all info ', error);
       },
     );
   }
@@ -162,7 +163,7 @@ class CustomerOrderTable extends React.Component {
         totalTaxCost: { min: 2, max: 100 },
         totalCost: { min: 2, max: 100 },
         totalDeliveryCost: { min: 2, max: 100 },
-        status: '',
+        status: CUSTOMER_ORDER_STATUS.New,
         userOrderNo: '',
         currency: '',
         deliveryAddress: '',
@@ -191,7 +192,7 @@ class CustomerOrderTable extends React.Component {
           <div className="row">
             <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
               <div className="card">
-                <h4 className="card-header">All Customer Orders</h4>
+                <h4 className="card-header">New Customer Orders</h4>
                 <div className="card-body p-0">
                   <div className="container-fluid">
                     <br />
@@ -221,7 +222,7 @@ class CustomerOrderTable extends React.Component {
             </div>
 
             <CustomerOrderSideFilter
-              hasChoiceForStatus={true}
+              hasChoiceForStatus={false}
               filters={this.state.customerOrderSearchFilter}
               allCurrencies={this.state.allCurrencies}
               allDeliveryAddresses={this.state.allDeliveryAddresses}
@@ -237,4 +238,4 @@ class CustomerOrderTable extends React.Component {
   }
 }
 
-export default withStyles(s)(CustomerOrderTable);
+export default withStyles(s)(New);

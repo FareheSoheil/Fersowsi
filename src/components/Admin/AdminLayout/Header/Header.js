@@ -49,9 +49,7 @@ class Header extends React.Component {
     return (
       <div className="dashboard-header">
         <nav className="navbar navbar-expand-lg bg-white fixed-top">
-          <a className="navbar-brand" href="index.html">
-            Ferdowsi
-          </a>
+          <a className="navbar-brand">Ferdowsi</a>
           <button
             className="navbar-toggler"
             type="button"

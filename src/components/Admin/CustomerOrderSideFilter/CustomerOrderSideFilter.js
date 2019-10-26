@@ -18,7 +18,7 @@ class CustomerOrderSideFilter extends React.Component {
   static propTypes = {
     allCurrencies: PropTypes.array.isRequired,
     allDeliveryAddresses: PropTypes.array.isRequired,
-
+    hasChoiceForStatus: PropTypes.bool.isRequired,
     filters: {
       vatNo: 6300.0, //
       totalPrice: 476.0, //
@@ -152,29 +152,33 @@ class CustomerOrderSideFilter extends React.Component {
             </div>
           </div>
 
-          <div class="product-sidebar-widget">
-            <div class="product-sidebar-widget-title">
-              Order Status{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#statCollapse"
-                aria-expanded="false"
-                aria-controls="searcNamesCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
+          {this.props.hasChoiceForStatus ? (
+            <div class="product-sidebar-widget">
+              <div class="product-sidebar-widget-title">
+                Order Status{' '}
+                <span
+                  class="float-right slider collapsed"
+                  data-toggle="collapse"
+                  data-target="#statCollapse"
+                  aria-expanded="false"
+                  aria-controls="searcNamesCollapse"
+                >
+                  <i class="fa" aria-hidden="true" />
+                </span>
+              </div>
+              <Select
+                id="statCollapse"
+                className="collapse"
+                isMulti
+                isSearchable
+                options={CUSTOMER_ORDER_STATUS_ARRAY}
+                value={this.props.filters.status}
+                onChange={so => this.props.handleSelectChange(so, 'status')}
+              />
             </div>
-            <Select
-              id="statCollapse"
-              className="collapse"
-              isMulti
-              isSearchable
-              options={CUSTOMER_ORDER_STATUS_ARRAY}
-              value={this.props.filters.status}
-              onChange={so => this.props.handleSelectChange(so, 'status')}
-            />
-          </div>
+          ) : (
+            ''
+          )}
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
               Currency{' '}

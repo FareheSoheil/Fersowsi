@@ -8,21 +8,22 @@
  */
 
 import React from 'react';
-import Spinner from '../../../components/Admin/Spinner';
-import CustomTable from '../../../components/CustomTabel';
-import history from '../../../history';
+import Spinner from '../../../../components/Admin/Spinner';
+import CustomTable from '../../../../components/CustomTabel';
+import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import PublisherOrderSideFilter from '../../../components/Admin/PublisherOrderSideFilter';
+import PublisherOrderSideFilter from '../../../../components/Admin/PublisherOrderSideFilter';
 import {
   PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY,
   PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+  PUBLISHER_ORDER_STATUS,
   OPCODES,
-} from '../../../constants/constantData';
-import { SSRSERVER, SERVER } from '../../../constants';
-import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import s from './PublisherOrderTable.css';
+} from '../../../../constants/constantData';
+import { SSRSERVER, SERVER } from '../../../../constants';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
+import s from './Cancelled.css';
 
-class PublisherOrderTable extends React.Component {
+class Cancelled extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +43,7 @@ class PublisherOrderTable extends React.Component {
         startDate: '',
         endDate: '',
         deliveryType: '',
-        status: '',
+        status: PUBLISHER_ORDER_STATUS.Cancelled,
         paymentStatus: '',
         productPeriod: '',
         productionSubscription: '',
@@ -183,7 +184,7 @@ class PublisherOrderTable extends React.Component {
           singlProductTypes: '',
           productTypes: '',
           productContentTypes: '',
-          status: '',
+          status: PUBLISHER_ORDER_STATUS.Cancelled,
           languages: '',
           ageGroups: '',
           periods: '',
@@ -238,7 +239,7 @@ class PublisherOrderTable extends React.Component {
             </div>
 
             <PublisherOrderSideFilter
-              hasChoiceForStatus={true}
+              hasChoiceForStatus={false}
               filters={this.state.publisherOrderSearchFilter}
               allProducts={this.state.allProducts}
               allSubscriptions={this.state.allSubscriptions}
@@ -257,4 +258,4 @@ class PublisherOrderTable extends React.Component {
   }
 }
 
-export default withStyles(s)(PublisherOrderTable);
+export default withStyles(s)(Cancelled);
