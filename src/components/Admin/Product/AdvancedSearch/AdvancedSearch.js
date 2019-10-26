@@ -47,13 +47,6 @@ class AdvancedSearch extends React.Component {
       <div className="row advancedSearchContainer">
         <div className="col-12">
           <div className="row">
-            {/* <div
-              className={`${
-                s.label
-              } col-xl-2 col-lg-2 col-md-4 col-sm-6 col-6 mt-5 `}
-            >
-              Simple Search :
-            </div> */}
             <div className="offset-xl-1 col-xl-8">
               <div className="row mt-2">
                 <div className="col-md-4 col-sm-4 form-group">

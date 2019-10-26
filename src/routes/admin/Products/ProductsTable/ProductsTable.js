@@ -146,18 +146,32 @@ class ProductsTable extends React.Component {
     );
   }
   handleInputChange(opcode, stateName, event) {
-    let value;
+    let value,
+      productsSearchFilter,
+      searchClear = false;
     if (opcode === OPCODES.checkbox) value = event.target.checked;
     else if (opcode === OPCODES.simple) value = event.target.value;
     else value = event;
-    let productsSearchFilter = { ...this.state.productsSearchFilter };
+    productsSearchFilter = { ...this.state.productsSearchFilter };
     productsSearchFilter[stateName] = value;
-    this.setState({ productsSearchFilter, searchClear: false });
+    if (stateName === 'issn' || stateName === 'originalTitle') {
+      searchClear = true;
+    }
+    this.setState({ productsSearchFilter, searchClear: searchClear });
   }
   handleSelectChange = (selectedOption, op) => {
-    let productsSearchFilter = { ...this.state.productsSearchFilter };
+    let productsSearchFilter = { ...this.state.productsSearchFilter },
+      searchClear = false;
+    if (
+      op === 'publishers' ||
+      op === 'periods' ||
+      op === 'countries' ||
+      op === 'productLanguages'
+    ) {
+      searchClear = true;
+    }
     productsSearchFilter[op] = selectedOption;
-    this.setState({ productsSearchFilter, searchClear: false });
+    this.setState({ productsSearchFilter, searchClear: searchClear });
   };
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () =>
@@ -165,50 +179,42 @@ class ProductsTable extends React.Component {
     );
   }
   search() {
-    console.log('FILTER ** : ', this.state.productsSearchFilter);
     this.fetchProducts();
   }
   clearFilters() {
-    this.setState({
-      productsSearchFilter: {
-        publishers: '',
-        singlProductTypes: '',
-        productType: '', //remove s
-        productContentTypes: '',
-        productStatus: '',
-        productLanguages: '',
-        ageGroups: '',
-        originalTitle: '',
-        originalDesc: '',
-        periods: '',
-        originalTitle: '',
-        originalDesc: '',
-        issn: '',
-        asb: '',
-        dewey: '',
-        hasDiscount: '',
-        priceRange: { min: 1, max: 2000 },
-        weightRange: { min: 10, max: 2000 },
-        sortDate: false,
-        sortPrice: false,
-        sortWeight: false,
+    this.setState(
+      {
+        productsSearchFilter: {
+          publishers: '',
+          singlProductTypes: '',
+          productType: '', //remove s
+          productContentTypes: '',
+          productStatus: '',
+          productLanguages: '',
+          ageGroups: '',
+          originalTitle: '',
+          originalDesc: '',
+          periods: '',
+          originalTitle: '',
+          originalDesc: '',
+          issn: '',
+          asb: '',
+          dewey: '',
+          hasDiscount: '',
+          priceRange: { min: 1, max: 2000 },
+          weightRange: { min: 10, max: 2000 },
+          sortDate: false,
+          sortPrice: false,
+          sortWeight: false,
+        },
+        searchClear: true,
       },
-      searchClear: true,
-    });
+      () => {
+        this.fetchProducts();
+      },
+    );
   }
   render() {
-    // let products = <div className={s.warning}>No Products Available</div>;
-    // const receivedProducts = this.state.currentproducts;
-    // if (receivedProducts !== undefined && receivedProducts.length !== 0)
-    //   products = this.state.currentproducts.map(
-    //     (product, i) =>
-    //       (products = (
-    //         <ProductCard
-    //           product={product}
-    //           onProductClick={this.onProductClick}
-    //         />
-    //       )),
-    //   );
     return (
       <div className="container-fluid dashboard-content">
         <div class="row">
