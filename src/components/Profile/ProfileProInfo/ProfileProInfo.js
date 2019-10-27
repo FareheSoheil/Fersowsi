@@ -182,21 +182,6 @@ class ProfileProInfo extends React.Component {
                           />
                         </div>
                         <div class="form-group">
-                          <label for="email">User Site Language</label>
-                          <Select
-                            onChange={so =>
-                              this.props.handleSelectInputChange(
-                                so,
-                                'siteLanguage',
-                              )
-                            }
-                            isMulti
-                            options={this.props.siteLanguages}
-                            isSearchable
-                            value={this.props.user.siteLanguage}
-                          />
-                        </div>
-                        <div class="form-group">
                           <label for="email">User Activition Status</label>
                           <Select
                             options={USER_ACTIVITION_STATUS_ARRAY}
@@ -204,10 +189,10 @@ class ProfileProInfo extends React.Component {
                             onChange={so =>
                               this.props.handleSelectInputChange(
                                 so,
-                                'activitionStatus',
+                                'userActivitionStatus',
                               )
                             }
-                            value={this.props.user.activitionStatus}
+                            value={this.props.user.userActivitionStatus}
                           />
                         </div>
 
@@ -227,11 +212,11 @@ class ProfileProInfo extends React.Component {
                           <Select
                             options={USER_SUBCATEGORY_ARRAY}
                             isSearchable
-                            value={this.props.user.subCategory}
+                            value={this.props.user.userSubCategory}
                             onChange={so =>
                               this.props.handleSelectInputChange(
                                 so,
-                                'subCategory',
+                                'userSubCategory',
                               )
                             }
                           />

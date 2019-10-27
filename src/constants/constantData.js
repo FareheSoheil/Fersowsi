@@ -28,10 +28,9 @@ const ROLES = {
   publisher: { label: 'Publisher', value: 3 },
 };
 const USER_ACTIVITION_STATUS_ARRAY = [
-  { id: 1, value: 4, label: 'Wait For Approval', name: 'Wait For Approval' },
-  { id: 2, value: 1, label: 'Active', name: 'Active' },
-  { id: 3, value: 2, label: 'Deactive', name: 'Deactive' },
-  { id: 4, value: 3, label: 'Approved', name: 'Approved' },
+  { value: 1, label: 'Wait For Approval' },
+  { value: 2, label: 'Activate' },
+  { value: 3, label: 'Deactivate' },
 ];
 const USER_ACTIVITION_STATUS = {
   WAITFORAPPROVAL: 1,
@@ -65,12 +64,10 @@ const SINGLE_PRODUCT_TYPE_ARRAY = [
 ];
 const PRODUCT_STATUS_ARRAY = [
   {
-    id: 1,
     value: 1,
     label: 'Wait For Accept By Admin',
-    name: 'Wait For AcceptBy Admin',
   },
-  { id: 2, value: 2, label: 'Ready', name: 'Ready' },
+  { value: 2, label: 'Available' },
   { id: 3, value: 3, label: 'Not Available', name: 'Not Available' },
 ];
 const PRODUCT_STATUS = {
@@ -78,7 +75,7 @@ const PRODUCT_STATUS = {
     value: 1,
     label: 'Wait For Accept By Admin',
   },
-  Ready: { value: 2, label: 'Ready' },
+  Ready: { value: 2, label: 'Available' },
   NotAvailable: { value: 3, label: 'Not Available' },
 };
 const PRODUCT_TYPE_ARRAY = [

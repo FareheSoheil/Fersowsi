@@ -96,7 +96,7 @@ class AccountSearch extends React.Component {
                       value={USER_ACTIVITION_STATUS.WAITFORAPPROVAL}
                       onChange={this.props.handleInputChange}
                       checked={
-                        this.props.accountsSearchFilter.accountStatus ===
+                        this.props.accountsSearchFilter.userActivitionStatus ===
                         USER_ACTIVITION_STATUS.WAITFORAPPROVAL
                       }
                     />
@@ -111,7 +111,7 @@ class AccountSearch extends React.Component {
                       className="custom-control-input"
                       value={USER_ACTIVITION_STATUS.ACTIVE}
                       checked={
-                        this.props.accountsSearchFilter.accountStatus ===
+                        this.props.accountsSearchFilter.userActivitionStatus ===
                         USER_ACTIVITION_STATUS.ACTIVE
                       }
                       onChange={this.props.handleInputChange}
@@ -127,7 +127,7 @@ class AccountSearch extends React.Component {
                       className="custom-control-input"
                       value={USER_ACTIVITION_STATUS.DEACTIVE}
                       checked={
-                        this.props.accountsSearchFilter.accountStatus ===
+                        this.props.accountsSearchFilter.userActivitionStatus ===
                         USER_ACTIVITION_STATUS.DEACTIVE
                       }
                       onChange={this.props.handleInputChange}

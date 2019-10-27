@@ -12,6 +12,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import s from './CustomTabel.css';
+import { PRODUCT_STATUS } from '../../constants/constantData';
 
 class CustomTabel extends React.Component {
   static propTypes = {
@@ -27,7 +28,21 @@ class CustomTabel extends React.Component {
   static defaultProps = {
     hasPagination: true,
   };
+  colorPicker(record) {
+    let color = '';
 
+    if (record.productStatus !== undefined) {
+      // PRODUCT_STATUS
+      if (record.productStatus.value === PRODUCT_STATUS.Ready.value) {
+        color = s.readyProduct;
+      }
+      if (record.productStatus.value === PRODUCT_STATUS.Pending.value)
+        color = s.pendingProduct;
+      if (record.productStatus.value === PRODUCT_STATUS.NotAvailable.value)
+        color = s.notAvailableProduct;
+    }
+    return color;
+  }
   render() {
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th className="border-0">{label}</th>
@@ -37,6 +52,7 @@ class CustomTabel extends React.Component {
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
+          className={this.colorPicker(record)}
           onClick={() => {
             this.props.onRecordClick(record.id, record.publisherOrderId);
           }}

@@ -18,3 +18,15 @@
     font-size: 20px;
     padding: 10px;
 }
+.readyProduct {
+    background-color: rgb(170, 224, 170);
+    /* border: 2px solid lightgreen; */
+}
+.pendingProduct {
+    background-color: lightyellow;
+    border: 1px solid lightyellow;
+}
+.notAvailableProduct {
+    background-color: lightcoral;
+    border: 1px solid lightcoral;
+}

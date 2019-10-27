@@ -4,8 +4,10 @@
  .avatar{
     margin-bottom: 15px;
 }
-
-
+.avatarContainer{
+    padding: 0px;
+}
+.avatarContainer div {padding-top: 20px;}
 .avatar:hover {
     cursor: pointer;
 }
@@ -21,4 +23,13 @@
 .numberContainer {
     /* border: 2px solid teal; */
     padding-left: 17px;
+}
+.pendingUser {
+    background-color: rgb(224, 193, 14);
+}
+.activeUser {
+    background-color: rgb(44, 189, 15);
+}
+.deactiveUser {
+    background-color: rgb(243, 47, 47);
 }

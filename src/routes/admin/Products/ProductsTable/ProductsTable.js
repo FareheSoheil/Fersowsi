@@ -230,7 +230,7 @@ class ProductsTable extends React.Component {
         ) : (
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
             <div className="card">
-              <h4 className="card-header">Accounts</h4>
+              <h4 className="card-header">Products</h4>
               <div className="card-body p-0">
                 <div className="container-fluid">
                   <AdvancedSearch

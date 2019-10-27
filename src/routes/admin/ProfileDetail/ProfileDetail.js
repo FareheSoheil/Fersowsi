@@ -13,6 +13,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ProfileInfo from '../../../components/Profile/ProfileInfo';
 import ProfileProInfo from '../../../components/Profile/ProfileProInfo';
 import Spinner from '../../../components/Admin/Spinner';
+import PageHeader from '../../../components/Admin/PageHeader';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import s from './ProfileDetail.css';
 import { SERVER, AVATAR } from '../../../constants';
@@ -29,6 +30,8 @@ class ProfileDetail extends React.Component {
       isLoading: true,
       id: this.props.context.params.id,
       user: {
+        id: 2,
+
         firstName: '',
         lastName: '',
         username: '',
@@ -44,50 +47,19 @@ class ProfileDetail extends React.Component {
         discount: '',
         emailConfirmed: true,
         profilePic: AVATAR,
-        bio: '', //
+        bio: '',
         claims: '',
         createdAt: '',
         updatedAt: '',
 
         // pro info
-        role: {
-          //
-          value: '',
-          label: '',
-        },
-        country: {
-          //
-          value: '',
-          label: '',
-        },
-        currency: {
-          //
-
-          value: '',
-          label: '',
-        },
-        userSubCategory: {
-          //
-          value: '',
-          label: '',
-        },
-        userActivitionStatus: {
-          //
-          value: '',
-          label: '',
-        },
-        siteLanguage: {
-          //
-
-          value: '',
-          label: '',
-        },
-        job: {
-          //
-
-          value: '',
-          label: '',
-        },
+        role: {},
+        country: {},
+        currency: {},
+        userSubCategory: {},
+        userActivitionStatus: {},
+        siteLanguage: {},
+        job: {},
       },
       countries: '',
       jobs: '',
@@ -173,17 +145,17 @@ class ProfileDetail extends React.Component {
     const state = event.target.name;
     let user = { ...this.state.user };
     user[state] = value;
-    this.setState({ user });
+    this.setState({ user: user });
   }
   handleDateChange(date) {
     let user = { ...this.state.user };
     user.dateOfBirth = date;
-    this.setState({ user });
+    this.setState({ user: user });
   }
   handleSelectChange = (selectedOption, op) => {
     let user = { ...this.state.user };
     user[op] = selectedOption;
-    this.setState({ user });
+    this.setState({ user: user });
   };
   onUserDelete() {
     window.alert('send delete ajax with user id');
@@ -204,31 +176,13 @@ class ProfileDetail extends React.Component {
             <Spinner />
           ) : (
             <div>
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <div class="page-header">
-                    <h3 class="mb-2">User Details </h3>
-                    <div class="page-breadcrumb">
-                      <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item">
-                            <a href="/admin/accounts" class="breadcrumb-link">
-                              Accounts
-                            </a>
-                          </li>
-                          <li
-                            class="breadcrumb-item active"
-                            aria-current="page"
-                          >
-                            User Profile Details
-                          </li>
-                        </ol>
-                      </nav>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              <PageHeader
+                title="User Details"
+                breadCrumbs={[
+                  { label: 'Accounts', link: '/admin/accounts/all' },
+                  { label: 'User Profile Details' },
+                ]}
+              />
               <div className="row">
                 <ProfileInfo
                   user={{
@@ -252,6 +206,7 @@ class ProfileDetail extends React.Component {
                         : this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
+                  userStatus={this.state.user.userActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
                   handleDateInputChange={this.handleDateChange}
                 />
@@ -261,9 +216,9 @@ class ProfileDetail extends React.Component {
                     role: this.state.user.role,
                     country: this.state.user.country,
                     currency: this.state.user.currency,
-                    subCategory: this.state.user.userSubCategory,
-                    activitionStatus: this.state.user.userActivitionStatus,
-                    siteLanguage: this.state.user.siteLanguage,
+                    userSubCategory: this.state.user.userSubCategory,
+                    userActivitionStatus: this.state.user.userActivitionStatus,
+                    // siteLanguage: this.state.user.siteLanguage,
                     job: this.state.user.job,
                     homepage: this.state.user.homepage,
                     VatId: this.state.user.VatId,

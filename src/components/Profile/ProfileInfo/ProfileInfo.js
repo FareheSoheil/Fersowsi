@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { USER_ACTIVITION_STATUS } from '../../../constants/constantData';
 import s from './ProfileInfo.css';
 
 class ProfileInfo extends React.Component {
@@ -46,7 +47,9 @@ class ProfileInfo extends React.Component {
     this.uploadImage = this.uploadImage.bind(this);
     this.handleUploadedImage = this.handleUploadedImage.bind(this);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    window.alert(JSON.stringify(this.props.userStatus));
+  }
   uploadImage() {
     document.getElementById('fileInput').click();
   }
@@ -69,17 +72,30 @@ class ProfileInfo extends React.Component {
   render() {
     console.log('props : ', this.props);
     return (
-      <div class="col-xl-5 col-lg-4 col-md-6 col-sm-12 col-12">
+      <div className="col-xl-5 col-lg-4 col-md-6 col-sm-12 col-12">
         {/* user profile  */}
-        <div class={`card ${s.userDetailContainer}`}>
-          <div class="card-body">
-            <div class="user-avatar text-center d-block">
+        <div className={`card ${s.userDetailContainer}`}>
+          <div className={`${s.avatarContainer} card-body`}>
+            <div
+              className={
+                this.props.userStatus.value ===
+                USER_ACTIVITION_STATUS.ACTIVE.value
+                  ? `${s.activeUser} 
+                  user-avatar text-center d-block`
+                  : this.props.userStatus.value ===
+                    USER_ACTIVITION_STATUS.DEACTIVE.value
+                    ? `${s.deactiveUser} 
+                    user-avatar text-center d-block`
+                    : `${s.pendingUser} 
+                    user-avatar text-center d-block`
+              }
+            >
               <img
                 src={this.props.user.profilePic}
                 alt="User Avatar"
                 id="detailsAvatar"
                 onClick={this.uploadImage}
-                class={`rounded-circle user-avatar-xxl ${s.avatar}`}
+                className={`rounded-circle user-avatar-xxl ${s.avatar}`}
               />
 
               <div>
@@ -93,10 +109,10 @@ class ProfileInfo extends React.Component {
               </div>
             </div>
           </div>
-          <div class="card-body border-top">
-            <div class="text-center">
+          <div className="card-body">
+            <div className="text-center">
               <form className={s.formS}>
-                <div class="form-group">
+                <div className="form-group">
                   <div className="row">
                     <div className="col-4">
                       <label>First Name:</label>
@@ -105,14 +121,14 @@ class ProfileInfo extends React.Component {
                       <input
                         name="firstName"
                         type="text"
-                        class="form-control form-control-sm"
+                        className="form-control form-control-sm"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.firstName}
                       />
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <div className="row">
                     <div className="col-4">
                       <label>Last Name:</label>
@@ -121,14 +137,14 @@ class ProfileInfo extends React.Component {
                       <input
                         name="lastName"
                         type="text"
-                        class="form-control form-control-sm"
+                        className="form-control form-control-sm"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.lastName}
                       />
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <div className="row">
                     <div className="col-4">
                       <label>Username:</label>
@@ -137,14 +153,14 @@ class ProfileInfo extends React.Component {
                       <input
                         name="username"
                         type="text"
-                        class="form-control form-control-sm"
+                        className="form-control form-control-sm"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.username}
                       />
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <div className="row">
                     <div className="col-4">
                       <label>Contract Name:</label>
@@ -153,7 +169,7 @@ class ProfileInfo extends React.Component {
                       <input
                         name="contractName"
                         type="text"
-                        class="form-control form-control-sm"
+                        className="form-control form-control-sm"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.contractName}
                       />
@@ -178,73 +194,73 @@ class ProfileInfo extends React.Component {
               {/* </h4> */}
             </div>
           </div>
-          <div class="card-body border-top">
-            <h3 class="font-16">User Information</h3>
-            <div class={s.numberContainer}>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-3">
+          <div className="card-body border-top">
+            <h3 className="font-16">User Information</h3>
+            <div className={s.numberContainer}>
+              <ul className="list-unstyled mb-0">
+                <li className="mb-3">
                   <form>
-                    <div class="form-group">
+                    <div className="form-group">
                       <i
-                        class="fas fa-fw fa-envelope mr-2"
+                        className="fas fa-fw fa-envelope mr-2"
                         data-toggle="tooltip"
                         title="email"
                       />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <input
                         name="email"
                         type="text"
-                        class="form-control form-control-sm inlineInput"
+                        className="form-control form-control-sm inlineInput"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.email}
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <i
-                        class="fas fa-fw fa-phone mr-2"
+                        className="fas fa-fw fa-phone mr-2"
                         data-toggle="tooltip"
                         title="phone number"
                       />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <input
                         name="phoneNumber"
                         type="text"
-                        class="form-control form-control-sm inlineInput"
+                        className="form-control form-control-sm inlineInput"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.phoneNumber}
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <i
-                        class="fas fa-fax mr-2"
+                        className="fas fa-fax mr-2"
                         data-toggle="tooltip"
                         title="fax number"
                       />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <input
                         name="faxNumber"
                         type="text"
-                        class="form-control form-control-sm inlineInput"
+                        className="form-control form-control-sm inlineInput"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.faxNumber}
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <i
-                        class="fas fa-mobile-alt mr-3"
+                        className="fas fa-mobile-alt mr-3"
                         data-toggle="tooltip"
                         title="mobile number"
                       />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <input
                         name="mobileNumber"
                         type="text"
-                        class="form-control form-control-sm inlineInput"
+                        className="form-control form-control-sm inlineInput"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.mobileNumber}
                       />
                     </div>
 
                     {/* website */}
-                    <div class="form-group">
+                    <div className="form-group">
                       <i
-                        class="fa fa-globe mr-3"
+                        className="fa fa-globe mr-3"
                         aria-hidden="true"
                         data-toggle="tooltip"
                         title="home page"
@@ -252,7 +268,7 @@ class ProfileInfo extends React.Component {
                       <input
                         name="homepage"
                         type="text"
-                        class="form-control form-control-sm inlineInput"
+                        className="form-control form-control-sm inlineInput"
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.homepage}
                       />
@@ -262,9 +278,9 @@ class ProfileInfo extends React.Component {
               </ul>
             </div>
           </div>
-          <div class="card-body border-top">
+          <div className="card-body border-top">
             <form className={s.labelHolder}>
-              <div class="form-group">
+              <div className="form-group">
                 <div className="row">
                   <div className="col-3">
                     {' '}
@@ -276,14 +292,14 @@ class ProfileInfo extends React.Component {
                     <input
                       name="VatId"
                       type="text"
-                      class="form-control form-control-sm inlineInput"
+                      className="form-control form-control-sm inlineInput"
                       onChange={this.props.handleSimpleInputChange}
                       value={this.props.user.VatId}
                     />
                   </div>
                 </div>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <div className="row">
                   <div className="col-3">
                     {' '}
@@ -295,14 +311,14 @@ class ProfileInfo extends React.Component {
                     <input
                       name="psn"
                       type="text"
-                      class="form-control form-control-sm inlineInput"
+                      className="form-control form-control-sm inlineInput"
                       onChange={this.props.handleSimpleInputChange}
                       value={this.props.user.psn}
                     />
                   </div>
                 </div>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <div className="row">
                   <div className="col-3">
                     <label>
@@ -313,7 +329,7 @@ class ProfileInfo extends React.Component {
                     <input
                       name="discount"
                       type="text"
-                      class="form-control form-control-sm inlineInput"
+                      className="form-control form-control-sm inlineInput"
                       onChange={this.props.handleSimpleInputChange}
                       value={this.props.user.discount}
                     />
@@ -322,18 +338,18 @@ class ProfileInfo extends React.Component {
               </div>
             </form>
           </div>
-          <div class="card-body border-top">
-            <label class="custom-color-theme custom-control custom-radio custom-control-inline">
+          <div className="card-body border-top">
+            <label className="custom-color-theme custom-control custom-radio custom-control-inline">
               <input
                 type="checkbox"
                 name="emailConfirmed"
-                class="custom-control-input"
+                className="custom-control-input"
                 value={!this.props.user.emailConfirmed}
                 onClick={this.props.handleSimpleInputChange}
                 defaultChecked={this.props.user.emailConfirmed === true}
               />
 
-              <span class="custom-control-label">Is Email Confirmed</span>
+              <span className="custom-control-label">Is Email Confirmed</span>
             </label>
           </div>
         </div>
