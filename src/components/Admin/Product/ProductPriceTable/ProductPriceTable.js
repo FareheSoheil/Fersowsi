@@ -33,7 +33,7 @@ class ProductPriceTable extends React.Component {
         deliveryTypeName: '',
         privateCustomerPrice: 0,
         institutionalCustomerPrice: 0,
-        publisherPrice: 0,
+        publisherPrice: '',
         postalCost: 0,
       },
     };

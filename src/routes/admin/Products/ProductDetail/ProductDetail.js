@@ -50,8 +50,8 @@ class ProductDetail extends React.Component {
         productPriceAndCost: [],
         subProducts: [],
       },
-      privateRatio: 0,
-      instRatio: 0,
+      privateRatio: '',
+      instRatio: '',
       allContentCategories: '',
       allPublishers: '',
       allLanguages: '',
@@ -563,7 +563,6 @@ class ProductDetail extends React.Component {
                                   name="privateRatio"
                                   id="privateRatio"
                                   type="text"
-                                  onKeyUp={e => this.enterNumber(e)}
                                   className="form-control form-control-sm "
                                   value={this.state.privateRatio}
                                   onChange={e => this.onChangeInput(e)}
