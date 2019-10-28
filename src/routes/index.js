@@ -280,6 +280,11 @@ const routes = {
             import(/* webpackChunkName: 'userWishlist' */ './user/Wishlist'),
         },
         {
+          path: '/myAccount',
+          load: () =>
+            import(/* webpackChunkName: 'userProfile' */ './user/Profile'),
+        },
+        {
           path: '/address',
           children: [
             {

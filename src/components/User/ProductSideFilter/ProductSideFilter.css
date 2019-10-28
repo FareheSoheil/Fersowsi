@@ -1,11 +1,34 @@
-.filterContainer div {
+.filterContainer> div {
     font-size: 13px;
     color: black;
+    /* border: 1px solid red; */
+    margin-top: 0px;
+    margin-bottom: 5px;
+    background-color: white;
     /* padding-bottom: 10px; */
+}
+.simpleFilter {
+    display: flex;
+}
+.simpleFilter input {
+    width: 80%;
+    padding: 10px;
+}
+.simpleFilter i {
+    border: 1px solid lightblue;
+    background-color: lightblue;
+    padding: 12px 8px 2px 8px;
+    color:white;
+}
+.simpleFilter i:hover {
+    cursor: pointer;
 }
 .simpleFilter label {
     /* background-color: blueviolet; */
     color: black;
     font-size: inherit;
 }
-/* .filterContainer div div { color: red;} */
+.filterContainer {
+    border: none;
+    background-color: transparent;
+}

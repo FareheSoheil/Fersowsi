@@ -83,9 +83,10 @@ class ProductPriceTable extends React.Component {
         )
           window.alert('please fill the ratio inputs with currect values');
         else {
-          newCost.privateCustomerPrice = this.props.privateRatio * value / 100;
+          newCost.privateCustomerPrice =
+            this.props.privateRatio * (100 + value) / 100;
           newCost.institutionalCustomerPrice =
-            this.props.instRatio * value / 100;
+            this.props.instRatio * (100 + value) / 100;
           newCost[state] = value;
           this.setState({ newCost });
         }

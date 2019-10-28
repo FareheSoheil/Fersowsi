@@ -12,17 +12,40 @@ import {
   SERVER,
   ORDER_SORT_OPTION,
 } from '../constants';
+import {
+  CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
+  CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+} from '../../../constants/constantData';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
 class Order extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       pageIndex: 0,
-      pageSize: 15,
-      totalPageNum: 15,
-      // sortBy: { value: 1, label: 'Country' },
+      pageSize: 10,
+      totalPageNum: '',
+      sortBy: '',
+      searchBy: {
+        customerFirstName: '',
+        customerLastName: '',
+        customerEmail: '',
+        publishers: [],
+        productPeriods: '',
+        paymentByCustomerStatus: '',
+        newStatusNotSeenByAdmin: '',
+        singlProductTypes: '',
+        productType: '',
+        productStatus: '',
+        ageGroups: '',
+        countRange: { min: '', max: '' },
+        priceRange: { min: '', max: 999 },
+        startDate: '',
+        endDate: '',
+        sortDate: false,
+        sortPrice: false,
+      },
       orders: [
         { id: 1, address1: 2 },
         { id: 1, address1: 2 },
@@ -38,7 +61,7 @@ class Order extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
   componentDidMount() {
-    // this.fetchorders();
+    this.fetchOrders();
   }
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
@@ -49,21 +72,25 @@ class Order extends React.Component {
     history.push(`/user/order/${id}`);
   }
   handleSelectChange = (selectedOption, op) => {
-    this.setState(
-      {
-        [op]: selectedOption,
-      },
-      () => {
-        this.fetchOrders();
-      },
-    );
+    let searchBy = { ...searchBy };
+    (searchBy[op] = selectedOption.value),
+      this.setState(
+        {
+          searchBy: searchBy,
+        },
+        () => {
+          this.fetchOrders();
+        },
+      );
   };
   fetchOrders() {
-    const url = `${SERVER}/getAllOrders`;
+    const url = `${SERVER}/getAllCustomerOrdersOfSpecificUser`;
+    this.setState({ isLoading: true });
     const credentials = {
-      pageIndex: this.state.name,
-      pageSize: this.state.password,
-      sortBy: this.state.sortBy.value,
+      pageIndex: this.state.pageIndex,
+      pageSize: this.state.pageSize,
+      // sortBy: this.state.sortBy.value,
+      // searchBy: this.state.searchBy,
     };
     const options = {
       method: 'POST',
@@ -78,9 +105,10 @@ class Order extends React.Component {
       url,
       options,
       response => {
+        console.log('response : ', response.currentRecords);
         if (response.error === undefined) {
           that.setState({
-            order: response.currentRecords,
+            orders: response.currentRecords,
             totalPageNum: response.totalPageNum,
             isLoading: false,
           });
@@ -110,9 +138,9 @@ class Order extends React.Component {
             />
             <Table
               onRecordClick={this.onOrderClick}
-              columnLabels={ORDER_TABLE_LABELS}
+              columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
               records={this.state.orders}
-              recordItemNames={ORDER_RECORD_ITEMS}
+              recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
             />
 
             <div className="row">

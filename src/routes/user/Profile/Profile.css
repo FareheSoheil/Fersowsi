@@ -1,0 +1,46 @@
+
+.banner {
+    padding-left: 20px;
+}
+.imgContainer img {
+    margin-bottom: 20px;
+    border: 1px solid lightgray;
+}
+.imgContainer button {
+    padding: 6px;
+    color: white;
+    background-color: rgb(123, 191, 216);
+    border:1px solid rgb(123, 191, 216);
+    width: 110px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.mainContainer{
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    background-color: #ebebeb;
+    padding: 10px;
+    padding: 20px 10px 15px 30px;
+    margin-bottom: 30px;
+}
+.mainContainer input {
+    padding: 7px;
+    min-width: 280px;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+}
+.mainContainer label {
+    padding-top: 5px;
+    color: black;
+    font-size: 16px;
+}
+.editBtn {
+    padding: 10px;
+    width: 120px;
+    color: white;
+    background-color: rgb(35, 35, 85);
+    border: 1px solid rgb(35, 35, 85);
+    border-radius: 6px;
+}

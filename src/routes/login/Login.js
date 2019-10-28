@@ -77,9 +77,9 @@ class Login extends React.Component {
             const expires = new Date();
             const now = new Date();
             expires.setDate(now.getDate() + COOKIE_EXPIRATION);
-            // window.alert(data.TokenId);
+            window.alert(data.TokenId);
 
-            cookie.save('role', data.role, {
+            cookie.save('role', data.role.value, {
               path: '/',
               expires,
             });
@@ -87,9 +87,13 @@ class Login extends React.Component {
               path: '/',
               expires,
             });
+            cookie.save('userSubCategory', data.userSubCategory.value, {
+              path: '/',
+              expires,
+            });
             localStorage.setItem('TokenId', data.TokenId);
-            if (data.role === 'Admin') history.push('/admin/');
-            else history.push('/user/');
+            if (data.role.value === 4) history.push('/user/');
+            else history.push('/admin/');
           });
         } else {
           toastr.error(data.error.title, data.error.description);
@@ -107,14 +111,14 @@ class Login extends React.Component {
     return (
       <div>
         <div class="card ">
-          <div class="card-header text-center">
-            <a href="../index.html">
+          <div class="text-center">
+            <div className={s.logoContainer}>
               <img
                 className="logo-img"
                 src="../assets/images/logo.png"
                 alt="logo"
               />
-            </a>
+            </div>
             <span class="splash-description">
               Please enter your user information.
             </span>
@@ -156,7 +160,7 @@ class Login extends React.Component {
             </form>
           </div>
           <div class={`${s.footerLinks} card-footer bg-white p-0`}>
-            <div class="card-footer-item card-footer-item-bordered">
+            <div class="offset-xl-1 card-footer-item card-footer-item-bordered">
               <a
                 onClick={() => this.goTo('/register')}
                 class="footer-link text-secondary"

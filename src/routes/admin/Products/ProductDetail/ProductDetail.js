@@ -121,7 +121,7 @@ class ProductDetail extends React.Component {
   }
 
   isNumber(string) {
-    if (/^[0-9]+$/.test(string)) return true;
+    if (/^[0-9]+$/.test(string) || /^\\s+$/.test(string)) return true;
     else return false;
   }
 

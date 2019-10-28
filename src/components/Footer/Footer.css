@@ -13,10 +13,14 @@
   background: black;
   color: #fff;
 }
-
+.container Link {
+  color: white;
+}
 .container {
+  height: 240px;
   margin: 0 auto;
-  padding: 20px 15px;
+  padding: 30px 15px;
+  /* color: rgba(255, 255, 255, 0.5); */
   max-width: var(--max-content-width);
   text-align: center;
 }
@@ -44,4 +48,11 @@
 
 .link:hover {
   color: rgba(255, 255, 255, 1);
+}
+.iconContainer i {
+/* border: 1px solid purple; */
+padding: 6px;
+margin-left: 5px;
+margin-right: 5px;
+font-size: 27px;
 }

@@ -34,6 +34,7 @@ class ProductSideFilter extends React.Component {
       priceRange: PropTypes.object.isRequired,
       weightRange: PropTypes.object.isRequired,
     },
+    search: PropTypes.func.isRequired,
     handleInputChange: PropTypes.func.isRequired,
     handleSelectChange: PropTypes.func.isRequired,
   };
@@ -49,87 +50,31 @@ class ProductSideFilter extends React.Component {
             <h4 class="mb-0"> Refine Your Search</h4>
           </div>
           <div class={`${s.simpleFilter} product-sidebar-widget`}>
-            <div class="product-sidebar-widget-title">
-              Search By{' '}
-              <span
-                class="float-right slider collapsed"
-                data-toggle="collapse"
-                data-target="#searchCollapse"
-                aria-expanded="false"
-                aria-controls="searchCollapse"
-              >
-                <i class="fa" aria-hidden="true" />
-              </span>
-            </div>
-            <form id="searchCollapse" className="collapse">
-              <div className="form-group">
-                <label>Product Name</label>
-                <br />
-                <input
-                  name="originalTitle"
-                  type="text"
-                  className="form-control form-control-sm"
-                  value={this.props.filters.originalTitle}
-                  onChange={e =>
-                    this.props.handleInputChange(
-                      OPCODES.simple,
-                      'originalTitle',
-                      e,
-                    )
-                  }
-                />
-              </div>
+            {/* <form id="searchCollapse" className="collapse"> */}
+            {/* <div className="form-group"> */}
+            <input
+              placeholder="Search within results"
+              name="originalTitle"
+              type="text"
+              className="form-control form-control-sm"
+              value={this.props.filters.originalTitle}
+              onChange={e =>
+                this.props.handleInputChange(OPCODES.simple, 'originalTitle', e)
+              }
+            />
+            <i class="fas fa-search" onClick={this.props.search} />
+            {/* </div> */}
 
-              <div className="form-group">
-                <label>Product ISSN </label>
-                <br />
-                <input
-                  name="issn"
-                  type="text"
-                  className="form-control form-control-sm"
-                  value={this.props.filters.issn}
-                  onChange={e =>
-                    this.props.handleInputChange(OPCODES.simple, 'issn', e)
-                  }
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Product DEWEY </label>
-                <br />
-                <input
-                  name="dewey"
-                  type="text"
-                  className="form-control form-control-sm"
-                  value={this.props.filters.dewey}
-                  onChange={e =>
-                    this.props.handleInputChange(OPCODES.simple, 'dewey', e)
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Product asb </label>
-                <br />
-                <input
-                  name="asb"
-                  type="text"
-                  className="form-control form-control-sm"
-                  value={this.props.filters.asb}
-                  onChange={e =>
-                    this.props.handleInputChange(OPCODES.simple, 'asb', e)
-                  }
-                />
-              </div>
-            </form>
+            {/* </form> */}
           </div>
 
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
-              Publisher{' '}
+              Country{' '}
               <span
                 class="float-right slider collapsed"
                 data-toggle="collapse"
-                data-target="#PublisherCollapse"
+                data-target="#CountryCollapse"
                 aria-expanded="false"
                 aria-controls="searcNamesCollapse"
               >
@@ -137,19 +82,19 @@ class ProductSideFilter extends React.Component {
               </span>
             </div>
             <Select
-              id="PublisherCollapse"
+              id="CountryCollapse"
               className="collapse"
               isMulti
               isSearchable
-              options={this.props.allPublishers}
-              value={this.props.filters.publishers}
-              onChange={so => this.props.handleSelectChange(so, 'publishers')}
+              options={this.props.allCountries}
+              value={this.props.filters.country}
+              onChange={so => this.props.handleSelectChange(so, 'countries')}
             />
           </div>
 
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
-              Product Content Type{' '}
+              Product Category{' '}
               <span
                 class="float-right slider collapsed"
                 data-toggle="collapse"
@@ -173,7 +118,7 @@ class ProductSideFilter extends React.Component {
             />
           </div>
 
-          <div class="product-sidebar-widget">
+          {/* <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
               Product Types{' '}
               <span
@@ -244,7 +189,7 @@ class ProductSideFilter extends React.Component {
                 this.props.handleSelectChange(so, 'productStatus')
               }
             />
-          </div>
+          </div> */}
 
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
@@ -297,7 +242,7 @@ class ProductSideFilter extends React.Component {
 
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">
-              Period{' '}
+              Frequency{' '}
               <span
                 class="float-right slider collapsed"
                 data-toggle="collapse"
@@ -330,7 +275,7 @@ class ProductSideFilter extends React.Component {
               }
             />
           </div>
-          <div class="product-sidebar-widget">
+          {/* <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">Weight</div>
             <InputRange
               maxValue={2000}
@@ -346,7 +291,7 @@ class ProductSideFilter extends React.Component {
               }
               onChangeComplete={weight => console.log(weight)}
             />
-          </div>
+          </div> */}
           <div class="product-sidebar-widget">
             <a
               class="btn btn-outline-light"

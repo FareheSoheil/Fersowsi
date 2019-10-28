@@ -32,14 +32,8 @@
     text-decoration: none;
   }
   
-  /* Active/current link */
-  .usersidebar a.useractive {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
   /* Links on mouse-over */
-  .usersidebar a:hover:not(.useractive) {
+  .usersidebar a:hover:not(:first-child) {
     background-color: #555;
     color: white;
   }

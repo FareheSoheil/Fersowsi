@@ -10,8 +10,9 @@ class SideBar extends React.Component {
   render() {
     return (
       <div class={s.usersidebar}>
-        <a onClick={() => this.goTo('/user/myAccount')}>My Account</a>
+        <a>My Account</a>
         <a onClick={() => this.goTo('/user/myAccount')}>Your Profile</a>
+        <a onClick={() => this.goTo('/user/products')}>Products</a>
         <a onClick={() => this.goTo('/user/order')}>Order</a>
         <a onClick={() => this.goTo('/user/address')}>Address Book</a>
         <a onClick={() => this.goTo('/user/wishlist')}>Wishlist</a>

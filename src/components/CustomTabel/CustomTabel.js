@@ -54,7 +54,11 @@ class CustomTabel extends React.Component {
         <tr
           className={this.colorPicker(record)}
           onClick={() => {
-            this.props.onRecordClick(record.id, record.publisherOrderId);
+            this.props.onRecordClick(
+              record.id,
+              record.publisherOrderId,
+              record.productId,
+            );
           }}
         >
           <td>{i + 1}</td>

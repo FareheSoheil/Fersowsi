@@ -11,11 +11,14 @@ const USER_SUBCATEGORY_ARRAY = [
   { id: 3, value: 3, name: 'School', label: 'School' },
   { id: 4, value: 4, name: 'Corporation', label: 'Corporation' },
   { id: 5, value: 5, name: 'Single Customer', label: 'Single Customer' },
-  { id: 6, value: 6, name: 'Private', label: 'Private' },
-  { id: 7, value: 7, name: 'Public', label: 'Public' },
-  { id: 8, value: 8, name: 'Super Admin', label: 'Super Admin' },
-  { id: 9, value: 9, name: 'Operator', label: 'Operator' },
 ];
+const USER_SUBCATEGORY = {
+  Library: { value: 4, label: 'Library' },
+  Government: { value: 2, label: 'Government' },
+  School: { value: 3, label: 'School' },
+  Corporation: { value: 5, label: 'Corporation' },
+  Single: { value: 1, label: 'Single Customer' },
+};
 const ROLES_ARRAY = [
   { id: 1, value: 1, label: 'SuperAdmin', name: 'SuperAdmin' },
   { id: 2, value: 2, label: 'Operator', name: 'Operator' },
@@ -289,10 +292,11 @@ const OPCODES = {
   range: 2,
   simple: 3,
 };
-const SERVER = 'http://45.89.139.182:3000';
+const SERVER = 'http://localhost:3004';
 
 export {
   USER_SUBCATEGORY_ARRAY,
+  USER_SUBCATEGORY,
   USER_ACTIVITION_STATUS_ARRAY,
   ROLES_ARRAY,
   ROLES,

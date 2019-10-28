@@ -12,10 +12,28 @@ class Wishlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      pageIndex: 0,
-      pageSize: 15,
-      totalPageNum: 15,
+      isLoading: true,
+      productsSearchFilter: {
+        publishers: '',
+        singlProductTypes: '',
+        productType: '', //remove s
+        productContentTypes: '',
+        productStatus: '',
+        productLanguages: '',
+        ageGroups: '',
+        originalTitle: '',
+        originalDesc: '',
+        periods: '',
+        issn: '',
+        asb: '',
+        dewey: '',
+        hasDiscount: '',
+        priceRange: { min: 1, max: 100 },
+        weightRange: { min: 10, max: 2000 },
+        sortDate: false,
+        sortPrice: false,
+        sortWeight: false,
+      },
       currentWishes: [
         { id: 1, originalTitle: 'sdlkasmdalksd', period: '3 weekly' },
         { id: 1, address1: 2 },
@@ -24,13 +42,16 @@ class Wishlist extends React.Component {
         { id: 1, address1: 2 },
         { id: 1, address1: 2 },
       ],
+      selectedIndices: [],
+      selectedIds: [],
     };
     this.fetchWishes = this.fetchWishes.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.deleteWish = this.deleteWish.bind(this);
+    this.handleWighItemSelect = this.handleWighItemSelect.bind(this);
   }
   componentDidMount() {
-    // this.fetchorders();
+    this.fetchWishes();
   }
   deleteWish(id) {
     window.alert('daaaa');
@@ -78,15 +99,16 @@ class Wishlist extends React.Component {
   // onClaimCollectionClick(id) {
   //   history.push(`/user/claim/${id}`);
   // }
-
+  checkOut() {}
   fetchWishes() {
-    const url = `${SERVER}/getUserWishes`;
+    const url = `${SERVER}/getAllProducts`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
-      pageIndex: this.state.pageIndex,
-      pageSize: this.state.pageSize,
+      searchBy: this.state.productsSearchFilter,
+      pageIndex: 0,
+      pageSize: 10,
     };
     const options = {
       method: 'POST',
@@ -102,9 +124,13 @@ class Wishlist extends React.Component {
       options,
       response => {
         if (response.error === undefined) {
+          let selectedIndicesArray = [];
+          const l = response.currentRecords.length;
+          selectedIndicesArray.length = l;
+          selectedIndicesArray.fill(false, 0, l - 1);
           that.setState({
             currentWishes: response.currentRecords,
-            totalPageNum: response.totalPageNum,
+            selectedIndices: selectedIndicesArray,
             isLoading: false,
           });
         } else {
@@ -117,7 +143,19 @@ class Wishlist extends React.Component {
       },
     );
   }
+  handleWighItemSelect(id, index) {
+    let selectedIds = [],
+      selectedIndices;
+    selectedIds.push(id);
+    selectedIndices = { ...this.state.selectedIndices };
+    selectedIndices[index] = !selectedIndices[index];
+    this.setState({
+      selectedIndices: selectedIndices,
+      selectedIds: selectedIds,
+    });
+  }
   render() {
+    console.log('selecteds : ', this.state.selectedIndices);
     let wishes = <div className={s.warning}>No Products Available</div>;
     const receivedWishes = this.state.currentWishes;
     if (receivedWishes !== undefined && receivedWishes.length !== 0)
@@ -126,7 +164,9 @@ class Wishlist extends React.Component {
           (wishes = (
             <WishItem
               wish={wish}
-              //  isWished
+              index={i}
+              handleWighItemSelect={this.handleWighItemSelect}
+              isWished={this.state.selectedIndices[i]}
               handleOnDelete={this.deleteWish}
             />
           )),
@@ -146,19 +186,9 @@ class Wishlist extends React.Component {
             <div className={`${s.wishContainer} row`}>{wishes}</div>
             <div className="row">
               <div className="offset-xl-7 col-5 ">
-                <ReactPaginate
-                  previousLabel="<"
-                  nextLabel=">"
-                  pageCount={this.state.totalPageNum}
-                  pageRangeDisplayed={3}
-                  onPageChange={this.handlePageChange}
-                  containerClassName="user-paginate"
-                  subContainerClassName="user-pages user-paginate"
-                  activeClassName="user-active-page"
-                  breakClassName="break-me"
-                  initialPage={this.state.pageIndex}
-                  disableInitialCallback
-                />
+                <button onClick={this.checkOut} className="btn btn-info">
+                  Checkout
+                </button>
               </div>
             </div>
           </div>

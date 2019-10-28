@@ -1,14 +1,12 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactPaginate from 'react-paginate';
-
 import Spinner from '../../../components/User/Spinner';
 import s from './Products.css';
 import ProductSideFilter from '../../../components/User/ProductSideFilter';
 import AdvancedListContainer from '../../../components/User/AdvancedListContainer';
 import ProductItem from '../../../components/User/ProductItem';
 import { SERVER, OPCODES } from '../constants';
-
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
 class Products extends React.Component {
@@ -109,7 +107,7 @@ class Products extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAuxInfoForAllProducts`;
+    const url = `${SERVER}/getAllAuxInfoForProducts`;
     this.setState({
       isLoading: true,
     });
@@ -126,10 +124,11 @@ class Products extends React.Component {
       options,
       response => {
         that.setState({
-          allPublishers: response.publishers,
-          allProductContentTypes: response.contentTypes,
-          allLanguages: response.languages,
-          allAgeGroups: response.ageGroups,
+          allPublishers: response.Publishers,
+          allPeriods: response.Periods,
+          allProductContentTypes: response.ProductContentTypes,
+          allLanguages: response.Languages,
+          allAgeGroups: response.AgeGroups,
           isLoading: false,
         });
       },
@@ -267,8 +266,33 @@ class Products extends React.Component {
           <Spinner />
         ) : (
           <div className="container-fluid">
+            <div className="row mb-3">
+              <div className={`col-12 `}>
+                <div className={`${s.largeSearch} form-group`}>
+                  <input
+                    placeholder="Search Here"
+                    onChange={e => {
+                      this.handleInputChange(
+                        OPCODES.simple,
+                        'originalTitle',
+                        e,
+                      );
+                    }}
+                    className="form-control form-control-sm"
+                  />
+                  <button
+                    onClick={this.search}
+                    className={`${s.searchBtn} btn`}
+                  >
+                    {' '}
+                    Find
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className="row">
               <ProductSideFilter
+                search={this.search}
                 filters={this.state.productsSearchFilter}
                 allPublishers={this.state.allPublishers}
                 allProductContentTypes={this.state.allProductContentTypes}

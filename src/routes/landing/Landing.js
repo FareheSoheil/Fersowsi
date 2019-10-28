@@ -153,6 +153,17 @@ class Landing extends React.Component {
             </div>
           </div>
         </div>
+
+        <div className="row">
+          <div className={`${s.greenContainer}`}>
+            <div className="col-xl-12">
+              {' '}
+              <h1 className="mb-5">Get Started With Ferdosiinfo Today</h1>
+              Natural book store collaborated with french design firm <br />{' '}
+              Malherbe for a new and more modern
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

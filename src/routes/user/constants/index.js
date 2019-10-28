@@ -1,10 +1,11 @@
-const SERVER = 'http://45.89.139.182:3004';
+const SERVER = 'http://localhost:3004';
 const OPCODES = {
   checkbox: 1,
   range: 2,
   simple: 3,
 };
 const ADDRESS_TABLE_LABELS = [
+  'Id',
   'Address',
   'Province',
   'Zip Code',
@@ -12,12 +13,12 @@ const ADDRESS_TABLE_LABELS = [
   'Country',
 ];
 const ADDRESS_RECORD_ITEMS = [
-  'id',
+  'value',
   'detailAddress',
   'province',
   'zipCode',
   'city',
-  'country',
+  'countryName',
 ];
 const ADDRESS_SORT_OPTION = [
   { value: 4, label: 'Country' },

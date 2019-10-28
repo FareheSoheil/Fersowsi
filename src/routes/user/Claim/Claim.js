@@ -16,7 +16,16 @@ class Claim extends React.Component {
       pageIndex: 0,
       pageSize: 15,
       totalPageNum: 15,
-      // sortBy: { value: 1, label: 'Country' },
+
+      searchBy: {
+        customerFirstName: '',
+        customerLastName: '',
+        customerEmail: '',
+        publisherFirstName: '',
+        publisherLastName: '',
+        publisherEmail: '',
+        isFinished: true,
+      },
       claimCollections: [
         { id: 1, address1: 2 },
         { id: 1, address1: 2 },
@@ -30,7 +39,7 @@ class Claim extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
   componentDidMount() {
-    // this.fetchorders();
+    this.fetchClaimCollections();
   }
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
@@ -47,8 +56,9 @@ class Claim extends React.Component {
       isLoading: true,
     });
     const credentials = {
-      pageIndex: this.state.name,
-      pageSize: this.state.password,
+      pageIndex: this.state.pageIndex,
+      pageSize: this.state.pageSize,
+      searchBy: this.state.searchBy,
     };
     const options = {
       method: 'POST',

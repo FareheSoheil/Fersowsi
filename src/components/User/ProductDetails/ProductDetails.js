@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
+import cookie from 'react-cookies';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import history from '../../../history';
+import zeroTrimmer from '../../../zeroTrimmer';
 import Spinner from '../Spinner';
 import { SSRSERVER } from '../../../constants';
+import { USER_SUBCATEGORY } from '../../../constants/constantData';
 import s from './ProductDetails.css';
 class ProductDetails extends React.Component {
   static propTypes = {
@@ -185,14 +187,21 @@ class ProductDetails extends React.Component {
                     onChange={this.onPriceChange}
                   />
                 </div>
-                <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                  Institutional Price <br />
-                  <span>{this.state.selectedPrice.privatePrice}</span>
-                </div>
-                <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                  Private Price <br />
-                  <span>{this.state.selectedPrice.instPrice}</span>
-                </div>
+                {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
+                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
+                    Institutional Price <br />
+                    <span>
+                      {zeroTrimmer(this.state.selectedPrice.privatePrice)}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
+                    Private Price <br />
+                    <span>
+                      {zeroTrimmer(this.state.selectedPrice.instPrice)}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
             <div className="col-xl-1">

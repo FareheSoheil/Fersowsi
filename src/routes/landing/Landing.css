@@ -1,5 +1,5 @@
 .mainContainer {
-  padding: 0px;
+  padding: 0px !important;
   text-align: center;
 }
 .mapContainer {
@@ -94,4 +94,17 @@
     top: 6%;
     left: 20%;
   }
+}
+.greenContainer h1 {
+  color:white;
+}
+.greenContainer {
+  padding-top: 20px;
+  text-align: center;
+  color: white;
+padding-top: 15px;
+  margin: 0px;
+  width: 100%;
+  height: 300px;
+  background-image: linear-gradient(to top,#47aab0, #58d4d0,#60daa6);
 }

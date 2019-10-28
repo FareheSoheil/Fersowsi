@@ -31,6 +31,13 @@ import { InitializeSQLite, readTokenIdFromDB } from './sqliteManager';
 import stateController from './stateController';
 import { ROLES } from './constants';
 
+const statePat = new RegExp('/state/');
+const forgetPat = new RegExp('/forget');
+const registerPat = new RegExp('/register');
+const loginPat = new RegExp('/login');
+const userPaths = new RegExp('/user/*');
+const newPassPat = new RegExp('/newpass');
+
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
   // send entire app down. Process manager will restart it
@@ -65,19 +72,10 @@ app.all('*', Authorize);
 InitializeSQLite();
 
 async function Authorize(req, res, next) {
-  const statePat = new RegExp('/state/');
-  const forgetPat = new RegExp('/forget');
-  const registerPat = new RegExp('/register');
-  const loginPat = new RegExp('/login');
-  const newPassPat = new RegExp('/newpass');
-  // console.log(
-  //   '*****************authorize***************',
-  //   req.path,
-  //   loginPat.test(req.path),
-  // );
   if (statePat.test(req.path) && req.method === 'POST') {
     return next();
   }
+  // any where else than main pages
   if (
     loginPat.test(req.path) ||
     forgetPat.test(req.path) ||
@@ -87,23 +85,36 @@ async function Authorize(req, res, next) {
     if (req.cookies.TokenId === undefined) {
       // console.log('###### coockie undefined ######');
       return next();
-    }
-    // console.log('###### coockie defined ######');
-    res.redirect('/admin');
+    } else if (req.cookies.role === ROLES.customer.value) res.redirect('/user');
+    else res.redirect('/admin');
   } else if (req.cookies.TokenId === undefined) {
-    res.redirect('/login');
+    // main pages of the app
+    if ('/' === req.path) {
+      return next();
+    } else res.redirect('/');
   } else if (req.cookies.TokenId !== undefined) {
     const fetchedState = await readTokenIdFromDB(req.cookies.TokenId);
     if (fetchedState === undefined) {
-      console.log(
-        'cookie is defined : ',
-        req.cookies.TokenId,
-        ' but no state found',
-      );
       res.clearCookie('TokenId');
       res.redirect('/login');
     } else {
-      next();
+      console.log(
+        '*****************authorize***************',
+        req.cookies.role == ROLES.customer.value,
+        '%%%%%%%%%%%%%%%%%%%%%%%%%%',
+        !userPaths.test(req.path),
+      );
+      if (
+        req.cookies.role == ROLES.customer.value &&
+        !userPaths.test(req.path)
+      ) {
+        res.redirect('/user');
+      } else if (
+        req.cookies.role != ROLES.customer.value &&
+        userPaths.test(req.path)
+      )
+        res.redirect('/admin');
+      else return next();
     }
   }
 }
@@ -244,7 +255,9 @@ const promise = models.sync().catch(err => console.error(err.stack));
 if (!module.hot) {
   promise.then(() => {
     app.listen(config.port, () => {
-      console.info(`The server is running at http://45.89.139.182:${config.port}/`);
+      console.info(
+        `The server is running at http://45.89.139.182:${config.port}/`,
+      );
     });
   });
 }

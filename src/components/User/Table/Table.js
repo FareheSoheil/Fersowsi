@@ -2,6 +2,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import s from './Table.css';
+import zeroTrimmer from '../../../zeroTrimmer';
 
 class Table extends React.Component {
   static propTypes = {
@@ -25,7 +26,20 @@ class Table extends React.Component {
           }}
         >
           {this.props.recordItemNames.map(
-            label => (label !== 'id' ? <td>{record[label]}</td> : ''),
+            label =>
+              label !== 'id' ? (
+                record[label] !== null && record[label] !== undefined ? (
+                  record[label].constructor === {}.constructor ? (
+                    <td>{zeroTrimmer(record[label].label)}</td>
+                  ) : (
+                    <td>{zeroTrimmer(record[label])}</td>
+                  )
+                ) : (
+                  <td>''</td>
+                )
+              ) : (
+                <td>{record.id}</td>
+              ),
           )}
         </tr>
       ));

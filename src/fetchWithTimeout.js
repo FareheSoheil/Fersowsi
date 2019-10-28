@@ -11,7 +11,7 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
       reject(ERRORS.TIME_OUT);
     }, REQUEST_TIMEOUT);
     options.headers.Authorization = cookie.load('TokenId');
-
+    console.log('AUTH : ', cookie.load('TokenId'));
     // --------------------------------------------------- START of fetching data
     fetch(url, options)
       // fetch was successful
