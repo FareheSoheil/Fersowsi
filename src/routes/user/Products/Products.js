@@ -48,6 +48,7 @@ class Products extends React.Component {
       },
     };
     this.fetchProducts = this.fetchProducts.bind(this);
+    this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -208,12 +209,13 @@ class Products extends React.Component {
     );
   }
   handleOnWish(id) {
-    const url = `${SERVER}/addToFavorite`;
+    const url = `${SERVER}/addToBasket`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       productId: id,
+      productPriceAndCostId: price,
     };
 
     const options = {

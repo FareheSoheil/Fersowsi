@@ -34,41 +34,42 @@ class ProductItem extends React.Component {
   }
   addToWishList(e) {
     e.stopPropagation();
-    const url = `${SERVER}/addToWishList`;
-    this.setState({
-      isLoading: true,
-    });
-    const credential = {
-      productId: this.props.product.id,
-      price: this.state.selectedPrice,
-    };
-    window.alert(JSON.stringify(credential));
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(credential),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const that = this;
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        window.alert('added successfully');
-        that.setState({
-          selectedPrice: '',
-          isLoading: false,
-        });
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    if (this.state.selectedPrice === '') window.alert('please choose a price');
+    else {
+      const url = `${SERVER}/addToBasket`;
+      this.setState({
+        isLoading: true,
+      });
+      const credential = {
+        productId: this.props.product.id,
+        productPriceAndCostId: this.state.selectedPrice.value,
+      };
+      window.alert(JSON.stringify(credential));
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(credential),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const that = this;
+      fetchWithTimeOut(
+        url,
+        options,
+        response => {
+          window.alert('added successfully');
+          that.setState({
+            selectedPrice: '',
+            isLoading: false,
+          });
+        },
+        error => {
+          console.log(error);
+        },
+      );
+    }
   }
   gotoProductDetails() {
-    // window.alert('hi');
-    // window.location.replace(`/user/products/${this.props.product.id}`);
     history.push(`/user/products/${this.props.product.id}`);
   }
   render() {
@@ -78,39 +79,14 @@ class ProductItem extends React.Component {
     let manPrices = [];
 
     if (prices.length > 0) {
-      // prices.map((price, i) => {
-      //   manPrices.some(
-      //     item =>
-      //       item.id ===
-      //       `${price.productSubscriptionTypeId} # ${price.productPeriodId}`,
-      //   )
-      //     ? console.log(
-      //         'item : ',
-      //         `${price.productSubscriptionTypeId} # ${price.productPeriodId}`,
-      //       )
-      //     : manPrices.push({
-      //         label: `${price.ProductSubscriptionTypeName} with ${
-      //           price.productPeriodName
-      //         } period`,
-      //         value: i,
-      //         id: `${price.productSubscriptionTypeId} # ${
-      //           price.productPeriodId
-      //         }`,
-      //         privatePrice: price.privateCustomerPrice,
-      //         instPrice: price.institutionalCustomerPrice,
-      //       });
-      // });
       prices.map((price, i) => {
         manPrices.push({
           label: `${price.zoneName} with ${price.deliveryTypeName} ${
             price.ProductSubscriptionTypeName
           }`,
-          value: i,
-          zoneId: price.zoneId,
-          deliveryTypeId: price.deliveryTypeId,
-          ProductSubscriptionId: price.productSubscriptionTypeId,
-          privatePrice: price.privateCustomerPrice,
           instPrice: price.institutionalCustomerPrice,
+          privatePrice: price.privateCustomerPrice,
+          value: price.id,
         });
       });
     }
@@ -132,8 +108,6 @@ class ProductItem extends React.Component {
                 {' '}
                 <img
                   onClick={this.gotoProductDetails}
-                  // width="180"
-                  // height="200"
                   src={this.props.product.coverImage}
                 />
               </div>
@@ -184,7 +158,7 @@ class ProductItem extends React.Component {
                 </div>
               </div>
               <div className={`${s.select} row`}>
-                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-12 mb-2">
+                <div className="col-xl-7 col-lg-6 col-md-8 col-sm-12 mb-2">
                   <Select
                     isDisabled={this.props.isDisabled}
                     options={manPrices}
@@ -217,7 +191,7 @@ class ProductItem extends React.Component {
               <div className="col-xl-1">
                 <div className={s.wishContainer}>
                   <i
-                    onClick={e => this.addToWishList}
+                    onClick={e => this.addToWishList(e)}
                     class={
                       this.props.isWished
                         ? `${s.isWished} fas fa-heart`

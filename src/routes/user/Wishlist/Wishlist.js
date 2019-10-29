@@ -34,21 +34,16 @@ class Wishlist extends React.Component {
         sortPrice: false,
         sortWeight: false,
       },
-      currentWishes: [
-        { id: 1, originalTitle: 'sdlkasmdalksd', period: '3 weekly' },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-      ],
+      currentWishes: [],
       selectedIndices: [],
       selectedIds: [],
     };
     this.fetchWishes = this.fetchWishes.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.deleteWish = this.deleteWish.bind(this);
+    this.checkOut = this.checkOut.bind(this);
     this.handleWighItemSelect = this.handleWighItemSelect.bind(this);
+    this.setShoppingDetails = this.setShoppingDetails.bind(this);
   }
   componentDidMount() {
     this.fetchWishes();
@@ -91,6 +86,7 @@ class Wishlist extends React.Component {
       },
     );
   }
+  // onPriceChange
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
       this.fetchWishes();
@@ -98,21 +94,89 @@ class Wishlist extends React.Component {
   }
   // onClaimCollectionClick(id) {
   //   history.push(`/user/claim/${id}`);
-  // }
-  checkOut() {}
+  // } &&
+  checkOut() {
+    let wishes = [];
+    console.log(this.state.currentWishes);
+    for (let index = 0; index < this.state.selectedIndices.length; index++) {
+      if (this.state.selectedIndices[index]) {
+        if (
+          this.state.currentWishes[index].count == undefined ||
+          this.state.currentWishes[index].startDate == undefined ||
+          this.state.currentWishes[index].endDate == undefined ||
+          this.state.currentWishes[index].selectedAddress == undefined ||
+          this.state.currentWishes[index].selectedPrice == undefined
+        ) {
+          window.alert('Please Fill all the informations');
+          // break;
+        } else {
+          wishes.push({
+            productId: this.state.currentWishes[index].product.id,
+            count: this.state.currentWishes[index].count,
+            startDate: this.state.currentWishes[index].startDate,
+            endDate: this.state.currentWishes[index].endDate,
+            productPriceAndCostId: this.state.currentWishes[index]
+              .selectedPrice,
+            addressId: this.state.currentWishes[index].selectedAddress,
+          });
+        }
+      }
+      if (wishes.length > 0) {
+        const url = `${SERVER}/addCustomerOrder`;
+        this.setState({
+          isLoading: true,
+        });
+        const credentials = {
+          publisherOrders: wishes,
+        };
+        console.log('wishes : ', wishes);
+        const options = {
+          method: 'POST',
+          body: JSON.stringify(credentials),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const that = this;
+
+        fetchWithTimeOut(
+          url,
+          options,
+          response => {
+            if (response.error === undefined) {
+              window.alert(response.message);
+              let newWish = that.state.currentWishes;
+              let flg = 0;
+              for (let i = 0; i < that.state.selectedIndices; i++) {
+                if (that.state.selectedIndices[i]) newWish.splice(i, 1);
+                // if(i==that.state.selectedIndices-1) flg=1;
+              }
+
+              that.setState({
+                currentWishes: newWish,
+                selectedIndices: '',
+                isLoading: false,
+              });
+            } else {
+              toastr.error(response.error.title, response.error.description);
+            }
+          },
+          () => {
+            // toastr.error('sala', ERRORS.REPEATED_USER);
+            // console.log('login e rror : ', error);
+          },
+        );
+      }
+    }
+  }
   fetchWishes() {
-    const url = `${SERVER}/getAllProducts`;
+    const url = `${SERVER}/getBasketOfSpecificUser`;
     this.setState({
       isLoading: true,
     });
-    const credentials = {
-      searchBy: this.state.productsSearchFilter,
-      pageIndex: 0,
-      pageSize: 10,
-    };
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
+      // body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -125,11 +189,11 @@ class Wishlist extends React.Component {
       response => {
         if (response.error === undefined) {
           let selectedIndicesArray = [];
-          const l = response.currentRecords.length;
+          const l = response.length;
           selectedIndicesArray.length = l;
           selectedIndicesArray.fill(false, 0, l - 1);
           that.setState({
-            currentWishes: response.currentRecords,
+            currentWishes: response,
             selectedIndices: selectedIndicesArray,
             isLoading: false,
           });
@@ -143,11 +207,23 @@ class Wishlist extends React.Component {
       },
     );
   }
+  setShoppingDetails(index, label, value) {
+    let preWish = [...this.state.currentWishes];
+    if (label == 'selectedPrice') preWish[index].selectedPrice = value;
+    else if (label == 'selectedAddress') preWish[index].selectedAddress = value;
+    else if (label == 'count') preWish[index].count = value;
+    else if (label == 'startDate') preWish[index].startDate = value;
+    else if (label == 'endDate') preWish[index].endDate = value;
+    // console.log
+    this.setState({
+      currentWishes: preWish,
+    });
+  }
   handleWighItemSelect(id, index) {
     let selectedIds = [],
       selectedIndices;
     selectedIds.push(id);
-    selectedIndices = { ...this.state.selectedIndices };
+    selectedIndices = [...this.state.selectedIndices];
     selectedIndices[index] = !selectedIndices[index];
     this.setState({
       selectedIndices: selectedIndices,
@@ -162,11 +238,12 @@ class Wishlist extends React.Component {
         (wish, i) =>
           (wishes = (
             <WishItem
-              wish={wish}
+              wish={wish.product}
               index={i}
               handleWighItemSelect={this.handleWighItemSelect}
               isWished={this.state.selectedIndices[i]}
               handleOnDelete={this.deleteWish}
+              setShoppingDetails={this.setShoppingDetails}
             />
           )),
       );

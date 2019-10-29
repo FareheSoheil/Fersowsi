@@ -120,11 +120,14 @@ class Header extends React.Component {
       removeStateURL,
       logoutOptions,
       () => {
+        console.log('deleting cookie');
         cookie.remove('TokenId', { path: '/' });
         cookie.remove('role', { path: '/' });
         history.push('/login');
       },
-      () => {},
+      er => {
+        console.log(er);
+      },
     );
   }
   fetchCategories() {
@@ -285,7 +288,7 @@ class Header extends React.Component {
                         ''
                       )}
                       {cookie.load('TokenId') !== undefined ? (
-                        <a onClick={() => this.goTo('/')}>logOut</a>
+                        <a onClick={() => this.logOut('/')}>logOut</a>
                       ) : (
                         <a onClick={() => this.goTo('/login')}>login</a>
                       )}
