@@ -2,16 +2,10 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactPaginate from 'react-paginate';
 import ContentHeader from '../../../components/User/ContentHeader';
-import AddAddress from '../../../components/User/AddAddress';
 import Table from '../../../components/User/Table';
 import Spinner from '../../../components/User/Spinner';
 import s from './Order.css';
-import {
-  ORDER_RECORD_ITEMS,
-  ORDER_TABLE_LABELS,
-  SERVER,
-  ORDER_SORT_OPTION,
-} from '../constants';
+import { SERVER, ORDER_SORT_OPTION } from '../constants';
 import {
   CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
   CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,

@@ -225,14 +225,14 @@ const PRODUCT_RECORD_ITEM_NAMES_ARRAY = [
 
 const CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY = [
   'Id',
-  'Delivery Cost',
+  'Total Cost',
   'Total Price',
   'Status',
   'Discount',
 ];
 const CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
-  'totalDeliveryCost',
+  'totalCost',
   'totalPrice',
   'status',
   'discount',

@@ -35,6 +35,7 @@ const PUBLISHER_ORDER_TABLE_LABELS = ['Id', 'Price', 'Date', 'Status', 'Count'];
 const PUBLISHER_ORDER_RECORD_ITEMS = ['id', 'price', 'date', 'status', 'count'];
 
 const CLAIMS_TABLE_LABELS = [
+  'Id',
   'Order Id',
   'Customer',
   'Publisher',

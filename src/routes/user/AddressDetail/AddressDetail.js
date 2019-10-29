@@ -14,8 +14,7 @@ class AddressDetail extends React.Component {
       id: this.props.context.params.id,
       isLoading: false,
       address: {
-        address1: '',
-        address2: '',
+        detailAddress: '',
         zipCode: '',
         city: '',
         state: '',
@@ -30,11 +29,13 @@ class AddressDetail extends React.Component {
     this.fetchAddress = this.fetchAddress.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.getAllCountries = this.getAllCountries.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.onEdit = this.onEdit.bind(this);
   }
   componentDidMount() {
-    // this.fetchAddresss();
+    this.getAllCountries();
+    this.fetchAddress();
   }
 
   handleInputChange(event) {
@@ -136,6 +137,7 @@ class AddressDetail extends React.Component {
     const credentials = {
       id: this.state.id,
     };
+    this.setState({ isLoading: true });
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -151,8 +153,37 @@ class AddressDetail extends React.Component {
       response => {
         if (response.error === undefined) {
           that.setState({
-            address: response.address,
-            allCountries: response.allCountries,
+            address: response,
+            isLoading: false,
+          });
+        } else {
+          toastr.error(response.error.title, response.error.description);
+        }
+      },
+      () => {
+        // toastr.error('sala', ERRORS.REPEATED_USER);
+        // console.log('login e rror : ', error);
+      },
+    );
+  }
+  getAllCountries() {
+    const url = `${SERVER}/getAuxInfoForOneUser`;
+    this.setState({ isLoading: true });
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error === undefined) {
+          that.setState({
+            allCountries: response.countries,
             isLoading: false,
           });
         } else {
@@ -179,28 +210,17 @@ class AddressDetail extends React.Component {
                 <div className="col-xl-12 col-lg-12 addInputContainer">
                   <div className="row mb-3 ">
                     <div className="col-xl-2 ">
-                      <span>Address1* :</span>{' '}
+                      <span>Address :</span>{' '}
                     </div>
                     <div className="col-xl-7">
                       <input
                         name="address1"
-                        value={this.state.address.address1}
+                        value={this.state.address.detailAddress}
                         onChange={this.handleInputChange}
                       />
                     </div>
                   </div>
-                  <div className="row mb-3">
-                    <div className="col-xl-2">
-                      <span>Address2 :</span>{' '}
-                    </div>
-                    <div className="col-xl-4">
-                      <input
-                        name="address2"
-                        value={this.state.address.address2}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
+
                   <div className="row mb-3">
                     <div className="col-xl-2">
                       <span>Zip Code* :</span>{' '}
@@ -231,8 +251,8 @@ class AddressDetail extends React.Component {
                     </div>
                     <div className="col-xl-4">
                       <input
-                        name="state"
-                        value={this.state.address.state}
+                        name="province"
+                        value={this.state.address.province}
                         onChange={this.handleInputChange}
                       />
                     </div>
@@ -244,9 +264,17 @@ class AddressDetail extends React.Component {
                     </div>
                     <div className="col-xl-4">
                       <Select
+                        className={s.selectWS}
                         options={this.state.allCountries}
                         onChange={so => this.handleSelectChange(so, 'country')}
-                        value={this.state.address.country}
+                        value={
+                          this.state.address.country === ''
+                            ? {
+                                value: this.state.address.countryId,
+                                label: this.state.address.countryName,
+                              }
+                            : this.state.address.country
+                        }
                       />
                     </div>
                   </div>

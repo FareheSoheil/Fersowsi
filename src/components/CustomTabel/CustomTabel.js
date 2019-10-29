@@ -12,6 +12,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import s from './CustomTabel.css';
+import zeroTrimmer from '../../zeroTrimmer';
 import { PRODUCT_STATUS } from '../../constants/constantData';
 
 class CustomTabel extends React.Component {
@@ -76,7 +77,7 @@ class CustomTabel extends React.Component {
                   />
                 </td>
               ) : label === 'status' || label === 'publisher' ? (
-                <td>{record[label].label}</td>
+                <td>{zeroTrimmer(record[label].label)}</td>
               ) : record[label] === true ? (
                 <td>
                   <i style={{ color: 'green' }} class="fas fa-check" />
@@ -90,7 +91,7 @@ class CustomTabel extends React.Component {
                   />
                 </td>
               ) : (
-                <td>{record[label]}</td>
+                <td>{zeroTrimmer(record[label])}</td>
               ),
           )}
         </tr>

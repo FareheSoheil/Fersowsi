@@ -11,7 +11,10 @@ class Table extends React.Component {
     recordItemNames: PropTypes.array.isRequired,
     onRecordClick: PropTypes.func.isRequired,
   };
-
+  isBool(e) {
+    if (e === true || e === false) return true;
+    return false;
+  }
   render() {
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th>{label}</th>
@@ -31,11 +34,21 @@ class Table extends React.Component {
                 record[label] !== null && record[label] !== undefined ? (
                   record[label].constructor === {}.constructor ? (
                     <td>{zeroTrimmer(record[label].label)}</td>
+                  ) : this.isBool(record[label]) ? (
+                    record[label] === true ? (
+                      <i style={{ color: 'green' }} class="fas fa-check" />
+                    ) : (
+                      <i
+                        style={{ color: 'red' }}
+                        class="fa fa-times"
+                        aria-hidden="true"
+                      />
+                    )
                   ) : (
                     <td>{zeroTrimmer(record[label])}</td>
                   )
                 ) : (
-                  <td>''</td>
+                  <td> </td>
                 )
               ) : (
                 <td>{record.id}</td>

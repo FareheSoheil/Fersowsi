@@ -155,7 +155,6 @@ class Wishlist extends React.Component {
     });
   }
   render() {
-    console.log('selecteds : ', this.state.selectedIndices);
     let wishes = <div className={s.warning}>No Products Available</div>;
     const receivedWishes = this.state.currentWishes;
     if (receivedWishes !== undefined && receivedWishes.length !== 0)

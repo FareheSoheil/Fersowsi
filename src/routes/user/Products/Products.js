@@ -253,6 +253,7 @@ class Products extends React.Component {
         (product, i) =>
           (products = <ProductItem hasWish={true} product={product} />),
       );
+      console.log('productsSS : ', products);
     } else if (this.props.isLoading && receivedProducts === undefined)
       products = (
         <div className="col-12">

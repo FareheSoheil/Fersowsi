@@ -46,7 +46,7 @@ button {
 /* ---------------------------------------- */
 .container {
     margin-top:3px;
-    margin-bottom:3px;
+    margin-bottom:15px;
     border: 1px solid lightgray;
     border-radius: 8px;
     height: 290px;

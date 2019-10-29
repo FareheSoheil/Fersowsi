@@ -84,8 +84,8 @@ class OrderDetails extends React.Component {
                     pageCount={0}
                     hasPagination={false}
                     records={this.state.publisherOrders}
-                    columnLabels={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
-                    recordItemNames={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAYY}
+                    columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
+                    recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
                     onRecordClick={this.onOrderClick}
                   />
                 </div>

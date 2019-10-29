@@ -58,11 +58,11 @@ class Profile extends React.Component {
   componentDidMount() {
     // this.setState({ isLoading: false });
     this.fetUserOtherInfo();
-    // this.fetchUser();
+    this.fetchUser();
   }
 
   fetchUser() {
-    const url = `${SERVER}/getUser`;
+    const url = `${SERVER}/getProfileOfSepecificUser`;
     this.setState({ isLoading: true });
     const credentials = {
       userId: cookie.load(''),
@@ -167,7 +167,11 @@ class Profile extends React.Component {
               <div className="offset-xl-9 col-xl-3">
                 <div className={s.imgContainer}>
                   <img
-                    src={this.state.user.profilePic}
+                    src={
+                      this.state.user.profilePic === null
+                        ? AVATAR
+                        : this.state.user.profilePic
+                    }
                     alt="User Avatar"
                     id="detailsAvatar"
                     className={`rounded-circle user-avatar-xxl ${s.avatar}`}
@@ -470,6 +474,9 @@ class Profile extends React.Component {
               */}
               </div>
             </div>
+            <div className={s.banner}>
+              <h3>Address Info</h3>
+            </div>
             <div className={` container-fluid`}>
               <div className="row">
                 <div className="col-xl-12 col-lg-12 addInputContainer">
@@ -483,6 +490,7 @@ class Profile extends React.Component {
                 </div>
               </div>
             </div>
+
             <div className="row">
               <div className="offset-xl-9 col-xl-3">
                 <button className={s.editBtn}>Edit</button>

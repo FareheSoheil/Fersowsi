@@ -16,11 +16,10 @@ class AddAddress extends React.Component {
     super(props);
     this.state = {
       newAddress: {
-        address1: '',
-        address2: '',
+        detailAddress: '',
         zipCode: '',
         city: '',
-        state: '',
+        province: '',
         country: '',
       },
     };
@@ -49,11 +48,10 @@ class AddAddress extends React.Component {
         if (response.error === undefined) {
           that.setState({
             newAddress: {
-              address1: '',
-              address2: '',
+              detailAddress: '',
               zipCode: '',
               city: '',
-              state: '',
+              province: '',
               country: '',
             },
           });
@@ -110,28 +108,17 @@ class AddAddress extends React.Component {
                 <div class="modal-body ml-5 addInputContainer">
                   <div className="row mb-3 ">
                     <div className="col-xl-3 ">
-                      <span>Address1* :</span>{' '}
+                      <span>Address* :</span>{' '}
                     </div>
                     <div className="col-xl-7">
                       <input
-                        name="address1"
-                        value={this.state.newAddress.address1}
+                        name="detailAddress"
+                        value={this.state.newAddress.detailAddress}
                         onChange={this.handleInputChange}
                       />
                     </div>
                   </div>
-                  <div className="row mb-3">
-                    <div className="col-xl-3">
-                      <span>Address2 :</span>{' '}
-                    </div>
-                    <div className="col-xl-4">
-                      <input
-                        name="address2"
-                        value={this.state.newAddress.address2}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
+
                   <div className="row mb-3">
                     <div className="col-xl-3">
                       <span>Zip Code* :</span>{' '}
@@ -162,8 +149,8 @@ class AddAddress extends React.Component {
                     </div>
                     <div className="col-xl-4">
                       <input
-                        name="state"
-                        value={this.state.newAddress.state}
+                        name="province"
+                        value={this.state.newAddress.province}
                         onChange={this.handleInputChange}
                       />
                     </div>

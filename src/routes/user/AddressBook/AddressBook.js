@@ -21,7 +21,7 @@ class AddressBook extends React.Component {
       isLoading: false,
       pageIndex: 0,
       pageSize: 15,
-      totalPageNum: 15,
+      totalPageNum: 1,
       sortBy: { value: 1, label: 'Country' },
       addresses: [
         {
@@ -53,9 +53,11 @@ class AddressBook extends React.Component {
     this.fetchAddresses = this.fetchAddresses.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.getAllCountries = this.getAllCountries.bind(this);
   }
   componentDidMount() {
-    // this.fetchAddresses();
+    this.getAllCountries();
+    this.fetchAddresses();
   }
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
@@ -77,7 +79,8 @@ class AddressBook extends React.Component {
     );
   };
   fetchAddresses() {
-    const url = `${SERVER}/getAllAddresses`;
+    const url = `${SERVER}/getAllAddressesOfSpecificUser`;
+    this.setState({ isLoading: true });
     const credentials = {
       pageIndex: this.state.name,
       pageSize: this.state.password,
@@ -98,9 +101,38 @@ class AddressBook extends React.Component {
       response => {
         if (response.error === undefined) {
           that.setState({
-            addresses: response.currentRecords,
-            allCountries: response.allCountries,
-            totalPageNum: response.totalPageNum,
+            addresses: response,
+            // totalPageNum: response.totalPageNum,
+            isLoading: false,
+          });
+        } else {
+          toastr.error(response.error.title, response.error.description);
+        }
+      },
+      () => {
+        // toastr.error('sala', ERRORS.REPEATED_USER);
+        // console.log('login e rror : ', error);
+      },
+    );
+  }
+  getAllCountries() {
+    const url = `${SERVER}/getAuxInfoForAllUsers`;
+    this.setState({ isLoading: true });
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error === undefined) {
+          that.setState({
+            allCountries: response.countries,
             isLoading: false,
           });
         } else {
@@ -150,23 +182,6 @@ class AddressBook extends React.Component {
                 <AddAddress
                   countries={this.state.allCountries}
                   newAddress={this.state.newAddress}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="offset-xl-7 col-5 ">
-                <ReactPaginate
-                  previousLabel="<"
-                  nextLabel=">"
-                  pageCount={this.state.totalPageNum}
-                  pageRangeDisplayed={3}
-                  onPageChange={this.handlePageChange}
-                  containerClassName="user-paginate"
-                  subContainerClassName="user-pages user-paginate"
-                  activeClassName="user-active-page"
-                  breakClassName="break-me"
-                  initialPage={this.state.pageIndex}
-                  disableInitialCallback
                 />
               </div>
             </div>
