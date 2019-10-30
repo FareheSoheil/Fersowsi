@@ -105,7 +105,7 @@ class ClaimsTable extends React.Component {
       response => {
         that.setState({
           currentClaims: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
+          totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
         });

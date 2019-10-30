@@ -103,7 +103,7 @@ const routes = {
                 import(/* webpackChunkName: 'adminReadyProducts' */ './admin/Products/ProductsTable/Ready'),
             },
             {
-              path: 'notAvailable',
+              path: '/notAvailable',
               load: () =>
                 import(/* webpackChunkName: 'adminNotAvailableProducts' */ './admin/Products/ProductsTable/NotAvailable'),
             },

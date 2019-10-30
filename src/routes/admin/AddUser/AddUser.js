@@ -26,7 +26,10 @@ class AddUser extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
+
       user: {
+        id: '',
+
         firstName: '',
         lastName: '',
         username: '',
@@ -46,15 +49,23 @@ class AddUser extends React.Component {
         claims: '',
         createdAt: '',
         updatedAt: '',
-
-        role: {},
-        country: {},
-        currency: {},
-        userSubCategory: {},
+        glmCode: '',
+        referenceNo: '',
+        eoriNo: '',
+        bankName: '',
+        AccountNo: '',
+        iban: '',
+        swiftAddress: '',
+        bankGiro: '',
+        // pro info
+        Role: {},
+        Country: {},
+        Currency: {},
+        UserSubCategory: {},
         UserActivitionStatus: USER_ACTIVITION_STATUS_ARRAY[0],
         siteLanguage: {},
+        Job: {},
       },
-
       countries: '',
       jobs: '',
       siteLanguages: '',
@@ -64,6 +75,9 @@ class AddUser extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
+    this.fetchUser = this.fetchUser.bind(this);
+    // this.onUserEdit = this.onUserEdit.bind(this);
+    this.changeStatus = this.changeStatus.bind(this);
   }
   componentDidMount() {
     this.fetchAllInfo();
@@ -136,6 +150,11 @@ class AddUser extends React.Component {
     user[state] = value;
     this.setState({ user });
   }
+  changeStatus(value) {
+    let user = { ...this.state.user };
+    user.emailConfirmed = value;
+    this.setState({ user: user });
+  }
   handleDateChange(date) {
     let user = { ...this.state.user };
     user.dateOfBirth = date;
@@ -194,67 +213,67 @@ class AddUser extends React.Component {
               <div className="row">
                 <ProfileInfo
                   user={{
+                    Role: this.state.user.Role,
                     firstName: this.state.user.firstName,
                     lastName: this.state.user.lastName,
                     username: this.state.user.username,
-
                     contractName: this.state.user.contractName,
                     phoneNumber: this.state.user.phoneNumber,
                     mobileNumber: this.state.user.mobileNumber,
                     faxNumber: this.state.user.faxNumber,
                     homepage: this.state.user.homepage,
                     VatId: this.state.user.VatId,
+                    glmCode: this.state.user.glmCode,
+                    referenceNo: this.state.user.referenceNo,
+                    eoriNo: this.state.user.eoriNo,
+                    bankName: this.state.user.bankName,
+                    AccountNo: this.state.user.AccountNo,
+                    iban: this.state.user.iban,
+                    swiftAddress: this.state.user.swiftAddress,
+                    bankGiro: this.state.user.bankGiro,
                     email: this.state.user.email,
-                    dateOfBirth: this.state.user.dateOfBirth,
+                    dateOfBirth: new Date(this.state.user.dateOfBirth),
                     psn: this.state.user.psn,
                     discount: this.state.user.discount,
                     emailConfirmed: this.state.user.emailConfirmed,
-                    profilePic: this.state.user.profilePic,
+                    profilePic:
+                      this.state.user.profilePic === null
+                        ? AVATAR
+                        : this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
                   userStatus={this.state.user.UserActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
+                  changeStatus={this.changeStatus}
                   handleDateInputChange={this.handleDateChange}
+                  editUser={this.onUserEdit}
                 />
                 {/* Campaing data */}
                 <ProfileProInfo
-                  pageCount={0}
+                  isForAdd={false}
                   user={{
-                    role: this.state.user.role,
-                    country: this.state.user.country,
-                    currency: this.state.user.currency,
-                    subCategory: this.state.user.subCategory,
-                    activitionStatus: this.state.user.activitionStatus,
-                    siteLanguage: this.state.user.siteLanguage,
-                    job: this.state.user.job,
+                    Role: this.state.user.Role,
+                    Country: this.state.user.Country,
+                    Currency: this.state.user.Currency,
+                    UserSubCategory: this.state.user.UserSubCategory,
+                    UserActivitionStatus: this.state.user.UserActivitionStatus,
+                    Job: this.state.user.Job,
                     bio: this.state.user.bio,
-                    claims: [],
+                    claims: this.state.user.claims,
+                    addresses: this.state.user.addresses,
+
+                    customerOrders: this.state.user.customerOrders,
                     handleSimpleInputChange: this.onChangeInput,
                     handleDateInputChange: this.handleDateChange,
                   }}
+                  pageCount={this.state.user.claims.length / 15}
                   countries={this.state.countries}
                   jobs={this.state.jobs}
+                  siteLanguages={this.state.siteLanguages}
                   currencies={this.state.currencies}
                   handleSelectInputChange={this.handleSelectChange}
                   handleSimpleInputChange={this.onChangeInput}
                 />
-              </div>
-              <br />
-              <div className="row">
-                <div
-                  className={`col-xl-10 col-lg-10 col-md-10 col-sm-12  ${
-                    s.btnContainer
-                  }`}
-                >
-                  {' '}
-                  <button
-                    type="submit"
-                    class="btn btn-success "
-                    onClick={this.onUserDelete}
-                  >
-                    Add User &nbsp; &nbsp;<i class="fas fa-plus" />
-                  </button>
-                </div>
               </div>
             </div>
           )}

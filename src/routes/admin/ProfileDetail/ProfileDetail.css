@@ -1,5 +1,8 @@
 .btnContainer {
-    padding: 5px;
+    padding: 22px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid lightgray;
     text-align: center;
     align-content: center;
 }

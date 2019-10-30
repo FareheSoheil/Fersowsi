@@ -69,27 +69,36 @@ class ProductPriceTable extends React.Component {
     } else this.props.onPriceSelectChange(so, name, index);
   }
   onInputChange(e, index) {
+    // window.alert(e.target.name);
+    // window.alert(e.target.value);
+    // window.alert(index);
+    // window.alert(this.isNumber(e.target.value));
     let newCost = { ...this.state.newCost };
+    const value = e.target.value;
+    const state = e.target.name;
+
     if (index < 0) {
-      const value = event.target.value;
-      const state = event.target.name;
-      if (state === 'publisherPrice' && this.isNumber(value)) {
-        if (this.props.privateRatio === '' || this.props.instRatio === '')
-          window.alert('please fill the ratio inputs');
-        if (
-          parseFloat(this.props.instRatio) +
-            parseFloat(this.props.privateRatio) >
-          100
-        )
-          window.alert('please fill the ratio inputs with currect values');
-        else {
-          newCost.privateCustomerPrice =
-            this.props.privateRatio * (100 + value) / 100;
-          newCost.institutionalCustomerPrice =
-            this.props.instRatio * (100 + value) / 100;
-          newCost[state] = value;
-          this.setState({ newCost });
-        }
+      if (state == 'publisherPrice' && this.isNumber(value)) {
+        window.alert(state == 'publisherPrice' && this.isNumber(value));
+        if (this.props.privateRatio == '' || this.props.instRatio == '')
+          if (
+            parseFloat(this.props.instRatio) +
+              parseFloat(this.props.privateRatio) <
+            100
+          ) {
+            window.alert('please fill the ratio inputs with currect values');
+          } else {
+            window.alert(JSON.stringify(newCost));
+
+            newCost.privateCustomerPrice =
+              this.props.privateRatio * (100 + parseFloat(value)) / 100;
+            newCost.institutionalCustomerPrice =
+              this.props.instRatio * (100 + parseFloat(value)) / 100;
+            newCost[state] = value;
+            this.setState({ newCost }, () => {
+              window.alert(JSON.stringify(newCost));
+            });
+          }
       } else if (state !== 'publisherPrice') {
         newCost[state] = value;
         this.setState({ newCost });

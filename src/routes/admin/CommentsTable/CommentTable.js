@@ -100,7 +100,7 @@ class CommentTable extends React.Component {
       response => {
         that.setState({
           currentComments: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
+          totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
         });
@@ -270,7 +270,7 @@ class CommentTable extends React.Component {
                       <ReactPaginate
                         previousLabel="<<"
                         nextLabel=">>"
-                        pageCount={20}
+                        pageCount={this.state.totalPageNum}
                         pageRangeDisplayed={3}
                         onPageChange={this.handlePageChange}
                         marginPagesDisplayed={1}

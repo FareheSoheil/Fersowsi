@@ -31,7 +31,6 @@ class ProductPriceRecord extends React.Component {
     this.isNumberKey = this.isNumberKey.bind(this);
   }
   isNumberKey(evt) {
-    console.log('hi');
     var charCode = evt.which ? evt.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
 
@@ -105,9 +104,9 @@ class ProductPriceRecord extends React.Component {
                 name="institutionalCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.cost.institutionalCustomerPrice}
-                // onChange={e => this.props.onInputChange(e, this.props.index)}
                 disabled
+                value={this.props.cost.institutionalCustomerPrice}
+                onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
           </form>
@@ -121,8 +120,8 @@ class ProductPriceRecord extends React.Component {
                 type="text"
                 className="form-control form-control-sm "
                 value={this.props.cost.privateCustomerPrice}
-                // onChange={e => this.props.onInputChange(e, this.props.index)}
                 disabled
+                onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
           </form>

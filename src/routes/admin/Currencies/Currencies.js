@@ -108,7 +108,7 @@ class Countries extends React.Component {
       response => {
         that.setState({
           currentCurrencies: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
+          totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
         });

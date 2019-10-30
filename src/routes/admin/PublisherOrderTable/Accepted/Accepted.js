@@ -100,7 +100,7 @@ class Accepted extends React.Component {
       response => {
         that.setState({
           currentPublisherOrders: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
+          totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
         });

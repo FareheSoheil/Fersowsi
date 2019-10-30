@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { USER_ACTIVITION_STATUS } from '../../../constants/constantData';
+import { USER_ACTIVITION_STATUS, ROLES } from '../../../constants/constantData';
 import s from './ProfileInfo.css';
 
 class ProfileInfo extends React.Component {
@@ -45,6 +45,7 @@ class ProfileInfo extends React.Component {
       profilePic: '',
     };
     this.uploadImage = this.uploadImage.bind(this);
+    this.onStatusChange = this.onStatusChange.bind(this);
     this.handleUploadedImage = this.handleUploadedImage.bind(this);
   }
 
@@ -66,9 +67,10 @@ class ProfileInfo extends React.Component {
       let imgt = reader.readAsDataURL(inp.files[0]);
     }
   }
-
+  onStatusChange(value) {
+    this.props.changeStatus(value);
+  }
   render() {
-    console.log('props : ', this.props);
     return (
       <div className="col-xl-5 col-lg-4 col-md-6 col-sm-12 col-12">
         {/* user profile  */}
@@ -83,8 +85,11 @@ class ProfileInfo extends React.Component {
                     USER_ACTIVITION_STATUS.DEACTIVE
                     ? `${s.deactiveUser} 
                     user-avatar text-center d-block`
-                    : `${s.pendingUser} 
+                    : this.props.userStatus.value ===
+                      USER_ACTIVITION_STATUS.WAITFORAPPROVAL
+                      ? `${s.pendingUser} 
                     user-avatar text-center d-block`
+                      : 'user-avatar text-center d-block'
               }
             >
               <img
@@ -104,6 +109,42 @@ class ProfileInfo extends React.Component {
                   name="fileInput"
                 />
               </div>
+            </div>
+          </div>
+          <div className="card-body ">
+            {/* <label className="custom-color-theme custom-control custom-radio custom-control-inline">
+              <input
+                type="checkbox"
+                name="emailConfirmed"
+                className="custom-control-input"
+                value={!this.props.user.emailConfirmed}
+                onClick={this.props.handleSimpleInputChange}
+                defaultChecked={this.props.user.emailConfirmed === true}
+              /> */}
+
+            {/* <span className="custom-control-label">Is Email Confirmed</span> */}
+            {/* </label> */}
+            {/* <label className="custom-color-theme custom-control custom-radio custom-control-inline"> */}
+            <div className="text-center">
+              <label>Email Confirmation : &nbsp;&nbsp;</label>
+              {this.props.user.emailConfirmed === true ? (
+                <i
+                  style={{ color: 'red', fontSize: '20px' }}
+                  class="fa fa-times"
+                  aria-hidden="true"
+                  onClick={() =>
+                    this.onStatusChange(!this.props.user.emailConfirmed)
+                  }
+                />
+              ) : (
+                <i
+                  style={{ color: 'green', fontSize: '20px' }}
+                  class="fas fa-check"
+                  onClick={() =>
+                    this.onStatusChange(!this.props.user.emailConfirmed)
+                  }
+                />
+              )}
             </div>
           </div>
           <div className="card-body">
@@ -279,7 +320,7 @@ class ProfileInfo extends React.Component {
             <form className={s.labelHolder}>
               <div className="form-group">
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-4">
                     {' '}
                     <label>
                       <b>Vat Id &nbsp;</b>
@@ -296,9 +337,173 @@ class ProfileInfo extends React.Component {
                   </div>
                 </div>
               </div>
+
               <div className="form-group">
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-4">
+                    {' '}
+                    <label>
+                      <b>GLM Code &nbsp;</b>
+                    </label>
+                  </div>
+                  <div className="col-6">
+                    <input
+                      name="glmCode"
+                      type="text"
+                      className="form-control form-control-sm inlineInput"
+                      onChange={this.props.handleSimpleInputChange}
+                      value={this.props.user.glmCode}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="row">
+                  <div className="col-4">
+                    {' '}
+                    <label>
+                      <b>Refrence No. &nbsp;</b>
+                    </label>
+                  </div>
+                  <div className="col-6">
+                    <input
+                      name="referenceNo"
+                      type="text"
+                      className="form-control form-control-sm inlineInput"
+                      onChange={this.props.handleSimpleInputChange}
+                      value={this.props.user.referenceNo}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="row">
+                  <div className="col-4">
+                    {' '}
+                    <label>
+                      <b>Eori No. &nbsp;</b>
+                    </label>
+                  </div>
+                  <div className="col-6">
+                    <input
+                      name="eoriNo"
+                      type="text"
+                      className="form-control form-control-sm inlineInput"
+                      onChange={this.props.handleSimpleInputChange}
+                      value={this.props.user.eoriNo}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="row">
+                  <div className="col-4">
+                    {' '}
+                    <label>
+                      <b>Bank Name &nbsp;</b>
+                    </label>
+                  </div>
+                  <div className="col-6">
+                    <input
+                      name="bankName"
+                      type="text"
+                      className="form-control form-control-sm inlineInput"
+                      onChange={this.props.handleSimpleInputChange}
+                      value={this.props.user.bankName}
+                    />
+                  </div>
+                </div>
+              </div>
+              {this.props.user.Role.value == ROLES.publisher.value ? (
+                <div>
+                  <div className="form-group">
+                    <div className="row">
+                      <div className="col-4">
+                        {' '}
+                        <label>
+                          <b>Account No &nbsp;</b>
+                        </label>
+                      </div>
+                      <div className="col-6">
+                        <input
+                          name="AccountNo"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.AccountNo}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <div className="row">
+                      <div className="col-4">
+                        {' '}
+                        <label>
+                          <b>Iban &nbsp;</b>
+                        </label>
+                      </div>
+                      <div className="col-6">
+                        <input
+                          name="iban"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.iban}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <div className="row">
+                      <div className="col-4">
+                        {' '}
+                        <label>
+                          <b>Swift Address &nbsp;</b>
+                        </label>
+                      </div>
+                      <div className="col-6">
+                        <input
+                          name="swiftAddress"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.swiftAddress}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <div className="row">
+                      <div className="col-4">
+                        {' '}
+                        <label>
+                          <b>Bank Giro &nbsp;</b>
+                        </label>
+                      </div>
+                      <div className="col-6">
+                        <input
+                          name="bankGiro"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.bankGiro}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
+
+              <div className="form-group">
+                <div className="row">
+                  <div className="col-4">
                     {' '}
                     <label>
                       <b>PSN </b>
@@ -317,7 +522,7 @@ class ProfileInfo extends React.Component {
               </div>
               <div className="form-group">
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-4">
                     <label>
                       <b>Discount </b>
                     </label>
@@ -334,20 +539,6 @@ class ProfileInfo extends React.Component {
                 </div>
               </div>
             </form>
-          </div>
-          <div className="card-body border-top">
-            <label className="custom-color-theme custom-control custom-radio custom-control-inline">
-              <input
-                type="checkbox"
-                name="emailConfirmed"
-                className="custom-control-input"
-                value={!this.props.user.emailConfirmed}
-                onClick={this.props.handleSimpleInputChange}
-                defaultChecked={this.props.user.emailConfirmed === true}
-              />
-
-              <span className="custom-control-label">Is Email Confirmed</span>
-            </label>
           </div>
         </div>
         {/* end user profile */}

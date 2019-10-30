@@ -474,7 +474,10 @@ class ProductDetail extends React.Component {
                               : this.state.product.productStatus.value ===
                                 PRODUCT_STATUS.Ready.value
                                 ? `${s.ready} card-header`
-                                : `${s.notAvailable} card-header`
+                                : this.state.product.productStatus.value ===
+                                  PRODUCT_STATUS.NotAvailable.value
+                                  ? `${s.notAvailable} card-header`
+                                  : 'card-header'
                           }
                         >
                           Product Subproducts
@@ -634,6 +637,7 @@ class ProductDetail extends React.Component {
                             allContentCategories={
                               this.state.allContentCategories
                             }
+                            allPeriods={this.state.allPeriods}
                             allLanguages={this.state.allLanguages}
                             allPublishers={this.state.allPublishers}
                             uploadImage={this.uploadImage}

@@ -58,7 +58,6 @@ class Customers extends React.Component {
     this.clearFilters = this.clearFilters.bind(this);
     this.fetchAccounts = this.fetchAccounts.bind(this);
     this.onAccountClick = this.onAccountClick.bind(this);
-    this.fetchAllInfo = this.fetchAllInfo.bind(this);
   }
   componentDidMount() {
     this.fetchAccounts();
@@ -119,46 +118,46 @@ class Customers extends React.Component {
       url,
       options,
       response => {
-        that.setState({
-          currentAccounts: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
-          isLoading: false,
-          firstRender: false,
-        });
-      },
-      error => {
-        console.log(error);
-      },
-    );
-  }
-  fetchAllInfo() {
-    const url = fetchURL;
-    this.setState({
-      isLoading: true,
-    });
+        that.setState(
+          {
+            currentAccounts: response.currentRecords,
+            totalPageNum: response.totalPageNum,
+            // isLoading: false,
+            firstRender: false,
+          },
+          () => {
+            const auxUrl = `${SERVER}/getAuxInfoForAllUsers`;
 
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const that = this;
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        that.setState({
-          countries: response.countries,
-          jobs: response.jobs,
-          isLoading: false,
-        });
+            const auxOptions = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            };
+            const thatthat = that;
+            fetchWithTimeOut(
+              auxUrl,
+              auxOptions,
+              response => {
+                thatthat.setState({
+                  countries: response.countries,
+                  jobs: response.jobs,
+                  isLoading: false,
+                });
+              },
+              error => {
+                console.log(error);
+              },
+            );
+          },
+        );
       },
       error => {
         console.log(error);
       },
     );
   }
+
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
       this.fetchAccounts();

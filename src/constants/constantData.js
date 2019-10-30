@@ -1,4 +1,20 @@
 /* eslint-disable import/prefer-default-export */
+const ADDRESS_TABLE_LABELS = [
+  'Id',
+  'Address',
+  'Province',
+  'Zip Code',
+  'City',
+  'Country',
+];
+const ADDRESS_RECORD_ITEMS = [
+  'value',
+  'detailAddress',
+  'province',
+  'zipCode',
+  'city',
+  'countryName',
+];
 
 const PRODUCT_SORT_OPTIONS = [
   { value: 1, label: 'Weight' },
@@ -295,6 +311,8 @@ const OPCODES = {
 const SERVER = 'http://localhost:3004';
 
 export {
+  ADDRESS_RECORD_ITEMS,
+  ADDRESS_TABLE_LABELS,
   USER_SUBCATEGORY_ARRAY,
   USER_SUBCATEGORY,
   USER_ACTIVITION_STATUS_ARRAY,

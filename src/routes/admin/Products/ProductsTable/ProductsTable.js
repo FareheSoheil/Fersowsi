@@ -42,6 +42,7 @@ class ProductsTable extends React.Component {
       allPeriods: '',
       productsSearchFilter: {
         publishers: '',
+        countries: '',
         singlProductTypes: '',
         productType: '', //remove s
         productContentTypes: '',
@@ -65,7 +66,6 @@ class ProductsTable extends React.Component {
       },
     };
     this.fetchProducts = this.fetchProducts.bind(this);
-    this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -73,7 +73,6 @@ class ProductsTable extends React.Component {
     this.search = this.search.bind(this);
   }
   componentDidMount() {
-    this.fetchAllInfo();
     this.fetchProducts();
   }
   onProductClick(id) {
@@ -89,6 +88,7 @@ class ProductsTable extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
+    console.log('searchBy : ,', this.state.productsSearchFilter);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -104,11 +104,39 @@ class ProductsTable extends React.Component {
         that.setState(
           {
             currentproducts: response.currentRecords,
-            totalPageNum: response.totalPageNumber,
-            isLoading: false,
+            totalPageNum: response.totalPageNum,
             firstRender: false,
           },
-          () => window.scroll(10, 20),
+          // () => window.scroll(10, 20),
+          () => {
+            const auxUrl = `${SERVER}/getAllAuxInfoForProducts`;
+
+            const auxOptions = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            };
+            const thatthat = that;
+            fetchWithTimeOut(
+              auxUrl,
+              auxOptions,
+              response => {
+                thatthat.setState({
+                  allPublishers: response.Publishers,
+                  allPeriods: response.Periods,
+                  allProductContentTypes: response.ProductContentTypes,
+                  allLanguages: response.Languages,
+                  allAgeGroups: response.AgeGroups,
+                  allCountries: response.Countries,
+                  isLoading: false,
+                });
+              },
+              error => {
+                console.log(error);
+              },
+            );
+          },
         );
       },
       error => {
@@ -116,35 +144,7 @@ class ProductsTable extends React.Component {
       },
     );
   }
-  fetchAllInfo() {
-    const url = `${SERVER}/getAllAuxInfoForProducts`;
-    this.setState({
-      isLoading: true,
-    });
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const that = this;
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        that.setState({
-          allPublishers: response.Publishers,
-          allPeriods: response.Periods,
-          allProductContentTypes: response.ProductContentTypes,
-          allLanguages: response.Languages,
-          allAgeGroups: response.AgeGroups,
-        });
-      },
-      error => {
-        console.log(error);
-      },
-    );
-  }
+
   handleInputChange(opcode, stateName, event) {
     let value,
       productsSearchFilter,
@@ -160,13 +160,14 @@ class ProductsTable extends React.Component {
     this.setState({ productsSearchFilter, searchClear: searchClear });
   }
   handleSelectChange = (selectedOption, op) => {
+    // window.alert(op);
     let productsSearchFilter = { ...this.state.productsSearchFilter },
       searchClear = false;
     if (
-      op === 'publishers' ||
-      op === 'periods' ||
-      op === 'countries' ||
-      op === 'productLanguages'
+      op == 'publishers' ||
+      op == 'periods' ||
+      op == 'countries' ||
+      op == 'productLanguages'
     ) {
       searchClear = true;
     }
@@ -241,6 +242,7 @@ class ProductsTable extends React.Component {
                     allLanguages={this.state.allLanguages}
                     allAgeGroups={this.state.allAgeGroups}
                     allPeriods={this.state.allPeriods}
+                    allCountries={this.state.allCountries}
                     searchFilter={this.state.productsSearchFilter}
                     handleInputChange={this.handleInputChange}
                     handleSelectChange={this.handleSelectChange}
@@ -256,10 +258,6 @@ class ProductsTable extends React.Component {
                     records={this.state.currentproducts}
                     columnLabels={PRODUCT_COLUMNS_LABELS_ARRAY}
                     recordItemNames={PRODUCT_RECORD_ITEM_NAMES_ARRAY}
-                    allPublishers={this.state.allPublishers}
-                    allProductContentTypes={this.state.allProductContentTypes}
-                    allLanguages={this.state.allLanguages}
-                    allAgeGroups={this.state.allAgeGroups}
                     handlePageChange={this.handlePageChange}
                     onRecordClick={this.onProductClick}
                   />

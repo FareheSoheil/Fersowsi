@@ -99,7 +99,7 @@ class SettingItem extends React.Component {
       response => {
         that.setState({
           currentRecords: response[this.props.type],
-          totalPageNum: response.totalPageNumber,
+          totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
         });

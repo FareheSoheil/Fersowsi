@@ -19,6 +19,12 @@ import {
   ROLES_ARRAY,
   CLAIMS_COLUMNS_LABELS_ARRAY,
   CLAIMS_RECORDE_ITEM_NAMES_ARRAY,
+  CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
+  CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+  PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY,
+  PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
+  ADDRESS_RECORD_ITEMS,
+  ADDRESS_TABLE_LABELS,
 } from '../../../constants/constantData';
 import CustomTable from '../../CustomTabel';
 import s from './ProfileProInfo.css';
@@ -26,37 +32,7 @@ import s from './ProfileProInfo.css';
 class ProfileProInfo extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
-    user: {
-      role: {
-        value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-      },
-      country: {
-        value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-      },
-      currency: {
-        value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-      },
-      subCategory: {
-        value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-      },
-      activitionStatus: {
-        value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-      },
-      siteLanguage: {
-        value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-      },
-      job: {
-        value: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-      },
-      claims: PropTypes.arrayOf(PropTypes.object).isRequired,
-    },
+    user: {},
 
     countries: PropTypes.arrayOf(PropTypes.object).isRequired,
     jobs: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -66,6 +42,13 @@ class ProfileProInfo extends React.Component {
     handleSimpleInputChange: PropTypes.func.isRequired,
   };
   onClaimClick(id, orderId) {
+    history.push({
+      pathname: `/admin/claims/claim`,
+      search: `id=${id}&orderId=${orderId}`,
+      state: { ab: 'ab' },
+    });
+  }
+  onOrderClick(id, orderId) {
     history.push({
       pathname: `/admin/claims/claim`,
       search: `id=${id}&orderId=${orderId}`,
@@ -148,8 +131,9 @@ class ProfileProInfo extends React.Component {
                 <h5 class="card-header">Claims Of This User</h5>
                 <div class="card-body">
                   <CustomTable
-                    pageCount={this.props.pageCount}
-                    currentPageNumber={2}
+                    hasPagination={false}
+                    // pageCount={this.props.pageCount}
+                    // currentPageNumber={2}
                     records={this.props.user.claims}
                     columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
                     recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
@@ -166,7 +150,7 @@ class ProfileProInfo extends React.Component {
               aria-labelledby="pills-info-tab"
             >
               <div class="card">
-                <h5 class="card-header">Additional Information</h5>
+                <h5 class="card-header">Details</h5>
                 <div class="card-body">
                   <form>
                     <div class="row">
@@ -186,29 +170,29 @@ class ProfileProInfo extends React.Component {
                                 'UserActivitionStatus',
                               )
                             }
-                            value={this.props.user.userActivitionStatus}
+                            value={this.props.user.UserActivitionStatus}
                           />
                         </div>
                         <div class="form-group">
                           <label for="name">User Country</label>
                           <Select
                             onChange={so =>
-                              this.props.handleSelectInputChange(so, 'country')
+                              this.props.handleSelectInputChange(so, 'Country')
                             }
                             options={this.props.countries}
                             isSearchable
-                            value={this.props.user.country}
+                            value={this.props.user.Country}
                           />
                         </div>
                         <div class="form-group">
                           <label for="email">User Job</label>
                           <Select
                             onChange={so =>
-                              this.props.handleSelectInputChange(so, 'job')
+                              this.props.handleSelectInputChange(so, 'Job')
                             }
                             options={this.props.jobs}
                             isSearchable
-                            value={this.props.user.job}
+                            value={this.props.user.Job}
                           />
                         </div>
                         <div class="form-group">
@@ -216,10 +200,10 @@ class ProfileProInfo extends React.Component {
                           <Select
                             options={this.props.currencies}
                             onChange={so =>
-                              this.props.handleSelectInputChange(so, 'currency')
+                              this.props.handleSelectInputChange(so, 'Currency')
                             }
                             isSearchable
-                            value={this.props.user.currency}
+                            value={this.props.user.Currency}
                           />
                         </div>
 
@@ -228,9 +212,9 @@ class ProfileProInfo extends React.Component {
                           <Select
                             options={ROLES_ARRAY}
                             isSearchable
-                            value={this.props.user.role}
+                            value={this.props.user.Role}
                             onChange={so =>
-                              this.props.handleSelectInputChange(so, 'role')
+                              this.props.handleSelectInputChange(so, 'Role')
                             }
                           />
                         </div>
@@ -239,11 +223,11 @@ class ProfileProInfo extends React.Component {
                           <Select
                             options={USER_SUBCATEGORY_ARRAY}
                             isSearchable
-                            value={this.props.user.userSubCategory}
+                            value={this.props.user.UserSubCategory}
                             onChange={so =>
                               this.props.handleSelectInputChange(
                                 so,
-                                'userSubCategory',
+                                'UserSubCategory',
                               )
                             }
                           />
@@ -275,7 +259,34 @@ class ProfileProInfo extends React.Component {
             >
               <div class="card">
                 <h5 class="card-header">Orders</h5>
-                <div class="card-body" />
+                <div class="card-body">
+                  <div class="card-body">
+                    {this.props.user.Role.value == 4 ? (
+                      <CustomTable
+                        hasPagination={false}
+                        records={this.props.user.customerOrders}
+                        columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
+                        recordItemNames={
+                          CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
+                        }
+                        onRecordClick={this.onClaimClick}
+                      />
+                    ) : (
+                      <CustomTable
+                        // pageCount={this.props.pageCount}
+                        // currentPageNumber={2}
+                        hasPagination={false}
+                        records={this.props.user.publisherOrders}
+                        columnLabels={PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY}
+                        recordItemNames={
+                          PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
+                        }
+                        // handlePageChange={this.handlePageChange}
+                        onRecordClick={this.onClaimClick}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -287,7 +298,18 @@ class ProfileProInfo extends React.Component {
             >
               <div class="card">
                 <h5 class="card-header">Addresses</h5>
-                <div class="card-body" />
+                <div class="card-body">
+                  <CustomTable
+                    // pageCount={this.props.pageCount}
+                    // currentPageNumber={2}
+                    hasPagination={false}
+                    records={this.props.user.addresses}
+                    columnLabels={ADDRESS_TABLE_LABELS}
+                    recordItemNames={ADDRESS_RECORD_ITEMS}
+                    // handlePageChange={this.handlePageChange}
+                    onRecordClick={this.onClaimClick}
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -134,7 +134,7 @@ class AdvancedSearch extends React.Component {
                     <Select
                       value={this.props.searchFilter.countries}
                       onChange={so =>
-                        this.props.handleSelectChange(so, 'country')
+                        this.props.handleSelectChange(so, 'countries')
                       }
                       options={this.props.allCountries}
                       placeholder="Country ..."
@@ -147,12 +147,18 @@ class AdvancedSearch extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="col-xl-1 col-lg-1 col-md-2 col-sm-12">
-              <button className="btn btn-primary mt-5" type="button">
+          </div>
+          <div className="row">
+            <div className="offset-xl-3 col-xl-1 col-lg-2 col-md-4 col-sm-12">
+              <button
+                onClick={this.props.fetchProducts}
+                className="btn btn-primary mt-5"
+                type="button"
+              >
                 Search
               </button>
             </div>
-            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div className="col-xl-2 col-lg-3 col-md-5 col-sm-12">
               <button
                 className="btn btn-primary mt-5"
                 type="button"
@@ -164,8 +170,16 @@ class AdvancedSearch extends React.Component {
                 Advanced Search
               </button>
             </div>{' '}
+            <div className="col-xl-1 col-lg-1 col-md-4 col-sm-4">
+              <button
+                onClick={this.props.clearFilters}
+                className="btn btn-primary mt-5"
+                type="button"
+              >
+                Clear
+              </button>
+            </div>
           </div>
-
           <div
             className={this.props.searchClear ? 'collapse' : 'collapse show'}
             id="collapseExample"
@@ -175,7 +189,7 @@ class AdvancedSearch extends React.Component {
                 {/* <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 reactSelectLabel">
                     User Role :
                   </div> */}
-                <div className="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7">
+                <div className="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-7 mb-2">
                   <Select
                     value={this.props.searchFilter.productType}
                     onChange={so =>
@@ -291,7 +305,7 @@ class AdvancedSearch extends React.Component {
               <div className="row mt-5 pl-4" />
               <br />
 
-              <div className="row">
+              {/* <div className="row">
                 <div className="offset-xl-9 col-xl-1 col-lg-1 col-md-4 col-sm-4">
                   <a
                     onClick={this.props.fetchProducts}
@@ -300,15 +314,8 @@ class AdvancedSearch extends React.Component {
                     Search
                   </a>
                 </div>
-                <div className="col-xl-1 col-lg-1 col-md-4 col-sm-4">
-                  <a
-                    onClick={this.props.clearFilters}
-                    className="btn btn-outline-success"
-                  >
-                    Clear
-                  </a>
-                </div>
-              </div>
+               
+              </div> */}
             </div>
           </div>
         </div>

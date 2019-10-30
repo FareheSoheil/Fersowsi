@@ -45,9 +45,6 @@ class CustomTabel extends React.Component {
     return color;
   }
   render() {
-    console.log('this.props.records : ', this.props.records);
-    console.log('label : ', this.props.columnLabels);
-    console.log('items : ', this.props.recordItemNames);
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th className="border-0">{label}</th>
     ));

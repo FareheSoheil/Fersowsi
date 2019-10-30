@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import s from './ProductDetailsContainer.css';
+import zeroTrimmer from '../../../../zeroTrimmer';
 import {
   PRODUCT_TYPES,
   PRODUCT_TYPE_ARRAY,
@@ -292,7 +293,7 @@ class ProductDetailsLeftContainer extends React.Component {
                       name="discount"
                       type="text"
                       className="form-control form-control-sm"
-                      value={parseFloat(this.props.product.discount)}
+                      value={zeroTrimmer(this.props.product.discount)}
                       onChange={e => this.onChangeInput(e, 'num')}
                     />
                   </div>
@@ -303,21 +304,11 @@ class ProductDetailsLeftContainer extends React.Component {
                       name="tax"
                       type="text"
                       className="form-control form-control-sm"
-                      value={parseFloat(this.props.product.tax)}
+                      value={zeroTrimmer(this.props.product.tax)}
                       onChange={e => this.onChangeInput(e, 'num')}
                     />
                   </div>
-                  <div className="form-group">
-                    <label className="mb-0">ISSN</label>
-                    <br />
-                    <input
-                      name="issn"
-                      type="text"
-                      className="form-control form-control-sm"
-                      value={this.props.product.issn}
-                      onChange={e => this.onChangeInput(e, 'num')}
-                    />
-                  </div>
+
                   <div className="form-group">
                     <label>Dewey</label>
                     <br />
@@ -347,7 +338,7 @@ class ProductDetailsLeftContainer extends React.Component {
                       name="weight"
                       type="text"
                       className="form-control form-control-sm"
-                      value={parseFloat(this.props.product.weight)}
+                      value={zeroTrimmer(this.props.product.weight)}
                       onChange={e => this.onChangeInput(e, 'num')}
                     />
                   </div>

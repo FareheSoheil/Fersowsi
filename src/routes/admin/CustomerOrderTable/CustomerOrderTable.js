@@ -94,7 +94,7 @@ class CustomerOrderTable extends React.Component {
       response => {
         that.setState({
           currentCustomerOrders: response.currentRecords,
-          totalPageNum: response.totalPageNumber,
+          totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
         });
@@ -207,7 +207,7 @@ class CustomerOrderTable extends React.Component {
                     </div>
                     <br />
                     <CustomTable
-                      pageCount={20}
+                      pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentCustomerOrders}
                       columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
