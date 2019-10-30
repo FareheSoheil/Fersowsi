@@ -130,6 +130,7 @@ class Products extends React.Component {
           allProductContentTypes: response.ProductContentTypes,
           allLanguages: response.Languages,
           allAgeGroups: response.AgeGroups,
+          allCountries: response.Countries,
           isLoading: false,
         });
       },
@@ -301,6 +302,7 @@ class Products extends React.Component {
                 allProductContentTypes={this.state.allProductContentTypes}
                 allLanguages={this.state.allLanguages}
                 allAgeGroups={this.state.allAgeGroups}
+                allCountries={this.state.allCountries}
                 handleSelectChange={this.handleSelectChange}
                 handleInputChange={this.handleInputChange}
                 handleClearSearch={this.clearFilters}

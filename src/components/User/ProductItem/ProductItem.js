@@ -158,6 +158,18 @@ class ProductItem extends React.Component {
                 </div>
               </div>
               <div className={`${s.select} row`}>
+                {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
+                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
+                    <label> Institutional Price : </label>
+                    {/* <span> */}
+
+                    {/* </span> */}
+                  </div>
+                ) : (
+                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
+                    <label>Private Price :</label>
+                  </div>
+                )}
                 <div className="col-xl-7 col-lg-6 col-md-8 col-sm-12 mb-2">
                   <Select
                     isDisabled={this.props.isDisabled}
@@ -170,15 +182,14 @@ class ProductItem extends React.Component {
                   />
                 </div>
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Institutional Price <br />
+                  <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
+                    {' '}
                     <span>
                       {zeroTrimmer(this.state.selectedPrice.privatePrice)}
                     </span>
                   </div>
                 ) : (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Private Price <br />
+                  <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
                       {zeroTrimmer(this.state.selectedPrice.instPrice)}
                     </span>

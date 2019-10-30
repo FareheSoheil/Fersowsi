@@ -74,7 +74,6 @@ class ProfileProInfo extends React.Component {
   }
   componentDidMount() {}
   render() {
-    console.log('props : ', this.props);
     return (
       <div class="col-xl-7 col-lg-8 col-md-6 col-sm-12 col-12">
         <div class="influence-profile-content pills-regular">
@@ -93,7 +92,7 @@ class ProfileProInfo extends React.Component {
                 aria-controls="pills-info"
                 aria-selected="false"
               >
-                Additional Information
+                Details
               </a>
             </li>
             <li class="nav-item ">
@@ -107,6 +106,34 @@ class ProfileProInfo extends React.Component {
                 aria-selected="false"
               >
                 Claims
+              </a>
+            </li>
+            {/* ddddddddd */}
+            <li class="nav-item ">
+              <a
+                class="nav-link "
+                id="pills-orders-tab"
+                data-toggle="pill"
+                href="#pills-orders"
+                role="tab"
+                aria-controls="pills-orders"
+                aria-selected="false"
+              >
+                Orders
+              </a>
+            </li>
+            {/* ddddddddd */}
+            <li class="nav-item ">
+              <a
+                class="nav-link "
+                id="pills-addresses-tab"
+                data-toggle="pill"
+                href="#pills-addresses"
+                role="tab"
+                aria-controls="pills-addresses"
+                aria-selected="false"
+              >
+                Addresses
               </a>
             </li>
           </ul>
@@ -149,6 +176,20 @@ class ProfileProInfo extends React.Component {
                         } offset-xl-3 col-xl-6 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-12 p-4`}
                       >
                         <div class="form-group">
+                          <label for="email">User Activition Status</label>
+                          <Select
+                            options={USER_ACTIVITION_STATUS_ARRAY}
+                            isSearchable
+                            onChange={so =>
+                              this.props.handleSelectInputChange(
+                                so,
+                                'UserActivitionStatus',
+                              )
+                            }
+                            value={this.props.user.userActivitionStatus}
+                          />
+                        </div>
+                        <div class="form-group">
                           <label for="name">User Country</label>
                           <Select
                             onChange={so =>
@@ -179,20 +220,6 @@ class ProfileProInfo extends React.Component {
                             }
                             isSearchable
                             value={this.props.user.currency}
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="email">User Activition Status</label>
-                          <Select
-                            options={USER_ACTIVITION_STATUS_ARRAY}
-                            isSearchable
-                            onChange={so =>
-                              this.props.handleSelectInputChange(
-                                so,
-                                'userActivitionStatus',
-                              )
-                            }
-                            value={this.props.user.userActivitionStatus}
                           />
                         </div>
 
@@ -236,6 +263,31 @@ class ProfileProInfo extends React.Component {
                     </div>
                   </form>
                 </div>
+              </div>
+            </div>
+
+            {/* dddddddddddddd */}
+            <div
+              class="tab-pane  fade active"
+              id="pills-orders"
+              role="tabpanel"
+              aria-labelledby="pills-orders-tab"
+            >
+              <div class="card">
+                <h5 class="card-header">Orders</h5>
+                <div class="card-body" />
+              </div>
+            </div>
+
+            <div
+              class="tab-pane  fade active"
+              id="pills-addresses"
+              role="tabpanel"
+              aria-labelledby="pills-addresses-tab"
+            >
+              <div class="card">
+                <h5 class="card-header">Addresses</h5>
+                <div class="card-body" />
               </div>
             </div>
           </div>

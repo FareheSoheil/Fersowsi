@@ -130,9 +130,7 @@ button {
     opacity: 1;
 }
 @media only screen and (max-width: 600px) {
-    .container {
-        height:600px;
-    }
+
     .imgContainer{
         width: 100%
     }
@@ -152,10 +150,33 @@ button {
 }
 .count label {
     color: black;
+    margin-right: 30px;
 }
 .count input {
-    width: 50px;
+    width: 80px;
     border: 1px solid lightgray;
-    border-radius: 4px;
+    border-radius: 2px;
     padding: 6px;
+}
+.details label {
+    color: black;
+}
+.select {
+    padding-left: 13px;
+}
+.priceSpan {
+    color: red;
+    font-size: 22px;
+
+}
+.select label {
+    padding-top: 6px;
+    color: black;
+}
+.price {
+    padding-left: 13px;
+}
+.price label {
+    padding-top: 6px;
+    color: black;
 }

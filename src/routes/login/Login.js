@@ -77,7 +77,6 @@ class Login extends React.Component {
             const expires = new Date();
             const now = new Date();
             expires.setDate(now.getDate() + COOKIE_EXPIRATION);
-            window.alert(data.TokenId);
 
             cookie.save('role', data.role.value, {
               path: '/',
@@ -92,7 +91,7 @@ class Login extends React.Component {
               expires,
             });
             localStorage.setItem('TokenId', data.TokenId);
-            if (data.role.value === 4) history.push('/user/');
+            if (data.role.value === 4) history.push('/user/myAccount');
             else history.push('/admin/');
           });
         } else {

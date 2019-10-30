@@ -36,12 +36,14 @@ class Header extends React.Component {
     fetchWithTimeOut(
       removeStateURL,
       logoutOptions,
-      () => {
+      response => {
         cookie.remove('TokenId', { path: '/' });
         cookie.remove('role', { path: '/' });
         history.push('/login');
       },
-      () => {},
+      error => {
+        console.log('error fetchWithTimeOut: ', error);
+      },
     );
   }
 
@@ -77,7 +79,7 @@ class Header extends React.Component {
                   aria-expanded="false"
                 >
                   <img
-                    src="/assets/images/avatar-1.jpg"
+                    src="/assets/images/blank_avatar.png"
                     alt=""
                     className="user-avatar-md rounded-circle"
                   />

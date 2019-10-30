@@ -16,6 +16,7 @@ import Spinner from '../../../components/Admin/Spinner';
 import PageHeader from '../../../components/Admin/PageHeader';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import s from './ProfileDetail.css';
+import { USER_ACTIVITION_STATUS_ARRAY } from '../../../constants/constantData';
 import { SERVER, AVATAR } from '../../../constants';
 
 class ProfileDetail extends React.Component {
@@ -30,7 +31,7 @@ class ProfileDetail extends React.Component {
       isLoading: true,
       id: this.props.context.params.id,
       user: {
-        id: 2,
+        id: '',
 
         firstName: '',
         lastName: '',
@@ -57,7 +58,7 @@ class ProfileDetail extends React.Component {
         country: {},
         currency: {},
         userSubCategory: {},
-        userActivitionStatus: {},
+        UserActivitionStatus: '',
         siteLanguage: {},
         job: {},
       },
@@ -206,18 +207,19 @@ class ProfileDetail extends React.Component {
                         : this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
-                  userStatus={this.state.user.userActivitionStatus}
+                  userStatus={this.state.user.UserActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
                   handleDateInputChange={this.handleDateChange}
                 />
                 {/* Campaing data */}
                 <ProfileProInfo
+                  isForAdd={false}
                   user={{
                     role: this.state.user.role,
                     country: this.state.user.country,
                     currency: this.state.user.currency,
                     userSubCategory: this.state.user.userSubCategory,
-                    userActivitionStatus: this.state.user.userActivitionStatus,
+                    userActivitionStatus: this.state.user.UserActivitionStatus,
                     // siteLanguage: this.state.user.siteLanguage,
                     job: this.state.user.job,
                     homepage: this.state.user.homepage,

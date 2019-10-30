@@ -31,12 +31,13 @@ import { InitializeSQLite, readTokenIdFromDB } from './sqliteManager';
 import stateController from './stateController';
 import { ROLES } from './constants';
 
-const statePat = new RegExp('/state/');
+const statePat = new RegExp('/state/*');
 const forgetPat = new RegExp('/forget');
 const registerPat = new RegExp('/register');
 const loginPat = new RegExp('/login');
 const userPaths = new RegExp('/user/*');
 const newPassPat = new RegExp('/newpass');
+const homePat = new RegExp('^/$');
 
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
@@ -70,51 +71,87 @@ app.use('/state', stateController);
 app.all('*', Authorize);
 
 InitializeSQLite();
-
+function otherPathResolver(path) {
+  if (
+    loginPat.test(path) ||
+    forgetPat.test(path) ||
+    newPassPat.test(path) ||
+    registerPat.test(path)
+  )
+    return 1;
+  return 0;
+}
 async function Authorize(req, res, next) {
   if (statePat.test(req.path) && req.method === 'POST') {
+    console.log('in state ', req.path);
     return next();
   }
-  // any where else than main pages
-  if (
-    loginPat.test(req.path) ||
-    forgetPat.test(req.path) ||
-    newPassPat.test(req.path) ||
-    registerPat.test(req.path)
-  ) {
-    if (req.cookies.TokenId === undefined) {
-      // console.log('###### coockie undefined ######');
+
+  // not logged in
+  if (req.cookies.TokenId === undefined) {
+    console.log('in not logged in');
+    // ----------------------------if other pages than main
+    if (otherPathResolver(req.path)) {
+      //  => allowed to go
       return next();
-    } else if (req.cookies.role === ROLES.customer.value) res.redirect('/user');
-    else res.redirect('/admin');
-  } else if (req.cookies.TokenId === undefined) {
-    // main pages of the app
+    }
     if ('/' === req.path) {
       return next();
     } else res.redirect('/');
+    // else {
+    //   // if logged in
+    //   // customer goes to userside
+    //   if (req.cookies.role === ROLES.customer.value)
+    //     res.redirect('/user/myAccount');
+    //   else
+    //     // others go to admin
+    //     res.redirect('/admin');
+    // }
   } else if (req.cookies.TokenId !== undefined) {
+    // logged in
+    // logged in but not valid
+    console.log('in logged in');
     const fetchedState = await readTokenIdFromDB(req.cookies.TokenId);
     if (fetchedState === undefined) {
+      console.log('in state not defined');
       res.clearCookie('TokenId');
       res.redirect('/login');
+      // logged in but valid
     } else {
-      console.log(
-        '*****************authorize***************',
-        req.cookies.role == ROLES.customer.value,
-        '%%%%%%%%%%%%%%%%%%%%%%%%%%',
-        !userPaths.test(req.path),
-      );
-      if (
-        req.cookies.role == ROLES.customer.value &&
-        !userPaths.test(req.path)
-      ) {
-        res.redirect('/user');
-      } else if (
-        req.cookies.role != ROLES.customer.value &&
-        userPaths.test(req.path)
-      )
-        res.redirect('/admin');
-      else return next();
+      // -------------------------------------if other pages
+      if (otherPathResolver(req.path)) {
+        console.log('in not allowed pages');
+        //  => not allowed to go
+        if (req.cookies.role == ROLES.customer.value) {
+          res.redirect('/user/myAccount');
+        } else res.redirect('/admin');
+        // --------------------------------if any where else than main pages
+      } else {
+        if (
+          req.cookies.role == ROLES.customer.value &&
+          !userPaths.test(req.path)
+        ) {
+          console.log('in user wants admin pages');
+          res.redirect('/user/myAccount');
+        } else if (req.cookies.role != ROLES.customer.value) {
+          if (userPaths.test(req.path) || homePat.test(req.path)) {
+            console.log(
+              'in admin wants user pages',
+              userPaths.test(req.path),
+              homePat.test(req.path),
+              req.path,
+            );
+            res.redirect('/admin');
+          } else {
+            console.log(
+              'in admin wants this',
+
+              req.path,
+            );
+            return next();
+          }
+        }
+      }
     }
   }
 }
@@ -163,13 +200,12 @@ app.get('*', async (req, res, next) => {
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
-    console.log('store : ', store.getState());
-    store.dispatch(
-      setRuntimeVariable({
-        name: 'initialNow',
-        value: Date.now(),
-      }),
-    );
+    // store.dispatch(
+    //   setRuntimeVariable({
+    //     name: 'initialNow',
+    //     value: Date.now(),
+    //   }),
+    // );
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
@@ -270,280 +306,4 @@ if (module.hot) {
   module.hot.accept('./router');
 }
 
-// Server mimic controllers :
-app.post('/login', (req, res, next) => {
-  console.log('###### in login controller######', req.body.username);
-
-  const user = req.body.username;
-  const data = {
-    TokenId: 'inAlakieAzizam',
-    role: 'Admin',
-    name: 'فارهه',
-    lastName: 'سهیل',
-  };
-
-  res.send(data);
-});
-let comments = [
-  {
-    id: 'Product1',
-    senderUserName: 'id22222',
-    receiverUserName: 'farehe1',
-    repliedMSGId: '3000',
-    msgStatus: 'sd',
-    status: 'pending',
-  },
-  {
-    id: 'Product2',
-    senderUserName: 'id22222',
-    receiverUserName: 'farehe2',
-    repliedMsgId: '300tt',
-    msgStatus: 'ef',
-    status: 'rej',
-  },
-  {
-    id: 'Product3',
-    senderUserName: 'id22222',
-    receiverUserName: 'farehe3',
-    repliedMSGId: '7ujfh65',
-    msgStatus: 'e',
-    status: 'acc',
-  },
-];
-app.post('/getComments', (req, res, next) => {
-  console.log('--------------------- in getComments controller--------------');
-  const role = req.cookies;
-  if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
-  else {
-    let data = {};
-    const filter = req.body.searchBy;
-    // console.log('^^^^^^^^^^^^^^^^^^ search By^^^^^^^^^ : ', filter);
-    const pn = req.body.pageNumber;
-    data = {
-      currentRecords: comments,
-      totalPageNumber: 20,
-    };
-    res.send(data);
-  }
-});
-app.post('/modifyComments', (req, res, next) => {
-  console
-    .log
-    // '--------------------- in modifyComments controller--------------',
-    ();
-  const role = req.cookies;
-  if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
-  else {
-    let data = {};
-    const id = req.body.productId;
-    const status = req.body.status;
-    comments[0].status = status;
-    data = {
-      currentRecords: comments,
-      totalPageNumber: 20,
-    };
-    res.send(data);
-  }
-});
-let Users = [
-  {
-    id: 'Product1',
-    profilePic: '/assets/images/card-img-1.jpg',
-    firstName: 'id22222',
-    lastName: 'farehe1',
-    username: '3000',
-    email: 'sd',
-  },
-  {
-    firstName: 'id22222',
-    id: 'Product2',
-    profilePic: '/assets/images/card-img-1.jpg',
-
-    lastName: 'farehe1',
-    username: '3000',
-    email: 'sd',
-  },
-  {
-    profilePic: '/assets/images/card-img-1.jpg',
-    firstName: 'id22222',
-    lastName: 'farehe1',
-    username: '3000',
-    email: 'sd',
-    id: 'Product3',
-  },
-];
-let publisherOrders = [
-  {
-    id: 22011,
-    count: 1,
-    startDate: '2011-01-01 00:00:00',
-    endDate: '2011-12-31 00:00:00',
-    deliveryType: { value: 2, label: 'Air Mail' },
-    publisherPrice: 600.0,
-    totalCost: 476.0,
-    customerPrice: 600.0,
-    tax: 0.0,
-    discount: 0.0,
-    cancelPrice: 0.0,
-    paymentImage: '',
-    publicationNote: '',
-    paymentNote: '',
-    createdAt: '2011-03-01 12:17:40',
-    updatedAt: '2019-10-16 01:56:52',
-    status: { value: 1, label: 'Wait For Admin Response ' },
-    paymentStatus: { value: 1, label: 'Fully Paid ' },
-    customerOrderId: 10001,
-    productId: 6004,
-    productPeriod: { value: 1, label: 'Daily' },
-    productionSubscription: { value: 3, label: '6-Monthly' },
-    currency: { value: 5, label: 'Euro' },
-    address: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' },
-    deliveryCost: 539.0,
-  },
-  {
-    id: 22012,
-    count: 3, //
-    startDate: '2011-01-01 00:00:00',
-    endDate: '2011-12-31 00:00:00',
-    deliveryType: { value: 2, label: 'Air Mail' },
-    publisherPrice: 600.0, //
-    totalCost: 476.0, //
-    customerPrice: 600.0, //
-    tax: 0.0, //
-    discount: 0.0, //
-    cancelPrice: 0.0, //
-    paymentImage: 'http://45.89.139.182:3004/2jk7Vgg.jpg',
-    publicationNote: 'heu ',
-    paymentNote: 'and it cut me like a knife when you walked out of my life',
-    createdAt: '2011-03-01 12:17:40',
-    updatedAt: '2019-10-16 01:56:52',
-    status: { value: 1, label: 'Wait For Admin Response ' },
-    paymentStatus: { value: 2, label: 'half Paid ' },
-    customerOrderId: 10001, //
-    productId: 6004,
-    productPeriod: { value: 1, label: 'Daily' },
-    productionSubscription: { value: 3, label: '6-Monthly' },
-    currency: { value: 5, label: 'Euro' },
-    address: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' },
-    deliveryCost: 539.0, //
-  },
-];
-let customerOrders = [
-  {
-    id: 22011,
-    vatNo: 600.0, //
-    totalPrice: 476.0, //
-    totalTaxCost: 20.0, //
-    totalCost: 554.25,
-    discount: 0.0, //
-    cancelPrice: 0.0, //
-    description: '', //
-    createdAt: '2011-03-01 12:17:40', //
-    updatedAt: '2019-10-16 01:56:52', //
-    status: { value: 1, label: 'Wait For Admin Response ' }, //
-    userOrderNo: 10001, //
-    customerId: 6004, //
-    currency: { value: 5, label: 'Euro' }, //
-    deliveryAddress: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' }, //
-    totalDeliveryCost: 539.0, //
-    publisherOrders: publisherOrders,
-  },
-  {
-    id: 22031,
-    vatNo: 6300.0, //
-    totalPrice: 476.0, //
-    totalTaxCost: 32.0, //
-    totalDeliveryCost: 539.0, //
-    totalCost: 554.25,
-    discount: 30.0, //
-    cancelPrice: 0.0, //
-    description: '', //
-    createdAt: '2011-03-01 12:17:40', //
-    updatedAt: '2019-10-16 01:56:52', //
-    status: { value: 1, label: 'Wait For Admin Response ' }, //
-    userOrderNo: 10001, //
-    customerId: 60044, //
-    currency: { value: 5, label: 'dollsr' }, //
-    deliveryAddress: { value: 2662, label: 'alkjsdhaskjdnasdjkasndasjdlasnd' }, //
-    publisherOrders: publisherOrders,
-  },
-];
-app.post('/addToWishList', (req, res, next) => {
-  const data = {
-    currentRecords: 'comments',
-    totalPageNumber: 20,
-  };
-  res.send(data);
-});
-app.post('/getAllPublisherOrders', (req, res, next) => {
-  console.log(
-    '--------------------- in req getAllPublisherOrders--------------',
-    req.headers,
-  );
-
-  const data = {
-    currentRecords: publisherOrders,
-    totalPageNumber: 1204,
-  };
-  res.send(data);
-});
-app.post('/getAllCustomerOrders', (req, res, next) => {
-  console.log(
-    '--------------------- in req getAllCustomerOrders--------------',
-    req.headers,
-  );
-
-  const data = {
-    currentRecords: customerOrders,
-    totalPageNumber: 104,
-  };
-  res.send(data);
-});
-app.post('/getPublisherOrder', (req, res, next) => {
-  console.log(
-    '--------------------- in req getPublisherOrder --------------',
-    req.headers,
-  );
-  let publisherOrder;
-  const id = req.body.publisherOrderId;
-  if (id == 22011) publisherOrder = publisherOrders[0];
-  else publisherOrder = publisherOrders[1];
-  const data = {
-    publisherOrder: publisherOrder,
-  };
-  res.send(data);
-});
-app.post('/getCustomerOrder', (req, res, next) => {
-  console.log(
-    '--------------------- in req getPublisherOrder --------------',
-    req.headers,
-  );
-  let customerOrder;
-  const id = req.body.customerOrderId;
-  if (id == 22011) customerOrder = customerOrders[0];
-  else customerOrder = customerOrders[1];
-  const data = {
-    customerOrder: customerOrder,
-  };
-  res.send(data);
-});
-app.post('/getUsers', (req, res, next) => {
-  console.log(
-    // '--------------------- in req headres--------------',
-    req.headers,
-  );
-  const role = req.cookies;
-  if (role === ROLES.cusomer || role === ROLES.publisher) res.redirect('/');
-  else {
-    let data = {};
-    const filter = req.body.searchBy;
-    console.log('^^^^^^^^^^^^^^^^^^ search By^^^^^^^^^ : ', filter);
-    const pn = req.body.pageNumber;
-    data = {
-      currentRecords: Users,
-      totalPageNumber: 20,
-    };
-    res.send(data);
-  }
-});
 export default app;

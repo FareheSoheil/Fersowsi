@@ -47,9 +47,7 @@ class ProfileInfo extends React.Component {
     this.uploadImage = this.uploadImage.bind(this);
     this.handleUploadedImage = this.handleUploadedImage.bind(this);
   }
-  componentDidMount() {
-    window.alert(JSON.stringify(this.props.userStatus));
-  }
+
   uploadImage() {
     document.getElementById('fileInput').click();
   }
@@ -78,12 +76,11 @@ class ProfileInfo extends React.Component {
           <div className={`${s.avatarContainer} card-body`}>
             <div
               className={
-                this.props.userStatus.value ===
-                USER_ACTIVITION_STATUS.ACTIVE.value
+                this.props.userStatus.value === USER_ACTIVITION_STATUS.ACTIVE
                   ? `${s.activeUser} 
                   user-avatar text-center d-block`
                   : this.props.userStatus.value ===
-                    USER_ACTIVITION_STATUS.DEACTIVE.value
+                    USER_ACTIVITION_STATUS.DEACTIVE
                     ? `${s.deactiveUser} 
                     user-avatar text-center d-block`
                     : `${s.pendingUser} 

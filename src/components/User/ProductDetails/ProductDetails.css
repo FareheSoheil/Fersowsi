@@ -32,6 +32,15 @@
 .select span {
     color: red;
 }
+.select span {
+    color: red;
+    font-size: 18px;
+    padding-top: 3px;
+}
+.select label {
+    padding-top: 6px;
+    color: black;
+}
 .details , .SingleType {
     /* font-weight:  */
     color: rgb(87, 84, 84);
@@ -71,14 +80,17 @@
     font-size: 30px;
     color: lightgray;
     padding-left: 5px;
-    padding-top: 60px;
+    /* padding-top: 80px; */
     height: 100%;
+    line-height: 300px;
 
 }
 .wishContainer i {
     /* border: 1px solid rgb(207, 204, 204); */
     border-radius: 5px;
     padding: 6px;
+    vertical-align: center;
+    font-size: 40px;
     /* background-color: rgb(207, 204, 204); */
 }
 .wishContainer i:hover {

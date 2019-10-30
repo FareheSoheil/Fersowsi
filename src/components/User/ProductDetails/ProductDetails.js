@@ -4,10 +4,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
 import cookie from 'react-cookies';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import history from '../../../history';
 import zeroTrimmer from '../../../zeroTrimmer';
-import Spinner from '../Spinner';
-import { SSRSERVER } from '../../../constants';
-import { USER_SUBCATEGORY } from '../../../constants/constantData';
+import { USER_SUBCATEGORY, SERVER } from '../../../constants/constantData';
 import s from './ProductDetails.css';
 class ProductDetails extends React.Component {
   static propTypes = {
@@ -16,7 +15,6 @@ class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // isLoading: true,
       selectedPrice: '',
     };
     this.onPriceChange = this.onPriceChange.bind(this);
@@ -28,34 +26,37 @@ class ProductDetails extends React.Component {
     });
   }
   addToWishList() {
-    const url = `${SSRSERVER}/addToWishList`;
-    this.setState({
-      isLoading: true,
-    });
-    const credential = {
-      productId: this.props.product.id,
-    };
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(credential),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const that = this;
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        that.setState({
-          selectedPrice: '',
-          isLoading: false,
-        });
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    if (this.state.selectedPrice === '') window.alert('please choose a price');
+    else {
+      const url = `${SERVER}/addToBasket`;
+      this.setState({
+        isLoading: true,
+      });
+      const credential = {
+        productId: this.props.product.id,
+        productPriceAndCostId: this.state.selectedPrice.value,
+      };
+      window.alert(JSON.stringify(credential));
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(credential),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const that = this;
+      fetchWithTimeOut(
+        url,
+        options,
+        response => {
+          window.alert('added successfully');
+          history.push('/user/products');
+        },
+        error => {
+          console.log(error);
+        },
+      );
+    }
   }
 
   render() {
@@ -180,6 +181,15 @@ class ProductDetails extends React.Component {
                 </div>
               </div>
               <div className={`${s.select} row`}>
+                {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
+                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
+                    <label> Institutional Price </label>
+                  </div>
+                ) : (
+                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
+                    <label>Private Price</label>
+                  </div>
+                )}
                 <div className="col-xl-5 col-lg-6 col-md-8 col-sm-12">
                   <Select
                     options={manPrices}
@@ -188,15 +198,13 @@ class ProductDetails extends React.Component {
                   />
                 </div>
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Institutional Price <br />
+                  <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
                       {zeroTrimmer(this.state.selectedPrice.privatePrice)}
                     </span>
                   </div>
                 ) : (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Private Price <br />
+                  <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
                       {zeroTrimmer(this.state.selectedPrice.instPrice)}
                     </span>

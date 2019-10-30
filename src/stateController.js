@@ -29,6 +29,7 @@ async function updateState(data) {
 }
 async function removeState(id) {
   let result = '';
+  console.log('in remove state : ', id);
   try {
     const db = await dbPromise;
     await Promise.all([db.run(deleteQuery, id)]);
@@ -52,12 +53,11 @@ router.post('/setState', async (req, res, next) => {
 });
 router.post('/getState', async (req, res, next) => {
   let result = '';
+
   try {
     const db = await dbPromise;
     const state = await Promise.all([db.get(selectQuery, req.body.idToken)]);
     if (state[0] === undefined) {
-      window.alert('no state found');
-      console.log('no state found');
       result = {
         status: 'error',
         payload: 'IdToken Not Valid',
@@ -78,7 +78,9 @@ router.post('/getState', async (req, res, next) => {
 });
 router.post('/removeState', async (req, res, next) => {
   const pk = req.body.tokenId;
+
   const result = await removeState(pk);
+  console.log('in get State : ', result);
   res.send(result);
 });
 // ==================== ENDING OF CONTROLLERS  ==============================

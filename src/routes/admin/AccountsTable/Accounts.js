@@ -198,7 +198,7 @@ class Accounts extends React.Component {
                     <hr />
 
                     <CustomTable
-                      pageCount={20}
+                      pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentAccounts}
                       columnLabels={ACCOUNTS_COLUMNS_LABELS_ARRAY}

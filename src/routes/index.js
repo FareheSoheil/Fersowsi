@@ -254,11 +254,11 @@ const routes = {
     {
       path: '/user',
       children: [
-        {
-          path: '',
-          load: () =>
-            import(/* webpackChunkName: 'userHome' */ './user/userHome'),
-        },
+        // {
+        //   path: '',
+        //   load: () =>
+        //     import(/* webpackChunkName: 'userHome' */ './user/userHome'),
+        // },
         {
           path: '/products',
           children: [

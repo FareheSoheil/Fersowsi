@@ -14,7 +14,10 @@ import ProfileInfo from '../../../components/Profile/ProfileInfo';
 import ProfileProInfo from '../../../components/Profile/ProfileProInfo';
 import Spinner from '../../../components/Admin/Spinner';
 import s from './AddUser.css';
-import { SERVER } from '../../../constants';
+import PageHeader from '../../../components/Admin/PageHeader';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import { SERVER, AVATAR } from '../../../constants';
+import { USER_ACTIVITION_STATUS_ARRAY } from '../../../constants/constantData';
 class AddUser extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -22,7 +25,7 @@ class AddUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       user: {
         firstName: '',
         lastName: '',
@@ -34,23 +37,22 @@ class AddUser extends React.Component {
         homepage: '',
         VatId: '',
         email: '',
-        dateOfBirth: '',
+        dateOfBirth: new Date(),
         psn: '',
         discount: '',
-        emailConfirmed: '',
-        profilePic: '/assets/images/blank_avatar.png',
+        emailConfirmed: true,
+        profilePic: AVATAR,
         bio: '',
         claims: '',
         createdAt: '',
         updatedAt: '',
 
-        role: '',
-        country: '',
-        currency: '',
-        subCategory: '',
-        activitionStatus: '',
-        siteLanguage: '',
-        job: '',
+        role: {},
+        country: {},
+        currency: {},
+        userSubCategory: {},
+        UserActivitionStatus: USER_ACTIVITION_STATUS_ARRAY[0],
+        siteLanguage: {},
       },
 
       countries: '',
@@ -61,8 +63,11 @@ class AddUser extends React.Component {
     this.onChangeInput = this.onChangeInput.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.fetchAllInfo = this.fetchAllInfo.bind(this);
   }
-
+  componentDidMount() {
+    this.fetchAllInfo();
+  }
   fetchUser() {
     const url = fetchURL;
     this.setState({
@@ -94,17 +99,12 @@ class AddUser extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAuxInfoForAll`;
     this.setState({
       isLoading: true,
     });
-    const credentials = {
-      // searchBy: this.state.productsSearchFilter,
-      // pageNumber: this.state.currentPageNumber,
-    };
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -115,10 +115,11 @@ class AddUser extends React.Component {
       options,
       response => {
         that.setState({
-          countries: response.countries,
-          siteLanguage: response.siteLanguage,
-          jobs: response.jobs,
-          currencies: response.currencies,
+          countries: response.Country,
+          siteLanguages: response.SiteLanguage,
+          jobs: response.Job,
+          currencies: response.Currency,
+          isLoading: false,
         });
       },
       error => {
@@ -174,7 +175,7 @@ class AddUser extends React.Component {
       },
     );
   }
-  componentDidMount() {}
+
   render() {
     return (
       <div class="influence-profile">
@@ -183,37 +184,20 @@ class AddUser extends React.Component {
             <Spinner />
           ) : (
             <div>
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <div class="page-header">
-                    <h3 class="mb-2">User Details </h3>
-                    <div class="page-breadcrumb">
-                      <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item">
-                            <a href="/admin/accounts" class="breadcrumb-link">
-                              Accounts
-                            </a>
-                          </li>
-                          <li
-                            class="breadcrumb-item active"
-                            aria-current="page"
-                          >
-                            Add User
-                          </li>
-                        </ol>
-                      </nav>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              <PageHeader
+                title="Add New User"
+                breadCrumbs={[
+                  { label: 'Accounts', link: '/admin/accounts/all' },
+                  { label: 'Add New User' },
+                ]}
+              />
               <div className="row">
                 <ProfileInfo
                   user={{
                     firstName: this.state.user.firstName,
                     lastName: this.state.user.lastName,
                     username: this.state.user.username,
+
                     contractName: this.state.user.contractName,
                     phoneNumber: this.state.user.phoneNumber,
                     mobileNumber: this.state.user.mobileNumber,
@@ -228,6 +212,7 @@ class AddUser extends React.Component {
                     profilePic: this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
+                  userStatus={this.state.user.UserActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
                   handleDateInputChange={this.handleDateChange}
                 />

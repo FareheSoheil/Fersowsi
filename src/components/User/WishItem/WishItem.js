@@ -37,18 +37,19 @@ class WishItem extends React.Component {
     this.fetchAddresses();
     this.setState({
       selectedPrice: {
-        value: this.props.wish.selectedProductPriceAndCost[0].id,
+        value: this.props.wish.product.selectedProductPriceAndCost[0].id,
         label: `${
-          this.props.wish.selectedProductPriceAndCost[0].zoneName
+          this.props.wish.product.selectedProductPriceAndCost[0].zoneName
         } with ${
-          this.props.wish.selectedProductPriceAndCost[0].deliveryTypeName
+          this.props.wish.product.selectedProductPriceAndCost[0]
+            .deliveryTypeName
         } ${
-          this.props.wish.selectedProductPriceAndCost[0]
+          this.props.wish.product.selectedProductPriceAndCost[0]
             .ProductSubscriptionTypeName
         }`,
-        instPrice: this.props.wish.selectedProductPriceAndCost[0]
+        instPrice: this.props.wish.product.selectedProductPriceAndCost[0]
           .institutionalCustomerPrice,
-        privatePrice: this.props.wish.selectedProductPriceAndCost[0]
+        privatePrice: this.props.wish.product.selectedProductPriceAndCost[0]
           .privateCustomerPrice,
       },
     });
@@ -118,12 +119,12 @@ class WishItem extends React.Component {
     );
   }
   gotoProductDetails() {
-    history.push(`/user/products/${this.props.wish.id}`);
+    history.push(`/user/products/${this.props.wish.product.id}`);
   }
   render() {
-    // console.log('WishS : ', this.props.wish);
-    let prices = this.props.wish.productPriceAndCost;
-    let categories = this.props.wish.contentCategory;
+    // console.log('WishS : ', this.props.wish.product.;
+    let prices = this.props.wish.product.productPriceAndCost;
+    let categories = this.props.wish.product.contentCategory;
     let manCategories = '';
     let manPrices = [];
 
@@ -165,51 +166,45 @@ class WishItem extends React.Component {
                   onClick={this.gotoProductDetails}
                   // width="180"
                   // height="200"
-                  src={this.props.wish.coverImage}
+                  src={this.props.wish.product.coverImage}
                 />
               </div>
             </div>
             <div className="col-xl-7 col-lg-9 col-md-12">
               <div className={`${s.title} row`}>
                 <div className="col-12">
-                  <u>{this.props.wish.originalTitle}</u>
+                  <u>{this.props.wish.product.originalTitle}</u>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-12">
-                  {this.props.wish.productLanguage.label} &nbsp; | &nbsp;{' '}
-                  {manCategories}
+                  {this.props.wish.product.productLanguage.label} &nbsp; |
+                  &nbsp; {manCategories}
                 </div>
               </div>
               <div className="row">
                 <div className="col-10">
                   <div className={s.categories}>
                     <label>Periodical :</label>
-                    {this.props.wish.productPeriod.label}
+                    {this.props.wish.product.productPeriod.label}
                   </div>
                 </div>
               </div>
               <div className="row">
                 <div className="col-10">
                   <div className={s.categories}>
-                    <label>ISSN :</label> {this.props.wish.issn}
+                    <label>ISSN :</label> {this.props.wish.product.issn}
                   </div>
                 </div>
               </div>
 
-              <div className="row">
-                <div className="col-10">
-                  <div className={s.categories}>
-                    <label>Price :</label> {this.props.wish.privatePrice}
-                  </div>
-                </div>
-              </div>
               <div className="row mb-3">
                 <div className="col-7">
                   <div className={s.count}>
                     <label>Count :</label>{' '}
                     <input
+                      min="1"
                       name="count"
                       type="number"
                       value={this.state.count}
@@ -221,36 +216,59 @@ class WishItem extends React.Component {
                 </div>
               </div>
               <div className="row mb-3">
-                <div className="col-xl-7">
-                  <label>Start Date : </label>{' '}
-                  <DatePicker
-                    name="startDate"
-                    selected={
-                      this.state.startDate !== ''
-                        ? new Date(this.state.startDate)
-                        : new Date()
-                    }
-                    onChange={date => this.handleDateChange(date, 'startDate')}
-                  />{' '}
+                <div className="col-xl-10">
+                  <div className={s.details}>
+                    <label>Start Date : &nbsp;</label>{' '}
+                    <DatePicker
+                      name="startDate"
+                      selected={
+                        this.state.startDate !== ''
+                          ? new Date(this.state.startDate)
+                          : ''
+                      }
+                      onChange={date =>
+                        this.handleDateChange(date, 'startDate')
+                      }
+                    />{' '}
+                  </div>
                 </div>
               </div>
               <div className="row mb-3">
-                <div className="col-xl-7">
-                  <label>End Date : </label>{' '}
-                  <DatePicker
-                    name="endDate"
-                    selected={
-                      this.state.endDate !== ''
-                        ? new Date(this.state.endDate)
-                        : new Date()
-                    }
-                    onChange={date => this.handleDateChange(date, 'endDate')}
-                  />{' '}
+                <div className="col-xl-10">
+                  <div className={s.details}>
+                    <label>End Date : &nbsp;&nbsp; </label>{' '}
+                    <DatePicker
+                      name="endDate"
+                      selected={
+                        this.state.endDate !== ''
+                          ? new Date(this.state.endDate)
+                          : ''
+                      }
+                      onChange={date => this.handleDateChange(date, 'endDate')}
+                    />{' '}
+                  </div>
                 </div>
               </div>
-
-              <div className={`${s.select} row`}>
-                <div className="col-xl-7 col-lg-6 col-md-8 col-sm-12 mb-2">
+              <div className={` row mb-2 ${s.select}`}>
+                <label>Address : &nbsp;&nbsp;</label>
+                <div className="col-xl-9 col-lg-6 col-md-8 col-sm-12">
+                  <Select
+                    options={this.state.allAddresses}
+                    value={this.state.selectedAddress}
+                    onClick={e => e.stopPropagation()}
+                    onChange={so => {
+                      this.onSelectChange(so, 'selectedAddress');
+                    }}
+                  />
+                </div>
+              </div>
+              <div className={`${s.price} row mb-2 mt-3`}>
+                {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
+                  <label>Institutional Price : </label>
+                ) : (
+                  <label>Private Price : </label>
+                )}
+                <div className="col-xl-8 col-lg-6 col-md-8 col-sm-12 mb-2">
                   <Select
                     isDisabled={this.props.isDisabled}
                     options={manPrices}
@@ -262,53 +280,29 @@ class WishItem extends React.Component {
                   />
                 </div>
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Institutional Price <br />
-                    <span>
-                      {zeroTrimmer(this.state.selectedPrice.privatePrice)}
-                    </span>
-                  </div>
+                  // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <span className={s.priceSpan}>
+                    {`= ${zeroTrimmer(this.state.selectedPrice.privatePrice)}`}
+                  </span>
                 ) : (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Private Price <br />
-                    <span>
-                      {zeroTrimmer(this.state.selectedPrice.instPrice)}
-                    </span>
-                  </div>
+                  // </div>
+                  // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+
+                  <span className={s.priceSpan}>
+                    {`= ${zeroTrimmer(this.state.selectedPrice.instPrice)}`}
+                  </span>
+                  // </div>
                 )}
               </div>
-              <div className={`${s.select} row`}>
-                <div className="col-xl-10 col-lg-6 col-md-8 col-sm-12 mb-2">
-                  <Select
-                    options={this.state.allAddresses}
-                    value={this.state.selectedAddress}
-                    onClick={e => e.stopPropagation()}
-                    onChange={so => {
-                      this.onSelectChange(so, 'selectedAddress');
-                    }}
-                  />
-                </div>
-                {/* {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Institutional Price <br />
-                    <span>
-                      {zeroTrimmer(this.state.selectedPrice.privatePrice)}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
-                    Private Price <br />
-                    <span>
-                      {zeroTrimmer(this.state.selectedPrice.instPrice)}
-                    </span>
-                  </div>
-                )} */}
-              </div>
 
-              <div className="row">
-                <div className="col-12">
+              <div className={`row mb-2 ${s.select}`}>
+                <label>description: </label>
+                <div className="col-10">
                   <div className={s.description}>
-                    <textarea value={this.props.wish.originalDesc} rows="7" />
+                    <textarea
+                      value={this.props.wish.product.originalDesc}
+                      rows="7"
+                    />
                   </div>
                 </div>
               </div>
@@ -320,7 +314,7 @@ class WishItem extends React.Component {
                   <div className={s.deleteBtnContainer}>
                     <button
                       onClick={() =>
-                        this.props.handleOnDelete(this.props.wish.id)
+                        this.props.handleOnDelete(this.props.wish.basketId)
                       }
                     >
                       Delete
@@ -334,8 +328,8 @@ class WishItem extends React.Component {
                     <button
                       className={this.props.isWished ? s.isWished : s.notWished}
                       onClick={() =>
-                        this.props.handleWighItemSelect(
-                          this.props.wish.id,
+                        this.props.handleWishItemSelect(
+                          this.props.wish.basketId,
                           this.props.index,
                         )
                       }

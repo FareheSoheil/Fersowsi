@@ -28,8 +28,8 @@ class AdminHome extends React.Component {
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        This is Admin homepage {I18n.t('application.title')}
-        <button onClick={this.changeLang}>change the language</button>
+        {/* This is Admin homepage {I18n.t('application.title')}
+        <button onClick={this.changeLang}>change the language</button> */}
       </div>
     );
   }

@@ -45,6 +45,7 @@ class CustomTabel extends React.Component {
     return color;
   }
   render() {
+    console.log('this.props.records : ', this.props.records);
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th className="border-0">{label}</th>
     ));
@@ -65,7 +66,9 @@ class CustomTabel extends React.Component {
           <td>{i + 1}</td>
           {this.props.recordItemNames.map(
             label =>
-              label === 'profilePic' || label === 'coverImage' ? (
+              record[label].constructor === {}.constructor ? (
+                <td>{zeroTrimmer(record[label].label)}</td>
+              ) : label === 'profilePic' || label === 'coverImage' ? (
                 <td>
                   <img
                     className={
@@ -76,8 +79,6 @@ class CustomTabel extends React.Component {
                     height="60"
                   />
                 </td>
-              ) : label === 'status' || label === 'publisher' ? (
-                <td>{zeroTrimmer(record[label].label)}</td>
               ) : record[label] === true ? (
                 <td>
                   <i style={{ color: 'green' }} class="fas fa-check" />

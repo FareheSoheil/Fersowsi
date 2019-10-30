@@ -1,9 +1,10 @@
 .container {
     margin-top:3px;
+    padding-bottom: 8px;
     margin-bottom:3px;
     border: 1px solid lightgray;
     border-radius: 8px;
-    height: 280px;
+    min-height: 280px;
     padding: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -43,6 +44,13 @@
 }
 .select span {
     color: red;
+    font-size: 18px;
+    padding-top: 5px;
+
+}
+.select label {
+    padding-top: 6px;
+    color: black;
 }
 .categories {
     /* font-weight:  */
