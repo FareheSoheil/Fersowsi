@@ -46,6 +46,8 @@ class CustomTabel extends React.Component {
   }
   render() {
     console.log('this.props.records : ', this.props.records);
+    console.log('label : ', this.props.columnLabels);
+    console.log('items : ', this.props.recordItemNames);
     const tableHeaders = this.props.columnLabels.map((label, i) => (
       <th className="border-0">{label}</th>
     ));
@@ -66,6 +68,8 @@ class CustomTabel extends React.Component {
           <td>{i + 1}</td>
           {this.props.recordItemNames.map(
             label =>
+              // <td>{typeof record[label]}</td>,
+              record[label] != null &&
               record[label].constructor === {}.constructor ? (
                 <td>{zeroTrimmer(record[label].label)}</td>
               ) : label === 'profilePic' || label === 'coverImage' ? (
