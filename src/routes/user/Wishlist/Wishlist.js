@@ -158,7 +158,7 @@ class Wishlist extends React.Component {
         const credentials = {
           publisherOrders: wishes,
         };
-        console.log('wishes : ', wishes);
+        // console.log('wishes : ', wishes);
         const options = {
           method: 'POST',
           body: JSON.stringify(credentials),
@@ -174,7 +174,6 @@ class Wishlist extends React.Component {
           response => {
             if (response.error === undefined) {
               window.alert(response.message);
-              let newWish = that.state.currentWishes;
               that.deleteAfterCheckout();
             } else {
               toastr.error(response.error.title, response.error.description);
