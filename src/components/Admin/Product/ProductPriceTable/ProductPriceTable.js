@@ -72,33 +72,25 @@ class ProductPriceTable extends React.Component {
     // window.alert(e.target.name);
     // window.alert(e.target.value);
     // window.alert(index);
-    // window.alert(this.isNumber(e.target.value));
+    // window.alert(this.isNumber(e.target.value)); applyRatios && this.isNumber(value)
     let newCost = { ...this.state.newCost };
     const value = e.target.value;
     const state = e.target.name;
 
     if (index < 0) {
-      if (state == 'publisherPrice' && this.isNumber(value)) {
-        window.alert(state == 'publisherPrice' && this.isNumber(value));
-        if (this.props.privateRatio == '' || this.props.instRatio == '')
-          if (
-            parseFloat(this.props.instRatio) +
-              parseFloat(this.props.privateRatio) <
-            100
-          ) {
-            window.alert('please fill the ratio inputs with currect values');
-          } else {
-            window.alert(JSON.stringify(newCost));
-
-            newCost.privateCustomerPrice =
-              this.props.privateRatio * (100 + parseFloat(value)) / 100;
-            newCost.institutionalCustomerPrice =
-              this.props.instRatio * (100 + parseFloat(value)) / 100;
-            newCost[state] = value;
-            this.setState({ newCost }, () => {
-              window.alert(JSON.stringify(newCost));
-            });
-          }
+      if (state == 'publisherPrice') {
+        if (this.props.privateRatio != '')
+          newCost.privateCustomerPrice =
+            (100 + parseFloat(this.props.privateRatio)) *
+            parseFloat(value) /
+            100;
+        if (this.props.instRatio != '')
+          newCost.institutionalCustomerPrice =
+            (100 + parseFloat(this.props.instRatio)) * parseFloat(value) / 100;
+        newCost.publisherPrice = parseFloat(value);
+        this.setState({ newCost }, () => {
+          // window.alert(JSON.stringify(newCost));
+        });
       } else if (state !== 'publisherPrice') {
         newCost[state] = value;
         this.setState({ newCost });

@@ -516,18 +516,19 @@ class PublisherOrderDetail extends React.Component {
                               <div className="col-xl-6 col-lg-6 col-md-6">
                                 <div className="row">
                                   <div className="col-xl-12">
-                                    <label>Product Period </label>
+                                    <label>Product Subscription </label>
                                     <br />
                                     <Select
-                                      name="productPeriod"
-                                      options={this.state.allPeriods}
+                                      name="productionSubscription"
+                                      options={this.state.allSubscriptions}
                                       value={
-                                        this.state.publisherOrder.productPeriod
+                                        this.state.publisherOrder
+                                          .productionSubscription
                                       }
                                       onChange={so =>
                                         this.handleSelectChange(
                                           so,
-                                          'productPeriod',
+                                          'productionSubscription',
                                         )
                                       }
                                     />
@@ -552,28 +553,6 @@ class PublisherOrderDetail extends React.Component {
                                   </div>
                                 </div>
                                 <br />
-                              </div>
-                              <div className="col-xl-6 col-lg-6 col-md-6">
-                                <div className="row">
-                                  <div className="col-xl-12">
-                                    <label>Product Subscription </label>
-                                    <br />
-                                    <Select
-                                      name="productionSubscription"
-                                      options={this.state.allSubscriptions}
-                                      value={
-                                        this.state.publisherOrder
-                                          .productionSubscription
-                                      }
-                                      onChange={so =>
-                                        this.handleSelectChange(
-                                          so,
-                                          'productionSubscription',
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                </div>
                               </div>
                             </div>
                             <div className="row mt-2">

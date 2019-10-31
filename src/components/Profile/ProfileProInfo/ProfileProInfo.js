@@ -252,7 +252,7 @@ class ProfileProInfo extends React.Component {
 
             {/* dddddddddddddd */}
             <div
-              class="tab-pane  fade active"
+              class="tab-pane fade "
               id="pills-orders"
               role="tabpanel"
               aria-labelledby="pills-orders-tab"
@@ -291,7 +291,7 @@ class ProfileProInfo extends React.Component {
             </div>
 
             <div
-              class="tab-pane  fade active"
+              class="tab-pane fade "
               id="pills-addresses"
               role="tabpanel"
               aria-labelledby="pills-addresses-tab"

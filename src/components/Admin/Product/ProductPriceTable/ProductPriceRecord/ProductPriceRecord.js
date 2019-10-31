@@ -88,7 +88,7 @@ class ProductPriceRecord extends React.Component {
             <div className="form-group">
               <input
                 name="publisherPrice"
-                type="number"
+                type="text"
                 className="form-control form-control-sm "
                 value={this.props.cost.publisherPrice}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
@@ -104,7 +104,7 @@ class ProductPriceRecord extends React.Component {
                 name="institutionalCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                disabled
+                // disabled
                 value={this.props.cost.institutionalCustomerPrice}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
@@ -120,7 +120,7 @@ class ProductPriceRecord extends React.Component {
                 type="text"
                 className="form-control form-control-sm "
                 value={this.props.cost.privateCustomerPrice}
-                disabled
+                // disabled
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>

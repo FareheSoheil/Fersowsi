@@ -210,7 +210,7 @@ class ProfileDetail extends React.Component {
   }
   // componentDidMount() {}
   render() {
-    // console.log('history : ', history);
+    console.log('publisherRRRr :  : ', this.state.user);
     return (
       <div class="influence-profile">
         <div class="container-fluid dashboard-content ">
@@ -312,6 +312,7 @@ class ProfileDetail extends React.Component {
                     addresses: this.state.user.addresses,
 
                     customerOrders: this.state.user.customerOrders,
+                    publisherOrders: this.state.user.publisherOrders,
                     handleSimpleInputChange: this.onChangeInput,
                     handleDateInputChange: this.handleDateChange,
                   }}

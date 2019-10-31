@@ -85,11 +85,12 @@ class ProductDetail extends React.Component {
           label: 'Air Mail',
         },
       ],
-      allSunbscriptions: [
+      allSubscriptions: [
         { value: 1, label: 'six-monthly' },
         { value: 2, label: 'yearly' },
         { value: 3, label: 'two-weekly' },
       ],
+      applyRatios: true,
       allProducts: '',
     };
     this.fetchProduct = this.fetchProduct.bind(this);
@@ -105,6 +106,7 @@ class ProductDetail extends React.Component {
     this.onPriceInputChange = this.onPriceInputChange.bind(this);
     this.onPriceSelectChange = this.onPriceSelectChange.bind(this);
     this.onAddPrice = this.onAddPrice.bind(this);
+    this.applyRatios = this.applyRatios.bind(this);
     this.onDeletePrice = this.onDeletePrice.bind(this);
     // translation handlers
     this.onTranslationInputChange = this.onTranslationInputChange.bind(this);
@@ -119,10 +121,15 @@ class ProductDetail extends React.Component {
     this.fetchAllInfo();
     this.fetchProduct();
   }
-
+  applyRatios() {
+    const pre = this.state.applyRatios;
+    this.setState({
+      applyRatios: !pre,
+    });
+  }
   isNumber(string) {
     if (/^[0-9]+$/.test(string) || /^\\s+$/.test(string)) return true;
-    else return false;
+    else return true;
   }
 
   fetchProduct() {
@@ -181,6 +188,7 @@ class ProductDetail extends React.Component {
           allAgeGroups: response.AgeGroups,
           allPeriods: response.Periods,
           allProducts: response.products,
+          allSubscriptions: response.productSubscriptions,
           isLoading: false,
         });
       },
@@ -219,7 +227,7 @@ class ProductDetail extends React.Component {
     let state = { ...this.state };
 
     if (attr === 'privateRatio' || attr === 'instRatio') {
-      if (this.isNumber(value)) this.setState({ [attr]: value });
+      if (this.isNumber(value) || value == '') this.setState({ [attr]: value });
     } else {
       state = { ...this.state.product };
       state[attr] = value;
@@ -591,7 +599,19 @@ class ProductDetail extends React.Component {
                             </div>
                             <span>%</span>
                           </div>
+                          {/* <div className="row mt-2 mb-3 pl-4">
+                            <button
+                              onClick={this.applyRatios}
+                              className="btn btn-success"
+                            >
+                              {' '}
+                              {this.state.applyRatios
+                                ? 'Do not Apply Ratios on New Publisher Price'
+                                : 'Apply Ratios on New Publisher Price'}{' '}
+                            </button>
+                          </div> */}
                           <ProductPriceTable
+                            applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
                             instRatio={this.state.instRatio}
                             productId={this.state.product.id}
@@ -599,7 +619,7 @@ class ProductDetail extends React.Component {
                             zoneOptions={this.state.allZones}
                             periodOptions={this.state.allPeriods}
                             deliveryOptions={this.state.allDeliveries}
-                            subscriptionOptions={this.state.allSunbscriptions}
+                            subscriptionOptions={this.state.allSubscriptions}
                             onPriceInputChange={this.onPriceInputChange}
                             onPriceSelectChange={this.onPriceSelectChange}
                             onAddPrice={this.onAddPrice}

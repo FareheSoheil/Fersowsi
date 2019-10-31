@@ -1,42 +1,67 @@
 import React from 'react';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './AddPublisherOrder.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PageHeader from '../../../components/Admin/PageHeader';
+import Spinner from '../../../components/Admin/Spinner';
 import {
   PAYMENT_STATUS_ARRAY,
   CUSTOMER_ORDER_STATUS_ARRAY,
 } from '../../../constants/constantData';
-import { SERVER } from '../../../constants';
+import { SERVER, SSRSERVER } from '../../../constants';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import history from '../../../history';
+import s from './AddPublisherOrder.css';
 class AddPublisherOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
+      id: this.props.context.params.id,
       publisherOrder: {
-        count: '',
-        availableCount: '',
+        id: 22012,
+        count: 3,
+        startDate: '',
+        endDate: '',
+        deliveryType: {},
+        status: {},
+        paymentStatus: {},
+        productPeriod: {},
+        productionSubscription: {},
+        currency: {},
+        address: {},
+        totalCost: '',
+        deliveryCost: '',
+        customerPrice: '',
         cancelPrice: '',
-        totalPrice: '',
-        seenByPublisherThisStatusChange: '',
-        seenByAdminThisStatusChange: '',
-        paymentvalueByPublisher: '',
+        publisherPrice: '',
+        tax: '',
+        discount: '',
+        paymentImage: '',
+        publicationNote: '',
+        paymentNote: '',
+        createdAt: '',
+        updatedAt: '',
         customerOrderId: '',
         productId: '',
-        paymentToPublisherByAdminStatus: '',
       },
-      allproductContentTypes: '',
-      allPublishers: '',
-      allLanguages: '',
-      allAgeGroups: '',
-      allAddresses: '',
+      allPeriods: '', //
+      allAddresses: '', //
+      allSubscriptions: '',
+      allDeliveryTypes: '', //
+      allCurrencies: '', //
     };
-    this.AddPublisherOrder = this.AddPublisherOrder.bind(this);
+    // this.fetchpublisherOrder = this.fetchpublisherOrder.bind(this);
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.gotoCustomerOrder = this.gotoCustomerOrder.bind(this);
+    this.gotoProduct = this.gotoProduct.bind(this);
+
+    this.AddPublisherOrder = this.AddPublisherOrder.bind(this);
   }
   AddPublisherOrder() {
     const url = fetchURL;
@@ -68,18 +93,44 @@ class AddPublisherOrder extends React.Component {
       },
     );
   }
+  gotoProduct(id) {
+    history.push(`/admin/products/${this.state.publisherOrder.productId}`);
+  }
+  gotoCustomerOrder() {
+    history.push(
+      `/admin/customerOrder/${this.state.publisherOrder.customerOrderId}`,
+    );
+  }
+  uploadImage() {
+    let inp = document.getElementById('imageUploader');
+    if (inp.files && inp.files[0]) {
+      var reader = new FileReader();
+      const that = this;
+      reader.onload = function(e) {
+        let img = document.getElementById('imgHolder');
+        img.src = e.target.result;
+        let publisherOrder = { ...that.state.publisherOrder };
+        publisherOrder.paymentImage = e.target.result;
+        that.setState({
+          publisherOrder: publisherOrder,
+        });
+      };
+
+      reader.readAsDataURL(inp.files[0]);
+    }
+  }
+  componentDidMount() {
+    this.fetchAllInfo();
+  }
+
   fetchAllInfo() {
-    const url = `${SERVER}/getAllInfo`;
+    const url = `${SERVER}/getAllAuxInfoForOnePulisherOrder`;
     this.setState({
       isLoading: true,
     });
-    const credentials = {
-      // searchBy: this.state.productsSearchFilter,
-      // pageNumber: this.state.currentPageNumber,
-    };
+
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -89,11 +140,14 @@ class AddPublisherOrder extends React.Component {
       url,
       options,
       response => {
+        // const  thatThat = that;\
         that.setState({
-          allproductContentTypes: response.allproductContentTypes,
-          allPublishers: response.publishers,
-          allLanguages: response.languages,
-          allAgeGroups: response.ageGroups,
+          allPeriods: response.ProductPeriod,
+          allCurrencies: response.Currency,
+          allSubscriptions: response.ProductSubscriptionType,
+          allDeliveryTypes: response.DeliveryType,
+          allAddresses: response.Address,
+          isLoading: false,
         });
       },
       error => {
@@ -132,97 +186,244 @@ class AddPublisherOrder extends React.Component {
   render() {
     return (
       <div className="dashboard-ecommerce">
-        <div className="container-fluid dashboard-content ">
-          <PageHeader
-            title="Publisher Order Details"
-            breadCrumbs={[
-              { link: '/admin/publisherOrder', label: 'Publisher Orders List' },
-              { link: '', label: 'Publisher Orders Detail' },
-            ]}
-          />
-          <div className="row">
-            <div className="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div className="row">
-                <div
-                  className={`col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30 ${
-                    s.AddPublisherOrderContainer
-                  }`}
-                >
-                  <div className="product-details">
-                    <div className="border-bottom pb-3 mb-3">
-                      <form className={s.orderSmallInfoContainer}>
-                        <div className="form-group">
-                          <div className="row">
-                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                              <label className="mb-0">
-                                Publisher Payment :{' '}
-                              </label>
-                              <input
-                                name="paymentvalueByPublisher"
-                                type="text"
-                                className="form-control form-control-sm numberInput"
-                                value={
-                                  this.state.publisherOrder
-                                    .paymentvalueByPublisher
-                                }
-                                onChange={this.onChangeInput}
-                              />
-                            </div>
-                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                              <label className="mb-0">
-                                Count :
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              </label>
-                              <input
-                                name="count"
-                                type="text"
-                                className="form-control form-control-sm numberInput"
-                                value={this.state.publisherOrder.count}
-                                onChange={this.onChangeInput}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <div className="row">
-                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                              <label className="mb-0">
-                                Available Count : &nbsp;&nbsp;&nbsp;&nbsp;
-                              </label>
-                              <input
-                                name="availableCount"
-                                type="text"
-                                className="form-control form-control-sm "
-                                value={this.state.publisherOrder.availableCount}
-                                onChange={this.onChangeInput}
-                              />
-                            </div>
-                            <div className="col-xl-5 col-lg-6 col-md-6 col-sm-12">
-                              <label className="mb-0">Cancle Price : </label>
-                              <input
-                                name="cancelPrice"
-                                type="text"
-                                className="form-control form-control-sm"
-                                value={this.state.publisherOrder.cancelPrice}
-                                onChange={this.onChangeInput}
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="form-group">
-                          <div className="row">
-                            <div className="col-xl-6">
-                              <div className="row">
-                                <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
-                                  <label>Start Date : </label>
+        {!this.state.isLoading ? (
+          <div className={` container-fluid dashboard-content`}>
+            <PageHeader
+              title="Publisher Order Details"
+              breadCrumbs={[
+                {
+                  link: '/admin/publisherOrder',
+                  label: 'Publisher Orders List',
+                },
+                { link: '', label: 'Publisher Orders Detail' },
+              ]}
+            />
+            <div className="row">
+              <div
+                className={`${
+                  s.container
+                }  offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12`}
+              >
+                <div className="row">
+                  <div
+                    className={`col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30 ${
+                      s.publisherOrderDetailContainer
+                    }`}
+                  >
+                    <div className="product-details">
+                      <div className="border-bottom pb-3 mb-3">
+                        <form className={s.orderSmallInfoContainer}>
+                          <div className="form-group">
+                            <div className="row">
+                              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div className="row ">
+                                  {' '}
+                                  <div className="col-12">
+                                    {' '}
+                                    <label className="mb-0">
+                                      Customer Price :{' '}
+                                    </label>
+                                    <input
+                                      name="customerPrice"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={
+                                        this.state.publisherOrder.customerPrice
+                                      }
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
                                 </div>
-                                &nbsp;&nbsp;&nbsp;
+
+                                <div className="row mt-3">
+                                  {' '}
+                                  <div className="col-12">
+                                    {' '}
+                                    <label className="mr-1">
+                                      Publisher Price :{' '}
+                                    </label>
+                                    <input
+                                      name="publisherPrice"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={
+                                        this.state.publisherOrder.publisherPrice
+                                      }
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="row mt-3">
+                                  {' '}
+                                  <div className="col-12">
+                                    {' '}
+                                    <label className="mr-2">
+                                      Cancel Price : &nbsp;&nbsp;
+                                    </label>
+                                    <input
+                                      name="cancelPrice"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={
+                                        this.state.publisherOrder.cancelPrice
+                                      }
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="row mt-3">
+                                  {' '}
+                                  <div className="col-12">
+                                    {' '}
+                                    <label className="mr-2">
+                                      Delivery Cost : &nbsp;
+                                    </label>
+                                    <input
+                                      name="deliveryCost"
+                                      type="text"
+                                      className="form-control form-control-sm"
+                                      value={
+                                        this.state.publisherOrder.deliveryCost
+                                      }
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="row mt-3">
+                                  {' '}
+                                  <div className="col-12">
+                                    {' '}
+                                    <label className="mr-4">
+                                      Total Cost :&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <input
+                                      name="totalCost"
+                                      type="text"
+                                      className="form-control form-control-sm"
+                                      value={
+                                        this.state.publisherOrder.totalCost
+                                      }
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div className="row">
+                                  <div className="col-12">
+                                    <label className="mb-0">
+                                      Customer Order Id : &nbsp;
+                                    </label>
+                                    <span
+                                      className={s.link}
+                                      onClick={this.gotoCustomerOrder}
+                                    >
+                                      {
+                                        this.state.publisherOrder
+                                          .customerOrderId
+                                      }{' '}
+                                    </span>
+                                    {/* <input
+                                      name="customerOrderId"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={
+                                        this.state.publisherOrder
+                                          .customerOrderId
+                                      }
+                                      onChange={this.onChangeInput}
+                                      disabled
+                                    /> */}
+                                  </div>
+                                </div>
+                                <div className="row mt-3">
+                                  <div className="col-12">
+                                    <label className="mr-5">
+                                      Product Id : &nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <span
+                                      className={s.link}
+                                      onClick={this.gotoProduct}
+                                    >
+                                      {this.state.publisherOrder.productId}
+                                    </span>
+                                    {/* <input
+                                      name="productId"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={
+                                        this.state.publisherOrder.productId
+                                      }
+                                      disabled
+                                    /> */}
+                                  </div>
+                                </div>
+                                <div className="row mt-3">
+                                  <div className="col-12">
+                                    <label className="mr-5">
+                                      Discount : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <input
+                                      name="discount"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={this.state.publisherOrder.discount}
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="row mt-3">
+                                  <div className="col-12">
+                                    <label className="mr-5">
+                                      Count :
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <input
+                                      name="count"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={this.state.publisherOrder.count}
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="row mt-3">
+                                  <div className="col-12">
+                                    <label className="mr-5">
+                                      Tax :
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <input
+                                      name="tax"
+                                      type="text"
+                                      className="form-control form-control-sm numberInput"
+                                      value={this.state.publisherOrder.tax}
+                                      onChange={this.onChangeInput}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="row mt-3">
+                            {' '}
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div className="row">
+                                <div className="col-xl-4 col-lg-5 col-md-5 col-sm-12 mr-2">
+                                  <label>Start Date </label>
+                                </div>
                                 <div className="col-xl-5 col-lg-5 col-md-5">
                                   <DatePicker
                                     name="startDate"
                                     selected={
-                                      this.state.publisherOrder.startDate
+                                      this.state.publisherOrder.startDate == ''
+                                        ? ''
+                                        : new Date(
+                                            this.state.publisherOrder.startDate,
+                                          )
                                     }
                                     onChange={date =>
                                       this.handleDateChange(date, 'startDate')
@@ -230,124 +431,231 @@ class AddPublisherOrder extends React.Component {
                                   />
                                 </div>
                               </div>
-                              <br />
+                            </div>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                               <div className="row">
-                                <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
-                                  <label>End date : </label>
+                                <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12 mr-2">
+                                  <label>End Date </label>
                                 </div>
-                                &nbsp;&nbsp;&nbsp;
                                 <div className="col-xl-5 col-lg-5 col-md-5">
                                   <DatePicker
                                     name="endDate"
-                                    selected={this.state.publisherOrder.endDate}
+                                    selected={
+                                      this.state.publisherOrder.endDate == ''
+                                        ? ''
+                                        : new Date(
+                                            this.state.publisherOrder.endDate,
+                                          )
+                                    }
                                     onChange={date =>
                                       this.handleDateChange(date, 'endDate')
                                     }
                                   />
                                 </div>
                               </div>
-                              <br />
-                              <div className="row">
-                                <div className="col-8">
-                                  <div class="custom-control custom-checkbox">
-                                    <input
-                                      type="checkbox"
-                                      onChange={e => this.onChangeInput(e)}
-                                      class="custom-control-input"
-                                      name="seenByPublisherThisStatusChange"
-                                      checked={
-                                        this.state.publisherOrder
-                                          .seenByPublisherThisStatusChange
+                            </div>
+                          </div>
+                          <br />
+                          <hr />
+                          <br />
+                          <div className="form-group">
+                            <div className="row mt-2">
+                              <div className="col-xl-6 col-lg-6 col-md-6">
+                                <div className="row">
+                                  <div className="col-xl-12">
+                                    <label>Payment Status </label>
+                                    <Select
+                                      name="paymentStatus"
+                                      options={PAYMENT_STATUS_ARRAY}
+                                      value={
+                                        this.state.publisherOrder.paymentStatus
                                       }
-                                      id="customerSeen"
+                                      onChange={so =>
+                                        this.handleSelectChange(
+                                          so,
+                                          'paymentStatus',
+                                        )
+                                      }
                                     />
-                                    <label
-                                      class="custom-control-label"
-                                      for="customerSeen"
-                                    >
-                                      Seen By Publisher
-                                    </label>
                                   </div>
                                 </div>
                               </div>
-                              <div className="row">
-                                <div className="col-8">
-                                  <div class="custom-control custom-checkbox">
-                                    <input
-                                      type="checkbox"
-                                      onChange={e => this.onChangeInput(e)}
-                                      class="custom-control-input"
-                                      name="seenByAdminThisStatusChange"
-                                      checked={
-                                        this.state.publisherOrder
-                                          .seenByAdminThisStatusChange
+                              <div className="col-6">
+                                <div className="row">
+                                  <div className="col-xl-12">
+                                    <label>Order Status </label>
+                                    <br />
+                                    <Select
+                                      name="starus"
+                                      options={CUSTOMER_ORDER_STATUS_ARRAY}
+                                      value={this.state.publisherOrder.status}
+                                      onChange={so =>
+                                        this.handleSelectChange(so, 'starus')
                                       }
-                                      id="adminSeen"
                                     />
-                                    <label
-                                      class="custom-control-label"
-                                      for="adminSeen"
-                                    >
-                                      Seen By Admin
-                                    </label>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="col-xl-6 col-lg-6 col-md-6">
-                              <div className="row">
-                                <div className="col-xl-12">
-                                  <label>Payment Status </label>
-                                  <Select
-                                    name="paymentToAdminByCustomerStatus"
-                                    options={PAYMENT_STATUS_ARRAY}
-                                    value={
-                                      this.state.publisherOrder
-                                        .paymentToAdminByCustomerStatus
-                                    }
-                                    onChange={so =>
-                                      this.handleSelectChange(
-                                        so,
-                                        'paymentToAdminByCustomerStatusId',
-                                      )
-                                    }
-                                  />
+                            <div className="row mt-4">
+                              <div className="col-xl-6 col-lg-6 col-md-6">
+                                <div className="row">
+                                  <div className="col-xl-12">
+                                    <label>Delivery Type</label>
+                                    <Select
+                                      name="deliveyType"
+                                      options={this.state.allDeliveryTypes}
+                                      value={
+                                        this.state.publisherOrder.deliveryType
+                                      }
+                                      onChange={so =>
+                                        this.handleSelectChange(
+                                          so,
+                                          'deliveyType',
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                                <br />
+                              </div>
+                              <div className="col-xl-6 col-lg-6 col-md-6">
+                                <div className="row">
+                                  <div className="col-xl-12">
+                                    <label>Product Subscription </label>
+                                    <br />
+                                    <Select
+                                      name="productionSubscription"
+                                      options={this.state.allSubscriptions}
+                                      value={
+                                        this.state.publisherOrder
+                                          .productionSubscription
+                                      }
+                                      onChange={so =>
+                                        this.handleSelectChange(
+                                          so,
+                                          'productionSubscription',
+                                        )
+                                      }
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                              <br />
-                              <div className="row">
+                            </div>
+
+                            <div className="row mt-2">
+                              <div className="col-xl-6 col-lg-6 col-md-6">
+                                <div className="row">
+                                  <div className="col-xl-12">
+                                    <label>Currency</label>
+                                    <Select
+                                      name="currency"
+                                      options={this.state.allCurrencies}
+                                      value={this.state.publisherOrder.currency}
+                                      onChange={so =>
+                                        this.handleSelectChange(so, 'currency')
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                                <br />
+                              </div>
+                            </div>
+                            <div className="row mt-2">
+                              <div className="col-xl-12 col-lg-12 col-md-12">
                                 <div className="col-xl-12">
-                                  <label>Order Status </label>
+                                  <label>Address </label>
                                   <br />
                                   <Select
-                                    name="orderStatus"
-                                    options={CUSTOMER_ORDER_STATUS_ARRAY}
-                                    value={
-                                      this.state.publisherOrder.orderStatus
-                                    }
+                                    name="address"
+                                    options={this.state.allAddresses}
+                                    value={this.state.publisherOrder.address}
                                     onChange={so =>
-                                      this.handleSelectChange(so, 'orderStatus')
+                                      this.handleSelectChange(so, 'address')
                                     }
                                   />
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="form-group" />
-                      </form>
-                    </div>
-                    <div className="row">
-                      <div className="col-3">
-                        <a className="btn btn-rounded btn-danger">
-                          Add Order &nbsp;&nbsp; <i className="fas fa-plus" />
-                        </a>
+                        </form>
                       </div>
-                      <div className="col-3">
-                        <a className="btn btn-rounded btn-success">
-                          {' '}
-                          <i className="far fa-edit" />&nbsp;&nbsp;Apply Changes
-                        </a>
+                      <label>
+                        Payment Photo <br />
+                      </label>
+                      <div className={`${s.imageContainer} row mb-3 mt-3`}>
+                        <div className="offset-xl-2 col-8">
+                          <img
+                            alt="No Payment Photo Uploaded"
+                            height="400"
+                            width="400"
+                            id="imgHolder"
+                            src={this.state.publisherOrder.paymentImage}
+                          />{' '}
+                        </div>
+                      </div>
+                      <div className="row mt-4 mb-4">
+                        {' '}
+                        <div className="offset-xl-3 col-2">
+                          <input
+                            type="file"
+                            id="imageUploader"
+                            className={s.imageUploader}
+                            onChange={() => this.uploadImage(this)}
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <div className="row">
+                          <div className="col-12">
+                            {' '}
+                            <label className="mb-2">
+                              Payment Note <br />
+                            </label>
+                            <textarea
+                              name="paymentNote"
+                              rows="4"
+                              cols="10"
+                              type="text"
+                              className="form-control form-control-sm numberInput"
+                              value={this.state.publisherOrder.paymentNote}
+                              onChange={this.onChangeInput}
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12">
+                            {' '}
+                            <label className="mb-2 mt-3">
+                              Publication Note <br />
+                            </label>
+                            <textarea
+                              name="publicationNote"
+                              rows="4"
+                              cols="10"
+                              type="text"
+                              className="form-control form-control-sm numberInput"
+                              value={this.state.publisherOrder.publicationNote}
+                              onChange={this.onChangeInput}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-3">
+                          <a className="btn btn-rounded btn-danger">
+                            <i className="fas fa-trash-alt" />&nbsp;&nbsp;Delete
+                            Order
+                          </a>
+                        </div>
+                        <div className="col-3">
+                          <a className="btn btn-rounded btn-success">
+                            {' '}
+                            <i className="far fa-edit" />&nbsp;&nbsp;Apply
+                            Changes
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -355,7 +663,9 @@ class AddPublisherOrder extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <Spinner />
+        )}
       </div>
     );
   }
