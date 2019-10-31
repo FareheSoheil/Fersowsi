@@ -20,7 +20,7 @@ const divNames = [
   'customerDiv',
   'publisherPartnerDiv',
 ];
-let categories = [{ label: 'Fancy' }];
+let categories = [];
 
 let links;
 class Header extends React.Component {
@@ -148,13 +148,17 @@ class Header extends React.Component {
           isFetched: true,
         });
       },
-      () => {},
+      () => {
+        window.alert(this.state.isFetched);
+      },
     );
   }
   render() {
     if (this.state.isFetched) {
-      if (categories.length == 1)
+      if (categories.length == 0) {
         categories = categories.concat(this.state.categories);
+      }
+
       // window.alert(categories.length);
       links = [];
       // categories.push();
