@@ -127,12 +127,14 @@ async function Authorize(req, res, next) {
         } else res.redirect('/admin');
         // --------------------------------if any where else than main pages
       } else {
-        if (
-          req.cookies.role == ROLES.customer.value &&
-          !userPaths.test(req.path)
-        ) {
-          console.log('in user wants admin pages');
-          res.redirect('/user/myAccount');
+        if (req.cookies.role == ROLES.customer.value) {
+          if (!userPaths.test(req.path)) {
+            console.log('in user wants admin pages');
+            res.redirect('/user/myAccount');
+          } else {
+            console.log('User wants user pages');
+            return next();
+          }
         } else if (req.cookies.role != ROLES.customer.value) {
           if (userPaths.test(req.path) || homePat.test(req.path)) {
             console.log(
