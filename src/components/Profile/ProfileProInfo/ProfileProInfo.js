@@ -25,6 +25,7 @@ import {
   PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
   ADDRESS_RECORD_ITEMS,
   ADDRESS_TABLE_LABELS,
+  ROLES,
 } from '../../../constants/constantData';
 import CustomTable from '../../CustomTabel';
 import s from './ProfileProInfo.css';
@@ -41,6 +42,12 @@ class ProfileProInfo extends React.Component {
     handleSelectInputChange: PropTypes.func.isRequired,
     handleSimpleInputChange: PropTypes.func.isRequired,
   };
+  constructor(props) {
+    super(props);
+    this.onOrderClick = this.onOrderClick.bind(this);
+    this.onClaimClick = this.onClaimClick.bind(this);
+    this.onAddressClick = this.onAddressClick.bind(this);
+  }
   onClaimClick(id, orderId) {
     history.push({
       pathname: `/admin/claims/claim`,
@@ -48,12 +55,17 @@ class ProfileProInfo extends React.Component {
       state: { ab: 'ab' },
     });
   }
-  onOrderClick(id, orderId) {
-    history.push({
-      pathname: `/admin/claims/claim`,
-      search: `id=${id}&orderId=${orderId}`,
-      state: { ab: 'ab' },
-    });
+  onOrderClick(id) {
+    let url;
+    if (this.props.user.Role.value == ROLES.customer.value) {
+      // url = ;window.alert('hie ');
+      history.push(`/admin/customerOrder/${id}`);
+    } else {
+      history.push(`/admin/publisherOrder/${id}`);
+    }
+  }
+  onAddressClick(id) {
+    history.push(`/admin/address/${id}`);
   }
   componentDidMount() {}
   render() {
@@ -269,7 +281,7 @@ class ProfileProInfo extends React.Component {
                         recordItemNames={
                           CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
                         }
-                        onRecordClick={this.onClaimClick}
+                        onRecordClick={this.onOrderClick}
                       />
                     ) : (
                       <CustomTable
@@ -282,7 +294,7 @@ class ProfileProInfo extends React.Component {
                           PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
                         }
                         // handlePageChange={this.handlePageChange}
-                        onRecordClick={this.onClaimClick}
+                        onRecordClick={this.onOrderClick}
                       />
                     )}
                   </div>
@@ -307,7 +319,7 @@ class ProfileProInfo extends React.Component {
                     columnLabels={ADDRESS_TABLE_LABELS}
                     recordItemNames={ADDRESS_RECORD_ITEMS}
                     // handlePageChange={this.handlePageChange}
-                    onRecordClick={this.onClaimClick}
+                    onRecordClick={this.onAddressClick}
                   />
                 </div>
               </div>
