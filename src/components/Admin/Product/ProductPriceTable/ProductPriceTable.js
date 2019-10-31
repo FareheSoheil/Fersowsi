@@ -129,6 +129,7 @@ class ProductPriceTable extends React.Component {
           zoneOptions={this.props.zoneOptions}
           deliveryOptions={this.props.deliveryOptions}
           periodOptions={this.props.periodOptions}
+          subscriptionOptions={this.props.subscriptionOptions}
           onSelectChange={this.onSelectChange}
           onInputChange={this.onInputChange}
           onDeletePrice={() => this.props.onDeletePrice(i)}

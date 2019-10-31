@@ -188,7 +188,7 @@ class ProductDetail extends React.Component {
           allAgeGroups: response.AgeGroups,
           allPeriods: response.Periods,
           allProducts: response.products,
-          allSubscriptions: response.productSubscriptions,
+          // allSubscriptions: response.productSubscriptions,
           isLoading: false,
         });
       },
