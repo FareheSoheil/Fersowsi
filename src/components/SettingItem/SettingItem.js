@@ -148,7 +148,9 @@ class SettingItem extends React.Component {
           ) : (
             <div className="offset-xl-1 col-xl-10 col-lg-12 col-md-6 col-sm-12 col-12">
               <div className="card">
-                <h4 className="card-header">{this.props.cardTitle}</h4>
+                <h4 className="card-header">
+                  {this.props.cardTitle} {this.state.totalPageNum}
+                </h4>
                 <div className="card-body p-0">
                   <div className="container-fluid">
                     <AddSettingItem
@@ -160,7 +162,7 @@ class SettingItem extends React.Component {
                         marginLeft: '70px',
                         width: '250px',
                       }}
-                      pageCount={this.state.totalPageNum}
+                      hasPagination={false}
                       currentPageNumber={this.state.pageIndex}
                       isLoading={this.state.isLoading}
                       title={this.props.title}

@@ -98,23 +98,35 @@ class EditableCustomTable extends React.Component {
         </div>
 
         {/* Pagination */}
-        <div className="row">
-          <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
-            <ReactPaginate
-              previousLabel="<"
-              nextLabel=">"
-              pageCount={this.props.pageCount}
-              pageRangeDisplayed={3}
-              onPageChange={this.props.handlePageChange}
-              containerClassName="paginate"
-              subContainerClassName="pages paginate"
-              activeClassName="active-page"
-              breakClassName="break-me"
-              initialPage={this.props.currentPageNumber}
-              disableInitialCallback
-            />
+        {this.props.hasPagination ? (
+          <div className="row">
+            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+              <ReactPaginate
+                previousLabel="<"
+                nextLabel=">"
+                pageCount={this.props.pageCount}
+                pageRangeDisplayed={3}
+                onPageChange={this.props.handlePageChange}
+                containerClassName="paginate"
+                subContainerClassName="pages paginate"
+                activeClassName="active-page"
+                breakClassName="break-me"
+                initialPage={this.props.currentPageNumber}
+                disableInitialCallback
+              />
+            </div>
+            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+              <button
+                className="btn btn-success"
+                onClick={this.props.applyChanges}
+              >
+                {' '}
+                Apply Changes
+              </button>
+            </div>
           </div>
-          <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+        ) : (
+          <div className="offset-xl-3 col-xl-5 col-lg-5 col-md-5 col-sm-12">
             <button
               className="btn btn-success"
               onClick={this.props.applyChanges}
@@ -123,7 +135,8 @@ class EditableCustomTable extends React.Component {
               Apply Changes
             </button>
           </div>
-        </div>
+        )}
+
         <br />
       </div>
     );

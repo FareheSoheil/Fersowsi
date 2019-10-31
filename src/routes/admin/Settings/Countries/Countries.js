@@ -253,6 +253,7 @@ class Countries extends React.Component {
                       applyChanges={this.applyChanges}
                       onInputChange={this.onInputChange}
                       title="Country"
+                      hasPagination={false}
                       pageCount={this.state.totalPageNum}
                       pageIndex={this.state.pageIndex}
                       records={this.state.currentCountries}
