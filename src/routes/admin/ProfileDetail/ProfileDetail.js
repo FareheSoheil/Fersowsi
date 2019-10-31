@@ -14,6 +14,7 @@ import ProfileInfo from '../../../components/Profile/ProfileInfo';
 import ProfileProInfo from '../../../components/Profile/ProfileProInfo';
 import Spinner from '../../../components/Admin/Spinner';
 import PageHeader from '../../../components/Admin/PageHeader';
+import { toastr } from 'react-redux-toastr';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import s from './ProfileDetail.css';
 import { USER_ACTIVITION_STATUS_ARRAY } from '../../../constants/constantData';
@@ -177,6 +178,8 @@ class ProfileDetail extends React.Component {
   }
   changeStatus(value) {
     let user = { ...this.state.user };
+    if (value) toastr.success('', 'User Email Confirmed');
+    else toastr.error('', 'User Email Disconfirmed');
     user.emailConfirmed = value;
     this.setState({ user: user });
   }

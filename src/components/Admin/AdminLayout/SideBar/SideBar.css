@@ -7,7 +7,7 @@
   margin-top: 5px;
 }
 .scroll {
-
+  font-size: .9em;
    /* background: red; */
   overflow-y: auto;
 }

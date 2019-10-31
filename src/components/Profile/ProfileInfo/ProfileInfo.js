@@ -126,7 +126,7 @@ class ProfileInfo extends React.Component {
             {/* </label> */}
             {/* <label className="custom-color-theme custom-control custom-radio custom-control-inline"> */}
             <div className="text-center">
-              <label>Email Confirmation : &nbsp;&nbsp;</label>
+              <label>Confirm User Email : &nbsp;&nbsp;</label>
               {this.props.user.emailConfirmed === true ? (
                 <i
                   style={{ color: 'red', fontSize: '20px' }}

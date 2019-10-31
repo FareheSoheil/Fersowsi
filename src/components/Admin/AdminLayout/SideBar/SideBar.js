@@ -125,6 +125,15 @@ class SideBar extends React.Component {
                     <i className="fa fa-comments" />Comments{' '}
                   </a>
                 </li>
+                {/* Comments item */}
+                <li className="nav-item ">
+                  <a
+                    className="nav-link"
+                    onClick={() => this.goTo('/admin/address')}
+                  >
+                    <i className="fa fa-comments" />Address{' '}
+                  </a>
+                </li>
 
                 {/* Product item */}
                 <li class="nav-item">
@@ -304,7 +313,7 @@ class SideBar extends React.Component {
                     data-target="#publisherOrder"
                     aria-controls="publisherOrder"
                   >
-                    <i className="fab fa-leanpub" /> Publisher Orders
+                    <i className="fab fa-leanpub" /> Orders For Publishers
                   </a>
                   <div
                     id="publisherOrder"
