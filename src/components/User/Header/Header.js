@@ -283,7 +283,9 @@ class Header extends React.Component {
                     </button>
                     <div id="userDropDown" class="userdropdown-content">
                       {cookie.load('TokenId') !== undefined ? (
-                        <a onClick={() => this.goTo('/user')}>My Account</a>
+                        <a onClick={() => this.goTo('/user/myAccount')}>
+                          My Account
+                        </a>
                       ) : (
                         ''
                       )}
@@ -309,9 +311,7 @@ class Header extends React.Component {
                     </div>
                   </div>
                   <i
-                    onClick={() => {
-                      window.alert('hi');
-                    }}
+                    onClick={() => {}}
                     class={`${s.searchBtn} fas fa-search`}
                   />
                 </div>

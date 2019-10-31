@@ -36,7 +36,6 @@ class ProductDetails extends React.Component {
         productId: this.props.product.id,
         productPriceAndCostId: this.state.selectedPrice.value,
       };
-      window.alert(JSON.stringify(credential));
       const options = {
         method: 'POST',
         body: JSON.stringify(credential),

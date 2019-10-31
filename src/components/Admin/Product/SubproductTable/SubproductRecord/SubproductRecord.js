@@ -24,7 +24,6 @@ class SubproductRecord extends React.Component {
     this.goTo = this.goTo.bind(this);
   }
   goTo() {
-    window.alert(this.props.subProduct.id);
     window.location.replace(`/admin/products/${this.props.subProduct.id}`);
     // history.push(`);
   }

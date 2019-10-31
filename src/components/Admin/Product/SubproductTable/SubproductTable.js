@@ -36,7 +36,6 @@ class SubproductTable extends React.Component {
   add() {
     let nt = { ...this.state.newSubproduct };
     if (Object.keys(nt).length) {
-      window.alert(JSON.stringify(nt));
       this.props.onAddSubproduct(nt);
       this.setState({
         newSubproduct: {},
