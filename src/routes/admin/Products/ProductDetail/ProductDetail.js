@@ -252,7 +252,7 @@ class ProductDetail extends React.Component {
       product.productPriceAndCost[index].deliveryTypeName = so.label;
       product.productPriceAndCost[index].deliveryTypeId = so.value;
     } else if (name == 'subscription') {
-      product.productPriceAndCost[index].productSubscriptionTypeName = so.label;
+      product.productPriceAndCost[index].ProductSubscriptionTypeName = so.label;
       product.productPriceAndCost[index].productSubscriptionTypeId = so.value;
     } else {
       product.productPriceAndCost[index].productPeriodName = so.label;

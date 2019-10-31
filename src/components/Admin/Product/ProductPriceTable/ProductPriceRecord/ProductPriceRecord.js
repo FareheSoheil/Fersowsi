@@ -37,6 +37,7 @@ class ProductPriceRecord extends React.Component {
     return true;
   }
   render() {
+    console.log('this.props.cost : ', this.props.cost);
     return (
       <tr className={this.props.hasAdd ? '' : s.greenBg}>
         <td>
@@ -73,7 +74,7 @@ class ProductPriceRecord extends React.Component {
             options={this.props.subscriptionOptions}
             value={{
               value: this.props.cost.productSubscriptionTypeId,
-              label: this.props.cost.productSubscriptionTypeName,
+              label: this.props.cost.ProductSubscriptionTypeName,
             }}
             className={this.props.isRelative ? s.dropDown : ''}
             onChange={so =>
