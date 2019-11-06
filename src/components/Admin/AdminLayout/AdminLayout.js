@@ -37,9 +37,11 @@ class AdminLayout extends React.Component {
           progressBar
           closeOnToastrClick
         />
-        <Header />
+        {/* <Header /> */}
         <SideBar />
-        <div className="dashboard-wrapper">{this.props.children}</div>
+        <div className={`${s.mainWrapper} dashboard-wrapper`}>
+          {this.props.children}
+        </div>
       </div>
     );
   }

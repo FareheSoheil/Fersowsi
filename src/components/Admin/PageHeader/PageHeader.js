@@ -19,35 +19,35 @@ class PageHeader extends React.Component {
   };
   render() {
     return (
-      <div className="row">
+      <div className={`${s.heading} row`}>
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <div className="page-header">
-            <h2 className="pageheader-title">{this.props.title} </h2>
+          {/* <div className="page-header"> */}
+          {/* <h2 className="pageheader-title">{this.props.title} </h2> */}
 
-            <div className="page-breadcrumb">
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  {this.props.breadCrumbs.map(
-                    (brc, i) =>
-                      i === this.props.breadCrumbs.length - 1 ? (
-                        <li
-                          className="breadcrumb-item active"
-                          aria-current="page"
-                        >
+          <div className="page-breadcrumb">
+            <nav aria-label="breadcrumb">
+              <ol className="breadcrumb">
+                {this.props.breadCrumbs.map(
+                  (brc, i) =>
+                    i === this.props.breadCrumbs.length - 1 ? (
+                      <li
+                        className="breadcrumb-item active"
+                        aria-current="page"
+                      >
+                        {brc.label}
+                      </li>
+                    ) : (
+                      <li className="breadcrumb-item">
+                        <a href={brc.link} className="breadcrumb-link">
                           {brc.label}
-                        </li>
-                      ) : (
-                        <li className="breadcrumb-item">
-                          <a href={brc.link} className="breadcrumb-link">
-                            {brc.label}
-                          </a>
-                        </li>
-                      ),
-                  )}
-                </ol>
-              </nav>
-            </div>
+                        </a>
+                      </li>
+                    ),
+                )}
+              </ol>
+            </nav>
           </div>
+          {/* </div> */}
         </div>
       </div>
     );

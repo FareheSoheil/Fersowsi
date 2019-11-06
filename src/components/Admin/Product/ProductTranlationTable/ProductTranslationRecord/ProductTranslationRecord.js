@@ -54,8 +54,8 @@ class ProductTranslationRecord extends React.Component {
             {' '}
             <div className="form-group">
               <textarea
-                rows="6"
-                cols="20"
+                rows="2"
+                cols="10"
                 name="description"
                 type="text"
                 className="form-control form-control-sm "

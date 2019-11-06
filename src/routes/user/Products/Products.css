@@ -13,11 +13,12 @@
 .largeSearch {
     text-align: center;
     display: flex;
-    height: 120px;
+    height: 100px;
     padding: 40px;
+    padding-top: 30px;
     padding-left: 20%;
     /* border: 1px solid lightgray; */
-    background-color: rgb(226, 222, 222);
+    background-color: #e7e4e4;
 }
 .largeSearch input {
     height: 40px;
@@ -28,5 +29,5 @@
     color:white;
     width: 80px;
     height: 40px;
-    background-color: darkblue;
+    background-color: #2e74ab;
 }

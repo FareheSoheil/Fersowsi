@@ -1,0 +1,12 @@
+
+@font-face {
+    font-family: 'Grotesque Light';
+    font-style: normal;
+    font-weight: normal;
+ 
+    src: url('fonts/grotesque/Grotesque\ MT\ Light.woff') format('woff');
+    }
+@font-face {
+    font-family: 'myriadLight';
+    src: url('fonts/myriad/Myriad\ Pro\ Regular.ttf') format('ttf');
+}

@@ -7,50 +7,12 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-
-.root {
-  background: #373277;
-  color: #fff;
-}
-
-.container {
-  margin: 0 auto;
-  padding: 20px 0;
-  max-width: var(--max-content-width);
-}
-
-.brand {
-  color: color(var(--brand-color) lightness(+10%));
-  text-decoration: none;
-  font-size: 1.75em; /* ~28px */
-}
-
-.headerDropDown {
-  min-width: 120px !important;
-  text-align: center;
-  margin-top: 3.5px;
-}
-
-
-.headerDropDown a{
-  cursor: pointer;
-
-}
-.headerDropDown a:hover{
-  background-image: linear-gradient(to bottom right,#31585b,#47aab0,#60daab, #61ebf4);
-  /* #60daab; */
-  
-  }
-
-.fixed {
-  background-color: #373277 !important;
-  height: 90px;
-  position: fixed;
-  z-index: 100;
-  width: 100%;
-}
-@media only screen and (max-width: 991px) {
-  .fixed {
-    height: auto;
+ .dashboard_header {
+   height: 45px;
+   width: 220px;
+ }
+ @media only screen and (max-width:600px) {
+  .dashboard_header {
+      width: 100%;
   }
 }

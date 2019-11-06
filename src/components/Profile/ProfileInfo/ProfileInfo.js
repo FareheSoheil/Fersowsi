@@ -75,7 +75,7 @@ class ProfileInfo extends React.Component {
       <div className="col-xl-5 col-lg-4 col-md-6 col-sm-12 col-12">
         {/* user profile  */}
         <div className={`card ${s.userDetailContainer}`}>
-          <div className={`${s.avatarContainer} card-body`}>
+          {/* <div className={`${s.avatarContainer} card-body`}>
             <div
               className={
                 this.props.userStatus.value === USER_ACTIVITION_STATUS.ACTIVE
@@ -97,7 +97,7 @@ class ProfileInfo extends React.Component {
                 alt="User Avatar"
                 id="detailsAvatar"
                 onClick={this.uploadImage}
-                className={`rounded-circle user-avatar-xxl ${s.avatar}`}
+                className={`rounded-circle user-avatar-xl ${s.avatar}`}
               />
 
               <div>
@@ -111,20 +111,9 @@ class ProfileInfo extends React.Component {
               </div>
             </div>
           </div>
-          <div className="card-body ">
-            {/* <label className="custom-color-theme custom-control custom-radio custom-control-inline">
-              <input
-                type="checkbox"
-                name="emailConfirmed"
-                className="custom-control-input"
-                value={!this.props.user.emailConfirmed}
-                onClick={this.props.handleSimpleInputChange}
-                defaultChecked={this.props.user.emailConfirmed === true}
-              /> */}
+          */}
 
-            {/* <span className="custom-control-label">Is Email Confirmed</span> */}
-            {/* </label> */}
-            {/* <label className="custom-color-theme custom-control custom-radio custom-control-inline"> */}
+          {/* <div className={`${s.emailConfirmation} card-body`}>
             <div className="text-center">
               <label>Confirm User Email : &nbsp;&nbsp;</label>
               {this.props.user.emailConfirmed === true ? (
@@ -146,48 +135,115 @@ class ProfileInfo extends React.Component {
                 />
               )}
             </div>
-          </div>
+        
+          </div> */}
+
           <div className="card-body">
-            <div className="text-center">
-              <form className={s.formS}>
-                <div className="form-group">
-                  <div className="row">
-                    <div className="col-4">
-                      <label>First Name:</label>
-                    </div>
-                    <div className="col-6">
+            <div className="row">
+              <div className="col-xl-4">
+                <div className="row">
+                  <div
+                    className={
+                      this.props.userStatus.value ==
+                      USER_ACTIVITION_STATUS.ACTIVE
+                        ? `${s.activeUser} 
+                  user-avatar text-center d-block col-12`
+                        : this.props.userStatus.value ==
+                          USER_ACTIVITION_STATUS.DEACTIVE
+                          ? `${s.deactiveUser} 
+                    user-avatar text-center d-block col-12`
+                          : this.props.userStatus.value ==
+                            USER_ACTIVITION_STATUS.WAITFORAPPROVAL
+                            ? `${s.pendingUser} 
+                    user-avatar text-center d-block col-12`
+                            : 'user-avatar text-center d-block col-12'
+                    }
+                  >
+                    <img
+                      src={this.props.user.profilePic}
+                      alt="User Avatar"
+                      id="detailsAvatar"
+                      onClick={this.uploadImage}
+                      className={`rounded-circle user-avatar-xl ${s.avatar}`}
+                    />
+
+                    <div>
                       <input
-                        name="firstName"
-                        type="text"
-                        className="form-control form-control-sm"
-                        onChange={this.props.handleSimpleInputChange}
-                        value={this.props.user.firstName}
+                        onChange={this.handleUploadedImage}
+                        style={{ display: 'none' }}
+                        type="file"
+                        id="fileInput"
+                        name="fileInput"
                       />
                     </div>
                   </div>
                 </div>
-                <div className="form-group">
-                  <div className="row">
-                    <div className="col-4">
-                      <label>Last Name:</label>
-                    </div>
-                    <div className="col-6">
-                      <input
-                        name="lastName"
-                        type="text"
-                        className="form-control form-control-sm"
-                        onChange={this.props.handleSimpleInputChange}
-                        value={this.props.user.lastName}
-                      />
+                <br />
+              </div>
+
+              <div className={`${s.essentials} col-xl-8`}>
+                <form className={s.formS}>
+                  <div className="form-group">
+                    <div className="row">
+                      <div className="col-6">
+                        <label>First Name:</label>
+                      </div>
+                      <div className="col-6">
+                        <input
+                          name="firstName"
+                          type="text"
+                          className="form-control form-control-sm"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.firstName}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                  <div className="form-group">
+                    <div className="row">
+                      <div className="col-6">
+                        <label>Last Name:</label>
+                      </div>
+                      <div className="col-6">
+                        <input
+                          name="lastName"
+                          type="text"
+                          className="form-control form-control-sm"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.lastName}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <div className="row">
+                      <div className="col-6">
+                        <label>Date Of Birth: </label>
+                      </div>
+                      <div className="col-6">
+                        <DatePicker
+                          name="dateOfBirth"
+                          style={{ width: '30px' }}
+                          selected={this.props.user.dateOfBirth}
+                          onChange={this.props.handleDateInputChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-xl-12">
+                {' '}
                 <div className="form-group">
                   <div className="row">
-                    <div className="col-4">
+                    <div className="col-xl-4 col-md-6">
                       <label>Username:</label>
                     </div>
-                    <div className="col-6">
+                    <div className="col-xl-8 col-md-12">
                       <input
                         name="username"
                         type="text"
@@ -198,12 +254,17 @@ class ProfileInfo extends React.Component {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xl-12">
+                {' '}
                 <div className="form-group">
                   <div className="row">
-                    <div className="col-4">
+                    <div className="col-xl-4">
                       <label>Contract Name:</label>
                     </div>
-                    <div className="col-6">
+                    <div className="col-xl-8">
                       <input
                         name="contractName"
                         type="text"
@@ -214,334 +275,181 @@ class ProfileInfo extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="form-group">
-                  <div className="row">
-                    <div className="col-4">
-                      <label>Date Of Birth: </label>
-                    </div>
-                    <div className="col-6">
-                      <DatePicker
-                        name="dateOfBirth"
-                        selected={this.props.user.dateOfBirth}
-                        onChange={this.props.handleDateInputChange}
+              </div>
+            </div>
+            <div className={`${s.emailConfirmation} row mt-1`}>
+              <div className="col-xl-5">
+                <label>
+                  {this.props.user.emailConfirmed == true
+                    ? 'Disconfirm User Email'
+                    : 'Confirm User Email'}
+                </label>
+              </div>
+              <div className="col-xl-2">
+                {this.props.user.emailConfirmed == true ? (
+                  <i
+                    className={` fa fa-times ${s.iconBtn} ${s.disconfirmBtn} `}
+                    aria-hidden="true"
+                    onClick={() =>
+                      this.onStatusChange(!this.props.user.emailConfirmed)
+                    }
+                  />
+                ) : (
+                  <i
+                    className={`${s.iconBtn} ${s.confirmBtn} fas fa-check`}
+                    onClick={() =>
+                      this.onStatusChange(!this.props.user.emailConfirmed)
+                    }
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="card-body border-top">
+            <div className={`${s.moreDetails} row`}>
+              <form className="col-xl-12 col-md-12 col-lg-12 col-sm-12">
+                <div className="row">
+                  <div className="col-xl-6 col-md-12">
+                    <div className="row form-group">
+                      <i
+                        className="fas fa-fw fa-envelope col-xl-2 col-md-12"
+                        data-toggle="tooltip"
+                        title="email"
                       />
+                      <div className="col-xl-10 col-md-12">
+                        <input
+                          name="email"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.email}
+                        />
+                      </div>
                     </div>
+                  </div>
+                  <div className="col-xl-6 col-md-12">
+                    <div className="row form-group">
+                      <i
+                        className="fas fa-fw fa-phone col-xl-2 col-md-12"
+                        data-toggle="tooltip"
+                        title="phone number"
+                      />
+                      <div className="col-xl-10 col-md-12">
+                        <input
+                          name="phoneNumber"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.phoneNumber}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-xl-6 col-md-12">
+                    <div className="form-group row">
+                      <i
+                        className="fas fa-fax  col-xl-2 col-md-12"
+                        data-toggle="tooltip"
+                        title="fax number"
+                      />
+                      <div className="col-xl-10 col-md-12">
+                        <input
+                          name="faxNumber"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.faxNumber}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-xl-6 col-md-12">
+                    <div className="form-group row">
+                      <i
+                        className="fas fa-mobile-alt col-xl-2 col-md-12"
+                        data-toggle="tooltip"
+                        title="mobile number"
+                      />
+                      <div className="col-xl-10 col-md-12">
+                        <input
+                          name="mobileNumber"
+                          type="text"
+                          className="form-control form-control-sm inlineInput"
+                          onChange={this.props.handleSimpleInputChange}
+                          value={this.props.user.mobileNumber}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* website */}
+                <div className="form-group row">
+                  <i
+                    className="fa fa-globe col-xl-2 col-md-12"
+                    aria-hidden="true"
+                    data-toggle="tooltip"
+                    title="home page"
+                  />
+                  <div className="col-xl-10 col-md-12">
+                    <input
+                      name="homepage"
+                      type="text"
+                      placeholder="home page"
+                      className="form-control form-control-sm inlineInput"
+                      onChange={this.props.handleSimpleInputChange}
+                      value={this.props.user.homepage}
+                    />
                   </div>
                 </div>
               </form>
-              {/* </h4> */}
             </div>
           </div>
           <div className="card-body border-top">
-            <h3 className="font-16">User Information</h3>
-            <div className={s.numberContainer}>
-              <ul className="list-unstyled mb-0">
-                <li className="mb-3">
-                  <form>
-                    <div className="form-group">
-                      <i
-                        className="fas fa-fw fa-envelope mr-2"
-                        data-toggle="tooltip"
-                        title="email"
-                      />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <input
-                        name="email"
-                        type="text"
-                        className="form-control form-control-sm inlineInput"
-                        onChange={this.props.handleSimpleInputChange}
-                        value={this.props.user.email}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <i
-                        className="fas fa-fw fa-phone mr-2"
-                        data-toggle="tooltip"
-                        title="phone number"
-                      />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <input
-                        name="phoneNumber"
-                        type="text"
-                        className="form-control form-control-sm inlineInput"
-                        onChange={this.props.handleSimpleInputChange}
-                        value={this.props.user.phoneNumber}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <i
-                        className="fas fa-fax mr-2"
-                        data-toggle="tooltip"
-                        title="fax number"
-                      />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <input
-                        name="faxNumber"
-                        type="text"
-                        className="form-control form-control-sm inlineInput"
-                        onChange={this.props.handleSimpleInputChange}
-                        value={this.props.user.faxNumber}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <i
-                        className="fas fa-mobile-alt mr-3"
-                        data-toggle="tooltip"
-                        title="mobile number"
-                      />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <input
-                        name="mobileNumber"
-                        type="text"
-                        className="form-control form-control-sm inlineInput"
-                        onChange={this.props.handleSimpleInputChange}
-                        value={this.props.user.mobileNumber}
-                      />
-                    </div>
-
-                    {/* website */}
-                    <div className="form-group">
-                      <i
-                        className="fa fa-globe mr-3"
-                        aria-hidden="true"
-                        data-toggle="tooltip"
-                        title="home page"
-                      />&nbsp;&nbsp;&nbsp;&nbsp;
-                      <input
-                        name="homepage"
-                        type="text"
-                        className="form-control form-control-sm inlineInput"
-                        onChange={this.props.handleSimpleInputChange}
-                        value={this.props.user.homepage}
-                      />
-                    </div>
-                  </form>
-                </li>
-              </ul>
+            <div class="form-group">
+              <label for="messages">Biography</label>
+              <textarea
+                onChange={this.props.handleSimpleInputChange}
+                class="form-control"
+                name="bio"
+                rows="3"
+                value={this.props.user.bio}
+              />
             </div>
-          </div>
-          <div className="card-body border-top">
-            <form className={s.labelHolder}>
-              <div className="form-group">
-                <div className="row">
-                  <div className="col-4">
-                    {' '}
-                    <label>
-                      <b>Vat Id &nbsp;</b>
-                    </label>
-                  </div>
-                  <div className="col-6">
-                    <input
-                      name="VatId"
-                      type="text"
-                      className="form-control form-control-sm inlineInput"
-                      onChange={this.props.handleSimpleInputChange}
-                      value={this.props.user.VatId}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <div className="row">
-                  <div className="col-4">
-                    {' '}
-                    <label>
-                      <b>GLM Code &nbsp;</b>
-                    </label>
-                  </div>
-                  <div className="col-6">
-                    <input
-                      name="glmCode"
-                      type="text"
-                      className="form-control form-control-sm inlineInput"
-                      onChange={this.props.handleSimpleInputChange}
-                      value={this.props.user.glmCode}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <div className="row">
-                  <div className="col-4">
-                    {' '}
-                    <label>
-                      <b>Refrence No. &nbsp;</b>
-                    </label>
-                  </div>
-                  <div className="col-6">
-                    <input
-                      name="referenceNo"
-                      type="text"
-                      className="form-control form-control-sm inlineInput"
-                      onChange={this.props.handleSimpleInputChange}
-                      value={this.props.user.referenceNo}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="row">
-                  <div className="col-4">
-                    {' '}
-                    <label>
-                      <b>Eori No. &nbsp;</b>
-                    </label>
-                  </div>
-                  <div className="col-6">
-                    <input
-                      name="eoriNo"
-                      type="text"
-                      className="form-control form-control-sm inlineInput"
-                      onChange={this.props.handleSimpleInputChange}
-                      value={this.props.user.eoriNo}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <div className="row">
-                  <div className="col-4">
-                    {' '}
-                    <label>
-                      <b>Bank Name &nbsp;</b>
-                    </label>
-                  </div>
-                  <div className="col-6">
-                    <input
-                      name="bankName"
-                      type="text"
-                      className="form-control form-control-sm inlineInput"
-                      onChange={this.props.handleSimpleInputChange}
-                      value={this.props.user.bankName}
-                    />
-                  </div>
-                </div>
-              </div>
-              {this.props.user.Role.value == ROLES.publisher.value ? (
-                <div>
-                  <div className="form-group">
-                    <div className="row">
-                      <div className="col-4">
-                        {' '}
-                        <label>
-                          <b>Account No &nbsp;</b>
-                        </label>
-                      </div>
-                      <div className="col-6">
-                        <input
-                          name="AccountNo"
-                          type="text"
-                          className="form-control form-control-sm inlineInput"
-                          onChange={this.props.handleSimpleInputChange}
-                          value={this.props.user.AccountNo}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <div className="row">
-                      <div className="col-4">
-                        {' '}
-                        <label>
-                          <b>Iban &nbsp;</b>
-                        </label>
-                      </div>
-                      <div className="col-6">
-                        <input
-                          name="iban"
-                          type="text"
-                          className="form-control form-control-sm inlineInput"
-                          onChange={this.props.handleSimpleInputChange}
-                          value={this.props.user.iban}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <div className="row">
-                      <div className="col-4">
-                        {' '}
-                        <label>
-                          <b>Swift Address &nbsp;</b>
-                        </label>
-                      </div>
-                      <div className="col-6">
-                        <input
-                          name="swiftAddress"
-                          type="text"
-                          className="form-control form-control-sm inlineInput"
-                          onChange={this.props.handleSimpleInputChange}
-                          value={this.props.user.swiftAddress}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <div className="row">
-                      <div className="col-4">
-                        {' '}
-                        <label>
-                          <b>Bank Giro &nbsp;</b>
-                        </label>
-                      </div>
-                      <div className="col-6">
-                        <input
-                          name="bankGiro"
-                          type="text"
-                          className="form-control form-control-sm inlineInput"
-                          onChange={this.props.handleSimpleInputChange}
-                          value={this.props.user.bankGiro}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                ''
-              )}
-
-              <div className="form-group">
-                <div className="row">
-                  <div className="col-4">
-                    {' '}
-                    <label>
-                      <b>PSN </b>
-                    </label>
-                  </div>
-                  <div className="col-6">
-                    <input
-                      name="psn"
-                      type="text"
-                      className="form-control form-control-sm inlineInput"
-                      onChange={this.props.handleSimpleInputChange}
-                      value={this.props.user.psn}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="row">
-                  <div className="col-4">
-                    <label>
-                      <b>Discount </b>
-                    </label>
-                  </div>
-                  <div className="col-4">
-                    <input
-                      name="discount"
-                      type="text"
-                      className="form-control form-control-sm inlineInput"
-                      onChange={this.props.handleSimpleInputChange}
-                      value={this.props.user.discount}
-                    />
-                  </div>
-                </div>
-              </div>
-            </form>
           </div>
         </div>
         {/* end user profile */}
+        <div className={`  ${s.btnContainer} row mb-5`}>
+          {' '}
+          <div className="col-xl-4 col-md-6">
+            <button
+              type="submit"
+              class="btn btn-success "
+              onClick={this.props.onUserDelete}
+            >
+              Save Changes
+            </button>
+          </div>
+          <div className="col-xl-4 col-md-6">
+            <button
+              className="btn btn-warning"
+              disabled
+              onClick={this.props.onAct}
+            >
+              Act as this user
+            </button>
+          </div>
+          <div className="col-xl-4 col-md-6">
+            <button
+              type="submit"
+              class="btn btn-danger"
+              onClick={this.props.onUserEdit}
+            >
+              Delete User
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

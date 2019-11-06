@@ -2,7 +2,7 @@
     margin-top:3px;
     padding-bottom: 8px;
     margin-bottom:3px;
-    border: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
     border-radius: 8px;
     min-height: 280px;
     padding: 10px;
@@ -17,23 +17,25 @@
     cursor: pointer;
 }
 .imgContainer img {
-    height: inherit;
+    height: 220px;
     width: inherit;
-    border: 2px solid gray;
+    
     
 }
 .imgContainer {
     width: 100%;
-    
+    padding-left: 2px;
+    padding-right: 2px;
+    border: 2px solid #b7b7b7;
     border-radius: 3px;
-    height: 220px;
+    height: 225px;
     cursor: pointer;
 }
 .title {
     margin-bottom: 10px;
     padding: 4px;
     font-size: 20px;
-    color: rgb(134, 198, 219);
+    color: #4b86b7;
 }
 .select {
     cursor: pointer;
@@ -43,7 +45,7 @@
     /* text-align: center; */
 }
 .select span {
-    color: red;
+    color: #76b8cc;
     font-size: 18px;
     padding-top: 5px;
 
@@ -83,17 +85,17 @@
 .wishContainer {
     vertical-align: middle;
     font-size: 35px;
-    color: lightgray;
+    color: white;
     padding-left: 5px;
     padding-top: 60px;
     height: 100%;
 
 }
 .wishContainer i {
-    /* border: 1px solid rgb(207, 204, 204); */
+    border: 1px solid #aadde0;
     border-radius: 5px;
     padding: 6px;
-    /* background-color: rgb(207, 204, 204); */
+    background-color: #aadde0;
 }
 .wishContainer i:hover {
     color: pink;

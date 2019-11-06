@@ -30,7 +30,7 @@ class InProgress extends React.Component {
       isLoading: true,
       firstRender: true,
       pageIndex: 0,
-      pageSize: 9,
+      pageSize: 10,
       totalPageNum: 20,
       currentCustomerOrders: [],
       searchClear: true,
@@ -59,6 +59,7 @@ class InProgress extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.addCustomerOrder = this.addCustomerOrder.bind(this);
+    this.onNumberChange = this.onNumberChange.bind(this);
     this.search = this.search.bind(this);
   }
   componentDidMount() {
@@ -175,27 +176,38 @@ class InProgress extends React.Component {
       searchClear: true,
     });
   }
+  onNumberChange() {
+    var x = parseInt(document.getElementById('numberSelect').value);
+    this.setState(
+      {
+        pageSize: x,
+      },
+      () => {
+        this.fetchCustomerOrders();
+      },
+    );
+  }
   render() {
     let content;
     if (this.state.isLoading) content = <Spinner />;
     else
       content = (
         <div>
-          <div className="row">
+          {/* <div className="row">
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div className="page-header">
                 <h2 className="pageheader-title">Customer Order List</h2>
                 <hr />
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="row">
             <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
               <div className="card">
                 <h4 className="card-header">In Progress Customer Orders</h4>
                 <div className="card-body p-0">
                   <div className="container-fluid">
-                    <br />
+                    {/* <br />
                     <div className="row">
                       <div className="col-xl-12">
                         <button
@@ -206,7 +218,46 @@ class InProgress extends React.Component {
                         </button>
                       </div>
                     </div>
-                    <br />
+                    <br /> */}
+                    <div className="row mt-2 pl-3">
+                      table size :
+                      <div className="col-xl-1">
+                        {' '}
+                        <div className="form-group ">
+                          {/* <Select options={options} /> */}
+                          <select
+                            id="numberSelect"
+                            onChange={this.onNumberChange}
+                          >
+                            <option
+                              value={10}
+                              selected={this.state.pageSize == 10}
+                            >
+                              10
+                            </option>
+                            <option
+                              selected={this.state.pageSize == 20}
+                              value={20}
+                            >
+                              20
+                            </option>
+                            <option
+                              value={50}
+                              selected={this.state.pageSize == 50}
+                            >
+                              50
+                            </option>
+                            <option
+                              value={100}
+                              selected={this.state.pageSize == 100}
+                            >
+                              100
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
                     <CustomTable
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}

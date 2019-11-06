@@ -164,136 +164,153 @@ class Profile extends React.Component {
         ) : (
           <div>
             <div className="row">
-              <div className="offset-xl-9 col-xl-3">
-                <div className={s.imgContainer}>
-                  <img
-                    src={
-                      this.state.user.profilePic === null
-                        ? AVATAR
-                        : this.state.user.profilePic
-                    }
-                    alt="User Avatar"
-                    id="detailsAvatar"
-                    className={`rounded-circle user-avatar-xxl ${s.avatar}`}
-                  />
-
-                  <div>
-                    <input
-                      onChange={this.handleUploadedImage}
-                      style={{ display: 'none' }}
-                      type="file"
-                      id="fileInput"
-                      name="fileInput"
-                    />
-                  </div>
-                  <button onClick={this.uploadImage}>Upload Image</button>
-                </div>
-              </div>
+              <div className="offset-xl-9 col-xl-3" />
             </div>
             {/* General */}
             <div className={s.card}>
               <div className={s.banner}>
                 <h3>General Info</h3>
               </div>
-              <div className={s.mainContainer}>
-                {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div className="row mb-3">
-                    <div className="col-xl-12">
-                      <div className="row">
-                        <div className="col-2">
-                          <label>Institution Name</label>
-                        </div>
-                        <div className="col-5">
-                          <input
-                            name="contractName"
-                            value={this.state.user.contractName}
-                            onChange={e => this.onChangeInput(e)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="row mb-3">
-                    <div className="col-xl-12">
-                      <div className="row">
-                        <div className="col-2">
-                          <label>Contact</label>
-                        </div>
-                        <div className="col-5">
-                          <input
-                            name="firstName"
-                            value={`${this.state.user.firstName}  ${
-                              this.state.lastName
-                            }`}
-                            onChange={e => this.onChangeInput(e)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
 
-                <div className="row mb-3">
-                  <div className="col-xl-12">
-                    <div className="row">
-                      <div className="col-2">
-                        <label>VAT Number</label>
+              <div className={s.mainContainer}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div
+                      className="col-xl-8"
+                      // style={{ border: '1px solid red' }}
+                    >
+                      {cookie.load('userSubCategory') !==
+                      USER_SUBCATEGORY.Single ? (
+                        <div className="row mb-3">
+                          <div className="col-xl-12">
+                            <div className="row">
+                              <div className="col-4">
+                                <label>Institution Name</label>
+                              </div>
+                              <div className="col-5">
+                                <input
+                                  name="contractName"
+                                  value={this.state.user.contractName}
+                                  onChange={e => this.onChangeInput(e)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="row mb-3">
+                          <div className="col-xl-12">
+                            <div className="row">
+                              <div className="col-4">
+                                <label>Contact</label>
+                              </div>
+                              <div className="col-5">
+                                <input
+                                  name="firstName"
+                                  value={`${this.state.user.firstName}  ${
+                                    this.state.lastName
+                                  }`}
+                                  onChange={e => this.onChangeInput(e)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="row mb-3">
+                        <div className="col-xl-12">
+                          <div className="row">
+                            <div className="col-4">
+                              <label>VAT Number</label>
+                            </div>
+                            <div className="col-5">
+                              <input
+                                name="VatId"
+                                value={this.state.user.VatId}
+                                onChange={e => this.onChangeInput(e)}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="col-5">
-                        <input
-                          name="VatId"
-                          value={this.state.user.VatId}
-                          onChange={e => this.onChangeInput(e)}
-                        />
+                      <div className="row mb-3">
+                        <div className="col-xl-12">
+                          <div className="row">
+                            <div className="col-4">
+                              <label>GLM Code</label>
+                            </div>
+                            <div className="col-5">
+                              <input
+                                name="glmCode"
+                                value={this.state.user.glmCode}
+                                onChange={e => this.onChangeInput(e)}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row mb-3">
+                        <div className="col-xl-12">
+                          <div className="row">
+                            <div className="col-4">
+                              <label>Refrence Number</label>
+                            </div>
+                            <div className="col-5">
+                              <input
+                                name="referenceNo"
+                                value={this.state.user.referenceNo}
+                                onChange={e => this.onChangeInput(e)}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row mb-3">
+                        <div className="col-xl-12">
+                          <div className="row">
+                            <div className="col-4">
+                              <label>EAORI Number</label>
+                            </div>
+                            <div className="col-5">
+                              <input
+                                name="eaoriNo"
+                                value={this.state.user.eaoriNo}
+                                onChange={e => this.onChangeInput(e)}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-xl-12">
-                    <div className="row">
-                      <div className="col-2">
-                        <label>GLM Code</label>
-                      </div>
-                      <div className="col-5">
-                        <input
-                          name="glmCode"
-                          value={this.state.user.glmCode}
-                          onChange={e => this.onChangeInput(e)}
+                    <div
+                      className="offset-xl-1 col-xl-2"
+                      // style={{ border: '1px solid yellow' }}
+                    >
+                      <div className={s.imgContainer}>
+                        <img
+                          src={
+                            this.state.user.profilePic === null
+                              ? AVATAR
+                              : this.state.user.profilePic
+                          }
+                          alt="User Avatar"
+                          id="detailsAvatar"
+                          className={`rounded-circle user-avatar-xxl ${
+                            s.avatar
+                          }`}
                         />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-xl-12">
-                    <div className="row">
-                      <div className="col-2">
-                        <label>Refrence Number</label>
-                      </div>
-                      <div className="col-5">
-                        <input
-                          name="referenceNo"
-                          value={this.state.user.referenceNo}
-                          onChange={e => this.onChangeInput(e)}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-xl-12">
-                    <div className="row">
-                      <div className="col-2">
-                        <label>EAORI Number</label>
-                      </div>
-                      <div className="col-5">
-                        <input
-                          name="eaoriNo"
-                          value={this.state.user.eaoriNo}
-                          onChange={e => this.onChangeInput(e)}
-                        />
+
+                        <div>
+                          <input
+                            onChange={this.handleUploadedImage}
+                            style={{ display: 'none' }}
+                            type="file"
+                            id="fileInput"
+                            name="fileInput"
+                          />
+                        </div>
+                        <button onClick={this.uploadImage}>Upload Image</button>
                       </div>
                     </div>
                   </div>

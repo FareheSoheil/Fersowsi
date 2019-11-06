@@ -53,6 +53,7 @@ class CustomTabel extends React.Component {
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
+          // style={{ lineHeight: '14px' }}
           className={this.colorPicker(record)}
           onClick={() => {
             this.props.onRecordClick(
@@ -62,7 +63,7 @@ class CustomTabel extends React.Component {
             );
           }}
         >
-          <td>{i + 1}</td>
+          {/* <td>{i + 1}</td> */}
           {this.props.recordItemNames.map(
             label =>
               // <td>{typeof record[label]}</td>,
@@ -76,8 +77,8 @@ class CustomTabel extends React.Component {
                       label === 'profilePic' ? s.profilePicContiner : ''
                     }
                     src={record[label]}
-                    width="60"
-                    height="60"
+                    width="40"
+                    height="40"
                   />
                 </td>
               ) : record[label] === true ? (
@@ -104,7 +105,7 @@ class CustomTabel extends React.Component {
             className={`table table-hover table-bordered ${s.hoverableTr}`}
           >
             <thead className="bg-light">
-              <th>#</th>
+              {/* <th>#</th> */}
               {tableHeaders}
             </thead>
             <tbody>{records}</tbody>

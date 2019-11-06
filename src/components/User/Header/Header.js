@@ -217,7 +217,7 @@ class Header extends React.Component {
                 s.userHeaderContainer
               }`}
             >
-              <img height="50" width="80" src="/assets/images/dropbox.png" />
+              <img height="50" width="80" src="/assets/images/logo.png" />
               {/* <a class={`${s.UserNavBrand} navbar-brand`} href="#">
           FERDOSI
         </a> */}
@@ -244,7 +244,7 @@ class Header extends React.Component {
                   class="nav-link"
                   onClick={() => this.goTo('/user/products')}
                 >
-                  Productss
+                  Productss   
                 </a>
               </li> */}
                   <li class="nav-item hidden" id="categoryTab">
@@ -255,7 +255,7 @@ class Header extends React.Component {
 
                   <li class="nav-item hidden" id="serviceTab">
                     <a id="serviceLink hidden" class="nav-link hidden" href="#">
-                      Services
+                      Our Services
                     </a>
                   </li>
                   <li class="nav-item hidden" id="customerTab">
@@ -275,6 +275,16 @@ class Header extends React.Component {
                 </ul>
                 <div className={s.headerIconContainer}>
                   {' '}
+                  <img
+                    height="25"
+                    width="25"
+                    src="/assets/images/sweden_flag.png"
+                  />
+                  <img
+                    height="25"
+                    width="25"
+                    src="/assets/images/british_flag.png"
+                  />
                   <input type="text" />
                   <div class="userdropdown">
                     <button class="userdropbtn">
@@ -300,7 +310,7 @@ class Header extends React.Component {
                       )}
                     </div>
                   </div>
-                  <div class="languagedropdown">
+                  {/* <div class="languagedropdown">
                     <button class="languagedropbtn">
                       <i
                         onClick={() => {
@@ -310,36 +320,74 @@ class Header extends React.Component {
                       />
                     </button>
                     <div id="globeDropDown" class="languagedropdown-content">
-                      <a href="#about">About</a>
-                      <a href="#contact">Contact</a>
+                      <a href="#about">
+                        <img
+                          height="20"
+                          width="20"
+                          src="/assets/images/british_flag.png"
+                        />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; English
+                      </a>
+                      <a href="#contact">
+                        <img
+                          height="20"
+                          width="20"
+                          src="/assets/images/sweden_flag.png"
+                        />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swedish
+                      </a>
                     </div>
                   </div>
+                   */}
                   <i
                     onClick={() => {}}
                     class={`${s.searchBtn} fas fa-search`}
                   />
+                  <i
+                    class="fas fa-home"
+                    onClick={() => this.goTo('/user/myAccount')}
+                  />
                 </div>
               </div>
             </nav>
-            <div className={`${s.con} container-fluid`}>
-              <div id="productDiv" className={s.salam}>
+            <div className={`${s.submenuContainer} container-fluid`}>
+              <div id="productDiv" className={s.subMenuContainer}>
                 product SubMenue
               </div>
 
-              <div id="categoryDiv" className={`${s.salam} hidden`}>
+              <div id="categoryDiv" className={`${s.subMenuContainer} hidden`}>
                 <div className="container-fluid hidden">
-                  <div className="row hidden" id="categorySubDiv1">
+                  <div className="row hidden" id="categorySubDiv">
                     {this.state.isFetched ? links : ''}
                   </div>
                 </div>
               </div>
-              <div id="serviceDiv" className={`${s.salam} hidden`}>
-                services SubMenue
+              <div id="serviceDiv" className={`${s.subMenuContainer} hidden`}>
+                <div className="container-fluid hidden">
+                  <div className="row hidden" id="servicesSubDiv">
+                    <div className="col-xl-2 hidden">Subscription Services</div>
+                    <div className="col-xl-3 hidden">
+                      Electronic Resource Management
+                    </div>
+                    <div className="col-xl-2 hidden">Digitization Services</div>
+                    <div className="col-xl-2 hidden">Research Services</div>
+                  </div>
+                </div>
               </div>
-              <div id="customerDiv" className={`${s.salam} hidden`}>
-                customer SubMenue
+              <div id="customerDiv" className={`${s.subMenuContainer} hidden`}>
+                <div className="container-fluid hidden">
+                  <div className="row hidden" id="servicesSubDiv">
+                    <div className="col-xl-2 hidden">Corporations</div>
+                    <div className="col-xl-2 hidden">Academic</div>
+                    <div className="col-xl-2 hidden">Libraries</div>
+                    <div className="col-xl-2 hidden">Agent/Resellers</div>
+                  </div>
+                </div>
               </div>
-              <div id="publisherPartnerDiv" className={`${s.salam} hidden`}>
+              <div
+                id="publisherPartnerDiv"
+                className={`${s.subMenuContainer} hidden`}
+              >
                 publisherPartnerDiv
               </div>
             </div>

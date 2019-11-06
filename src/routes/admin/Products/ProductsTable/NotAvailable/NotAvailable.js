@@ -32,7 +32,7 @@ class NotAvailable extends React.Component {
       isLoading: true,
       firstRender: true,
       pageIndex: 0,
-      pageSize: 9,
+      pageSize: 10,
       totalPageNum: '',
       currentproducts: [{ a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
@@ -72,10 +72,21 @@ class NotAvailable extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.search = this.search.bind(this);
+    this.showMore = this.showMore.bind(this);
   }
   componentDidMount() {
     this.fetchAllInfo();
     this.fetchProducts();
+  }
+  showMore(num) {
+    this.setState(
+      {
+        pageSize: num,
+      },
+      () => {
+        this.fetchProducts();
+      },
+    );
   }
   onProductClick(id) {
     history.push(`/admin/products/${id}`);
@@ -219,14 +230,6 @@ class NotAvailable extends React.Component {
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="page-header">
-              <h2 class="pageheader-title">Not Available Products List</h2>
-              <hr />
-            </div>
-          </div>
-        </div>
         {this.state.isLoading ? (
           <Spinner />
         ) : (
@@ -249,6 +252,8 @@ class NotAvailable extends React.Component {
                     handleSelectChange={this.handleSelectChange}
                     fetchProducts={this.search}
                     clearFilters={this.clearFilters}
+                    showMore={this.showMore}
+                    pageSize={this.state.pageSize}
                     currentPageNumber={this.state.pageIndex}
                   />
                   <hr />

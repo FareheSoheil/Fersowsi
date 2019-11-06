@@ -49,8 +49,12 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="dashboard-header">
-        <nav className="navbar navbar-expand-lg bg-white fixed-top">
+      <div className={` dashboard-header`}>
+        <nav
+          className={`${
+            s.dashboard_header
+          } navbar navbar-expand-lg bg-white fixed-top`}
+        >
           <a className="navbar-brand">Ferdowsi</a>
           <button
             className="navbar-toggler"
@@ -68,7 +72,7 @@ class Header extends React.Component {
             className="collapse navbar-collapse "
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav ml-auto navbar-right-top">
+            {/* <ul className="navbar-nav ml-auto navbar-right-top">
               <li className="nav-item dropdown nav-user">
                 <a
                   className="nav-link nav-user-img"
@@ -100,6 +104,7 @@ class Header extends React.Component {
                 </div>
               </li>
             </ul>
+        */}
           </div>
         </nav>
       </div>

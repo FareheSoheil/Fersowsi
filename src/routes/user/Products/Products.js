@@ -15,7 +15,7 @@ class Products extends React.Component {
     this.state = {
       isLoading: true,
       pageIndex: 0,
-      pageSize: 9,
+      pageSize: 10,
       totalPageNum: '',
       sortBy: '',
       searchClear: true,

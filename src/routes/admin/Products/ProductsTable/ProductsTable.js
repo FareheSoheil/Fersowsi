@@ -31,7 +31,7 @@ class ProductsTable extends React.Component {
       isLoading: true,
       firstRender: true,
       pageIndex: 0,
-      pageSize: 9,
+      pageSize: 10,
       totalPageNum: '',
       currentproducts: [{ a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
@@ -71,6 +71,7 @@ class ProductsTable extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.search = this.search.bind(this);
+    this.showMore = this.showMore.bind(this);
   }
   componentDidMount() {
     this.fetchProducts();
@@ -187,6 +188,7 @@ class ProductsTable extends React.Component {
       {
         productsSearchFilter: {
           publishers: '',
+          countries: '',
           singlProductTypes: '',
           productType: '', //remove s
           productContentTypes: '',
@@ -215,23 +217,33 @@ class ProductsTable extends React.Component {
       },
     );
   }
+  showMore(num) {
+    this.setState(
+      {
+        pageSize: num,
+      },
+      () => {
+        this.fetchProducts();
+      },
+    );
+  }
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="page-header">
-              <h2 class="pageheader-title">Products List</h2>
-              <hr />
+        {/* <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="page-header">
+                <h2 class="pageheader-title">Products List</h2>
+                <hr />
+              </div>
             </div>
-          </div>
-        </div>
+          </div> */}
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div className="card">
-              <h4 className="card-header">Products</h4>
+              <h5 className="card-header">Products</h5>
               <div className="card-body p-0">
                 <div className="container-fluid">
                   <AdvancedSearch
@@ -248,9 +260,10 @@ class ProductsTable extends React.Component {
                     handleSelectChange={this.handleSelectChange}
                     fetchProducts={this.search}
                     clearFilters={this.clearFilters}
+                    showMore={this.showMore}
+                    pageSize={this.state.pageSize}
                     currentPageNumber={this.state.pageIndex}
                   />
-                  <hr />
 
                   <CustomTabel
                     pageCount={this.state.totalPageNum}

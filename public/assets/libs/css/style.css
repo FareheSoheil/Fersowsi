@@ -6,8 +6,9 @@
     --theme-body-background: #f8fffe;
 }
 option {
-    background-color: var(--theme-color-hover);
+    /* background-color: var(--theme-color-hover); */
     padding: 5px;
+    min-width: 80px;
 
 }
 /**
@@ -167,15 +168,18 @@ option {
    ========================================================================== */
 
 body {
-    font-family: serif;
-    font-weight: normal;
-    font-size: 14px;
+    font-family: 'myriadLight';
+    /* font-weight: bold; */
+    font-size: 16px;
     /* color: #71748d; */
     color:black;
     background-color: #efeff6;
     -webkit-font-smoothing: antialiased;
 }
-
+body button {
+    font-family: 'Grotesque Light';
+    
+}
 h1,
 h2,
 h3,
@@ -350,7 +354,7 @@ button.btn-primary {}
 address {}
 
 .form-group {
-    margin-bottom: 12px;
+    margin-bottom: 7px;
 }
 
 .form-control-lg {
@@ -1238,7 +1242,6 @@ Top Header
     -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
     box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
     -webkit-transition: all 0.3s ease;
-    min-height: 60px;
 }
 
 
@@ -1249,7 +1252,7 @@ Top Header
     line-height: inherit;
     white-space: nowrap;
     padding: 11px 20px;
-    font-size: 30px;
+    font-size: 25px;
     text-transform: uppercase;
     font-weight: 700;
     /* color: #007bff; */
@@ -1479,8 +1482,11 @@ Top Header
 .nav-user {}
 
 .nav-user-dropdown {
+    border: 1px solid red;
     padding: 0px;
-    min-width: 230px;
+    top:51px;
+    right: 15px;
+    min-width: 30px;
     margin: 0px;
 }
 
@@ -1657,9 +1663,9 @@ Left Navigation Sidebar
 
 .nav-left-sidebar {
     position: fixed;
-    min-width:220px;
+    min-width:215px;
     height: 100%;
-    top: 65px;
+    /* top: 45px; */
     overflow: auto;
     background-color: #fff;
     -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
@@ -1975,7 +1981,7 @@ Container / Wrapper
 
 .dashboard-main-wrapper {
     min-height: 100%;
-    padding-top: 60px;
+    /* padding-top: 45px; */
     position: relative;
     background-color: var(--theme-body-background);
 }
@@ -1988,7 +1994,7 @@ Container / Wrapper
 }
 
 .dashboard-content {
-    padding: 30px 30px 60px 30px;
+    padding: 10px 30px 60px 30px;
 }
 
 
@@ -2058,11 +2064,12 @@ Pageheader
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     padding: 0px;
+    padding-left: 3px;
     margin-bottom: 0px;
     list-style: none;
     background-color: transparent;
     border-radius: 0px;
-    border-top: 1px solid #e0e4ef;
+    border-bottom: 1px solid #e0e4ef;
     padding-top: 10px;
     font-size: 12px;
 }
@@ -2726,7 +2733,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     /* background-color: #5969ff; */
     /* border-color: #5969ff; */
     /* background-color: var(--theme-color); */
-    background-image: linear-gradient(to bottom right,rgb(83, 74, 74),#47aab0,#60daab, #61ebf4);
+    background-image: linear-gradient(to bottom right,rgb(83, 74, 74),#47aab0,#60daab);
     border-color: var(--theme-color);
 }
 
@@ -3288,8 +3295,8 @@ btn-link
 
 .card-header {
     background-color: #fff;
-    height: 60px;
-    padding-top:10px;
+    padding-top:3px !important;
+    padding-bottom:3px !important;
     border-bottom: 1px solid #e6e6f2;
 }
 
@@ -5240,7 +5247,7 @@ Vertical Timeline - by CodyHouse.co
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .avatar-badge {
@@ -7725,6 +7732,7 @@ margin-bottom: 22px; }
 }
 .react-datepicker__input-container>input {
     padding: 6px 0px 6px 4px;
+    width: 100px;
     align-content: center;
     border-radius: 2px;
     border: 1px solid rgb(194, 190, 190);

@@ -73,7 +73,7 @@ class ProfileProInfo extends React.Component {
       <div class="col-xl-7 col-lg-8 col-md-6 col-sm-12 col-12">
         <div class="influence-profile-content pills-regular">
           <ul
-            class="nav nav-pills mb-3 nav-justified"
+            class={`nav nav-pills ${s.userPills} `}
             id="pills-tab"
             role="tablist"
           >
@@ -132,6 +132,7 @@ class ProfileProInfo extends React.Component {
               </a>
             </li>
           </ul>
+
           <div class="tab-content" id="pills-tabContent">
             <div
               class="tab-pane fade "
@@ -163,97 +164,258 @@ class ProfileProInfo extends React.Component {
             >
               <div class="card">
                 <h5 class="card-header">Details</h5>
-                <div class="card-body">
+                <div class={`${s.mainContainer} card-body`}>
                   <form>
                     <div class="row">
                       <div
+                        //
                         class={`${
                           s.additionalInfoContainer
-                        } offset-xl-3 col-xl-6 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-12 p-4`}
+                        } col-xl- 12 col-lg-12 col-md-12 col-sm-12 p-4`}
                       >
-                        <div class="form-group">
-                          <label for="email">User Activition Status</label>
-                          <Select
-                            options={USER_ACTIVITION_STATUS_ARRAY}
-                            isSearchable
-                            onChange={so =>
-                              this.props.handleSelectInputChange(
-                                so,
-                                'UserActivitionStatus',
-                              )
-                            }
-                            value={this.props.user.UserActivitionStatus}
-                          />
+                        <div className="row border-bottom">
+                          <div class="form-group col-xl-4">
+                            <label for="email">User Activition Status</label>
+                            <Select
+                              options={USER_ACTIVITION_STATUS_ARRAY}
+                              isSearchable
+                              onChange={so =>
+                                this.props.handleSelectInputChange(
+                                  so,
+                                  'UserActivitionStatus',
+                                )
+                              }
+                              value={this.props.user.UserActivitionStatus}
+                            />
+                          </div>
+                          <div class="form-group col-xl-4">
+                            <label for="name">User Country</label>
+                            <Select
+                              onChange={so =>
+                                this.props.handleSelectInputChange(
+                                  so,
+                                  'Country',
+                                )
+                              }
+                              options={this.props.countries}
+                              isSearchable
+                              value={this.props.user.Country}
+                            />
+                          </div>
+                          <div class="form-group col-xl-4">
+                            <label for="email">User Job</label>
+                            <Select
+                              onChange={so =>
+                                this.props.handleSelectInputChange(so, 'Job')
+                              }
+                              options={this.props.jobs}
+                              isSearchable
+                              value={this.props.user.Job}
+                            />
+                          </div>
                         </div>
-                        <div class="form-group">
-                          <label for="name">User Country</label>
-                          <Select
-                            onChange={so =>
-                              this.props.handleSelectInputChange(so, 'Country')
-                            }
-                            options={this.props.countries}
-                            isSearchable
-                            value={this.props.user.Country}
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="email">User Job</label>
-                          <Select
-                            onChange={so =>
-                              this.props.handleSelectInputChange(so, 'Job')
-                            }
-                            options={this.props.jobs}
-                            isSearchable
-                            value={this.props.user.Job}
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="email">User Currency</label>
-                          <Select
-                            options={this.props.currencies}
-                            onChange={so =>
-                              this.props.handleSelectInputChange(so, 'Currency')
-                            }
-                            isSearchable
-                            value={this.props.user.Currency}
-                          />
-                        </div>
+                        <div className="row border-bottom mt-3">
+                          <div class="form-group col-xl-4">
+                            <label for="email">User Currency</label>
+                            <Select
+                              options={this.props.currencies}
+                              onChange={so =>
+                                this.props.handleSelectInputChange(
+                                  so,
+                                  'Currency',
+                                )
+                              }
+                              isSearchable
+                              value={this.props.user.Currency}
+                            />
+                          </div>
 
-                        <div class="form-group">
-                          <label for="email">User Role</label>
-                          <Select
-                            options={ROLES_ARRAY}
-                            isSearchable
-                            value={this.props.user.Role}
-                            onChange={so =>
-                              this.props.handleSelectInputChange(so, 'Role')
-                            }
-                          />
+                          <div class="form-group col-xl-4">
+                            <label for="email">User Role</label>
+                            <Select
+                              options={ROLES_ARRAY}
+                              isSearchable
+                              value={this.props.user.Role}
+                              onChange={so =>
+                                this.props.handleSelectInputChange(so, 'Role')
+                              }
+                            />
+                          </div>
+                          <div class="form-group col-xl-4">
+                            <label for="email">User Subcategory</label>
+                            <Select
+                              options={USER_SUBCATEGORY_ARRAY}
+                              isSearchable
+                              value={this.props.user.UserSubCategory}
+                              onChange={so =>
+                                this.props.handleSelectInputChange(
+                                  so,
+                                  'UserSubCategory',
+                                )
+                              }
+                            />
+                          </div>
                         </div>
-                        <div class="form-group">
-                          <label for="email">User Subcategory</label>
-                          <Select
-                            options={USER_SUBCATEGORY_ARRAY}
-                            isSearchable
-                            value={this.props.user.UserSubCategory}
-                            onChange={so =>
-                              this.props.handleSelectInputChange(
-                                so,
-                                'UserSubCategory',
-                              )
-                            }
-                          />
-                        </div>
+                        <div
+                          className="row pt-2  "
+                          // style={{ border: '1px solid red' }}
+                        >
+                          <div className="col-xl-3">
+                            {' '}
+                            <div className="form-group">
+                              <label>Vat Id : </label>
+                              <input
+                                name="VatId"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.VatId}
+                              />
+                              {/* </div> */}
+                            </div>{' '}
+                          </div>
 
-                        <div class="form-group">
-                          <label for="messages">Biography</label>
-                          <textarea
-                            onChange={this.props.handleSimpleInputChange}
-                            class="form-control"
-                            name="bio"
-                            rows="3"
-                            value={this.props.user.bio}
-                          />
+                          <div className="col-xl-3">
+                            <div className="form-group">
+                              <label>GLM Code</label>
+                              <input
+                                name="glmCode"
+                                type="text"
+                                className="form-control form-control-sm"
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.glmCode}
+                              />
+                              {/* </div> */}
+                            </div>
+                          </div>
+                          <div className="col-xl-3">
+                            <div className="form-group ">
+                              <label>Refrence No.</label>
+                              <input
+                                name="referenceNo"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.referenceNo}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="col-xl-3">
+                            <div className="form-group ">
+                              {' '}
+                              <label>Eori No</label>
+                              <input
+                                name="eoriNo"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.eoriNo}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {/* jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj */}
+
+                        {this.props.user.Role.value == ROLES.publisher.value ? (
+                          <div className="row pt-1">
+                            <div className="col-xl-3">
+                              {' '}
+                              <div className="form-group">
+                                <label>Account No</label>
+                                <input
+                                  name="AccountNo"
+                                  type="text"
+                                  className="form-control form-control-sm "
+                                  onChange={this.props.handleSimpleInputChange}
+                                  value={this.props.user.AccountNo}
+                                />
+                                {/* </div> */}
+                              </div>{' '}
+                            </div>
+
+                            <div className="col-xl-3">
+                              <div className="form-group">
+                                <label>Iban</label>
+                                <input
+                                  name="psn"
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                  onChange={this.props.handleSimpleInputChange}
+                                  value={this.props.user.iban}
+                                />
+                                {/* </div> */}
+                              </div>
+                            </div>
+                            <div className="col-xl-3">
+                              <div className="form-group ">
+                                <label>Swift Address</label>
+                                <input
+                                  name="swiftAddress"
+                                  type="text"
+                                  className="form-control form-control-sm "
+                                  onChange={this.props.handleSimpleInputChange}
+                                  value={this.props.user.swiftAddress}
+                                />
+                              </div>
+                            </div>
+                            <div className="col-xl-3">
+                              <div className="form-group ">
+                                <label>Bank Giro</label>
+                                <input
+                                  name="bankGiro"
+                                  type="text"
+                                  className="form-control form-control-sm "
+                                  onChange={this.props.handleSimpleInputChange}
+                                  value={this.props.user.bankGiro}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          ''
+                        )}
+                        <div className="row  pt-1">
+                          <div className="col-xl-3">
+                            {' '}
+                            <div className="form-group">
+                              <label>Bank Name</label>
+                              <input
+                                name="bankName"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.bankName}
+                              />
+                              {/* </div> */}
+                            </div>{' '}
+                          </div>
+
+                          <div className="col-xl-3">
+                            <div className="form-group">
+                              <label>PSN</label>
+                              <input
+                                name="psn"
+                                type="text"
+                                className="form-control form-control-sm"
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.psn}
+                              />
+                              {/* </div> */}
+                            </div>
+                          </div>
+                          <div className="col-xl-3">
+                            <div className="form-group ">
+                              <label>discount</label>
+                              <input
+                                name="referenceNo"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.discount}
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

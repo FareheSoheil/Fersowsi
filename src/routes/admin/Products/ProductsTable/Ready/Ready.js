@@ -32,7 +32,7 @@ class Ready extends React.Component {
       isLoading: true,
       firstRender: true,
       pageIndex: 0,
-      pageSize: 9,
+      pageSize: 100,
       totalPageNum: '',
       currentproducts: [{ a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
@@ -70,6 +70,7 @@ class Ready extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
+    this.showMore = this.showMore.bind(this);
     this.search = this.search.bind(this);
   }
   componentDidMount() {
@@ -160,13 +161,14 @@ class Ready extends React.Component {
     this.setState({ productsSearchFilter, searchClear: searchClear });
   }
   handleSelectChange = (selectedOption, op) => {
+    // window.alert(op);
     let productsSearchFilter = { ...this.state.productsSearchFilter },
       searchClear = false;
     if (
-      op === 'publishers' ||
-      op === 'periods' ||
-      op === 'countries' ||
-      op === 'productLanguages'
+      op == 'publishers' ||
+      op == 'periods' ||
+      op == 'countries' ||
+      op == 'productLanguages'
     ) {
       searchClear = true;
     }
@@ -186,10 +188,11 @@ class Ready extends React.Component {
       {
         productsSearchFilter: {
           publishers: '',
+          countries: '',
           singlProductTypes: '',
           productType: '', //remove s
           productContentTypes: '',
-          productStatus: '',
+          productStatus: PRODUCT_STATUS.Ready,
           productLanguages: '',
           ageGroups: '',
           originalTitle: '',
@@ -214,27 +217,37 @@ class Ready extends React.Component {
       },
     );
   }
+  showMore(num) {
+    this.setState(
+      {
+        pageSize: num,
+      },
+      () => {
+        this.fetchProducts();
+      },
+    );
+  }
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="page-header">
-              <h2 class="pageheader-title">Ready Products List</h2>
-              <hr />
+        {/* <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="page-header">
+                <h2 class="pageheader-title">Products List</h2>
+                <hr />
+              </div>
             </div>
-          </div>
-        </div>
+          </div> */}
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div className="card">
-              <h4 className="card-header">Ready Products</h4>
+              <h5 className="card-header">Ready Products</h5>
               <div className="card-body p-0">
                 <div className="container-fluid">
                   <AdvancedSearch
-                    hasChoiceForStatus={false}
+                    hasChoiceForStatus={true}
                     searchClear={this.state.searchClear}
                     allPublishers={this.state.allPublishers}
                     allProductContentTypes={this.state.allProductContentTypes}
@@ -247,9 +260,10 @@ class Ready extends React.Component {
                     handleSelectChange={this.handleSelectChange}
                     fetchProducts={this.search}
                     clearFilters={this.clearFilters}
+                    showMore={this.showMore}
+                    pageSize={this.state.pageSize}
                     currentPageNumber={this.state.pageIndex}
                   />
-                  <hr />
 
                   <CustomTabel
                     pageCount={this.state.totalPageNum}
@@ -257,10 +271,6 @@ class Ready extends React.Component {
                     records={this.state.currentproducts}
                     columnLabels={PRODUCT_COLUMNS_LABELS_ARRAY}
                     recordItemNames={PRODUCT_RECORD_ITEM_NAMES_ARRAY}
-                    allPublishers={this.state.allPublishers}
-                    allProductContentTypes={this.state.allProductContentTypes}
-                    allLanguages={this.state.allLanguages}
-                    allAgeGroups={this.state.allAgeGroups}
                     handlePageChange={this.handlePageChange}
                     onRecordClick={this.onProductClick}
                   />

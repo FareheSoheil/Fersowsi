@@ -53,226 +53,271 @@ class ProductDetailsLeftContainer extends React.Component {
   }
   render() {
     return (
-      // <div class="card">
-      //   <h5
-      //     class={
-      //       this.props.product.productStatus.value ===
-      //       PRODUCT_STATUS.Pending.value
-      //         ? `${s.pending} card-header`
-      //         : this.props.product.productStatus.value ===
-      //           PRODUCT_STATUS.Ready.value
-      //           ? `${s.ready} card-header`
-      //           : `${s.notAvailable} card-header`
-      //     }
-      //     // style={{ backgroundColor: 'red' }}
-      //   >
-      //     Product Details
-      //   </h5>
-
-      //   <div class={`${s.cardContainer} card-body`}>
-      <div>
-        <div className={`${s.statusBtns} row mt-1 mb-3 pl-4`}>
-          <div className="offset-xl-1 ">
-            <label className="mr-5">Product Status : </label>
-          </div>
-          <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-            {' '}
-            <button
-              className="btn btn-success"
-              disabled={
-                this.props.product.productStatus.value ===
-                PRODUCT_STATUS.Ready.value
-              }
-              onClick={() => {
-                this.props.changeStatus(PRODUCT_STATUS.Ready);
-              }}
-            >
-              Ready
-            </button>
-          </div>
-          <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-            {' '}
-            <button
-              className="btn btn-warning"
-              disabled={
-                this.props.product.productStatus.value ===
-                PRODUCT_STATUS.Pending.value
-              }
-              onClick={() => {
-                this.props.changeStatus(PRODUCT_STATUS.Pending);
-              }}
-            >
-              Pending
-            </button>
-          </div>
-          <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-            {' '}
-            <button
-              className="btn btn-danger"
-              disabled={
-                this.props.product.productStatus.value ===
-                PRODUCT_STATUS.NotAvailable.value
-              }
-              onClick={() => {
-                this.props.changeStatus(PRODUCT_STATUS.NotAvailable);
-              }}
-            >
-              Not Available
-            </button>
-          </div>
-        </div>
+      <div className={s.mainContainer}>
         <div className="row">
-          <div
-            className={`col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30 ${
-              s.productImgContainer
-            }`}
-          >
+          <div className={`col-xl-9 col-lg-6 col-md-6 col-sm-12 col-12  pr-3`}>
             <div
-              className={`product-description offset-xl-1 col-10 ${
-                s.advancedContainer
-              }`}
+              className={`product-description col-12 ${s.advancedContainer}`}
             >
               <form className={s.dropDownContainer}>
-                <div className="form-group">
-                  <label>Publisher </label>
-                  <br />
-                  <Select
-                    name="publisher"
-                    options={this.props.allPublishers}
-                    value={this.props.product.publisher}
-                    onChange={so => this.handleSelectChange(so, 'publisher')}
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="mb-0">ISSN</label>
-                  <br />
-                  <input
-                    name="issn"
-                    type="text"
-                    className="form-control form-control-sm"
-                    value={this.props.product.issn}
-                    onChange={e => this.onChangeInput(e, 'num')}
-                  />
-                </div>
-                <div>
-                  <label>Product Language </label>
-                  <br />
-                  <Select
-                    name="productLanguage"
-                    options={this.props.allLanguages}
-                    value={this.props.product.productLanguage}
-                    onChange={so =>
-                      this.handleSelectChange(so, 'productLanguage')
-                    }
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="mb-1"> Title </label>
-                  <input
-                    name="originalTitle"
-                    type="text"
-                    className="form-control form-control-lg "
-                    value={this.props.product.originalTitle}
-                    onChange={e => this.onChangeInput(e, 'txt')}
-                  />
-                </div>
-
-                <div>
-                  <label>Product Period </label>
-                  <br />
-                  <Select
-                    name="productPeriod"
-                    options={this.props.allPeriods}
-                    value={this.props.product.productPeriod}
-                    onChange={so =>
-                      this.handleSelectChange(so, 'productPeriod')
-                    }
-                  />
-                </div>
-
-                {this.props.hasType ? (
-                  <div>
-                    <label>Product Type </label>
-                    <br />
-                    <Select
-                      name="productType"
-                      options={PRODUCT_TYPE_ARRAY}
-                      value={this.props.product.productType}
-                      onChange={so =>
-                        this.handleSelectChange(so, 'productType')
-                      }
-                    />
+                <div className="row">
+                  <div className="col-xl-4">
+                    <div className="form-group">
+                      <label className="mb-1"> Title </label>
+                      <input
+                        name="originalTitle"
+                        type="text"
+                        className="form-control form-control-lg "
+                        value={this.props.product.originalTitle}
+                        onChange={e => this.onChangeInput(e, 'txt')}
+                      />
+                    </div>
                   </div>
-                ) : (
-                  ''
-                )}
-
-                <div>
-                  <label>Single Product Type </label>
-                  <br />
-                  <Select
-                    name="singlProductType"
-                    options={SINGLE_PRODUCT_TYPE_ARRAY}
-                    value={this.props.product.singleProductType}
-                    onChange={so =>
-                      this.handleSelectChange(so, 'singleProductType')
-                    }
-                  />
+                  <div className="col-xl-4">
+                    <div className="form-group">
+                      <label>Publisher </label>
+                      <br />
+                      <Select
+                        name="publisher"
+                        options={this.props.allPublishers}
+                        value={this.props.product.publisher}
+                        onChange={so =>
+                          this.handleSelectChange(so, 'publisher')
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-2">
+                    <div className="form-group">
+                      <label className="mb-1">ISSN</label>
+                      <input
+                        name="issn"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={this.props.product.issn}
+                        onChange={e => this.onChangeInput(e, 'num')}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-2">
+                    <div className="form-group">
+                      <label className="mb-1">Dewey</label>
+                      <input
+                        name="dewey"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={this.props.product.dewey}
+                        onChange={e => this.onChangeInput(e, 'num')}
+                      />
+                    </div>
+                  </div>
                 </div>
+                <div className="row border-top pt-2">
+                  <div className="col-xl-4">
+                    <div className="form-group">
+                      <label>Product Period </label>
+                      <br />
+                      <Select
+                        name="productPeriod"
+                        options={this.props.allPeriods}
+                        value={this.props.product.productPeriod}
+                        onChange={so =>
+                          this.handleSelectChange(so, 'productPeriod')
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-4">
+                    <div className="form-group">
+                      <label>Product Type </label>
+                      <br />
+                      <Select
+                        name="productType"
+                        options={PRODUCT_TYPE_ARRAY}
+                        value={this.props.product.productType}
+                        onChange={so =>
+                          this.handleSelectChange(so, 'productType')
+                        }
+                      />
+                    </div>{' '}
+                  </div>
+                  <div className="col-xl-4">
+                    <div className="form-group">
+                      <label>Single Product Type </label>
 
-                <div>
-                  <label>Product Content Category </label>
-                  <br />
-                  <Select
-                    name="contentCategory"
-                    options={this.props.allContentCategories}
-                    value={this.props.product.contentCategory}
-                    isMulti
-                    onChange={so =>
-                      this.handleSelectChange(so, 'contentCategory')
-                    }
-                  />
+                      <Select
+                        name="singlProductType"
+                        options={SINGLE_PRODUCT_TYPE_ARRAY}
+                        value={this.props.product.singleProductType}
+                        onChange={so =>
+                          this.handleSelectChange(so, 'singleProductType')
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
+                <div className="row border-top pt-2">
+                  <div className="col-xl-6">
+                    <div className="form-group">
+                      <label>Content Category </label>
 
-                <div>
-                  <label>Product Age Group </label>
-                  <br />
-                  <Select
-                    name="ageGroup"
-                    options={this.props.allAgeGroups}
-                    value={this.props.product.ageGroup}
-                    onChange={so => this.handleSelectChange(so, 'ageGroup')}
-                  />
+                      <Select
+                        name="contentCategory"
+                        options={this.props.allContentCategories}
+                        value={this.props.product.contentCategory}
+                        isMulti
+                        onChange={so =>
+                          this.handleSelectChange(so, 'contentCategory')
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-3">
+                    <div className="form-group">
+                      <label>Age Group </label>
+                      <Select
+                        name="ageGroup"
+                        options={this.props.allAgeGroups}
+                        value={this.props.product.ageGroup}
+                        onChange={so => this.handleSelectChange(so, 'ageGroup')}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-2">
+                    <div className="form-group">
+                      <label className="mb-1">Discount</label>
+                      <br />
+                      <input
+                        name="discount"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={zeroTrimmer(this.props.product.discount)}
+                        onChange={e => this.onChangeInput(e, 'num')}
+                      />
+                    </div>{' '}
+                  </div>
                 </div>
-
-                {/* <div>
-                <label>Product Status </label>
-                <br />
-                <Select
-                  name="productStatus"
-                  options={PRODUCT_STATUS_ARRAY}
-                  value={this.props.product.productStatus}
-                  onChange={so => this.handleSelectChange(so, 'productStatus')}
-                />
-              </div> */}
-                <img
-                  className="d-block mt-5"
-                  height="330"
-                  width="350"
-                  id="productCoverImg"
-                  src={this.props.product.coverImage}
-                  alt="First slide"
-                  onClick={this.uploadImage}
-                />
-                <div>
-                  <input
-                    onChange={this.handleUploadedImage}
-                    style={{ display: 'none' }}
-                    type="file"
-                    id="fileInput"
-                    name="fileInput"
-                  />
+                <div className="row border-top pt-3">
+                  <div className="col-xl-2">
+                    <div className="form-group">
+                      <label className="mb-1">ASB</label>
+                      <input
+                        name="asb"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={this.props.product.asb}
+                        onChange={e => this.onChangeInput(e, 'num')}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-2">
+                    <div className="form-group">
+                      <label className="mb-1">Tax</label>
+                      <input
+                        name="tax"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={zeroTrimmer(this.props.product.tax)}
+                        onChange={e => this.onChangeInput(e, 'num')}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-2">
+                    <div className="form-group">
+                      <label className="mb-1">Weight (g)</label>
+                      <input
+                        name="weight"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={zeroTrimmer(this.props.product.weight)}
+                        onChange={e => this.onChangeInput(e, 'num')}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-2">
+                    <div className="form-group">
+                      <label className="mb-1">Created At </label>
+                      <DatePicker
+                        name="creationDate"
+                        selected={
+                          this.props.product.creationDate !== ''
+                            ? new Date(this.props.product.creationDate)
+                            : new Date()
+                        }
+                        onChange={date =>
+                          this.handleDateChange(date, 'creationDate')
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-3">
+                    <div className="form-group">
+                      <label className="mb-1">Price Updated At </label>
+                      <DatePicker
+                        name="publisherPriceUpdatedAt"
+                        selected={
+                          this.props.product.publisherPriceUpdatedAt !== ''
+                            ? new Date(
+                                this.props.product.publisherPriceUpdatedAt,
+                              )
+                            : new Date()
+                        }
+                        onChange={date =>
+                          this.handleDateChange(date, 'publisherPriceUpdatedAt')
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className={`${s.statusBtns} row border-top pt-4 pl-2`}>
+                  <div className="col-xl-3">
+                    <label>Product Status </label>
+                  </div>
+                  <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    {' '}
+                    <button
+                      className="btn btn-success"
+                      disabled={
+                        this.props.product.productStatus.value ===
+                        PRODUCT_STATUS.Ready.value
+                      }
+                      onClick={() => {
+                        this.props.changeStatus(PRODUCT_STATUS.Ready);
+                      }}
+                    >
+                      Ready
+                    </button>
+                  </div>
+                  <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    {' '}
+                    <button
+                      className="btn btn-warning"
+                      disabled={
+                        this.props.product.productStatus.value ===
+                        PRODUCT_STATUS.Pending.value
+                      }
+                      onClick={() => {
+                        this.props.changeStatus(PRODUCT_STATUS.Pending);
+                      }}
+                    >
+                      Pending
+                    </button>
+                  </div>
+                  <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    {' '}
+                    <button
+                      className="btn btn-danger"
+                      disabled={
+                        this.props.product.productStatus.value ===
+                        PRODUCT_STATUS.NotAvailable.value
+                      }
+                      onClick={() => {
+                        this.props.changeStatus(PRODUCT_STATUS.NotAvailable);
+                      }}
+                    >
+                      Not Available
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -281,122 +326,87 @@ class ProductDetailsLeftContainer extends React.Component {
           <div
             className={`${
               s.noPaddR
-            } col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30`}
+            } col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12`}
           >
-            <div className="product-details">
-              <div className="border-bottom pb-3 mb-3">
-                <form className={s.productsmallInfoContainer}>
-                  <div className="form-group">
-                    <label className="mb-0">Discount</label>
-                    <br />
-                    <input
-                      name="discount"
-                      type="text"
-                      className="form-control form-control-sm"
-                      value={zeroTrimmer(this.props.product.discount)}
-                      onChange={e => this.onChangeInput(e, 'num')}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="mb-0">Tax</label>
-                    <br />
-                    <input
-                      name="tax"
-                      type="text"
-                      className="form-control form-control-sm"
-                      value={zeroTrimmer(this.props.product.tax)}
-                      onChange={e => this.onChangeInput(e, 'num')}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Dewey</label>
-                    <br />
-                    <input
-                      name="dewey"
-                      type="text"
-                      className="form-control form-control-sm"
-                      value={this.props.product.dewey}
-                      onChange={e => this.onChangeInput(e, 'num')}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>ASB</label>
-                    <br />
-                    <input
-                      name="asb"
-                      type="text"
-                      className="form-control form-control-sm"
-                      value={this.props.product.asb}
-                      onChange={e => this.onChangeInput(e, 'num')}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>weight</label>
-                    <br />
-                    <input
-                      name="weight"
-                      type="text"
-                      className="form-control form-control-sm"
-                      value={zeroTrimmer(this.props.product.weight)}
-                      onChange={e => this.onChangeInput(e, 'num')}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="mb-0">Created At </label>
-                    <br />
-                    <DatePicker
-                      name="creationDate"
-                      selected={
-                        this.props.product.creationDate !== ''
-                          ? new Date(this.props.product.creationDate)
-                          : new Date()
-                      }
-                      onChange={date =>
-                        this.handleDateChange(date, 'creationDate')
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="mb-0">Price Updated At </label>
-                    <br />
-                    <DatePicker
-                      name="publisherPriceUpdatedAt"
-                      selected={
-                        this.props.product.publisherPriceUpdatedAt !== ''
-                          ? new Date(this.props.product.publisherPriceUpdatedAt)
-                          : new Date()
-                      }
-                      onChange={date =>
-                        this.handleDateChange(date, 'publisherPriceUpdatedAt')
-                      }
-                    />
-                  </div>
+            {/* <div className="product-detailss"> */}
+            <div className="pb-3 mb-3">
+              <form className={s.productsmallInfoContainer}>
+                <div className="row">
                   <div
-                    className={`mt-5 product-description ${
-                      s.productDescription
-                    }`}
+                    className={
+                      this.props.product.productStatus.value ==
+                      PRODUCT_STATUS.NotAvailable.value
+                        ? `${s.notAvailable} col-xl-12 `
+                        : this.props.product.productStatus.value ===
+                          PRODUCT_STATUS.Ready.value
+                          ? `${s.ready} col-xl-12`
+                          : `${s.pending} col-xl-12`
+                    }
                   >
-                    <br />
-                    <br />
-
-                    <label className="mb-1">Descriptions</label>
-                    <textarea
-                      onChange={e => this.onChangeInput(e, 'txt')}
-                      value={this.props.product.originalDesc}
-                      name="originalDesc"
-                      rows="14"
+                    <img
+                      height="250"
+                      // width="270"
+                      className={s.productCover}
+                      id="productCoverImg"
+                      src={this.props.product.coverImage}
+                      alt="First slide"
+                      onClick={this.uploadImage}
                     />
+                    <div>
+                      <input
+                        onChange={this.handleUploadedImage}
+                        style={{ display: 'none' }}
+                        type="file"
+                        id="fileInput"
+                        name="fileInput"
+                      />
+                    </div>
                   </div>
-                </form>
-              </div>
+                </div>
+                {/* <div className="row">
+                  <div className="col-xl-12">
+                    <div className="form-group">
+                      <label className="mb-1"> Title </label>
+                      <input
+                        name="originalTitle"
+                        type="text"
+                        className="form-control form-control-lg "
+                        value={this.props.product.originalTitle}
+                        onChange={e => this.onChangeInput(e, 'txt')}
+                      />
+                    </div>
+                  </div>
+                </div> */}
+
+                {/* <div className="form-group">
+                  <label>weight</label>
+                  <br />
+                  <input
+                    name="weight"
+                    type="text"
+                    className="form-control form-control-sm"
+                    value={zeroTrimmer(this.props.product.weight)}
+                    onChange={e => this.onChangeInput(e, 'num')}
+                  />
+                </div> */}
+
+                <div
+                  className={`mt-1 product-description ${s.productDescription}`}
+                >
+                  <label className="mb-1">Descriptions</label>
+                  <textarea
+                    onChange={e => this.onChangeInput(e, 'txt')}
+                    value={this.props.product.originalDesc}
+                    name="originalDesc"
+                    rows="8"
+                  />
+                </div>
+              </form>
             </div>
+            {/* </div> */}
           </div>
         </div>
       </div>
-      //   </div>
-      // </div>
-      // </div>
     );
   }
 }

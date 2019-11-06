@@ -14,8 +14,8 @@ import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import { fetchURL } from '../../../../constants';
 import s from './Publishers.css';
 import Spinner from '../../../../components/Admin/Spinner';
-import CustomTable from '../../../../components/CustomTabel';
-import AccountSearch from '../../../../components/Admin/AccountSearch';
+import AccountsTable from '../../../../components/Admin/Accounts/AccountsTable';
+import AccountSearch from '../../../../components/Admin/Accounts/AccountSearch';
 import {
   ROLES,
   ACCOUNTS_COLUMNS_LABELS_ARRAY,
@@ -56,6 +56,7 @@ class Publishers extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
+    this.showMore = this.showMore.bind(this);
     this.fetchAccounts = this.fetchAccounts.bind(this);
     this.onAccountClick = this.onAccountClick.bind(this);
   }
@@ -77,22 +78,29 @@ class Publishers extends React.Component {
     this.setState({ accountsSearchFilter, searchClear: false });
   }
   clearFilters() {
-    this.setState({
-      accountsSearchFilter: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        userName: '',
-        country: '',
-        role: ROLES.customer,
-        job: '',
-        hasOpenClaim: '',
-        userActivitionStatus: '',
-        numberType: '',
-        numberValue: '',
+    this.setState(
+      {
+        accountsSearchFilter: {
+          firstName: '',
+          lastName: '',
+          contractName: '',
+          email: '',
+          userName: '', //remove
+          country: '',
+          role: '',
+          userSubCategory: '',
+          job: '',
+          hasOpenClaim: '', //remove
+          userActivitionStatus: '',
+          numberType: '',
+          numberValue: '',
+        },
+        searchClear: true,
       },
-      searchClear: true,
-    });
+      () => {
+        this.fetchAccounts();
+      },
+    );
   }
   fetchAccounts() {
     const url = `${SERVER}/getAllUsers`;
@@ -104,7 +112,7 @@ class Publishers extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
-
+    console.log(this.state.accountsSearchFilter);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -122,6 +130,7 @@ class Publishers extends React.Component {
           {
             currentAccounts: response.currentRecords,
             totalPageNum: response.totalPageNum,
+            // isLoading: false,
             firstRender: false,
           },
           () => {
@@ -156,6 +165,7 @@ class Publishers extends React.Component {
       },
     );
   }
+
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
       this.fetchAccounts();
@@ -169,6 +179,16 @@ class Publishers extends React.Component {
   onAccountClick(id) {
     history.push(`/admin/accounts/${id}`);
   }
+  showMore(num) {
+    this.setState(
+      {
+        pageSize: num,
+      },
+      () => {
+        this.fetchAccounts();
+      },
+    );
+  }
   render() {
     return (
       <div className="container-fluid dashboard-content">
@@ -176,9 +196,9 @@ class Publishers extends React.Component {
           {this.state.isLoading ? (
             <Spinner />
           ) : (
-            <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div className="card">
-                <h4 className="card-header">Accounts</h4>
+                <h5 className="card-header">publishers</h5>
                 <div className="card-body p-0">
                   <div className="container-fluid">
                     <AccountSearch
@@ -191,11 +211,13 @@ class Publishers extends React.Component {
                       handleSelectChange={this.handleSelectChange}
                       fetchAccounts={this.fetchAccounts}
                       clearFilters={this.clearFilters}
+                      showMore={this.showMore}
+                      pageSize={this.state.pageSize}
                       currentPageNumber={this.state.pageIndex}
                     />
-                    <hr />
 
-                    <CustomTable
+                    <AccountsTable
+                      pageSize={this.state.pageSize}
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentAccounts}

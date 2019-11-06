@@ -32,7 +32,7 @@ class Pending extends React.Component {
       isLoading: true,
       firstRender: true,
       pageIndex: 0,
-      pageSize: 9,
+      pageSize: 10,
       totalPageNum: '',
       currentproducts: [{ a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
@@ -71,6 +71,7 @@ class Pending extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
+    this.showMore = this.showMore.bind(this);
     this.search = this.search.bind(this);
   }
   componentDidMount() {
@@ -216,23 +217,25 @@ class Pending extends React.Component {
       },
     );
   }
+  showMore(num) {
+    this.setState(
+      {
+        pageSize: num,
+      },
+      () => {
+        this.fetchProducts();
+      },
+    );
+  }
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="page-header">
-              <h2 class="pageheader-title">Pending Products List</h2>
-              <hr />
-            </div>
-          </div>
-        </div>
         {this.state.isLoading ? (
           <Spinner />
         ) : (
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
             <div className="card">
-              <h4 className="card-header">Pending Products</h4>
+              <h5 className="card-header">Pending Products</h5>
               <div className="card-body p-0">
                 <div className="container-fluid">
                   <AdvancedSearch
@@ -249,6 +252,8 @@ class Pending extends React.Component {
                     handleSelectChange={this.handleSelectChange}
                     fetchProducts={this.search}
                     clearFilters={this.clearFilters}
+                    showMore={this.showMore}
+                    pageSize={this.state.pageSize}
                     currentPageNumber={this.state.pageIndex}
                   />
                   <hr />

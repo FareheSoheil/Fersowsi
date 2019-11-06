@@ -11,11 +11,10 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import history from '../../../history';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import { fetchURL } from '../../../constants';
 import s from './Accounts.css';
 import Spinner from '../../../components/Admin/Spinner';
-import CustomTable from '../../../components/CustomTabel';
-import AccountSearch from '../../../components/Admin/AccountSearch';
+import AccountsTable from '../../../components/Admin/Accounts/AccountsTable';
+import AccountSearch from '../../../components/Admin/Accounts/AccountSearch';
 import {
   ACCOUNTS_COLUMNS_LABELS_ARRAY,
   ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY,
@@ -57,6 +56,7 @@ class Accounts extends React.Component {
     this.clearFilters = this.clearFilters.bind(this);
     this.fetchAccounts = this.fetchAccounts.bind(this);
     this.onAccountClick = this.onAccountClick.bind(this);
+    this.showMore = this.showMore.bind(this);
   }
   componentDidMount() {
     this.fetchAccounts();
@@ -76,22 +76,29 @@ class Accounts extends React.Component {
     this.setState({ accountsSearchFilter, searchClear: false });
   }
   clearFilters() {
-    this.setState({
-      accountsSearchFilter: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        userName: '',
-        country: '',
-        role: '',
-        job: '',
-        hasOpenClaim: '',
-        userActivitionStatus: '',
-        numberType: '',
-        numberValue: '',
+    this.setState(
+      {
+        accountsSearchFilter: {
+          firstName: '',
+          lastName: '',
+          contractName: '',
+          email: '',
+          userName: '', //remove
+          country: '',
+          role: '',
+          userSubCategory: '',
+          job: '',
+          hasOpenClaim: '', //remove
+          userActivitionStatus: '',
+          numberType: '',
+          numberValue: '',
+        },
+        searchClear: true,
       },
-      searchClear: true,
-    });
+      () => {
+        this.fetchAccounts();
+      },
+    );
   }
   fetchAccounts() {
     const url = `${SERVER}/getAllUsers`;
@@ -103,7 +110,7 @@ class Accounts extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
-
+    console.log(this.state.accountsSearchFilter);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -170,6 +177,16 @@ class Accounts extends React.Component {
   onAccountClick(id) {
     history.push(`/admin/accounts/${id}`);
   }
+  showMore(num) {
+    this.setState(
+      {
+        pageSize: num,
+      },
+      () => {
+        this.fetchAccounts();
+      },
+    );
+  }
   render() {
     return (
       <div className="container-fluid dashboard-content">
@@ -177,9 +194,9 @@ class Accounts extends React.Component {
           {this.state.isLoading ? (
             <Spinner />
           ) : (
-            <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div className="card">
-                <h4 className="card-header">Accounts</h4>
+                <h5 className="card-header">All Accounts</h5>
                 <div className="card-body p-0">
                   <div className="container-fluid">
                     <AccountSearch
@@ -192,11 +209,13 @@ class Accounts extends React.Component {
                       handleSelectChange={this.handleSelectChange}
                       fetchAccounts={this.fetchAccounts}
                       clearFilters={this.clearFilters}
+                      showMore={this.showMore}
+                      pageSize={this.state.pageSize}
                       currentPageNumber={this.state.pageIndex}
                     />
-                    <hr />
 
-                    <CustomTable
+                    <AccountsTable
+                      pageSize={this.state.pageSize}
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentAccounts}

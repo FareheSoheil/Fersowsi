@@ -1,3 +1,6 @@
+.mainContainer {
+    padding-top: 10px;
+}
 .productDescription {
     word-break: break-word;
     height: auto;
@@ -7,6 +10,7 @@
     text-align: justify;
     /* overflow-y: auto; */
 }
+
 .productDescription textarea {
     border: 1px solid #d2d2e4;
     border-radius: 5px;
@@ -14,25 +18,25 @@
     width: 100%;
     height: auto;
 }
-.productImgContainer {
+/* .productImgContainer {
     background-color: white;
     align-content: center;
     text-align: center;
-}
-.productImgContainer img {
+} */
+/* .productImgContainer img {
     display: block;
     margin: 20px auto 15px auto;
     cursor: pointer;
     border: 1px solid #ded8d8;
     
 
-}
+} */
 .productTitle {
     font-size: 18px;
     color: #4a5158;
 }
 .productsmallInfoContainer {
-    padding: 5px 20px 5px 15px;
+    padding: 0px 20px 5px 15px;
     text-align: center;
 }
 .productsmallInfoContainer>div {
@@ -42,16 +46,13 @@
     display: inline;
     width: auto;
 }
-/* .productDetailContainer{
-    border:1px solid #ded8d8;
-} */
+.productDetailContainer{
+    padding-top: 15px;
+}
 
 .dropDownContainer>div{
     margin-bottom: 12px;
     /* border: 1px solid violet; */
-}
-.dropDownContainer>div>label , .productsmallInfoContainer>div>label{ 
-    color: rgb(80, 78, 78);
 }
 .advancedContainer {
     /* border: 1px solid greenyellow; */
@@ -61,7 +62,9 @@
 .cardContainer {
     border-bottom: 1px solid #ded8d8;
     box-shadow: 7px 12px #b9b9b9;
-    margin-top: 3px;
+    
+    border: 1px solid blue;
+    margin-top: 10px;
     border-radius: 3px;
     padding-bottom: 20px;
 }
@@ -99,15 +102,38 @@
 
 
 .statusBtns {
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    /* border-bottom: 1px solid lightgray; */
     /* border-radius: 5px; */
-    padding: 15px 5px 15px 5px;
+    /* padding: 15px 5px 15px 5px; */
+    
 }
 .statusBtns button{
     min-width: 110px;
+    color: white;
+    font-weight: bold;
 }
 .statusBtns label {
     padding-top: 8px;
     color: #4a5158;
+}
+.productCover {
+    width: inherit;
+    border: 1px solid black;
+}
+
+.pending {
+    padding: 0px;
+    border: 5px solid #ffc108;
+
+    border-radius: 3px;
+}
+.ready {
+    padding: 0px;
+    border: 5px solid green;
+    border-radius: 3px;
+}
+.notAvailable {
+    padding: 0px;
+    border: 5px solid red;
+    border-radius: 3px;
 }

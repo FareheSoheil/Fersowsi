@@ -82,12 +82,12 @@ function otherPathResolver(path) {
   return 0;
 }
 async function Authorize(req, res, next) {
-  if (statePat.test(req.path) && req.method === 'POST') {
+  if (statePat.test(req.path) && req.method == 'POST') {
     console.log('in state ', req.path);
     return next();
   }
 
-  // not logged in
+  // user not logged in
   if (req.cookies.TokenId === undefined) {
     console.log('in not logged in');
     // ----------------------------if other pages than main
@@ -108,13 +108,13 @@ async function Authorize(req, res, next) {
     //     res.redirect('/admin');
     // }
   } else if (req.cookies.TokenId !== undefined) {
-    // logged in
+    // user has logged in
     // logged in but not valid
-    console.log('in logged in');
     const fetchedState = await readTokenIdFromDB(req.cookies.TokenId);
     if (fetchedState === undefined) {
       console.log('in state not defined');
       res.clearCookie('TokenId');
+      res.clearCookie('role');
       res.redirect('/login');
       // logged in but valid
     } else {
@@ -127,15 +127,18 @@ async function Authorize(req, res, next) {
         } else res.redirect('/admin');
         // --------------------------------if any where else than main pages
       } else {
+        // in main pages
+        // if it is user
         if (req.cookies.role == ROLES.customer.value) {
           if (!userPaths.test(req.path)) {
             console.log('in user wants admin pages');
-            res.redirect('/user/myAccount');
+            res.redirect('/user/products');
           } else {
             console.log('User wants user pages');
             return next();
           }
         } else if (req.cookies.role != ROLES.customer.value) {
+          // if it is admin
           if (userPaths.test(req.path) || homePat.test(req.path)) {
             console.log(
               'in admin wants user pages',
@@ -146,7 +149,7 @@ async function Authorize(req, res, next) {
             res.redirect('/admin');
           } else {
             console.log(
-              'in admin wants this',
+              'in admin wants admins',
 
               req.path,
             );

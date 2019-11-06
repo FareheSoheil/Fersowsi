@@ -37,13 +37,6 @@ class UserSimpleLayout extends React.Component {
         <div
           style={{
             backgroundColor: 'white',
-            // border: '3px solid green',
-            // paddingTop: '40px',
-            // paddingRight: '10px',
-            // position: 'fixed',
-            // minHeight: '100px',
-            // height: '100%',
-            // width: '100%',
           }}
         >
           <div className={`${s.userContentContainer}`}>

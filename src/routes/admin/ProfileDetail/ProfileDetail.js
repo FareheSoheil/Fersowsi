@@ -126,6 +126,7 @@ class ProfileDetail extends React.Component {
                 auxUrl,
                 auxOptions,
                 auxResponse => {
+                  // window.alert('all fetched');
                   thatthat.setState({
                     countries: auxResponse.Country,
                     siteLanguages: auxResponse.SiteLanguage,
@@ -163,6 +164,7 @@ class ProfileDetail extends React.Component {
       url,
       options,
       response => {
+        window.alert('all fetched');
         that.setState({
           countries: response.Country,
           siteLanguages: response.SiteLanguage,
@@ -221,46 +223,13 @@ class ProfileDetail extends React.Component {
             <Spinner />
           ) : (
             <div>
-              <PageHeader
+              {/* <PageHeader
                 title="User Details"
                 breadCrumbs={[
                   { label: 'Accounts', link: '/admin/accounts/all' },
                   { label: 'User Profile Details' },
                 ]}
-              />
-              <div className="row mb-5">
-                <div
-                  className={`col-xl-12 col-lg-12 col-md-10 col-sm-12  ${
-                    s.btnContainer
-                  }`}
-                >
-                  {' '}
-                  <button
-                    type="submit"
-                    class="btn btn-success "
-                    onClick={this.onUserDelete}
-                  >
-                    Save Changes &nbsp; &nbsp; <i class="fas fa-edit" />
-                  </button>
-                  <button
-                    className="btn btn-warning"
-                    disabled
-                    onClick={this.onAct}
-                  >
-                    Act as this user
-                  </button>
-                  <button
-                    type="submit"
-                    class="btn btn-danger"
-                    onClick={this.onUserEdit}
-                  >
-                    Delete User &nbsp; &nbsp;<i
-                      class="fa fa-trash"
-                      aria-hidden="true"
-                    />
-                  </button>
-                </div>
-              </div>
+              /> */}
 
               <div className="row">
                 <ProfileInfo
@@ -294,6 +263,9 @@ class ProfileDetail extends React.Component {
                         : this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
+                  onUserDelete={this.onUserDelete}
+                  onUserEdit={this.onUserEdit}
+                  onAct={this.onAct}
                   userStatus={this.state.user.UserActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
                   changeStatus={this.changeStatus}
@@ -310,10 +282,22 @@ class ProfileDetail extends React.Component {
                     UserSubCategory: this.state.user.UserSubCategory,
                     UserActivitionStatus: this.state.user.UserActivitionStatus,
                     Job: this.state.user.Job,
-                    bio: this.state.user.bio,
+
                     claims: this.state.user.claims,
                     addresses: this.state.user.addresses,
-
+                    VatId: this.state.user.VatId,
+                    glmCode: this.state.user.glmCode,
+                    referenceNo: this.state.user.referenceNo,
+                    eoriNo: this.state.user.eoriNo,
+                    bankName: this.state.user.bankName,
+                    AccountNo: this.state.user.AccountNo,
+                    iban: this.state.user.iban,
+                    swiftAddress: this.state.user.swiftAddress,
+                    bankGiro: this.state.user.bankGiro,
+                    email: this.state.user.email,
+                    dateOfBirth: new Date(this.state.user.dateOfBirth),
+                    psn: this.state.user.psn,
+                    discount: this.state.user.discount,
                     customerOrders: this.state.user.customerOrders,
                     publisherOrders: this.state.user.publisherOrders,
                     handleSimpleInputChange: this.onChangeInput,

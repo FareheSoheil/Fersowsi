@@ -372,36 +372,19 @@ class ProductDetail extends React.Component {
           <div className="dashboard-ecommerce">
             <div className="container-fluid dashboard-content ">
               {/* pageheader   */}
-              <PageHeader
+              {/* <PageHeader
                 title="Product Detail"
                 breadCrumbs={[
                   { link: '/admin/products/all', label: 'Products' },
                   { label: 'Product Detail' },
                 ]}
-              />
+              /> */}
+
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div className={`${s.btnContainer} row`}>
-                  <div className="offset-xl-2 col-3">
-                    <button className="btn  btn-secondary">
-                      Import Product
-                    </button>
-                  </div>
-                  <div className="col-3">
-                    <button className="btn btn-info">Export Product</button>
-                  </div>
-                  <div className="col-3">
-                    <a className="btn btn-success" onClick={this.onProductEdit}>
-                      {' '}
-                      Apply Changes
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-12 col-lg-8 col-md-6 col-sm-12 col-12">
                 <div class="influence-profile-content pills-regular">
                   {/* tab headers */}
                   <ul
-                    class="nav nav-pills mb-3 nav-justified"
+                    class={`${s.productPills} nav nav-pills mb-1 nav-justified`}
                     id="pills-tab"
                     role="tablist"
                   >
@@ -562,17 +545,15 @@ class ProductDetail extends React.Component {
                           Product Prices and Costs
                         </h5>
                         <div class="card-body">
-                          <div className="row mt-2 mb-3 pl-4">
-                            <span>
-                              {' '}
-                              Private Price Ratio &nbsp;
-                              :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{' '}
-                            </span>
-                            <div className="col-xl-2">
+                          <div className="row mt-1 pl-4">
+                            <label>Private Price Ratio = </label>
+                            {/* <div className="col-xl-2" /> */}
+                            <div className="col-xl-1">
                               {' '}
                               <div className="form-group">
                                 <input
                                   name="privateRatio"
+                                  // placeholder="Private Price Ratio"
                                   id="privateRatio"
                                   type="text"
                                   className="form-control form-control-sm "
@@ -581,11 +562,12 @@ class ProductDetail extends React.Component {
                                 />
                               </div>
                             </div>
-                            <span>%</span>
-                          </div>
-                          <div className="row mt-2 mb-3 pl-4">
-                            <span>Instituitional Price Ratio &nbsp; :</span>
-                            <div className="col-xl-2">
+                            {/* <div className="col-xl-2"> */}
+                            <label className="offset-xl-1">
+                              Instituitional Price Ratio =
+                            </label>
+                            {/* </div> */}
+                            <div className="col-xl-1">
                               {' '}
                               <div className="form-group">
                                 <input
@@ -598,8 +580,8 @@ class ProductDetail extends React.Component {
                                 />
                               </div>
                             </div>
-                            <span>%</span>
                           </div>
+                          <div className="row mt-2 mb-3 pl-4" />
                           {/* <div className="row mt-2 mb-3 pl-4">
                             <button
                               onClick={this.applyRatios}
@@ -636,7 +618,7 @@ class ProductDetail extends React.Component {
                       aria-labelledby="pills-details-tab"
                     >
                       <div class="card">
-                        <h4
+                        {/* <h4
                           class={
                             this.state.product.productStatus.value ===
                             PRODUCT_STATUS.Pending.value
@@ -648,7 +630,7 @@ class ProductDetail extends React.Component {
                           }
                         >
                           Product Details
-                        </h4>
+                        </h4> */}
                         <div class={`${s.cardContainer} card-body`}>
                           <ProductDetailsContainer
                             hasType={true}
@@ -670,6 +652,24 @@ class ProductDetail extends React.Component {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div className={`${s.btnContainer} row`}>
+                  <div className="offset-xl-2 col-3">
+                    <button className="btn  btn-secondary">
+                      Import Product
+                    </button>
+                  </div>
+                  <div className="col-3">
+                    <button className="btn btn-info">Export Product</button>
+                  </div>
+                  <div className="col-3">
+                    <a className="btn btn-success" onClick={this.onProductEdit}>
+                      {' '}
+                      Apply Changes
+                    </a>
                   </div>
                 </div>
               </div>
