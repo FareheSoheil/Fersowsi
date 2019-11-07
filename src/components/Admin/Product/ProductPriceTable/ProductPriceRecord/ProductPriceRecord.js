@@ -92,7 +92,11 @@ class ProductPriceRecord extends React.Component {
                 name="publisherPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={zeroTrimmer(this.props.cost.publisherPrice, 'price')}
+                value={
+                  this.props.hasAdd
+                    ? this.props.cost.publisherPrice
+                    : zeroTrimmer(this.props.cost.publisherPrice, 'price')
+                }
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -107,10 +111,14 @@ class ProductPriceRecord extends React.Component {
                 type="text"
                 className="form-control form-control-sm "
                 // disabled
-                value={zeroTrimmer(
-                  this.props.cost.institutionalCustomerPrice,
-                  'price',
-                )}
+                value={
+                  this.props.hasAdd
+                    ? this.props.cost.institutionalCustomerPrice
+                    : zeroTrimmer(
+                        this.props.cost.institutionalCustomerPrice,
+                        'price',
+                      )
+                }
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -124,10 +132,11 @@ class ProductPriceRecord extends React.Component {
                 name="privateCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={zeroTrimmer(
-                  this.props.cost.privateCustomerPrice,
-                  'price',
-                )}
+                value={
+                  this.props.hasAdd
+                    ? this.props.cost.privateCustomerPrice
+                    : zeroTrimmer(this.props.cost.privateCustomerPrice, 'price')
+                }
                 // disabled
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
@@ -142,7 +151,11 @@ class ProductPriceRecord extends React.Component {
                 name="postalCost"
                 type="text"
                 className="form-control form-control-sm "
-                value={zeroTrimmer(this.props.cost.postalCost, 'price')}
+                value={
+                  this.props.hasAdd
+                    ? this.props.cost.postalCost
+                    : zeroTrimmer(this.props.cost.postalCost, 'price')
+                }
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>

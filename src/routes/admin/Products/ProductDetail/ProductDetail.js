@@ -581,17 +581,7 @@ class ProductDetail extends React.Component {
                               </div>
                             </div>
                           </div>
-                          {/* <div className="row mt-2 mb-3 pl-4">
-                            <button
-                              onClick={this.applyRatios}
-                              className="btn btn-success"
-                            >
-                              {' '}
-                              {this.state.applyRatios
-                                ? 'Do not Apply Ratios on New Publisher Price'
-                                : 'Apply Ratios on New Publisher Price'}{' '}
-                            </button>
-                          </div> */}
+
                           <ProductPriceTable
                             applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
@@ -655,7 +645,7 @@ class ProductDetail extends React.Component {
                 </div>
               </div>
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div className={`${s.btnContainer} row`}>
+                <div className={`${s.btnContainer} row mt-3`}>
                   <div className="offset-xl-2 col-3">
                     <button className="btn  btn-secondary">
                       Import Product

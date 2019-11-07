@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import zeroTrimmer from '../../../../zeroTrimmer';
 import s from './ProductPriceTable.css';
 import ProductPriceRecord from './ProductPriceRecord';
 
@@ -87,7 +88,7 @@ class ProductPriceTable extends React.Component {
         if (this.props.instRatio != '')
           newCost.institutionalCustomerPrice =
             (100 + parseFloat(this.props.instRatio)) * parseFloat(value) / 100;
-        newCost.publisherPrice = parseFloat(value);
+        newCost.publisherPrice = zeroTrimmer(value);
         this.setState({ newCost }, () => {
           // window.alert(JSON.stringify(newCost));
         });

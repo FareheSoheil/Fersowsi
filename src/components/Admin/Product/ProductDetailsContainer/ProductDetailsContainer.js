@@ -112,7 +112,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="row border-top pt-2">
+                <div className="row border-top pt-3">
                   <div className="col-xl-4">
                     <div className="form-group">
                       <label>Product Period </label>
@@ -156,7 +156,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="row border-top pt-2">
+                <div className="row border-top pt-3">
                   <div className="col-xl-6">
                     <div className="form-group">
                       <label>Content Category </label>
@@ -273,7 +273,7 @@ class ProductDetailsLeftContainer extends React.Component {
                   </div>
                 </div>
                 <div className={`${s.statusBtns} row border-top pt-4 pl-2`}>
-                  <div className="col-xl-3">
+                  <div className="col-xl-2">
                     <label>Product Status </label>
                   </div>
                   <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12">
@@ -394,7 +394,7 @@ class ProductDetailsLeftContainer extends React.Component {
                 </div> */}
 
                 <div
-                  className={`mt-1 product-description ${s.productDescription}`}
+                  className={`mt-3 product-description ${s.productDescription}`}
                 >
                   <label className="mb-1">Descriptions</label>
                   <textarea
