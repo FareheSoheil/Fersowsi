@@ -338,14 +338,20 @@ class WishItem extends React.Component {
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
                   // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                   <span className={s.priceSpan}>
-                    {`= ${zeroTrimmer(this.state.selectedPrice.privatePrice)}`}
+                    {`= ${zeroTrimmer(
+                      this.state.selectedPrice.privatePrice,
+                      'price',
+                    )}`}
                   </span>
                 ) : (
                   // </div>
                   // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
 
                   <span className={s.priceSpan}>
-                    {`= ${zeroTrimmer(this.state.selectedPrice.instPrice)}`}
+                    {`= ${zeroTrimmer(
+                      this.state.selectedPrice.instPrice,
+                      'price',
+                    )}`}
                   </span>
                   // </div>
                 )}

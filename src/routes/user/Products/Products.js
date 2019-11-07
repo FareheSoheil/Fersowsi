@@ -41,7 +41,7 @@ class Products extends React.Component {
         asb: '',
         dewey: '',
         hasDiscount: '',
-        priceRange: { min: 1, max: 1000 },
+        priceRange: { min: 1, max: 10000 },
         weightRange: { min: 10, max: 2000 },
         sortDate: false,
         sortPrice: false,

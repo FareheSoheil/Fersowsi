@@ -69,7 +69,7 @@ class CustomTabel extends React.Component {
               // <td>{typeof record[label]}</td>,
               record[label] != null &&
               record[label].constructor === {}.constructor ? (
-                <td>{zeroTrimmer(record[label].label)}</td>
+                <td>{zeroTrimmer(record[label].label,label)}</td>
               ) : label === 'profilePic' || label === 'coverImage' ? (
                 <td>
                   <img
@@ -94,7 +94,7 @@ class CustomTabel extends React.Component {
                   />
                 </td>
               ) : (
-                <td>{zeroTrimmer(record[label])}</td>
+                <td>{zeroTrimmer(record[label],label)}</td>
               ),
           )}
         </tr>

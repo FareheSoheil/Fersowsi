@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
 import s from './ProductPriceRecord.css';
+import zeroTrimmer from '../../../../../zeroTrimmer';
 
 class ProductPriceRecord extends React.Component {
   static propTypes = {
@@ -91,7 +92,7 @@ class ProductPriceRecord extends React.Component {
                 name="publisherPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.cost.publisherPrice}
+                value={zeroTrimmer(this.props.cost.publisherPrice, 'price')}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -106,7 +107,10 @@ class ProductPriceRecord extends React.Component {
                 type="text"
                 className="form-control form-control-sm "
                 // disabled
-                value={this.props.cost.institutionalCustomerPrice}
+                value={zeroTrimmer(
+                  this.props.cost.institutionalCustomerPrice,
+                  'price',
+                )}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>
@@ -120,7 +124,10 @@ class ProductPriceRecord extends React.Component {
                 name="privateCustomerPrice"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.cost.privateCustomerPrice}
+                value={zeroTrimmer(
+                  this.props.cost.privateCustomerPrice,
+                  'price',
+                )}
                 // disabled
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
@@ -135,7 +142,7 @@ class ProductPriceRecord extends React.Component {
                 name="postalCost"
                 type="text"
                 className="form-control form-control-sm "
-                value={parseFloat(this.props.cost.postalCost)}
+                value={zeroTrimmer(this.props.cost.postalCost, 'price')}
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
             </div>

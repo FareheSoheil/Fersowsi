@@ -208,13 +208,16 @@ class ProductDetails extends React.Component {
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
-                      {zeroTrimmer(this.state.selectedPrice.privatePrice)}
+                      {zeroTrimmer(
+                        this.state.selectedPrice.privatePrice,
+                        'price',
+                      )}
                     </span>
                   </div>
                 ) : (
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
-                      {zeroTrimmer(this.state.selectedPrice.instPrice)}
+                      {zeroTrimmer(this.state.selectedPrice.instPrice, 'price')}
                     </span>
                   </div>
                 )}

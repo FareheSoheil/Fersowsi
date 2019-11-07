@@ -191,7 +191,10 @@ class ProductDetailsLeftContainer extends React.Component {
                         name="discount"
                         type="text"
                         className="form-control form-control-sm"
-                        value={zeroTrimmer(this.props.product.discount)}
+                        value={zeroTrimmer(
+                          this.props.product.discount,
+                          'price',
+                        )}
                         onChange={e => this.onChangeInput(e, 'num')}
                       />
                     </div>{' '}
@@ -217,7 +220,7 @@ class ProductDetailsLeftContainer extends React.Component {
                         name="tax"
                         type="text"
                         className="form-control form-control-sm"
-                        value={zeroTrimmer(this.props.product.tax)}
+                        value={zeroTrimmer(this.props.product.tax, 'price')}
                         onChange={e => this.onChangeInput(e, 'num')}
                       />
                     </div>

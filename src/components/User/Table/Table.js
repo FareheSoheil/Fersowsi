@@ -33,7 +33,7 @@ class Table extends React.Component {
               label !== 'id' ? (
                 record[label] !== null && record[label] !== undefined ? (
                   record[label].constructor === {}.constructor ? (
-                    <td>{zeroTrimmer(record[label].label)}</td>
+                    <td>{zeroTrimmer(record[label].label, label)}</td>
                   ) : this.isBool(record[label]) ? (
                     record[label] === true ? (
                       <i style={{ color: 'green' }} class="fas fa-check" />
@@ -45,7 +45,7 @@ class Table extends React.Component {
                       />
                     )
                   ) : (
-                    <td>{zeroTrimmer(record[label])}</td>
+                    <td>{zeroTrimmer(record[label], label)}</td>
                   )
                 ) : (
                   <td> </td>
