@@ -129,7 +129,6 @@ class Products extends React.Component {
   render() {
     let subProducts = this.state.product.subProducts;
     let list = '';
-    // console.log('lsit length', subProducts === undefined);
     if (!this.state.isLoading && subProducts.length > 0) {
       subProducts.map(
         (product, i) =>
@@ -149,7 +148,7 @@ class Products extends React.Component {
             <div className="row">
               <div className={`${s.header} col-12`}>
                 {' '}
-                <h1>Product Details</h1>
+                <h5>Product Details</h5>
               </div>
               <div className="offset-xl-1 col-10">
                 <ProductDetails product={this.state.product} />
@@ -159,10 +158,6 @@ class Products extends React.Component {
             {list !== '' ? (
               <div className={`${s.subproductContainer} row`}>
                 <div className="offset-xl-1 col-9">
-                  {' '}
-                  {/* <h3 className="offset-xl-4 mt-4">
-                    Subproducts of this package{' '}
-                  </h3> */}
                   <br />
                   <br />
                   {list}

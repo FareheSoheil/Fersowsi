@@ -11,7 +11,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import history from '../../../../history';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
-import { fetchURL } from '../../../../constants';
+import RowAdder from '../../../../components/moreTableRowSelector';
 import s from './Publishers.css';
 import Spinner from '../../../../components/Admin/Spinner';
 import AccountsTable from '../../../../components/Admin/Accounts/AccountsTable';
@@ -201,6 +201,91 @@ class Publishers extends React.Component {
                 <h5 className="card-header">publishers</h5>
                 <div className="card-body p-0">
                   <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <form>
+                          <div className="row mt-2">
+                            <div className="col-md-2 col-sm-4 form-group">
+                              <input
+                                id="fn"
+                                name="firstName"
+                                type="text"
+                                placeholder="First Name"
+                                value={
+                                  this.state.accountsSearchFilter.firstName
+                                }
+                                className="form-control"
+                                onChange={this.handleInputChange}
+                              />
+                            </div>
+                            <div className="col-md-2 col-sm-4 form-group">
+                              <input
+                                id="ln"
+                                name="lastName"
+                                type="text"
+                                placeholder="Last Name"
+                                value={this.state.accountsSearchFilter.lastName}
+                                className="form-control"
+                                onChange={this.handleInputChange}
+                              />
+                            </div>
+
+                            <div className="col-md-2 col-sm-4 form-group">
+                              <input
+                                id="un"
+                                name="userName"
+                                type="text"
+                                placeholder="User Name"
+                                value={this.state.accountsSearchFilter.userName}
+                                className="form-control"
+                                onChange={this.handleInputChange}
+                              />
+                            </div>
+                            <div className="col-md-2 col-sm-4 form-group">
+                              <input
+                                id="cn"
+                                name="contractName"
+                                type="text"
+                                placeholder="Contract Name"
+                                value={
+                                  this.state.accountsSearchFilter.contractName
+                                }
+                                className="form-control"
+                                onChange={this.handleInputChange}
+                              />
+                            </div>
+                            <div className="col-xl-2 col-md-2 col-sm-4 form-group">
+                              <div className="form-group">
+                                <input
+                                  id="email"
+                                  name="Email"
+                                  type="email"
+                                  value={this.state.accountsSearchFilter.Email}
+                                  placeholder="Email"
+                                  className="form-control"
+                                  onChange={this.handleInputChange}
+                                />{' '}
+                              </div>
+                            </div>
+                            <div className="col-xl-2 col-md-3">
+                              <button
+                                className="btn btn-primary mr-3"
+                                onClick={this.fetchAccounts}
+                              >
+                                <i class="fas fa-search" />
+                              </button>
+                              <button
+                                className="btn btn-primary"
+                                onClick={this.clearFilters}
+                              >
+                                Clear
+                              </button>
+                            </div>
+                            <div className="col-xl-1 col-md-2" />
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                     <AccountSearch
                       hasChoiceForRole={false}
                       searchClear={this.state.searchClear}
@@ -215,6 +300,26 @@ class Publishers extends React.Component {
                       pageSize={this.state.pageSize}
                       currentPageNumber={this.state.pageIndex}
                     />
+                    <div className={`${s.btnContainer} row`}>
+                      <div className="col-xl-1 col-md-1 col-sm-2">
+                        <RowAdder
+                          showMore={this.showMore}
+                          pageSize={this.state.pageSize}
+                        />
+                      </div>
+                      <div className="offset-xl-9 col-xl-2 offset-md-8 col-lg-3 col-md-3 col-sm-12">
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseExample"
+                          aria-expanded="false"
+                          aria-controls="collapseExample"
+                        >
+                          Advanced Search
+                        </button>
+                      </div>
+                    </div>
 
                     <AccountsTable
                       pageSize={this.state.pageSize}

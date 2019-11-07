@@ -545,7 +545,7 @@ class ProductDetail extends React.Component {
                           Product Prices and Costs
                         </h5>
                         <div class="card-body">
-                          <div className="row mt-1 pl-4">
+                          <div className="row mt-1 pl-4 mb-1">
                             <label>Private Price Ratio = </label>
                             {/* <div className="col-xl-2" /> */}
                             <div className="col-xl-1">
@@ -581,7 +581,6 @@ class ProductDetail extends React.Component {
                               </div>
                             </div>
                           </div>
-                          <div className="row mt-2 mb-3 pl-4" />
                           {/* <div className="row mt-2 mb-3 pl-4">
                             <button
                               onClick={this.applyRatios}

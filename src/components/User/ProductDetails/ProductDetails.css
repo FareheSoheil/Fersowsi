@@ -1,26 +1,40 @@
 .container {
     margin-top:3px;
     margin-bottom:3px;
-    border: 3px solid lightgray;
+    border: 1px solid white;
     border-radius: 8px;
-    min-height: 400px;
+    /* min-height: 400px; */
+    max-width: 800px;
     height: 100%;
     padding: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
     background-color: white;
-    
+    font-family: 'Myriad Light';
+    font-size: 13px;
     /* border: none; */
     /* margin-left: 5px; */
 }
-.container.imgContainer{
+.container label{
+    font-size: 13px;
+}
+.imgContainer img {
+    width: 100%;
+    height: 300px;;
+    border: 3px solid #aadde0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.imgContainer{
+    min-height: 302px;
+    /* border: 2px solid red; */
     cursor: pointer;
 }
 .title {
     margin-bottom: 10px;
     padding: 4px;
     font-size: 20px;
-    color: blue;
+    color: #aadde0;
 }
 .select {
     cursor: pointer;
@@ -30,11 +44,11 @@
     /* text-align: center; */
 }
 .select span {
-    color: red;
+    color: #75b3b6;
 }
 .select span {
-    color: red;
-    font-size: 18px;
+    color: #7cc1c5;
+    font-size: 20px;
     padding-top: 3px;
 }
 .select label {
@@ -69,20 +83,20 @@
     /* border: 1px solid salmon; */
 }
 .imgContainer {
-    width: 144px;
-    border: 2px solid gray;
+    /* width: 144px; */
+    /* border: 2px solid gray; */
     border-radius: 3px;
     height: 184px;
     cursor: pointer;
 }
 .wishContainer {
     vertical-align: middle;
-    font-size: 30px;
+    /* font-size: 30px; */
     color: lightgray;
-    padding-left: 5px;
+    padding-left: 33%;
     /* padding-top: 80px; */
-    height: 100%;
-    line-height: 300px;
+    /* height: 100%; */
+    /* line-he  ight: 300px; */
 
 }
 .wishContainer i {

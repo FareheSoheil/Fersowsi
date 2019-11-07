@@ -96,20 +96,29 @@ class ProductDetails extends React.Component {
       >
         <div class="container-fluid ">
           <div className="row">
-            <div className="col-xl-2 col-lg-2 col-md-12">
+            <div className="col-xl-4 col-lg-2 col-md-12">
               {' '}
-              <div className={s.imgContainer}>
-                {' '}
-                <img
-                  width="140"
-                  height="180"
-                  src={this.props.product.coverImage}
-                />
+              <div className={`${s.imgContainer} row`}>
+                <div className="col-12">
+                  <img src={this.props.product.coverImage} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                  <div className={s.wishContainer}>
+                    <img
+                      onClick={this.addToWishList}
+                      width="80"
+                      height="80"
+                      src="/assets/images/Heart.png"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div
-              className="col-xl-9 col-lg-9 col-md-11"
-              style={{ paddingLeft: '20px' }}
+              className="col-xl-8 col-lg-9 col-md-11"
+              // style={{ border: '2px solid' }}
             >
               <div className={`${s.title} row`}>
                 <div className="col-12">
@@ -209,18 +218,6 @@ class ProductDetails extends React.Component {
                     </span>
                   </div>
                 )}
-              </div>
-            </div>
-            <div className="col-xl-1">
-              <div className={s.wishContainer}>
-                <i
-                  onClick={this.addToWishList}
-                  class={
-                    this.props.isWished
-                      ? `${s.isWished} fas fa-heart`
-                      : 'fas fa-heart'
-                  }
-                />
               </div>
             </div>
           </div>

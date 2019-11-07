@@ -1,11 +1,9 @@
 .advancedSearchContainer {
   padding-bottom: 2px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   
 }
-.advancedSearchContainer select {
-  margin-top: 7px;
-}
+
 /* .btnContainer{
   margin-bottom: 12px;
 } */

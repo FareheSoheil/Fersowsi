@@ -1,5 +1,5 @@
 .mainContainer{
-    padding-top: 4px;
+    padding-top: 0px !important;
     
 }
 .mainContainer label {
@@ -19,4 +19,19 @@
 .additionalInfoContainer > div {
     /* border: 1px solid yellow; */
     padding-bottom: 0px;    
+}
+.btnContainer {
+    padding: 8px 22px 8px 22px;
+    /* background-color: white; */
+    /* border-radius: 6px; */
+    /* border: 1px solid lightgray; */
+    text-align: center;
+    align-content: center;
+}
+
+.btnContainer button {
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+
 }

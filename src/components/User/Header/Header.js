@@ -35,7 +35,10 @@ class Header extends React.Component {
     this.fetchCategories = this.fetchCategories.bind(this);
     this.drop = this.drop.bind(this);
   }
-
+  searchProducts(value) {
+    localStorage.setItem('category', value);
+    window.location.replace('/user/products');
+  }
   eventListenerAssigner(trigger, i) {
     trigger.addEventListener(
       'mouseover',
@@ -77,16 +80,16 @@ class Header extends React.Component {
           }
         }
       }
-      if (!event.target.matches('.languagedropbtn')) {
+      if (!event.target.matches('.moneydropbtn')) {
         var dropdowns = document.getElementsByClassName(
-          'languagedropdown-content',
+          'moneydropdown-content',
         );
         var i;
         for (i = 0; i < dropdowns.length; i++) {
           var openDropdown = dropdowns[i];
 
-          if (openDropdown.classList.contains('languageshow')) {
-            openDropdown.classList.remove('languageshow');
+          if (openDropdown.classList.contains('moneyshow')) {
+            openDropdown.classList.remove('moneyshow');
           }
         }
       }
@@ -158,11 +161,7 @@ class Header extends React.Component {
       if (categories.length == 0) {
         categories = categories.concat(this.state.categories);
       }
-
-      // window.alert(categories.length);
       links = [];
-      // categories.push();
-
       categories.map((cat, i) => {
         if (
           i % 4 == 0 &&
@@ -173,28 +172,48 @@ class Header extends React.Component {
             <div className="col-xl-2 hidden">
               <div className="row mb-2 hidden">
                 <div className="hidden col-xl-12">
-                  <label className={`${s.label} hidden`}>
+                  <label
+                    className={`${s.label} hidden`}
+                    onClick={() => {
+                      this.searchProducts(categories[i].value);
+                    }}
+                  >
                     {categories[i].label}
                   </label>
                 </div>
               </div>
               <div className="row mb-2 hidden">
                 <div className="hidden col-xl-12">
-                  <label className={`${s.label} hidden`}>
+                  <label
+                    className={`${s.label} hidden`}
+                    onClick={() => {
+                      this.searchProducts(categories[i + 1].value);
+                    }}
+                  >
                     {categories[i + 1].label}
                   </label>
                 </div>
               </div>
               <div className="row mb-2 hidden">
                 <div className="col-xl-12 hidden">
-                  <label className={`${s.label} hidden`}>
+                  <label
+                    className={`${s.label} hidden`}
+                    onClick={() => {
+                      this.searchProducts(categories[i + 2].value);
+                    }}
+                  >
                     {categories[i + 2].label}
                   </label>
                 </div>
               </div>
               <div className="row mb-2 hidden">
                 <div className="col-xl-12 hidden">
-                  <label className={`${s.label} hidden`}>
+                  <label
+                    className={`${s.label} hidden`}
+                    onClick={() => {
+                      this.searchProducts(categories[i + 3].value);
+                    }}
+                  >
                     {categories[i + 3].label}
                   </label>
                 </div>
@@ -235,7 +254,7 @@ class Header extends React.Component {
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul
                   id="hoverMenueHolder"
-                  class="navbar-nav"
+                  class={`${s.leftSide} navbar-nav`}
                   style={{ paddingTop: '5px', height: '55px' }}
                 >
                   {/* <li id="productTab" class={`${s.dropdown}nav-item`}>
@@ -285,7 +304,7 @@ class Header extends React.Component {
                     width="25"
                     src="/assets/images/british_flag.png"
                   />
-                  <input type="text" />
+                  {/* <input type="text" /> */}
                   <div class="userdropdown">
                     <button class="userdropbtn">
                       <i
@@ -309,36 +328,31 @@ class Header extends React.Component {
                         <a onClick={() => this.goTo('/login')}>login</a>
                       )}
                     </div>
-                  </div>
-                  {/* <div class="languagedropdown">
-                    <button class="languagedropbtn">
-                      <i
-                        onClick={() => {
-                          this.drop('globeDropDown', 'languageshow');
-                        }}
-                        class="fa fa-globe languagedropbtn"
-                      />
-                    </button>
-                    <div id="globeDropDown" class="languagedropdown-content">
-                      <a href="#about">
-                        <img
-                          height="20"
-                          width="20"
-                          src="/assets/images/british_flag.png"
-                        />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; English
-                      </a>
-                      <a href="#contact">
-                        <img
-                          height="20"
-                          width="20"
-                          src="/assets/images/sweden_flag.png"
-                        />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swedish
-                      </a>
+                    <div id="userDropDown" class="userdropdown-content">
+                      <a>Euro</a>
+                      <a>US Dollar</a>
+                      <a>GB Pound</a>
+                      <a>Iran Rial</a>
+                      <a>Swedish Krona</a>
                     </div>
                   </div>
-                   */}
+                  <div class="moneydropdown">
+                    <button class="moneydropbtn">
+                      <i
+                        onClick={() => {
+                          this.drop('moneyDown', 'moneyshow');
+                        }}
+                        class="fa fa-money moneydropbtn"
+                      />
+                    </button>
+                    <div id="moneyDown" class="moneydropdown-content">
+                      <a>Euro</a>
+                      <a>US Dollar</a>
+                      <a>GB Pound</a>
+                      <a>Iran Rial</a>
+                      <a>Swedish Krona</a>
+                    </div>
+                  </div>
                   <i
                     onClick={() => {}}
                     class={`${s.searchBtn} fas fa-search`}

@@ -243,15 +243,15 @@ class ProfileDetail extends React.Component {
                     mobileNumber: this.state.user.mobileNumber,
                     faxNumber: this.state.user.faxNumber,
                     homepage: this.state.user.homepage,
-                    VatId: this.state.user.VatId,
-                    glmCode: this.state.user.glmCode,
-                    referenceNo: this.state.user.referenceNo,
-                    eoriNo: this.state.user.eoriNo,
-                    bankName: this.state.user.bankName,
-                    AccountNo: this.state.user.AccountNo,
-                    iban: this.state.user.iban,
-                    swiftAddress: this.state.user.swiftAddress,
-                    bankGiro: this.state.user.bankGiro,
+                    // VatId: this.state.user.VatId,
+                    // glmCode: this.state.user.glmCode,
+                    // referenceNo: this.state.user.referenceNo,
+                    // eoriNo: this.state.user.eoriNo,
+                    // bankName: this.state.user.bankName,
+                    // AccountNo: this.state.user.AccountNo,
+                    // iban: this.state.user.iban,
+                    // swiftAddress: this.state.user.swiftAddress,
+                    // bankGiro: this.state.user.bankGiro,
                     email: this.state.user.email,
                     dateOfBirth: new Date(this.state.user.dateOfBirth),
                     psn: this.state.user.psn,
@@ -263,9 +263,6 @@ class ProfileDetail extends React.Component {
                         : this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
-                  onUserDelete={this.onUserDelete}
-                  onUserEdit={this.onUserEdit}
-                  onAct={this.onAct}
                   userStatus={this.state.user.UserActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
                   changeStatus={this.changeStatus}
@@ -303,6 +300,9 @@ class ProfileDetail extends React.Component {
                     handleSimpleInputChange: this.onChangeInput,
                     handleDateInputChange: this.handleDateChange,
                   }}
+                  onUserDelete={this.onUserDelete}
+                  onUserEdit={this.onUserEdit}
+                  onAct={this.onAct}
                   pageCount={this.state.user.claims.length / 15}
                   countries={this.state.countries}
                   jobs={this.state.jobs}

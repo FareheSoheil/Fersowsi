@@ -185,10 +185,10 @@ class ProfileInfo extends React.Component {
                 <form className={s.formS}>
                   <div className="form-group">
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-5">
                         <label>First Name:</label>
                       </div>
-                      <div className="col-6">
+                      <div className="col-7">
                         <input
                           name="firstName"
                           type="text"
@@ -201,10 +201,10 @@ class ProfileInfo extends React.Component {
                   </div>
                   <div className="form-group">
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-5">
                         <label>Last Name:</label>
                       </div>
-                      <div className="col-6">
+                      <div className="col-7">
                         <input
                           name="lastName"
                           type="text"
@@ -218,10 +218,10 @@ class ProfileInfo extends React.Component {
 
                   <div className="form-group">
                     <div className="row">
-                      <div className="col-6">
-                        <label>Date Of Birth: </label>
+                      <div className="col-5">
+                        <label>Birt Date: </label>
                       </div>
-                      <div className="col-6">
+                      <div className="col-7">
                         <DatePicker
                           name="dateOfBirth"
                           style={{ width: '30px' }}
@@ -235,7 +235,7 @@ class ProfileInfo extends React.Component {
               </div>
             </div>
 
-            <div className="row">
+            <div className="row mt-2">
               <div className="col-xl-12">
                 {' '}
                 <div className="form-group">
@@ -420,7 +420,7 @@ class ProfileInfo extends React.Component {
           </div>
         </div>
         {/* end user profile */}
-        <div className={`  ${s.btnContainer} row mb-5`}>
+        {/* <div className={`  ${s.btnContainer} row mb-5`}>
           {' '}
           <div className="col-xl-4 col-md-6">
             <button
@@ -449,7 +449,7 @@ class ProfileInfo extends React.Component {
               Delete User
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

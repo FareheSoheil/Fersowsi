@@ -50,21 +50,21 @@ class AccountSearch extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.onNumberChange = this.onNumberChange.bind(this);
+    // this.onNumberChange = this.onNumberChange.bind(this);
   }
   onAddUser() {
     history.push('/admin/accounts/add');
   }
-  onNumberChange() {
-    var x = parseInt(document.getElementById('numberSelect').value);
-    this.props.showMore(x);
-  }
+  // onNumberChange() {
+  //   var x = parseInt(document.getElementById('numberSelect').value);
+  //   this.props.showMore(x);
+  // }
   render() {
     return (
       <div className={`${s.advancedSearchContainer} row`}>
         <div className="col-12">
-          <div className={`${s.btnContainer} row`}>
-            <div className="col-xl-2 col-lg-3 col-md-3 col-sm-12">
+          {/* <div className={`${s.btnContainer} row`}>
+            <div className="offset-xl-10 col-xl-2 offset-md-9 col-lg-3 col-md-3 col-sm-12">
               <button
                 className="btn btn-primary"
                 type="button"
@@ -76,30 +76,9 @@ class AccountSearch extends React.Component {
                 Advanced Search
               </button>
             </div>
-            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-              {/* <button onClick={this.onAddUser} className="btn btn-primary">
-                {' '}
-                Add User &nbsp;&nbsp;<i class="fas fa-plus" />
-              </button> */}{' '}
-              <div className="form-group ">
-                {/* <Select options={options} /> */}
-                <select id="numberSelect" onChange={this.onNumberChange}>
-                  <option value={10} selected={this.props.pageSize == 10}>
-                    10
-                  </option>
-                  <option selected={this.props.pageSize == 20} value={20}>
-                    20
-                  </option>
-                  <option value={50} selected={this.props.pageSize == 50}>
-                    50
-                  </option>
-                  <option value={100} selected={this.props.pageSize == 100}>
-                    100
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
+
+          </div> */}
+
           <div
             className={this.props.searchClear ? 'collapse' : 'collapse show'}
             id="collapseExample"
@@ -113,7 +92,7 @@ class AccountSearch extends React.Component {
                     User Information :
                   </div>
                 </div> */}
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                   <form>
                     <div className="row">
@@ -178,7 +157,7 @@ class AccountSearch extends React.Component {
                     </div>
                   </form>
                 </div>
-              </div>
+              </div> */}
 
               {/* User Role */}
 
@@ -279,8 +258,8 @@ class AccountSearch extends React.Component {
                       value={USER_ACTIVITION_STATUS.WAITFORAPPROVAL}
                       onChange={this.props.handleInputChange}
                       checked={
-                        this.props.accountsSearchFilter.userActivitionStatus ===
-                        USER_ACTIVITION_STATUS.WAITFORAPPROVAL
+                        this.props.accountsSearchFilter.userActivitionStatus
+                          .value === USER_ACTIVITION_STATUS.WAITFORAPPROVAL
                       }
                     />
                     <span className="custom-control-label">
@@ -294,8 +273,8 @@ class AccountSearch extends React.Component {
                       className="custom-control-input"
                       value={USER_ACTIVITION_STATUS.ACTIVE}
                       checked={
-                        this.props.accountsSearchFilter.userActivitionStatus ===
-                        USER_ACTIVITION_STATUS.ACTIVE
+                        this.props.accountsSearchFilter.userActivitionStatus
+                          .value === USER_ACTIVITION_STATUS.ACTIVE
                       }
                       onChange={this.props.handleInputChange}
                     />
@@ -310,8 +289,8 @@ class AccountSearch extends React.Component {
                       className="custom-control-input"
                       value={USER_ACTIVITION_STATUS.DEACTIVE}
                       checked={
-                        this.props.accountsSearchFilter.userActivitionStatus ===
-                        USER_ACTIVITION_STATUS.DEACTIVE
+                        this.props.accountsSearchFilter.userActivitionStatus
+                          .value === USER_ACTIVITION_STATUS.DEACTIVE
                       }
                       onChange={this.props.handleInputChange}
                     />
@@ -321,7 +300,7 @@ class AccountSearch extends React.Component {
                   </label>
                 </div>
 
-                <div className="col-xl-1 col-lg-1 col-md-4 col-sm-4">
+                {/* <div className="col-xl-1 col-lg-1 col-md-4 col-sm-4">
                   <a
                     onClick={this.props.fetchAccounts}
                     className="btn btn-outline-success"
@@ -336,7 +315,7 @@ class AccountSearch extends React.Component {
                   >
                     Clear
                   </a>
-                </div>
+                </div> */}
               </div>
               {/* User SubCategory
               <div className="row reactSelectContainer">

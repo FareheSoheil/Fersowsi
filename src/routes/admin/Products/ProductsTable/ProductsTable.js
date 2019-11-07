@@ -13,6 +13,7 @@ import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CustomTabel from '../../../../components/CustomTabel';
 import AdvancedSearch from '../../../../components/Admin/Product/AdvancedSearch';
+import RowAdder from '../../../../components/moreTableRowSelector';
 import Spinner from '../../../../components/Admin/Spinner';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import { SERVER } from '../../../../constants';
@@ -230,14 +231,6 @@ class ProductsTable extends React.Component {
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        {/* <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="page-header">
-                <h2 class="pageheader-title">Products List</h2>
-                <hr />
-              </div>
-            </div>
-          </div> */}
         {this.state.isLoading ? (
           <Spinner />
         ) : (
@@ -264,7 +257,14 @@ class ProductsTable extends React.Component {
                     pageSize={this.state.pageSize}
                     currentPageNumber={this.state.pageIndex}
                   />
-
+                  <div className={`${s.btnContainer} row`}>
+                    <div className="col-xl-1 col-md-1 col-sm-2">
+                      <RowAdder
+                        showMore={this.showMore}
+                        pageSize={this.state.pageSize}
+                      />
+                    </div>
+                  </div>
                   <CustomTabel
                     pageCount={this.state.totalPageNum}
                     currentPageNumber={this.state.pageIndex}

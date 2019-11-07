@@ -6,13 +6,11 @@
     border: 3px solid rgb(155, 188, 199);
 } 
 .header {
-    border: solid lightgray;
+    /* border: solid lightgray; */
     border-radius: 6px;
-    margin-bottom: 15px;
-    padding: 15px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 0px;
     padding-left: 25px;
     background-color: white;
-}
-.main{
-    /* background-color: blanchedalmond */
 }

@@ -1,6 +1,7 @@
 .usersidebar {
     margin: 0;
-    
+   
+    /* border: 1px solid red; */
     padding: 5px;
     width: 350px;
     text-align: center;
@@ -11,8 +12,11 @@
     overflow: auto;
   }
   .usersidebar a {
-    font-size: 1rem !important;
-    border: 1rem solid red;
+    font-size: .9rem !important;
+    font-family: 'Myriad Light';
+    /* font-size: 14px; */
+    /* border: 1rem solid red; */
+
   }
   .toggler {
       display: none;

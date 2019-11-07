@@ -24,6 +24,8 @@
     padding: 10px;
     padding: 20px 10px 15px 30px;
     margin-bottom: 30px;
+    font-family: 'Myriad Light';
+    
 }
 .mainContainer input {
     padding: 7px;
@@ -34,7 +36,7 @@
 .mainContainer label {
     padding-top: 5px;
     color: black;
-    font-size: 16px;
+    font-size: 14px;
 }
 .editBtn {
     padding: 10px;

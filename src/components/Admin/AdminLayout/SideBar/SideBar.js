@@ -10,12 +10,41 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './SideBar.css';
+import cookie from 'react-cookies';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
+import { SSRSERVER } from '../../../../constants';
 import history from '../../../../history';
 
 class SideBar extends React.Component {
   goTo(url) {
     // console.log(history);
     history.push(url);
+  }
+  logOut() {
+    const token = cookie.load('TokenId');
+    const removeStateURL = `${SSRSERVER}/state/removeState`;
+    const removeStateOptions = {
+      tokenId: token,
+    };
+    const logoutOptions = {
+      method: 'POST',
+      body: JSON.stringify(removeStateOptions),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    fetchWithTimeOut(
+      removeStateURL,
+      logoutOptions,
+      response => {
+        cookie.remove('TokenId', { path: '/' });
+        cookie.remove('role', { path: '/' });
+        history.push('/login');
+      },
+      error => {
+        console.log('error fetchWithTimeOut: ', error);
+      },
+    );
   }
   render() {
     return (
@@ -49,7 +78,7 @@ class SideBar extends React.Component {
         </div>
         {/* sidebar */}
         <nav
-          className="navbar navbar-expand-lg navbar-light"
+          className={`${s.mainContainer} navbar navbar-expand-lg navbar-light`}
           // style={{ marginBottom: '80px' }}
         >
           <a className="d-xl-none d-lg-none" href="#">
@@ -69,7 +98,7 @@ class SideBar extends React.Component {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className={`${s.itemContainer} navbar-nav flex-column `}>
               <li className={`${s.avatarContainer}`}>
-                {/* <i className="fa fa-fw fa-user-circle" /> */}
+                {/*  */}
                 <img
                   src="/assets/images/blank_avatar.png"
                   alt=""
@@ -91,17 +120,14 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/accounts/all', '')}
                       >
-                        {/* <i className="fa fa-fw fa-user-circle" /> */}
-                        All Users{' '}
+                        {/*  */}
+                        My Account{' '}
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        onClick={() => this.goTo('/admin/accounts/customers')}
-                      >
-                        {/* <i className="fa fa-fw fa-user-circle" /> */}
-                        Customers{' '}
+                      <a class="nav-link" onClick={() => this.logOut()}>
+                        {/*  */}
+                        log out{' '}
                       </a>
                     </li>
                   </ul>
@@ -118,7 +144,7 @@ class SideBar extends React.Component {
                   data-target="#accounts"
                   aria-controls="accounts"
                 >
-                  {/* <i className="fa fa-fw fa-user-circle" />* */}
+                  {/* * */}
                   Users
                 </a>
                 <div
@@ -131,7 +157,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/accounts/all', '')}
                       >
-                        {/* <i className="fa fa-fw fa-user-circle" /> */}
+                        {/*  */}
                         All Users{' '}
                       </a>
                     </li>
@@ -140,7 +166,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/accounts/customers')}
                       >
-                        {/* <i className="fa fa-fw fa-user-circle" /> */}
+                        {/*  */}
                         Customers{' '}
                       </a>
                     </li>
@@ -150,7 +176,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/accounts/publishers')}
                       >
-                        {/* <i className="fa fa-fw fa-user-circle" /> */}
+                        {/*  */}
                         Publishers{' '}
                       </a>
                     </li>
@@ -159,7 +185,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/accounts/operators')}
                       >
-                        {/* <i className="fa fa-fw fa-user-circle" /> */}
+                        {/*  */}
                         Operators{' '}
                       </a>
                     </li>
@@ -168,7 +194,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/accounts/add')}
                       >
-                        {/* <i className="fa fa-fw fa-user-circle" /> */}
+                        {/*  */}
                         Add User{' '}
                       </a>
                     </li>
@@ -186,7 +212,7 @@ class SideBar extends React.Component {
                   data-target="#products"
                   aria-controls="products"
                 >
-                  {/* <i className=" fab fa-product-hunt" /> */}
+                  {/*  */}
                   Products
                 </a>
                 <div
@@ -199,7 +225,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/products/all')}
                       >
-                        <i className=" fab fa-product-hunt" />All Products{' '}
+                        All Products{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -207,7 +233,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/products/ready')}
                       >
-                        <i className=" fab fa-product-hunt" />Ready Products{' '}
+                        Ready Products{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -215,7 +241,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/products/pending')}
                       >
-                        <i className=" fab fa-product-hunt" />Pending Products{' '}
+                        Pending Products{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -225,18 +251,17 @@ class SideBar extends React.Component {
                           this.goTo('/admin/products/notAvailable')
                         }
                       >
-                        <i className=" fab fa-product-hunt" />Unavailable
-                        Products{' '}
+                        Unavailable Products{' '}
                       </a>
                     </li>
+
                     <li class="nav-item">
-                      <i
-                        class="fas fa-plus nav-link"
+                      <a
+                        class="nav-link"
                         onClick={() => this.goTo('/admin/products/add')}
-                      />{' '}
-                      Add Product{' '}
-                      {/* </i>
-                        <a class="" /> */}
+                      >
+                        Add Product{' '}
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -251,7 +276,7 @@ class SideBar extends React.Component {
                   data-target="#customerOrders"
                   aria-controls="customerOrders"
                 >
-                  {/* <i className="fa fa-fw fa-user-circle" /> */}
+                  {/*  */}
                   Customer Orders
                 </a>
                 <div
@@ -266,7 +291,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/customerOrder/add', '')
                         }
                       >
-                        <i class="fa-plus-circle" aria-hidden="true" />Add Order{' '}
+                        Add Order{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -276,7 +301,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/customerOrder/all', '')
                         }
                       >
-                        <i class="fas fa-plus-circle" />All Orders{' '}
+                        All Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -284,7 +309,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/customerOrder/new')}
                       >
-                        <i className="fa fa-fw fa-user-circle" />New Orders{' '}
+                        New Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -294,7 +319,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/customerOrder/ignored')
                         }
                       >
-                        <i className="fa fa-fw fa-user-circle" />Ignored Orders{' '}
+                        Ignored Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -304,8 +329,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/customerOrder/cancelled')
                         }
                       >
-                        <i className="fa fa-fw fa-user-circle" />Cancelled
-                        Orders{' '}
+                        Cancelled Orders{' '}
                       </a>
                     </li>
 
@@ -316,7 +340,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/customerOrder/delayed')
                         }
                       >
-                        <i className="fa fa-fw fa-user-circle" />Delayed Orders{' '}
+                        Delayed Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -326,8 +350,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/customerOrder/inProgress')
                         }
                       >
-                        <i className="fa fa-fw fa-user-circle" />In Progress
-                        Orders{' '}
+                        In Progress Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -335,7 +358,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/customerOrder/done')}
                       >
-                        <i className="fa fa-fw fa-user-circle" />Done Orders{' '}
+                        Done Orders{' '}
                       </a>
                     </li>
                   </ul>
@@ -368,7 +391,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/publisherOrder/all', '')
                         }
                       >
-                        <i className="fa fa-fw fa-user-circle" />All Orders{' '}
+                        All Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -378,8 +401,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/publisherOrder/cancelled')
                         }
                       >
-                        <i className="fa fa-fw fa-user-circle" />Cancelled
-                        Orders{' '}
+                        Cancelled Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -389,7 +411,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/publisherOrder/accepted')
                         }
                       >
-                        <i className="fa fa-fw fa-user-circle" />Accepted Orders{' '}
+                        Accepted Orders{' '}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -397,7 +419,7 @@ class SideBar extends React.Component {
                         class="nav-link"
                         onClick={() => this.goTo('/admin/publisherOrder/add')}
                       >
-                        <i className="fa fa-fw fa-user-circle" />Add Order{' '}
+                        Add Order{' '}
                       </a>
                     </li>
                   </ul>

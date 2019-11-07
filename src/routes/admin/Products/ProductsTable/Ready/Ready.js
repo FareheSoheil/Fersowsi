@@ -11,6 +11,7 @@ import React from 'react';
 import ReactPaginate from 'react-paginate';
 import history from '../../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import RowAdder from '../../../../../components/moreTableRowSelector';
 import CustomTabel from '../../../../../components/CustomTabel';
 import AdvancedSearch from '../../../../../components/Admin/Product/AdvancedSearch';
 import Spinner from '../../../../../components/Admin/Spinner';
@@ -264,7 +265,14 @@ class Ready extends React.Component {
                     pageSize={this.state.pageSize}
                     currentPageNumber={this.state.pageIndex}
                   />
-
+                  <div className={`${s.btnContainer} row`}>
+                    <div className="col-xl-1 col-md-1 col-sm-2">
+                      <RowAdder
+                        showMore={this.showMore}
+                        pageSize={this.state.pageSize}
+                      />
+                    </div>
+                  </div>
                   <CustomTabel
                     pageCount={this.state.totalPageNum}
                     currentPageNumber={this.state.pageIndex}

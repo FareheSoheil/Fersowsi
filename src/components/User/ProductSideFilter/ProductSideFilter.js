@@ -266,7 +266,7 @@ class ProductSideFilter extends React.Component {
           <div class="product-sidebar-widget">
             <div class="product-sidebar-widget-title">Price</div>
             <InputRange
-              maxValue={100}
+              maxValue={10000}
               minValue={1}
               formatLabel={value => `${value}$`}
               value={this.props.filters.priceRange}

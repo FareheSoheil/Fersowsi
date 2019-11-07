@@ -57,33 +57,21 @@ class AdvancedSearch extends React.Component {
           <div className="row pl-1">
             <div className={`${s.advancedSearchContainer} col-xl-12`}>
               <div className="row mt-2">
-                <div className="col-md-2 col-sm-4 form-group">
-                  <input
-                    name="originalTitle"
-                    type="text"
-                    placeholder="Product Name"
-                    value={this.props.searchFilter.originalTitle}
-                    className="form-control"
-                    onChange={e =>
-                      this.props.handleInputChange(
-                        OPCODES.simple,
-                        'originalTitle',
-                        e,
-                      )
-                    }
-                  />
-                </div>
-                <div className="col-md-1 col-sm-4 form-group">
-                  <input
-                    name="issn"
-                    type="text"
-                    placeholder="Issn"
-                    value={this.props.searchFilter.issn}
-                    className="form-control"
-                    onChange={e =>
-                      this.props.handleInputChange(OPCODES.simple, 'issn', e)
-                    }
-                  />
+                <div className="col-md-3 col-sm-4 form-group">
+                  <div className="form-group">
+                    <Select
+                      value={this.props.searchFilter.countries}
+                      onChange={so =>
+                        this.props.handleSelectChange(so, 'countries')
+                      }
+                      options={this.props.allCountries}
+                      placeholder="Country"
+                      isSearchable
+                      isMulti
+                      className="reactSelect"
+                      classNamePrefix="innerSelect"
+                    />
+                  </div>
                 </div>
                 <div className="col-md-3 col-sm-4 form-group">
                   <div className="form-group">
@@ -133,23 +121,44 @@ class AdvancedSearch extends React.Component {
                     />
                   </div>
                 </div>
+              </div>
+              <div className="row">
                 <div className="col-md-3 col-sm-4 form-group">
-                  <div className="form-group">
-                    <Select
-                      value={this.props.searchFilter.countries}
-                      onChange={so =>
-                        this.props.handleSelectChange(so, 'countries')
-                      }
-                      options={this.props.allCountries}
-                      placeholder="Country"
-                      isSearchable
-                      isMulti
-                      className="reactSelect"
-                      classNamePrefix="innerSelect"
-                    />
-                  </div>
+                  <input
+                    name="originalTitle"
+                    type="text"
+                    placeholder="Product Name"
+                    value={this.props.searchFilter.originalTitle}
+                    className="form-control"
+                    onChange={e =>
+                      this.props.handleInputChange(
+                        OPCODES.simple,
+                        'originalTitle',
+                        e,
+                      )
+                    }
+                  />
                 </div>
-                <div className="col-xl-2 col-lg-3 col-md-5 col-sm-12">
+                <div className="  col-md-2 col-sm-4 form-group">
+                  <input
+                    name="issn"
+                    type="text"
+                    placeholder="Issn"
+                    value={this.props.searchFilter.issn}
+                    className="form-control"
+                    onChange={e =>
+                      this.props.handleInputChange(OPCODES.simple, 'issn', e)
+                    }
+                  />
+                </div>
+                <div className="offset-xl-4 col-xl-3  col-md-6 col-sm-12">
+                  <button
+                    onClick={this.props.fetchProducts}
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    <i class="fas fa-search" />
+                  </button>
                   <button
                     className="btn btn-primary"
                     type="button"
@@ -158,14 +167,7 @@ class AdvancedSearch extends React.Component {
                     aria-expanded="false"
                     aria-controls="collapseExample"
                   >
-                    <i class="fas fa-search-plus" />
-                  </button>
-                  <button
-                    onClick={this.props.fetchProducts}
-                    className="btn btn-primary"
-                    type="button"
-                  >
-                    <i class="fas fa-search" />
+                    Advance Searh
                   </button>
                   <button
                     onClick={this.props.clearFilters}
@@ -175,10 +177,10 @@ class AdvancedSearch extends React.Component {
                     Clear
                   </button>
                 </div>{' '}
-                <label>page size : </label>
-                <div className="col-xl-1">
+              </div>
+
+              {/* <div className="col-xl-1">
                   <div className="form-group ">
-                    {/* <Select options={options} /> */}
                     <select id="numberSelect" onChange={this.onNumberChange}>
                       <option value={10} selected={this.props.pageSize == 10}>
                         10
@@ -194,59 +196,7 @@ class AdvancedSearch extends React.Component {
                       </option>
                     </select>
                   </div>{' '}
-                </div>
-              </div>
-              {/* <div className="row">
-                <div className="col-md-4 col-sm-4 form-group">
-                  <div className="form-group">
-                    <Select
-                      value={this.props.searchFilter.publishers}
-                      onChange={so =>
-                        this.props.handleSelectChange(so, 'publishers')
-                      }
-                      options={this.props.allPublishers}
-                      placeholder="Publisher "
-                      isSearchable
-                      isMulti
-                      className="reactSelect"
-                      classNamePrefix="innerSelect"
-                    />
-                  </div>
-                </div>
-                <div className="col-md-4 col-sm-4 form-group">
-                  <div className="form-group">
-                    <Select
-                      value={this.props.searchFilter.periods}
-                      onChange={so =>
-                        this.props.handleSelectChange(so, 'periods')
-                      }
-                      options={this.props.allPeriods}
-                      placeholder="Periods ..."
-                      isSearchable
-                      isMulti
-                      className="reactSelect"
-                      classNamePrefix="innerSelect"
-                    />
-                  </div>
-                </div>
-                <div className="col-md-4 col-sm-4 form-group">
-                  <div className="form-group">
-                    <Select
-                      value={this.props.searchFilter.countries}
-                      onChange={so =>
-                        this.props.handleSelectChange(so, 'countries')
-                      }
-                      options={this.props.allCountries}
-                      placeholder="Country ..."
-                      isSearchable
-                      isMulti
-                      className="reactSelect"
-                      classNamePrefix="innerSelect"
-                    />
-                  </div>
-                </div>
-              </div>
-            */}
+                </div> */}
             </div>
           </div>
 

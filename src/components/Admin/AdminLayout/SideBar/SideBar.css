@@ -44,8 +44,22 @@
   color: white;
   /* font-size: 20px; */
 }
+.avatarContainer div{
+  text-align: left;
+}
 .dashboard_header {
   height: 45px;
  
+} 
+.mainContainer img {
+  margin-left: 5px;
 }
+.mainContainer {
 
+padding-right: 2px !important;
+padding-left: 3px !important;
+}
+.mainContainer a{
+  /* border: 1px solid red; */
+  /* padding-left: 2px !important; */
+}

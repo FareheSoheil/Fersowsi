@@ -12,6 +12,7 @@ import history from '../../../history';
 class Products extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isLoading: true,
       pageIndex: 0,
@@ -40,7 +41,7 @@ class Products extends React.Component {
         asb: '',
         dewey: '',
         hasDiscount: '',
-        priceRange: { min: 1, max: 100 },
+        priceRange: { min: 1, max: 1000 },
         weightRange: { min: 10, max: 2000 },
         sortDate: false,
         sortPrice: false,
@@ -70,9 +71,17 @@ class Products extends React.Component {
     this.setState({
       isLoading: true,
     });
+    let creCopy = { ...this.state.productsSearchFilter };
+    if (localStorage.getItem('category') != null) {
+      // window.alert(localStorage.getItem('category'));
+      creCopy.productContentTypes = [
+        { value: localStorage.getItem('category') },
+      ];
+    }
+
     const credentials = {
       sortBy: this.state.sortBy,
-      searchBy: this.state.productsSearchFilter,
+      searchBy: creCopy,
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
@@ -98,6 +107,8 @@ class Products extends React.Component {
             firstRender: false,
           },
           () => {
+            localStorage.removeItem('category');
+            // window.alert(localStorage.getItem('category'));
             window.scroll(10, 20);
           },
         );

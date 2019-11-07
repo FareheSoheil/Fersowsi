@@ -71,9 +71,40 @@ class ProfileProInfo extends React.Component {
   render() {
     return (
       <div class="col-xl-7 col-lg-8 col-md-6 col-sm-12 col-12">
+        <div className={`  ${s.btnContainer} row mb-2`}>
+          {' '}
+          <div className="col-xl-4 col-md-6">
+            <button
+              type="submit"
+              class="btn btn-success "
+              onClick={this.props.onUserDelete}
+            >
+              Save Changes
+            </button>
+          </div>
+          <div className="col-xl-4 col-md-6">
+            <button
+              className="btn btn-warning"
+              disabled
+              onClick={this.props.onAct}
+            >
+              Act as this user
+            </button>
+          </div>
+          <div className="col-xl-4 col-md-6">
+            <button
+              type="submit"
+              class="btn btn-danger"
+              onClick={this.props.onUserEdit}
+            >
+              Delete User
+            </button>
+          </div>
+        </div>
+        <hr />
         <div class="influence-profile-content pills-regular">
           <ul
-            class={`nav nav-pills ${s.userPills} `}
+            class={`nav nav-pills ${s.userPills} nav-justified`}
             id="pills-tab"
             role="tablist"
           >
@@ -173,7 +204,7 @@ class ProfileProInfo extends React.Component {
                           s.additionalInfoContainer
                         } col-xl- 12 col-lg-12 col-md-12 col-sm-12 p-4`}
                       >
-                        <div className="row border-bottom">
+                        <div className="row border-bottom  pb-2 ">
                           <div class="form-group col-xl-4">
                             <label for="email">User Activition Status</label>
                             <Select
@@ -214,7 +245,7 @@ class ProfileProInfo extends React.Component {
                             />
                           </div>
                         </div>
-                        <div className="row border-bottom mt-3">
+                        <div className="row border-bottom mt-3  pb-2">
                           <div class="form-group col-xl-4">
                             <label for="email">User Currency</label>
                             <Select

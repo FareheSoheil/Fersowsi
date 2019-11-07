@@ -1,5 +1,6 @@
 .userContentContainer {
-    /* border: 2px solid blue; */
+    font-family: 'Myriad Light';
+    font-size: 14px;
     padding: 5px 50px 50px 5px;
     /* padding-right: 50px; */
     position: relative;
