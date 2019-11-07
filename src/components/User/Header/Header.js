@@ -107,6 +107,7 @@ class Header extends React.Component {
     document.getElementById(id).classList.toggle(className);
   }
   logOut() {
+    window.alert('log out');
     const token = cookie.load('TokenId');
     const removeStateURL = `${SSRSERVER}/state/removeState`;
     const removeStateOptions = {
@@ -322,8 +323,8 @@ class Header extends React.Component {
                       ) : (
                         ''
                       )}
-                      {cookie.load('TokenId') !== undefined ? (
-                        <a onClick={() => this.logOut('/')}>logOut</a>
+                      {cookie.load('TokenId') != undefined ? (
+                        <a onClick={() => this.logOut()}>logOut</a>
                       ) : (
                         <a onClick={() => this.goTo('/login')}>login</a>
                       )}
