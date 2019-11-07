@@ -107,7 +107,6 @@ class Header extends React.Component {
     document.getElementById(id).classList.toggle(className);
   }
   logOut() {
-    window.alert('log out');
     const token = cookie.load('TokenId');
     const removeStateURL = `${SSRSERVER}/state/removeState`;
     const removeStateOptions = {
