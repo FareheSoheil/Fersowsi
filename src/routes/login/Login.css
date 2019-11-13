@@ -8,7 +8,7 @@
  */
 @import '../../components/variables.css';
 .logoContainer{
-  border-bottom: 1px solid red;
+  background-color: black;
   height: 100px;
   width: 450px;
   margin-bottom: 15px;

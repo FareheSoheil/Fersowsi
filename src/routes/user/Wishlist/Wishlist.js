@@ -6,6 +6,7 @@ import WishItem from '../../../components/User/WishItem';
 import Spinner from '../../../components/User/Spinner';
 import s from './Wishlist.css';
 import { SERVER } from '../constants';
+import arrayResolver from '../../../arrayResolver';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
 class Wishlist extends React.Component {
@@ -13,6 +14,8 @@ class Wishlist extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
+      countriesFetched: false,
+      addressesFetched: false,
       productsSearchFilter: {
         publishers: '',
         singlProductTypes: '',
@@ -34,11 +37,14 @@ class Wishlist extends React.Component {
         sortPrice: false,
         sortWeight: false,
       },
+      allCountries: [],
       currentWishes: [],
       selectedIndices: [],
       selectedIds: [],
     };
+    this.fetchAddresses = this.fetchAddresses.bind(this);
     this.fetchWishes = this.fetchWishes.bind(this);
+    this.fetchCountries = this.fetchCountries.bind(this);
     this.deleteWish = this.deleteWish.bind(this);
     this.deleteAfterCheckout = this.deleteAfterCheckout.bind(this);
     this.checkOut = this.checkOut.bind(this);
@@ -48,6 +54,40 @@ class Wishlist extends React.Component {
   }
   componentDidMount() {
     this.fetchWishes();
+    this.fetchAddresses();
+    this.fetchCountries();
+  }
+  fetchAddresses() {
+    const url = `${SERVER}/getAllAddressesOfSpecificUser`;
+    this.setState({
+      addressesFetched: false,
+    });
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        that.setState({
+          allAddresses: arrayResolver(response, 'id', [
+            'countryName',
+            'province',
+            'city',
+            'detailAddress',
+          ]),
+
+          addressesFetched: true,
+        });
+      },
+      error => {
+        console.log(error);
+      },
+    );
   }
   deleteWish(id) {
     const url = `${SERVER}/deleteBasket`;
@@ -187,6 +227,36 @@ class Wishlist extends React.Component {
       }
     }
   }
+  fetchCountries() {
+    const url = `${SERVER}/getAuxInfoForAllUsers`;
+    this.setState({ countriesFetched: false });
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error === undefined) {
+          that.setState({
+            allCountries: response.countries,
+            countriesFetched: true,
+          });
+        } else {
+          toastr.error(response.error.title, response.error.description);
+        }
+      },
+      () => {
+        // toastr.error('sala', ERRORS.REPEATED_USER);
+        // console.log('login e rror : ', error);
+      },
+    );
+  }
   fetchWishes() {
     const url = `${SERVER}/getBasketOfSpecificUser`;
     this.setState({
@@ -205,17 +275,21 @@ class Wishlist extends React.Component {
       url,
       options,
       response => {
+        console.log;
         if (response.error === undefined) {
           let selectedIndicesArray = [];
           const l = response.length;
           selectedIndicesArray.length = l;
           selectedIndicesArray.fill(false, 0, l - 1);
           response.forEach(wish => {
-            wish.selectedPrice = wish.product.selectedProductPriceAndCost[0].id;
+            if (wish.product.selectedProductPriceAndCost[0] != undefined)
+              wish.selectedPrice =
+                wish.product.selectedProductPriceAndCost[0].id;
           });
           that.setState({
             currentWishes: response,
             selectedIndices: selectedIndicesArray,
+
             isLoading: false,
           });
         } else {
@@ -257,14 +331,16 @@ class Wishlist extends React.Component {
     });
   }
   render() {
-    let wishes = <div className={s.warning}>No Products Available</div>;
+    let wishes;
     const receivedWishes = this.state.currentWishes;
-    if (receivedWishes !== undefined && receivedWishes.length !== 0)
+    if (receivedWishes != undefined && receivedWishes.length != 0)
       wishes = this.state.currentWishes.map(
         (wish, i) =>
           (wishes = (
             <WishItem
               wish={wish}
+              allCountries={this.state.allCountries}
+              allAddresses={this.state.allAddresses}
               index={i}
               handleWishItemSelect={this.handleWishItemSelect}
               isWished={this.state.selectedIndices[i]}
@@ -273,12 +349,13 @@ class Wishlist extends React.Component {
             />
           )),
       );
+    else wishes = <div className={s.warning}>No Products Available</div>;
     return (
       <div>
         {' '}
-        {this.state.isLoading ? (
-          <Spinner />
-        ) : (
+        {!this.state.isLoading &&
+        this.state.countriesFetched &&
+        this.state.addressesFetched ? (
           <div>
             <ContentHeader
               title="WishList"
@@ -294,6 +371,8 @@ class Wishlist extends React.Component {
               </div>
             </div>
           </div>
+        ) : (
+          <Spinner />
         )}
       </div>
     );

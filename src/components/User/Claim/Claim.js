@@ -8,72 +8,89 @@ class Claim extends React.Component {
   };
   render() {
     return (
-      <div>
-        <span className={s.claimBanner}>
-          <i class="fas fa-chevron-right" /> Claim 123
-        </span>
-        <div className={`row ${s.claimContainer}`}>
-          <div className="col-xl-12 col-lg-12 addInputContainer">
-            <div className="row mb-3">
-              <div className="col-xl-2">
-                <span>Order Id :</span>{' '}
+      <div className="container">
+        <div className={`${s.claimContainer} `}>
+          {/* justify-content-end */}
+          <div
+            className={
+              this.props.claim.status.label == 'seen'
+                ? 'row justify-content-end'
+                : 'row'
+            }
+          >
+            <div className="col-xl-6">
+              <div className="row">
+                <span className={`col-xl-12 col-lg-12 ${s.claimBanner} `}>
+                  <i class="fas fa-chevron-right" /> Claim 123
+                </span>
               </div>
-              <div className="col-xl-4">
-                <span>{this.props.claim.orderId}</span>
-              </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col-xl-2">
-                <span> Date :</span>{' '}
-              </div>
-              <div className="col-xl-4">
-                <span>{this.props.claim.createdAt}</span>
-              </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col-xl-2">
-                <span>Status :</span>{' '}
-              </div>
-              <div className="col-xl-4">
-                <span>{this.props.claim.status.label}</span>
-              </div>
-            </div>
-
-            <div className="row mb-3">
-              <div className="col-xl-2">
-                <span>Sender :</span>{' '}
-              </div>
-              <div className="col-xl-4">
-                <span>{this.props.claim.customerName}</span>
-              </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col-xl-2">
-                <span>Receiver :</span>{' '}
-              </div>
-              <div className="col-xl-4">
-                {/* <input value= disabled /> */}
-                <span>{this.props.claim.publisherName}</span>
-              </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col-xl-2">
-                <span>Content :</span>{' '}
-              </div>
-              <div className="col-xl-4">
+              <div className="row">
                 <div
-                  className={s.msgContainer}
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.claim.messageHtml,
-                  }}
-                />
-                {/* <textarea
+                  className={`col-xl-12 col-lg-12 addInputContainer ${
+                    s.claimBody
+                  } `}
+                >
+                  <div className="row mb-1">
+                    <div className="col-xl-4 col-lg-6 col-md-6 mb-2">
+                      <span>Order Id : </span> <a>{this.props.claim.orderId}</a>
+                    </div>
+                    <div className="col-xl-4  col-lg-6 col-md-6 mb-2">
+                      <span> Date :</span>{' '}
+                      <span>{this.props.claim.createdAt}</span>
+                    </div>
+                    {/* <div className="col-xl-4  col-lg-6 col-md-6 mb-2">
+                      <span>Status :</span>{' '}
+                      <span
+                        className={
+                          this.props.claim.status.label == 'new'
+                            ? s.new
+                            : s.seen
+                        }
+                      >
+                        {this.props.claim.status.label}
+                      </span>
+                    </div> */}
+                  </div>
+
+                  {/* <div className="row mb-3">
+                <div className="col-xl-2">
+                  <span>Sender :</span>{' '}
+                </div>
+                <div className="col-xl-4">
+                  <span>{this.props.claim.customerName}</span>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-xl-2">
+                  <span>Receiver :</span>{' '}
+                </div>
+                <div className="col-xl-4">
+                  <span>{this.props.claim.publisherName}</span>
+                </div>
+              </div>
+          */}
+
+                  <div className="row mb-3">
+                    <div className="col-xl-12">
+                      {/* <span>Message :</span> */}
+                      <div
+                        className={s.msgContainer}
+                        dangerouslySetInnerHTML={{
+                          __html: this.props.claim.messageHtml,
+                        }}
+                      />
+                    </div>
+                    <div className="col-xl-4">
+                      {/* <textarea
                   className={s.textArea}
                   rows="5"
                   cols="50"
                   value={this.props.claim.content}
                   disabled
                 /> */}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

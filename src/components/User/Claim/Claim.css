@@ -1,24 +1,36 @@
 .claimContainer {
-    margin-top: 8px;
-    border: 1px solid #ebebeb;
-    border-radius: 5px;
-    padding: 30px 50px 10px 80px;
-    background-color: #ebebeb;
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
-    min-height: 300px;
+    /* min-height: 300px; */
+    padding-left: 20px;
+    padding-right: 20px;
     color: rgb(65, 64, 64);
-    font-size: 15px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.claimContainer span , a {
+    cursor: pointer;
+}
+.claimContainer a {
+    color: #2389b4 !important;
+    /* border: 1px solid firebrick; */
+}
+.claimBody {
+    border-radius: 5px;
+
+    /* float: right; */
+    padding-top: 20px;
     margin-bottom: 20px;
+    /* width: 50%; */
+    background-color: #ebebeb;
+    border: 1px solid rgb(221, 219, 219);
 }
 .msgContainer {
     background-color: white;
     padding: 8px;
-    min-width: 600px;
+    margin-top: 5px;
+    min-width: 300px;
     word-break: break-word;
     overflow-y: auto;
-    min-height: 110px;
+    min-height: 120px;
     max-height: 200px;
     border: 1px solid white;
     border-radius: 5px;
@@ -27,5 +39,15 @@
     color:#369ac5;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 28px;
+    margin-bottom: 8px;
+}
+.new {
+    color: green !important;
+    font-size: 14px;
+    font-weight: bold;
+}
+.seen {
+    color: #369ac5 !important;
+    font-size: 14px;
+    font-weight: bold;
 }

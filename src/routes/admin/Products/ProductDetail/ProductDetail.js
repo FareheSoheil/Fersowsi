@@ -3,7 +3,6 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 import s from './ProductDetail.css';
 import Spinner from '../../../../components/Admin/Spinner';
-import PageHeader from '../../../../components/Admin/PageHeader';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import SubproductTable from '../../../../components/Admin/Product/SubproductTable';
 import ProductPriceTable from '../../../../components/Admin/Product/ProductPriceTable';

@@ -369,7 +369,7 @@ class ProfileProInfo extends React.Component {
                               <div className="form-group">
                                 <label>Iban</label>
                                 <input
-                                  name="psn"
+                                  name="iban"
                                   type="text"
                                   className="form-control form-control-sm"
                                   onChange={this.props.handleSimpleInputChange}
@@ -422,7 +422,7 @@ class ProfileProInfo extends React.Component {
                             </div>{' '}
                           </div>
 
-                          <div className="col-xl-3">
+                          {/* <div className="col-xl-3">
                             <div className="form-group">
                               <label>PSN</label>
                               <input
@@ -432,9 +432,8 @@ class ProfileProInfo extends React.Component {
                                 onChange={this.props.handleSimpleInputChange}
                                 value={this.props.user.psn}
                               />
-                              {/* </div> */}
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-xl-3">
                             <div className="form-group ">
                               <label>discount</label>

@@ -21,7 +21,11 @@ class Footer extends React.Component {
             <div className="container-fluid">
               <div className="row mt-3">
                 <div className="col-xl-2 col-lg-4 col-sm 6">
-                  <img height="30" width="80" src="/assets/images/logo.png" />
+                  <img
+                    height="80"
+                    width="80"
+                    src="/assets/images/footer_logo.png"
+                  />
                 </div>
                 <div className="col-xl-2 col-lg-4 col-sm 6">
                   <div className="row mt-3">

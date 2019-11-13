@@ -98,7 +98,7 @@ class ProductSideFilter extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label>Product ASB </label>
+                <label>Product SAB </label>
                 <br />
                 <input
                   name="asb"

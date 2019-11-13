@@ -8,7 +8,7 @@ class LoginPage extends React.Component {
       <div class="splash-container">
         <div class="card ">
           <div class="card-header text-center">
-            <a href="../index.html">
+            <a>
               <img
                 class="logo-img"
                 src="../assets/images/logo.png"

@@ -12,6 +12,7 @@ import {
 import { SERVER, SSRSERVER } from '../../../constants';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
+import zeroTrimmer from '../../../zeroTrimmer';
 import s from './PublisherOrderDetail.css';
 class PublisherOrderDetail extends React.Component {
   constructor(props) {
@@ -225,9 +226,11 @@ class PublisherOrderDetail extends React.Component {
                                       name="customerPrice"
                                       type="text"
                                       className="form-control form-control-sm numberInput"
-                                      value={
-                                        this.state.publisherOrder.customerPrice
-                                      }
+                                      value={zeroTrimmer(
+                                        this.state.publisherOrder
+                                          .customerPrice[0],
+                                        'price',
+                                      )}
                                       onChange={this.onChangeInput}
                                     />
                                   </div>
@@ -244,9 +247,11 @@ class PublisherOrderDetail extends React.Component {
                                       name="publisherPrice"
                                       type="text"
                                       className="form-control form-control-sm numberInput"
-                                      value={
-                                        this.state.publisherOrder.publisherPrice
-                                      }
+                                      value={zeroTrimmer(
+                                        this.state.publisherOrder
+                                          .publisherPrice[0],
+                                        'price',
+                                      )}
                                       onChange={this.onChangeInput}
                                     />
                                   </div>
@@ -264,7 +269,7 @@ class PublisherOrderDetail extends React.Component {
                                       type="text"
                                       className="form-control form-control-sm numberInput"
                                       value={
-                                        this.state.publisherOrder.cancelPrice
+                                        this.state.publisherOrder.cancelPrice[0]
                                       }
                                       onChange={this.onChangeInput}
                                     />
@@ -282,7 +287,8 @@ class PublisherOrderDetail extends React.Component {
                                       type="text"
                                       className="form-control form-control-sm"
                                       value={
-                                        this.state.publisherOrder.deliveryCost
+                                        this.state.publisherOrder
+                                          .deliveryCost[0]
                                       }
                                       onChange={this.onChangeInput}
                                     />
@@ -300,9 +306,10 @@ class PublisherOrderDetail extends React.Component {
                                       name="totalCost"
                                       type="text"
                                       className="form-control form-control-sm"
-                                      value={
-                                        this.state.publisherOrder.totalCost
-                                      }
+                                      value={zeroTrimmer(
+                                        this.state.publisherOrder.totalCost[0],
+                                        'price',
+                                      )}
                                       onChange={this.onChangeInput}
                                     />
                                   </div>
@@ -367,7 +374,10 @@ class PublisherOrderDetail extends React.Component {
                                       name="discount"
                                       type="text"
                                       className="form-control form-control-sm numberInput"
-                                      value={this.state.publisherOrder.discount}
+                                      value={zeroTrimmer(
+                                        this.state.publisherOrder.discount,
+                                        'price',
+                                      )}
                                       onChange={this.onChangeInput}
                                     />
                                   </div>
@@ -397,7 +407,7 @@ class PublisherOrderDetail extends React.Component {
                                       name="tax"
                                       type="text"
                                       className="form-control form-control-sm numberInput"
-                                      value={this.state.publisherOrder.tax}
+                                      value={this.state.publisherOrder.tax[0]}
                                       onChange={this.onChangeInput}
                                     />
                                   </div>

@@ -39,14 +39,14 @@ const context = {
 
 // window.alert('start', window.applicationCache.state);
 const locale = localStorage.getItem('locale');
+const currency = localStorage.getItem('currency');
 // window.alert('locale ', locale);
-if (locale === null) {
+if (locale == null) {
   localStorage.setItem('locale', 'en');
   context.store.dispatch(setLocale('en'));
 } else context.store.dispatch(setLocale(locale));
 context.store.dispatch(loadTranslations(translationsObject));
-
-// window.alert('end');
+if (currency == null) localStorage.setItem('currency', '2');
 const container = document.getElementById('app');
 let currentLocation = history.location;
 let appInstance;

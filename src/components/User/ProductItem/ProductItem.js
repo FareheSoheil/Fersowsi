@@ -76,15 +76,16 @@ class ProductItem extends React.Component {
     let categories = this.props.product.contentCategory;
     let manCategories = '';
     let manPrices = [];
-
+    const sign = parseInt(localStorage.getItem('currency'));
     if (prices.length > 0) {
       prices.map((price, i) => {
         manPrices.push({
           label: `${price.zoneName} with ${price.deliveryTypeName} ${
             price.ProductSubscriptionTypeName
           }`,
-          instPrice: price.institutionalCustomerPrice,
-          privatePrice: price.privateCustomerPrice,
+          instPrice: price.institutionalCustomerPrice[sign],
+
+          privatePrice: price.privateCustomerPrice[sign],
           value: price.id,
         });
       });
@@ -155,6 +156,15 @@ class ProductItem extends React.Component {
                   </div>
                 </div>
               </div>
+              <div className="row">
+                <div className="col-12">
+                  <div className={s.categories}>
+                    <label>Number of Copies Per Period :</label>{' '}
+                    {this.props.product.numberOfCopyPerPeriod}
+                  </div>
+                </div>
+              </div>
+
               <div className="row">
                 <div className="col-12">
                   <div className={s.description}>

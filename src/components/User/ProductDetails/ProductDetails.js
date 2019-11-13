@@ -143,6 +143,14 @@ class ProductDetails extends React.Component {
               <div className="row">
                 <div className="col-10">
                   <div className={s.details}>
+                    <label>Number Of Copies Per Periods :</label>{' '}
+                    {this.props.product.numberOfCopyPerPeriod}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-10">
+                  <div className={s.details}>
                     <label>asb :</label> {this.props.product.asb}
                   </div>
                 </div>
@@ -164,12 +172,30 @@ class ProductDetails extends React.Component {
               <div className="row">
                 <div className="col-10">
                   <div className={s.details}>
-                    <label>Product Type :</label>{' '}
-                    {this.props.product.productType.label}
+                    <label>Discount :</label>{' '}
+                    {zeroTrimmer(this.props.product.discount, 'price')}
                   </div>
                 </div>
               </div>
-              {this.props.product.productType.value === 1 ? (
+              <div className="row">
+                <div className="col-10">
+                  <div className={s.details}>
+                    <label>Local Discount :</label>{' '}
+                    {zeroTrimmer(this.props.product.localDiscount, 'price')}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-10">
+                  <div className={s.details}>
+                    <label>Product Type :</label>{' '}
+                    {this.props.product.productType.value == 1
+                      ? this.props.product.singleProductType.label
+                      : 'Package'}
+                  </div>
+                </div>
+              </div>
+              {/* {this.props.product.productType.value ==1 ? (
                 <div className="row">
                   <div className="col-10">
                     <div className={s.SingleType}>
@@ -180,7 +206,7 @@ class ProductDetails extends React.Component {
                 </div>
               ) : (
                 ''
-              )}
+              )} */}
               <div className="row">
                 <div className="col-12">
                   <div className={s.description}>

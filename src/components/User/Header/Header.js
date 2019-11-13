@@ -95,6 +95,16 @@ class Header extends React.Component {
       }
     };
   }
+  changeLang() {
+    localStorage.setItem('locale', 'en');
+
+    document.location.reload(true);
+  }
+  changeCurrency(id) {
+    localStorage.setItem('currency', id);
+
+    document.location.reload(true);
+  }
   componentDidMount() {
     this.fetchCategories();
     this.dropDownHandlers();
@@ -236,7 +246,12 @@ class Header extends React.Component {
                 s.userHeaderContainer
               }`}
             >
-              <img height="50" width="80" src="/assets/images/logo.png" />
+              <img
+                height="30"
+                width="80"
+                src="/assets/images/logo.png"
+                // style={{ border: '1px solid red' }}
+              />
               {/* <a class={`${s.UserNavBrand} navbar-brand`} href="#">
           FERDOSI
         </a> */}
@@ -292,76 +307,70 @@ class Header extends React.Component {
                     </a>
                   </li>
                 </ul>
-                <div className={s.headerIconContainer}>
-                  {' '}
-                  <img
-                    height="25"
-                    width="25"
-                    src="/assets/images/sweden_flag.png"
-                  />
-                  <img
-                    height="25"
-                    width="25"
-                    src="/assets/images/british_flag.png"
-                  />
-                  {/* <input type="text" /> */}
-                  <div class="userdropdown">
-                    <button class="userdropbtn">
-                      <i
-                        onClick={() => {
-                          this.drop('userDropDown', 'usershow');
-                        }}
-                        class="far fa-user userdropbtn"
-                      />
-                    </button>
-                    <div id="userDropDown" class="userdropdown-content">
-                      {cookie.load('TokenId') !== undefined ? (
-                        <a onClick={() => this.goTo('/user/myAccount')}>
-                          My Account
-                        </a>
-                      ) : (
-                        ''
-                      )}
-                      {cookie.load('TokenId') != undefined ? (
-                        <a onClick={() => this.logOut()}>logOut</a>
-                      ) : (
-                        <a onClick={() => this.goTo('/login')}>login</a>
-                      )}
-                    </div>
-                    <div id="userDropDown" class="userdropdown-content">
-                      <a>Euro</a>
-                      <a>US Dollar</a>
-                      <a>GB Pound</a>
-                      <a>Iran Rial</a>
-                      <a>Swedish Krona</a>
-                    </div>
+              </div>
+              <div className={s.headerIconContainer}>
+                {' '}
+                <img
+                  height="25"
+                  width="25"
+                  src="/assets/images/sweden_flag.png"
+                />
+                <img
+                  height="25"
+                  width="25"
+                  src="/assets/images/british_flag.png"
+                />
+                {/* <input type="text" /> */}
+                <div class="userdropdown">
+                  <button class="userdropbtn">
+                    <i
+                      onClick={() => {
+                        this.drop('userDropDown', 'usershow');
+                      }}
+                      class="far fa-user userdropbtn"
+                    />
+                  </button>
+                  <div id="userDropDown" class="userdropdown-content">
+                    {cookie.load('TokenId') !== undefined ? (
+                      <a onClick={() => this.goTo('/user/myAccount')}>
+                        My Account
+                      </a>
+                    ) : (
+                      ''
+                    )}
+                    {cookie.load('TokenId') != undefined ? (
+                      <a onClick={() => this.logOut()}>logOut</a>
+                    ) : (
+                      <a onClick={() => this.goTo('/login')}>login</a>
+                    )}
                   </div>
-                  <div class="moneydropdown">
-                    <button class="moneydropbtn">
-                      <i
-                        onClick={() => {
-                          this.drop('moneyDown', 'moneyshow');
-                        }}
-                        class="fa fa-money moneydropbtn"
-                      />
-                    </button>
-                    <div id="moneyDown" class="moneydropdown-content">
-                      <a>Euro</a>
-                      <a>US Dollar</a>
-                      <a>GB Pound</a>
-                      <a>Iran Rial</a>
-                      <a>Swedish Krona</a>
-                    </div>
+                  <div id="userDropDown" class="userdropdown-content">
+                    <a>Euro</a>
+                    <a>US Dollar</a>
+                    <a>GB Pound</a>
+                    <a>Iran Rial</a>
+                    <a>Swedish Krona</a>
                   </div>
-                  <i
-                    onClick={() => {}}
-                    class={`${s.searchBtn} fas fa-search`}
-                  />
-                  <i
-                    class="fas fa-home"
-                    onClick={() => this.goTo('/user/myAccount')}
-                  />
                 </div>
+                <div class="moneydropdown">
+                  <button class="moneydropbtn">
+                    <i
+                      onClick={() => {
+                        this.drop('moneyDown', 'moneyshow');
+                      }}
+                      class="fa fa-money moneydropbtn"
+                    />
+                  </button>
+                  <div id="moneyDown" class="moneydropdown-content">
+                    <a onClick={() => this.changeCurrency(0)}>Euro</a>
+                    <a onClick={() => this.changeCurrency(1)}>US Dollar</a>
+                    <a onClick={() => this.changeCurrency(2)}>GB Pound</a>
+                    <a onClick={() => this.changeCurrency(3)}>Iran Rial</a>
+                    <a onClick={() => this.changeCurrency(4)}>Swedish Krona</a>
+                  </div>
+                </div>
+                <i onClick={() => {}} class={`${s.searchBtn} fas fa-search`} />
+                <i class="fas fa-home" onClick={() => this.goTo('/')} />
               </div>
             </nav>
             <div className={`${s.submenuContainer} container-fluid`}>

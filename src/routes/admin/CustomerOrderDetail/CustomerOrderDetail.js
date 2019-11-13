@@ -189,7 +189,7 @@ class CustomerOrderDetail extends React.Component {
                                       type="text"
                                       className="form-control form-control-sm numberInput"
                                       value={
-                                        this.state.customerOrder.totalPrice
+                                        this.state.customerOrder.totalPrice[0]
                                       }
                                       onChange={this.onChangeInput}
                                     />
@@ -227,7 +227,7 @@ class CustomerOrderDetail extends React.Component {
                                       className="form-control form-control-sm"
                                       value={
                                         this.state.customerOrder
-                                          .totalDeliveryCost
+                                          .totalDeliveryCost[0]
                                       }
                                       onChange={this.onChangeInput}
                                     />
@@ -245,7 +245,9 @@ class CustomerOrderDetail extends React.Component {
                                       name="totalCost"
                                       type="text"
                                       className="form-control form-control-sm"
-                                      value={this.state.customerOrder.totalCost}
+                                      value={
+                                        this.state.customerOrder.totalCost[0]
+                                      }
                                       onChange={this.onChangeInput}
                                     />
                                   </div>
@@ -309,7 +311,7 @@ class CustomerOrderDetail extends React.Component {
                                       type="text"
                                       className="form-control form-control-sm numberInput"
                                       value={
-                                        this.state.customerOrder.totalTaxCost
+                                        this.state.customerOrder.totalTaxCost[0]
                                       }
                                       onChange={this.onChangeInput}
                                     />

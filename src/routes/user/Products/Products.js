@@ -268,7 +268,7 @@ class Products extends React.Component {
           (products = <ProductItem hasWish={true} product={product} />),
       );
       console.log('productsSS : ', products);
-    } else if (this.props.isLoading && receivedProducts === undefined)
+    } else if (this.props.isLoading && receivedProducts == undefined)
       products = (
         <div className="col-12">
           <div className={s.warning}>No Products Found :-(</div>

@@ -181,7 +181,8 @@ class AddressBook extends React.Component {
               <div className="col-12">
                 <AddAddress
                   countries={this.state.allCountries}
-                  newAddress={this.state.newAddress}
+                  callBack={this.fetchAddresses}
+                  // newAddress={this.state.newAddress}
                 />
               </div>
             </div>

@@ -130,7 +130,9 @@ async function Authorize(req, res, next) {
         // in main pages
         // if it is user
         if (req.cookies.role == ROLES.customer.value) {
-          if (!userPaths.test(req.path)) {
+          if (homePat.test(req.path)) {
+            return next();
+          } else if (!userPaths.test(req.path)) {
             console.log('in user wants admin pages');
             res.redirect('/user/products');
           } else {
@@ -140,19 +142,8 @@ async function Authorize(req, res, next) {
         } else if (req.cookies.role != ROLES.customer.value) {
           // if it is admin
           if (userPaths.test(req.path) || homePat.test(req.path)) {
-            console.log(
-              'in admin wants user pages',
-              userPaths.test(req.path),
-              homePat.test(req.path),
-              req.path,
-            );
             res.redirect('/admin');
           } else {
-            console.log(
-              'in admin wants admins',
-
-              req.path,
-            );
             return next();
           }
         }

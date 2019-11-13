@@ -95,7 +95,7 @@ class ProductPriceRecord extends React.Component {
                 value={
                   this.props.hasAdd
                     ? this.props.cost.publisherPrice
-                    : zeroTrimmer(this.props.cost.publisherPrice, 'price')
+                    : zeroTrimmer(this.props.cost.publisherPrice[0], 'price')
                 }
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />
@@ -115,7 +115,7 @@ class ProductPriceRecord extends React.Component {
                   this.props.hasAdd
                     ? this.props.cost.institutionalCustomerPrice
                     : zeroTrimmer(
-                        this.props.cost.institutionalCustomerPrice,
+                        this.props.cost.institutionalCustomerPrice[0],
                         'price',
                       )
                 }
@@ -135,7 +135,10 @@ class ProductPriceRecord extends React.Component {
                 value={
                   this.props.hasAdd
                     ? this.props.cost.privateCustomerPrice
-                    : zeroTrimmer(this.props.cost.privateCustomerPrice, 'price')
+                    : zeroTrimmer(
+                        this.props.cost.privateCustomerPrice[0],
+                        'price',
+                      )
                 }
                 // disabled
                 onChange={e => this.props.onInputChange(e, this.props.index)}
@@ -154,7 +157,7 @@ class ProductPriceRecord extends React.Component {
                 value={
                   this.props.hasAdd
                     ? this.props.cost.postalCost
-                    : zeroTrimmer(this.props.cost.postalCost, 'price')
+                    : zeroTrimmer(this.props.cost.postalCost[0], 'price')
                 }
                 onChange={e => this.props.onInputChange(e, this.props.index)}
               />

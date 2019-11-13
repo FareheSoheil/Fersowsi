@@ -2,14 +2,11 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactPaginate from 'react-paginate';
 import ContentHeader from '../../../components/User/ContentHeader';
+import ProductTable from '../../../components/User/Product/ProductTable';
 import Table from '../../../components/User/Table';
 import Spinner from '../../../components/User/Spinner';
 import s from './Order.css';
 import { SERVER, ORDER_SORT_OPTION } from '../constants';
-import {
-  CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY,
-  CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
-} from '../../../constants/constantData';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
 class Order extends React.Component {
@@ -64,6 +61,9 @@ class Order extends React.Component {
   }
   onOrderClick(id) {
     history.push(`/user/order/${id}`);
+  }
+  goToClaimsofThisOrder(id) {
+    history.push(`/user/claim/1`);
   }
   handleSelectChange = (selectedOption, op) => {
     let searchBy = { ...searchBy };
@@ -130,11 +130,9 @@ class Order extends React.Component {
               onSortFunc={this.handleSelectChange}
               sortOptions={ORDER_SORT_OPTION}
             />
-            <Table
+            <ProductTable
               onRecordClick={this.onOrderClick}
-              columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
               records={this.state.orders}
-              recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
             />
 
             <div className="row">

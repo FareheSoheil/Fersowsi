@@ -37,7 +37,6 @@ class UserLayout extends React.Component {
         <div
           style={{
             backgroundColor: 'white',
-            // border: '3px solid green',
             paddingTop: '30px',
             // paddingRight: '10px',
             // position: 'fixed',

@@ -2,7 +2,7 @@
 .description textarea {
     padding: 6px;
     border-radius: 5px;
-    width: 100%;
+    width: 94%;
     height: 100%;
 }
 .deleteBtnContainer {
@@ -30,7 +30,7 @@
     color: white;
     background-color: blue;
     /* rgb(92, 221, 92); */
-    width: 70px;
+    min-width: 70px;
     padding: 10px;
     border: 1px solid blue;
     /* rgb(107, 230, 107); */
@@ -161,8 +161,15 @@ button {
     color: black;
     margin-right: 30px;
 }
+.countContainer >div {
+    /* border: 1px solid red; */
+    padding-left: 25px;
+}
+.countContainer >div:last-child {
+    padding-left: 5px;
+}
 .count input {
-    width: 80px;
+    width: 100px;
     border: 1px solid lightgray;
     border-radius: 2px;
     padding: 6px;
@@ -188,4 +195,8 @@ button {
 .price label {
     padding-top: 6px;
     color: black;
+}
+.addBtnContainer {
+    color: blue;
+    padding-top: 10px
 }

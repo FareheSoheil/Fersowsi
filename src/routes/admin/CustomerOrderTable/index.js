@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import CustomerOrderTable from './CustomerOrderTable';
+import CustomerOrders from './CustomerOrders';
 import AdminLayout from '../../../components/Admin/AdminLayout';
 
 async function action(context) {
@@ -17,7 +17,7 @@ async function action(context) {
     chunks: ['adminCustomerOrderTable'],
     component: (
       <AdminLayout>
-        <CustomerOrderTable context={context} />
+        <CustomerOrders context={context} />
       </AdminLayout>
     ),
   };

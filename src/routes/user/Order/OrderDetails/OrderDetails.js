@@ -1,7 +1,8 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import toastr from 'react-redux-toastr';
-import CustomTable from '../../../../components/CustomTabel';
+import AddressDetails from '../../../../components/User/AddressDetails';
+import PublisherOrderTable from '../../../../components/User/PublisherOrderTable';
 import ContentHeader from '../../../../components/User/ContentHeader';
 import Spinner from '../../../../components/User/Spinner';
 import s from './OrderDetails.css';
@@ -18,14 +19,94 @@ class OrderDetails extends React.Component {
     this.state = {
       id: this.props.context.params.id,
       isLoading: true,
+      isAddressFetched: false,
       publisherOrders: [],
+      fetchedAddress: '',
     };
     this.fetchOrders = this.fetchOrders.bind(this);
+    this.onAddressClick = this.onAddressClick.bind(this);
   }
   componentDidMount() {
     this.fetchOrders();
   }
+  onAddressClick(id) {
+    const url = `${SERVER}/getAddress`;
+    this.setState({
+      isAddressFetched: false,
+    });
+    const credentials = {
+      addressId: id,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
 
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error == undefined) {
+          console.log(' response : ', response);
+          that.setState(
+            {
+              fetchedAddress: response,
+              isAddressFetched: true,
+            },
+            () => {
+              let x = document.getElementById('addressDetailModal');
+              x.classList.add('show');
+              x.style.display = 'block';
+            },
+          );
+        } else {
+          console.log(' error : ', response.error);
+          // toastr.error(response.error.title, response.error.description);
+        }
+      },
+      error => {
+        // toastr.error('shit');
+        // toastr.error('sala', ERRORS.REPEATED_USER);
+        console.log('login e rror : ', error);
+      },
+    );
+  }
+  renew(id) {
+    const url = `${SERVER}/addToBasket`;
+    const credentials = {
+      productId: id,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error == undefined) {
+          window.alert(response.message);
+          history.push('/user/wishlist');
+        } else {
+          console.log(' error : ', response.error);
+          // toastr.error(response.error.title, response.error.description);
+        }
+      },
+      error => {
+        // toastr.error('shit');
+        // toastr.error('sala', ERRORS.REPEATED_USER);
+        console.log('login e rror : ', error);
+      },
+    );
+  }
   onOrderClick(id1, id2, productId) {
     history.push(`/user/products/${productId}`);
   }
@@ -68,6 +149,9 @@ class OrderDetails extends React.Component {
       },
     );
   }
+  goToClaimsofThisOrder(id) {
+    history.push(`/user/claim/1`);
+  }
   render() {
     return (
       <div>
@@ -76,18 +160,41 @@ class OrderDetails extends React.Component {
           <Spinner />
         ) : (
           <div>
-            <ContentHeader title="Order List" hasSort={false} />
+            <ContentHeader
+              title={`Sub Orders of Order ${this.state.id}`}
+              hasSort={false}
+            />
             <div className={`${s.addressContainer} container-fluid`}>
               <div className="row">
                 <div className="col-xl-12 col-lg-12 addInputContainer">
-                  <CustomTable
+                  {/* <CustomTable
                     pageCount={0}
                     hasPagination={false}
                     records={this.state.publisherOrders}
                     columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
                     recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
                     onRecordClick={this.onOrderClick}
+                  /> */}
+                  <PublisherOrderTable
+                    renew={this.renew}
+                    onAddressClick={this.onAddressClick}
+                    hasPagination={false}
+                    records={this.state.publisherOrders}
+                    goToClaimsofThisOrder={this.goToClaimsofThisOrder}
+                    onRecordClick={this.onOrderClick}
                   />
+                  {this.state.isAddressFetched ? (
+                    <div className="row">
+                      <div className="col-12">
+                        <AddressDetails
+                          address={this.state.fetchedAddress}
+                          isAddressFetched={this.state.isAddressFetched}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
             </div>

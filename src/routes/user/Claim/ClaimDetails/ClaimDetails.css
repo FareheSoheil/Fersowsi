@@ -10,6 +10,13 @@
     color: rgb(65, 64, 64);
     font-size: 15px;
 }
+.mainContainer {
+    /* border: 1px solid red; */
+    border-radius: 5px ;
+    padding-top: 6px;
+    margin-top: 6px;
+    background-color: #f8f0f0
+}
 .addBtn {
     background-color: blue;
     cursor: pointer;

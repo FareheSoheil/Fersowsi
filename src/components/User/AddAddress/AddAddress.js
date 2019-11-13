@@ -28,9 +28,13 @@ class AddAddress extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
   addAddresses() {
-    const url = `${SERVER}/addAddress`;
+    const url = `${SERVER}/addAddressOfSpecificUser`;
     const credentials = {
-      address: this.state.newAddress,
+      detailAddress: this.state.newAddress.detailAddress,
+      zipCode: this.state.newAddress.zipCode,
+      city: this.state.newAddress.city,
+      province: this.state.newAddress.province,
+      country: this.state.newAddress.country.value,
     };
     const options = {
       method: 'POST',
@@ -45,16 +49,22 @@ class AddAddress extends React.Component {
       url,
       options,
       response => {
+        window.alert(response.message);
         if (response.error === undefined) {
-          that.setState({
-            newAddress: {
-              detailAddress: '',
-              zipCode: '',
-              city: '',
-              province: '',
-              country: '',
+          that.setState(
+            {
+              newAddress: {
+                detailAddress: '',
+                zipCode: '',
+                city: '',
+                province: '',
+                country: '',
+              },
             },
-          });
+            () => {
+              this.props.callBack();
+            },
+          );
           toastr.success('Address Added Successfully');
         } else {
           toastr.error(response.error.title, response.error.description);
@@ -174,8 +184,7 @@ class AddAddress extends React.Component {
                     data-dismiss="modal"
                     href="#"
                     class="btn btn-info"
-
-                    // onClick={() => this.modifyComment('accept')}
+                    onClick={this.addAddresses}
                   >
                     Add
                   </button>

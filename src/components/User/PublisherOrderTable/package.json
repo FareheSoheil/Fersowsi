@@ -1,0 +1,7 @@
+{
+    "name": "PublisherOrderTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./PublisherOrderTable.js"
+  }
+  

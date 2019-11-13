@@ -114,7 +114,7 @@ class Login extends React.Component {
             <div className={s.logoContainer}>
               <img
                 className="logo-img"
-                src="../assets/images/logo.png"
+                src="/assets/images/logo.png"
                 alt="logo"
               />
             </div>

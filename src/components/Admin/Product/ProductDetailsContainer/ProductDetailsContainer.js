@@ -203,7 +203,7 @@ class ProductDetailsLeftContainer extends React.Component {
                 <div className="row border-top pt-3">
                   <div className="col-xl-2">
                     <div className="form-group">
-                      <label className="mb-1">ASB</label>
+                      <label className="mb-1">SAB</label>
                       <input
                         name="asb"
                         type="text"
@@ -220,7 +220,7 @@ class ProductDetailsLeftContainer extends React.Component {
                         name="tax"
                         type="text"
                         className="form-control form-control-sm"
-                        value={zeroTrimmer(this.props.product.tax, 'price')}
+                        value={zeroTrimmer(this.props.product.tax[0], 'price')}
                         onChange={e => this.onChangeInput(e, 'num')}
                       />
                     </div>

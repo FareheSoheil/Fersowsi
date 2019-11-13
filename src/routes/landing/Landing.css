@@ -1,6 +1,7 @@
 .mainContainer {
   padding: 0px !important;
   text-align: center;
+  /* font-family: 'm' */
 }
 .mapContainer {
   position: relative;
@@ -52,7 +53,7 @@
 .mapTxt {
   position: absolute;
   top: 6%;
-  left: 40%;
+  left: 43%;
 }
 .justify {
 
@@ -88,11 +89,17 @@
   background-color: white;
 }
 
-@media only screen and (max-width:480px) {
+@media only screen and (max-width:600px) {
   .mapTxt {
     position: absolute;
     top: 6%;
-    left: 20%;
+    left: 32%;
+  }
+  .grayCardRow {
+    text-align: center !important;
+  }
+  .grayCard {
+    min-width: 100%;
   }
 }
 .greenContainer h1 {

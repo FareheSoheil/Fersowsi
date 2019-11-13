@@ -10,6 +10,7 @@
 import React from 'react';
 import Spinner from '../../../components/Admin/Spinner';
 import CustomTable from '../../../components/CustomTabel';
+import CustomerOrderTable from '../../../components/Admin/CustomerOrderTable';
 import history from '../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CustomerOrderSideFilter from '../../../components/Admin/CustomerOrderSideFilter';
@@ -20,9 +21,9 @@ import {
 } from '../../../constants/constantData';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import { SSRSERVER, SERVER } from '../../../constants';
-import s from './CustomerOrderTable.css';
+import s from './CustomerOrders.css';
 
-class CustomerOrderTable extends React.Component {
+class CustomerOrders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -249,7 +250,7 @@ class CustomerOrderTable extends React.Component {
                       </div>
                     </div>
 
-                    <CustomTable
+                    <CustomerOrderTable
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentCustomerOrders}
@@ -280,4 +281,4 @@ class CustomerOrderTable extends React.Component {
   }
 }
 
-export default withStyles(s)(CustomerOrderTable);
+export default withStyles(s)(CustomerOrders);

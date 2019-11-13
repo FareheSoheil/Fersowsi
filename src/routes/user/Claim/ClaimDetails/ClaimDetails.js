@@ -20,7 +20,7 @@ class ClaimDetails extends React.Component {
           orderId: 23,
           messageHtml: '<div><b>salam honey</b><h1>test</h1></div>',
           createdAt: '23/5/65',
-          status: { value: 1, label: 'accepted' },
+          status: { value: 1, label: 'new' },
           customerName: 'abbas salkhorde',
           publisherName: 'kamal karegar',
         },
@@ -30,7 +30,7 @@ class ClaimDetails extends React.Component {
           messageHtml:
             'asdjnaskcnejkdnasd;alidjnaslkdansmdljendasdkj.asdnas.dal',
           createdAt: '13/5/65',
-          status: { value: 1, label: 'accepted' },
+          status: { value: 1, label: 'seen' },
           customerName: 'abbas salkhorde',
           publisherName: 'kamal karegar',
         },
@@ -40,7 +40,7 @@ class ClaimDetails extends React.Component {
           messageHtml:
             'asdjnaskcnejkdnasd;alidjnaslkdansmdljendasdkj.asdnas.dal',
           createdAt: '23/5/65',
-          status: { value: 1, label: 'accepted' },
+          status: { value: 1, label: 'new' },
           customerName: 'abbas salkhorde',
           publisherName: 'kamal karegar',
         },
@@ -118,7 +118,17 @@ class ClaimDetails extends React.Component {
         ) : (
           <div>
             <ContentHeader title="Claim List" hasSort={false} />
-            <div className="row">
+
+            {/* <div className="row">
+              <div className="col-12"> */}
+
+            {/* </div>
+            </div> */}
+            <div className={` container-fluid ${s.mainContainer} `}>
+              {claims}
+            </div>
+            <AddClaim orderId={this.state.claims[0].orderId} />
+            <div className={`row`}>
               <div className="offset-xl-10 col-xl-2">
                 {' '}
                 <button
@@ -130,12 +140,6 @@ class ClaimDetails extends React.Component {
                 </button>
               </div>
             </div>
-            <div className="row">
-              <div className="col-12">
-                <AddClaim orderId={this.state.claims[0].orderId} />
-              </div>
-            </div>
-            <div className={` container-fluid`}>{claims}</div>
           </div>
         )}
       </div>

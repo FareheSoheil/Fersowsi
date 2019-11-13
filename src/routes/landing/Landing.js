@@ -36,8 +36,8 @@ class Landing extends React.Component {
               src="/assets/images/World_map.png"
             />
             <div className={s.mapTxt}>
-              <h2>Ferdowsiinfo</h2>{' '}
-              <div>Subscription Services With Free-Delivery</div>
+              <h2>Ferdosiinfo</h2>{' '}
+              {/* <div>Subscription Services With Free-Delivery</div> */}
               <br />
               <span>World Wide</span>
             </div>
@@ -105,15 +105,14 @@ class Landing extends React.Component {
             />
           </div>
         </div>
-        <div className={`${s.grayCardRow} row`}>
-          <div className="col-12">
-            <div className="row">
-              <div className="offset-xl-4">
-                <h2>Technology For Institutions</h2>
-              </div>
-            </div>
+        <div className="row">
+          <div className="offset-xl-4">
+            <h2>Technology For Institutions</h2>
           </div>
-          <div className="offset-xl-2 col-3">
+        </div>
+        <div className={`${s.grayCardRow} row`}>
+          {/* <div className="col-12" /> */}
+          <div className="offset-xl-2 col-xl-3 mb-3">
             <div className={s.grayCard}>
               <h1>
                 <i class="fas fa-gift" />
@@ -126,7 +125,7 @@ class Landing extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-3">
+          <div className="col-xl-3 mb-3">
             <div className={s.grayCard}>
               <h1>
                 <i class="fa fa-cog" aria-hidden="true" />
@@ -139,7 +138,7 @@ class Landing extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-3">
+          <div className="col-xl-3 mb-3">
             <div className={s.grayCard}>
               <h1>
                 <i class="fa fa-shopping-basket" aria-hidden="true" />

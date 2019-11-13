@@ -1,0 +1,27 @@
+.container{
+    /* border: 1px solid gray; */
+    border-radius: 10px;
+    padding: 10px 10px 10px 20px;
+    color: rgb(102, 173, 197);
+    font-size: 20px;
+    background-color: #ebebeb;
+    text-align: left !important;
+    margin-bottom: 15px;
+}
+.sortLabel {
+    color: black;
+    font-size: 13px;
+    vertical-align: middle;
+    display: inline;
+}
+.label {
+    text-align: right;
+    padding-top: 8px;
+}
+.desc {
+    margin-top: 20px;
+    border: 1px solid red;
+    color: black;
+    font-size: 13px;
+    padding: 5px 20px 5px 20px;
+}
