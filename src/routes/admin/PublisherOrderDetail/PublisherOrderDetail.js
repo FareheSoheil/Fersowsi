@@ -375,7 +375,7 @@ class PublisherOrderDetail extends React.Component {
                                       type="text"
                                       className="form-control form-control-sm numberInput"
                                       value={zeroTrimmer(
-                                        this.state.publisherOrder.discount,
+                                          this.state.publisherOrder.discount,
                                         'price',
                                       )}
                                       onChange={this.onChangeInput}

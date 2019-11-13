@@ -10,6 +10,12 @@
     color: rgb(65, 64, 64);
     font-size: 15px;
 }
+.addressContainer input {
+    border-radius: 5px;
+    padding: 5px;
+    width: inherit;
+    border: 1px solid lightgray;
+}
 /* .selectWS div:nth-child(2){
     border: 1px solid red;
 } */

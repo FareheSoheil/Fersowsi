@@ -29,7 +29,7 @@ class WishItem extends React.Component {
       allAddresses: '',
     };
     this.gotoProductDetails = this.gotoProductDetails.bind(this);
-    this.fetchAddresses = this.fetchAddresses.bind(this);
+    // this.fetchAddresses = this.fetchAddresses.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -72,6 +72,8 @@ class WishItem extends React.Component {
       preState.selectedPrice = so;
       this.setState(preState, () => {
         this.props.setShoppingDetails(this.props.index, op, so.value);
+        this.props.setShoppingDetails(this.props.index, 'startDate', tomorrow);
+        this.props.setShoppingDetails(this.props.index, 'endDate', end);
       });
     } else {
       this.setState(
@@ -106,7 +108,7 @@ class WishItem extends React.Component {
       },
     );
   }
-  fetchAddresses() {
+  addAddress() {
     const url = `${SERVER}/getAllAddressesOfSpecificUser`;
     this.setState({
       isLoading: true,
@@ -180,7 +182,7 @@ class WishItem extends React.Component {
       >
         <div class="container-fluid ">
           <div className="row">
-            <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+            <div className="col-xl-2 col-lg-3 col-md-12 col-sm-12">
               {' '}
               <div className={s.imgContainer}>
                 {' '}
@@ -192,76 +194,48 @@ class WishItem extends React.Component {
                 />
               </div>
             </div>
-            <div className="col-xl-9 col-lg-9 col-md-12">
-              <div className={`${s.title} container`}>
+            <div className="col-xl-10 col-lg-10 col-md-12">
+              <div className={`${s.title} row pl-0`}>
                 <div className="col-12">
                   <u>{this.props.wish.product.originalTitle}</u>
                 </div>
               </div>
 
-              <div className="row mb-3">
-                <div className="col-xl-9 pl-4">
+              <div className="row mb-2">
+                <div
+                  className="col-xl-4 pl-3"
+                  // style={{ border: '1px solid red' }}
+                >
                   <div className="row">
                     <div className="col-12 ">
-                      {this.props.wish.product.productLanguage.label} &nbsp; |
-                      &nbsp; {manCategories}
+                      <div className={s.categories}>
+                        <label>
+                          {this.props.wish.product.productLanguage.label}
+                        </label>{' '}
+                        &nbsp; | &nbsp; {manCategories}
+                      </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-10">
-                      <div className={s.categories}>
-                        <label>Periodical :</label>
+                      <div className={s.details}>
+                        <label>Periodical : </label>
                         {this.props.wish.product.productPeriod.label}
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-10">
-                      <div className={s.categories}>
+                      <div className={s.details}>
                         <label>ISSN :</label> {this.props.wish.product.issn}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3">
-                  <div className="row">
-                    <div className="col-xl-12">
-                      <div className={s.deleteBtnContainer}>
-                        <button
-                          onClick={() =>
-                            this.props.handleOnDelete(this.props.wish.basketId)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-xl-12">
-                      <div className={s.selectBtnContainer}>
-                        <button
-                          className={
-                            this.props.isWished ? s.isWished : s.notWished
-                          }
-                          onClick={() =>
-                            this.props.handleWishItemSelect(
-                              this.props.wish.basketId,
-                              this.props.index,
-                            )
-                          }
-                        >
-                          {this.props.isWished ? 'Unselect' : 'Select'}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* <div className="row mb-3">
-                <div className="col-7">
+                <div className="col-xl-2">
                   <div className={s.count}>
-                    <label>Count :</label>{' '}
+                    <label>Count :</label>
+                    <br />
                     <input
                       min="1"
                       name="count"
@@ -273,15 +247,48 @@ class WishItem extends React.Component {
                     />
                   </div>
                 </div>
-              </div> */}
+                <div className="col-xl-2">
+                  <div className={s.details}>
+                    <label>Start Date : &nbsp;</label> <br />
+                    <DatePicker
+                      name="startDate"
+                      selected={
+                        this.state.startDate !== ''
+                          ? new Date(this.state.startDate)
+                          : ''
+                      }
+                      onChange={date =>
+                        this.handleDateChange(date, 'startDate')
+                      }
+                    />{' '}
+                  </div>
+                </div>
+                <div className="col-xl-2">
+                  <div className={s.details}>
+                    <label>End Date : &nbsp;&nbsp; </label> <br />
+                    <DatePicker
+                      name="endDate"
+                      selected={
+                        this.state.endDate !== ''
+                          ? new Date(this.state.endDate)
+                          : ''
+                      }
+                      onChange={date => this.handleDateChange(date, 'endDate')}
+                    />{' '}
+                  </div>
+                </div>
+              </div>
 
-              <div className={`${s.price} row mb-2 mt-3`}>
+              <div className={`${s.price} row mb-2 pl-0`}>
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div className="col-xl-2">
-                    <label>Institutional Price : </label>
+                  <div
+                    className="col-xl-2"
+                    // style={{ border: '1px solid yellow' }}
+                  >
+                    <label>Institutional Price </label>
                   </div>
                 ) : (
-                  <label>Private Price : </label>
+                  <label>Private Price </label>
                 )}
                 <div className="col-xl-6 col-lg-6 col-md-8 col-sm-12 mb-2">
                   <Select
@@ -316,9 +323,8 @@ class WishItem extends React.Component {
                 )}
               </div>
 
-              <div
+              {/* <div
                 className={`${s.countContainer} row mb-3`}
-                // style={{ border: '1px solid red', paddingRight: '18px' }}
               >
                 <div className={` offset-xl-2 col-xl-3`}>
                   <div className={s.count}>
@@ -366,9 +372,9 @@ class WishItem extends React.Component {
                     />{' '}
                   </div>
                 </div>
-              </div>
+              </div> */}
 
-              <div className={` row mb-3 ${s.select} pl-2`}>
+              <div className={` row mb-3 ${s.select} pl-0`}>
                 <div className="col-xl-2 col-lg-4 col-md-8 col-sm-12">
                   <label>Address : </label>
                 </div>
@@ -396,7 +402,7 @@ class WishItem extends React.Component {
                   </i>
                 </div>
               </div>
-              <div className={`row mb-2 ${s.select}`}>
+              <div className={`row mb-2 ${s.select} pl-0`}>
                 <div className="col-xl-2">
                   <label>description: </label>
                 </div>
@@ -409,14 +415,46 @@ class WishItem extends React.Component {
                   </div>
                 </div>
               </div>
+
+              <div className="row mb-2">
+                <div className="offset-xl-6 col-xl-2">
+                  <div className={s.deleteBtnContainer}>
+                    <button
+                      onClick={() =>
+                        this.props.handleOnDelete(this.props.wish.basketId)
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+                <div className="col-xl-2">
+                  <div className={s.selectBtnContainer}>
+                    <button
+                      className={this.props.isWished ? s.isWished : s.notWished}
+                      onClick={() =>
+                        this.props.handleWishItemSelect(
+                          this.props.wish.basketId,
+                          this.props.index,
+                        )
+                      }
+                    >
+                      {this.props.isWished ? 'Unselect' : 'Select'}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-12">
-            <AddAddress countries={this.props.allCountries} />
-          </div>
-        </div>
+        {/* <div className="row">
+          <div className="col-12"> */}
+        <AddAddress
+          countries={this.props.allCountries}
+          callBack={this.props.fetchAddresses}
+        />
+        {/* </div>
+        </div> */}
       </div>
     );
   }

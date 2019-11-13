@@ -204,10 +204,10 @@ class AddressDetail extends React.Component {
           <Spinner />
         ) : (
           <div>
-            <ContentHeader title="Address List" hasSort={false} />
+            <ContentHeader title="Address Details" hasSort={false} />
             <div className={`${s.addressContainer} container-fluid`}>
               <div className="row">
-                <div className="col-xl-12 col-lg-12 addInputContainer">
+                <div className="col-xl-12 col-lg-12 ">
                   <div className="row mb-3 ">
                     <div className="col-xl-2 ">
                       <span>Address :</span>{' '}

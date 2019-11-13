@@ -45,9 +45,9 @@ class PublisherOrderTable extends React.Component {
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
-          onClick={() => {
-            this.props.onRecordClick(record.id, record.customerOrderId);
-          }}
+        // onClick={() => {
+        //   this.props.onRecordClick(record.id, record.customerOrderId);
+        // }}
         >
           <td>{record.id}</td>
           {/* <td>{record.customerOrderId}</td> */}

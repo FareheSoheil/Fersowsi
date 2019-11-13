@@ -29,13 +29,15 @@ class AddAddress extends React.Component {
   }
   addAddresses() {
     const url = `${SERVER}/addAddressOfSpecificUser`;
+
     const credentials = {
       detailAddress: this.state.newAddress.detailAddress,
       zipCode: this.state.newAddress.zipCode,
       city: this.state.newAddress.city,
       province: this.state.newAddress.province,
-      country: this.state.newAddress.country.value,
+      countryId: this.state.newAddress.country.value,
     };
+    // window.alert(JSON.stringify(this.state.newAddress.country.value));
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),

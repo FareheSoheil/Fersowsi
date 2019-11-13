@@ -346,6 +346,7 @@ class Wishlist extends React.Component {
               isWished={this.state.selectedIndices[i]}
               handleOnDelete={this.deleteWish}
               setShoppingDetails={this.setShoppingDetails}
+              fetchAddresses={this.fetchAddresses}
             />
           )),
       );
@@ -353,9 +354,7 @@ class Wishlist extends React.Component {
     return (
       <div>
         {' '}
-        {!this.state.isLoading &&
-        this.state.countriesFetched &&
-        this.state.addressesFetched ? (
+        {!this.state.isLoading && this.state.countriesFetched ? (
           <div>
             <ContentHeader
               title="WishList"

@@ -12,7 +12,7 @@
     
 }
 .selectBtnContainer {
-    padding-top: 5px;
+    /* padding-top: 5px; */
     height: 100%;
     text-align: center;
     
@@ -46,21 +46,21 @@ button {
 }
 /* ---------------------------------------- */
 .container label {
-    /* border: 1px solid red; */
     font-size: 14px;
     font-family: 'Myriad Light';
 }
 
 .container {
+
     margin-top:3px;
     margin-bottom:15px;
-    border: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
     border-radius: 8px;
     min-height: 350px;
     
     padding: 10px;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 0px !important;
     background-color: #ebebeb;
     cursor: pointer;
     /* border: none; */
@@ -100,6 +100,9 @@ button {
     color: rgb(109, 185, 211);
 }
 .categories {
+    color: rgb(87, 84, 84);
+}
+.details {
     /* font-weight:  */
     color: rgb(87, 84, 84);
     /* padding: 3px; */
@@ -107,7 +110,7 @@ button {
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis;
-    height: 30px;
+    /* height: 30px; */
      /* word-wrap: break-word;  */
 }
 .categories label {
@@ -158,8 +161,9 @@ button {
     color: lightcoral;
 }
 .count label {
+    margin-top:3px;
     color: black;
-    margin-right: 30px;
+    /* margin-right: 30px; */
 }
 .countContainer >div {
     /* border: 1px solid red; */
@@ -169,6 +173,7 @@ button {
     padding-left: 5px;
 }
 .count input {
+    
     width: 100px;
     border: 1px solid lightgray;
     border-radius: 2px;
@@ -190,7 +195,7 @@ button {
     color: black;
 }
 .price {
-    padding-left: 13px;
+    padding-left: 0px !important;
 }
 .price label {
     padding-top: 6px;
