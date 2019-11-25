@@ -29,8 +29,14 @@ class RichText extends React.Component {
 
           images_upload_handler: (blobInfo, success, failure) => {
             setTimeout(function() {
+              console.log('blob blob: ', blobInfo.blob());
+              console.log('blob uri: ', blobInfo.blobUri());
+              console.log('blob filename: ', blobInfo.filename());
+              console.log('blob uri: ', blobInfo.uri());
               success(
                 'data:' + blobInfo.blob().type + ';base64,' + blobInfo.base64(),
+                // window.url.createobjecturl(blobInfo),
+                // blobInfo,
               );
             }, 2000);
           },

@@ -37,28 +37,43 @@ class WishItem extends React.Component {
     // this.fetchAddresses();
     console.log('wish item : ', this.props.wish);
     if (this.props.wish.product.selectedProductPriceAndCost[0] != undefined)
-      this.setState({
-        selectedPrice: {
-          value: this.props.wish.product.selectedProductPriceAndCost[0].id,
-          label: `${
-            this.props.wish.product.selectedProductPriceAndCost[0].zoneName
-          } with ${
-            this.props.wish.product.selectedProductPriceAndCost[0]
-              .deliveryTypeName
-          } ${
-            this.props.wish.product.selectedProductPriceAndCost[0]
-              .ProductSubscriptionTypeName
-          }`,
-          instPrice: this.props.wish.product.selectedProductPriceAndCost[0]
-            .institutionalCustomerPrice,
-          privatePrice: this.props.wish.product.selectedProductPriceAndCost[0]
-            .privateCustomerPrice,
+      this.setState(
+        {
+          selectedPrice: {
+            value: this.props.wish.product.selectedProductPriceAndCost[0].id,
+            label: `${
+              this.props.wish.product.selectedProductPriceAndCost[0].zoneName
+            } with ${
+              this.props.wish.product.selectedProductPriceAndCost[0]
+                .deliveryTypeName
+            } ${
+              this.props.wish.product.selectedProductPriceAndCost[0]
+                .ProductSubscriptionTypeName
+            }`,
+            instPrice: this.props.wish.product.selectedProductPriceAndCost[0]
+              .institutionalCustomerPrice,
+            privatePrice: this.props.wish.product.selectedProductPriceAndCost[0]
+              .privateCustomerPrice,
+          },
+          startDate: this.startDateCalculator(),
+          endDate: this.endDateCalculator(
+            this.props.wish.product.selectedProductPriceAndCost[0],
+          ),
         },
-        startDate: this.startDateCalculator(),
-        endDate: this.endDateCalculator(
-          this.props.wish.product.selectedProductPriceAndCost[0],
-        ),
-      });
+        () => {
+          // this.props.setShoppingDetails(this.props.index, op, so.value);
+          this.props.setShoppingDetails(
+            this.props.index,
+            'startDate',
+            this.state.startDate,
+          );
+          this.props.setShoppingDetails(
+            this.props.index,
+            'endDate',
+            this.state.endDate,
+          );
+        },
+      );
     // if()
   }
   startDateCalculator() {

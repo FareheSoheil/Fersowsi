@@ -63,6 +63,7 @@ class ProductDetails extends React.Component {
     let categories = this.props.product.contentCategory;
     let manCategories = '';
     let manPrices = [];
+    const sign = parseInt(localStorage.getItem('currency'));
     if (prices.length > 0) {
       prices.map((price, i) => {
         manPrices.some(
@@ -75,12 +76,13 @@ class ProductDetails extends React.Component {
               label: `${price.ProductSubscriptionTypeName} with ${
                 price.productPeriodName
               } period`,
-              value: i,
+              index: i,
+              value: price.id,
               id: `${price.productSubscriptionTypeId} # ${
                 price.productPeriodId
               }`,
-              privatePrice: price.privateCustomerPrice,
-              instPrice: price.institutionalCustomerPrice,
+              privatePrice: price.privateCustomerPrice[sign],
+              instPrice: price.institutionalCustomerPrice[sign],
             });
       });
     }
@@ -90,6 +92,7 @@ class ProductDetails extends React.Component {
           (manCategories = `${category.label} ,${manCategories}`),
       );
     }
+
     return (
       <div
         class={`${s.container} col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 `}
@@ -234,16 +237,24 @@ class ProductDetails extends React.Component {
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
-                      {zeroTrimmer(
-                        this.state.selectedPrice.privatePrice,
-                        'price',
-                      )}
+                      {manPrices[this.state.selectedPrice.index] != undefined
+                        ? zeroTrimmer(
+                            manPrices[this.state.selectedPrice.index]
+                              .privatePrice,
+                            'price',
+                          )
+                        : ''}
                     </span>
                   </div>
                 ) : (
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
-                      {zeroTrimmer(this.state.selectedPrice.instPrice, 'price')}
+                      {manPrices[this.state.selectedPrice.index] != undefined
+                        ? zeroTrimmer(
+                            manPrices[this.state.selectedPrice.index].instPrice,
+                            'price',
+                          )
+                        : ''}
                     </span>
                   </div>
                 )}

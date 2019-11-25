@@ -175,7 +175,7 @@ class Wishlist extends React.Component {
   checkOut() {
     let wishes = [];
     if (this.state.selectedIds.length == 0)
-      window.alert('Please Choose at least one component before checkout');
+      window.alert('Please Choose at least one product before checkout');
     else {
       for (let index = 0; index < this.state.selectedIndices.length; index++) {
         if (this.validator(index)) {

@@ -183,7 +183,7 @@ class OrderDetails extends React.Component {
     );
   }
   goToClaimsofThisOrder(id) {
-    history.push(`/user/claim/1`);
+    history.push(`/user/claim/${id}`);
   }
   render() {
     return (

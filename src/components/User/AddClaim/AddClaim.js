@@ -49,7 +49,6 @@ class AddAddress extends React.Component {
     });
   }
   addClaim() {
-    window.alert('am i being called');
     const url = `${SERVER}/addClaimByCustomerOrPublisher`;
     const credentials = {
       publisherOrderId: this.props.orderId,
@@ -70,16 +69,22 @@ class AddAddress extends React.Component {
       url,
       options,
       response => {
+        window.alert(this.props.orderId);
+
         if (response.error == undefined) {
           // toastr.success('', 'Order Added Successfully');
-          window.alert('okay');
+          // window.alert('okay');
+          // document.getElementById('claimModal').classList.remove('show');
+          // document.getElementById('claimModal').style.display = 'none';
+
           that.props.reloadOnAdd();
         } else {
           window.alert(response.error.description);
           toastr.error(response.error.title, response.error.description);
         }
       },
-      () => {
+      error => {
+        window.alert(error);
         // toastr.error('sala', ERRORS.REPEATED_USER);
         // console.log('login e rror : ', error);
       },
@@ -87,6 +92,7 @@ class AddAddress extends React.Component {
   }
 
   handleEditorChange(e) {
+    console.log('editor : ', e.target.getContent());
     let oldState = this.state.newClaim;
     oldState.messageHtml.content = e.target.getContent();
     this.setState({ newClaim: oldState });
@@ -98,7 +104,7 @@ class AddAddress extends React.Component {
       { value: 1, label: 'I have not recieved any number' },
       { value: 2, label: 'I have not recieved some of the numbers' },
       { value: 3, label: 'I have recieved wrong numbers' },
-      { value: 4, label: 'I have recieved damaged issues ' },
+      { value: 4, label: 'I have recieved damaged issues' },
       { value: 5, label: 'Criticism and explanation' },
       { value: 6, label: 'Other' },
     ];
@@ -209,8 +215,8 @@ class AddAddress extends React.Component {
                 </div>
                 <div class="modal-footer addInputContainer">
                   <button
-                    // data-dismiss="modal"
-                    // href="#"
+                    data-dismiss="modal"
+                    href="#"
                     class={`btn ${s.addBtn}`}
                     onClick={this.addClaim}
                   >

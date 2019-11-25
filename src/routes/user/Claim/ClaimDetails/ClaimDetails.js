@@ -50,6 +50,7 @@ class ClaimDetails extends React.Component {
       options,
       response => {
         if (response.error == undefined) {
+          console.log('claims : ', JSON.parse(response[1].messageHtml));
           that.setState({
             claims: response,
             isLoading: false,
