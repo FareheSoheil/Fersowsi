@@ -25,7 +25,7 @@ class Table extends React.Component {
       records = this.props.records.map((record, i) => (
         <tr
           onClick={() => {
-            this.props.onRecordClick(record.id, record.customerOrderId);
+            this.props.onRecordClick(record.id, record.publisherOrderId);
           }}
         >
           {this.props.recordItemNames.map(
@@ -36,13 +36,18 @@ class Table extends React.Component {
                     <td>{zeroTrimmer(record[label].label, label)}</td>
                   ) : this.isBool(record[label]) ? (
                     record[label] === true ? (
-                      <i style={{ color: 'green' }} class="fas fa-check" />
+                      <td>
+                        <i style={{ color: 'green' }} class="fas fa-check" />
+                      </td>
                     ) : (
-                      <i
-                        style={{ color: 'red' }}
-                        class="fa fa-times"
-                        aria-hidden="true"
-                      />
+                      <td>
+                        {' '}
+                        <i
+                          style={{ color: 'red' }}
+                          class="fa fa-times"
+                          aria-hidden="true"
+                        />
+                      </td>
                     )
                   ) : (
                     <td>{zeroTrimmer(record[label], label)}</td>

@@ -13,15 +13,15 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
-import s from './UserSimpleLayout.css';
+import s from './LandingLayout.css';
 import Header from '../Header';
-import SideBar from '../SideBar';
 // import Feedback from '../Feedback';
-import Footer from '../../Footer';
+import Footer from '../Footer';
 
-class UserSimpleLayout extends React.Component {
+class LandingLayout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    context: PropTypes.object.isRequired,
   };
 
   render() {
@@ -33,13 +33,9 @@ class UserSimpleLayout extends React.Component {
           width: '100%',
         }}
       >
-        <Header />
-        <div
-          style={{
-            backgroundColor: 'white',
-          }}
-        >
-          <div className={`${s.userContentContainer}`}>
+        <Header context={this.props.context} />
+        <div>
+          <div className={`${s.userContentContainer} container-fluid`}>
             {' '}
             {this.props.children}
           </div>
@@ -50,4 +46,4 @@ class UserSimpleLayout extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, s)(UserSimpleLayout);
+export default withStyles(normalizeCss, s)(LandingLayout);

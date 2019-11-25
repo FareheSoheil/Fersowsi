@@ -9,14 +9,14 @@
 
 import React from 'react';
 import UserHome from './UserHome';
-import UserLayout from '../../../components/User/UserLayout';
+import UserLayout from '../../../components/User/Layouts/UserLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
     chunks: ['userHome'],
     component: (
-      <UserLayout>
+      <UserLayout context={context}>
         <UserHome context={context} />
       </UserLayout>
     ),

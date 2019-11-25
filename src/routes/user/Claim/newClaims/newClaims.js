@@ -1,89 +1,63 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactPaginate from 'react-paginate';
-import ContentHeader from '../../../components/User/ContentHeader';
-import OrderTable from '../../../components/User/Tables/OrderTable';
-import Table from '../../../components/User/Table';
-import Spinner from '../../../components/User/Spinner';
-import s from './Order.css';
-import { SERVER, ORDER_SORT_OPTION } from '../constants';
-import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import history from '../../../history';
-class Order extends React.Component {
+import ContentHeader from '../../../../components/User/ContentHeader';
+import ClaimTable from '../../../../components/User/Tables/ClaimTable';
+import Spinner from '../../../../components/User/Spinner';
+import s from './newClaims.css';
+import {
+  CLAIMS_TABLE_LABELS,
+  CLAIMS_RECORD_ITEMS,
+  SERVER,
+} from '../../constants';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
+import history from '../../../../history';
+class NewClaims extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      isLoading: false,
       pageIndex: 0,
-      pageSize: 10,
-      totalPageNum: '',
-      sortBy: '',
+      pageSize: 15,
+      totalPageNum: 15,
+
       searchBy: {
+        isNewForAdmin: true,
+        isNewForCustomer: true,
+        isNewForPublisher: true,
         customerFirstName: '',
         customerLastName: '',
         customerEmail: '',
-        publishers: [],
-        productPeriods: '',
-        paymentByCustomerStatus: '',
-        newStatusNotSeenByAdmin: '',
-        singlProductTypes: '',
-        productType: '',
-        productStatus: '',
-        ageGroups: '',
-        countRange: { min: '', max: '' },
-        priceRange: { min: '', max: 999 },
-        startDate: '',
-        endDate: '',
-        sortDate: false,
-        sortPrice: false,
+        publisherFirstName: '',
+        publisherLastName: '',
+        publisherEmail: '',
+        isFinished: '',
       },
-      orders: [
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-      ],
-      // allCountries: [],
+      claimCollections: [],
     };
-    this.fetchOrders = this.fetchOrders.bind(this);
+    this.fetchClaimCollections = this.fetchClaimCollections.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
   componentDidMount() {
-    this.fetchOrders();
+    this.fetchClaimCollections();
   }
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
-      this.fetchOrders();
+      this.fetchClaimCollections();
     });
   }
-  onOrderClick(id) {
-    history.push(`/user/order/${id}`);
+  onClaimCollectionClick(id, publisherOrderId) {
+    history.push(`/user/claim/${publisherOrderId}`);
   }
-  goToClaimsofThisOrder(id) {
-    history.push(`/user/claim/1`);
-  }
-  handleSelectChange = (selectedOption, op) => {
-    let searchBy = { ...searchBy };
-    (searchBy[op] = selectedOption.value),
-      this.setState(
-        {
-          searchBy: searchBy,
-        },
-        () => {
-          this.fetchOrders();
-        },
-      );
-  };
-  fetchOrders() {
-    const url = `${SERVER}/getAllCustomerOrdersOfSpecificUser`;
-    this.setState({ isLoading: true });
+
+  fetchClaimCollections() {
+    const url = `${SERVER}/getAllClaimCollectionsOfSpecificUser`;
+    this.setState({
+      isLoading: true,
+    });
     const credentials = {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
-      // sortBy: this.state.sortBy.value,
       // searchBy: this.state.searchBy,
     };
     const options = {
@@ -99,10 +73,9 @@ class Order extends React.Component {
       url,
       options,
       response => {
-        console.log('response : ', response.currentRecords);
         if (response.error === undefined) {
           that.setState({
-            orders: response.currentRecords,
+            claimCollections: response.currentRecords,
             totalPageNum: response.totalPageNum,
             isLoading: false,
           });
@@ -125,14 +98,15 @@ class Order extends React.Component {
         ) : (
           <div>
             <ContentHeader
-              title="Order List"
-              hasSort={true}
+              title="New Claims"
+              hasSort={false}
               onSortFunc={this.handleSelectChange}
-              sortOptions={ORDER_SORT_OPTION}
             />
-            <OrderTable
-              onRecordClick={this.onOrderClick}
-              records={this.state.orders}
+            <ClaimTable
+              onRecordClick={this.onClaimCollectionClick}
+              columnLabels={CLAIMS_TABLE_LABELS}
+              records={this.state.claimCollections}
+              recordItemNames={CLAIMS_RECORD_ITEMS}
             />
 
             <div className="row">
@@ -158,4 +132,4 @@ class Order extends React.Component {
     );
   }
 }
-export default withStyles(s)(Order);
+export default withStyles(s)(NewClaims);

@@ -27,7 +27,9 @@
     background-color: white;
     padding: 8px;
     margin-top: 5px;
-    min-width: 300px;
+    /* min-width: 300px; */
+    width: inherit;
+    border: 2px solid red;
     word-break: break-word;
     overflow-y: auto;
     min-height: 120px;

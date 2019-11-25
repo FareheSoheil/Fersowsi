@@ -2,7 +2,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactPaginate from 'react-paginate';
 import ContentHeader from '../../../components/User/ContentHeader';
-import Table from '../../../components/User/Table';
+import ClaimTable from '../../../components/User/Tables/ClaimTable';
 import Spinner from '../../../components/User/Spinner';
 import s from './Claim.css';
 import { CLAIMS_TABLE_LABELS, CLAIMS_RECORD_ITEMS, SERVER } from '../constants';
@@ -46,19 +46,19 @@ class Claim extends React.Component {
       this.fetchClaimCollections();
     });
   }
-  onClaimCollectionClick(id) {
-    history.push(`/user/claim/${id}`);
+  onClaimCollectionClick(id, publisherOrderId) {
+    history.push(`/user/claim/${publisherOrderId}`);
   }
 
   fetchClaimCollections() {
-    const url = `${SERVER}/getAllClaims`;
+    const url = `${SERVER}/getAllClaimCollectionsOfSpecificUser`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
-      searchBy: this.state.searchBy,
+      // searchBy: this.state.searchBy,
     };
     const options = {
       method: 'POST',
@@ -102,7 +102,7 @@ class Claim extends React.Component {
               hasSort={false}
               onSortFunc={this.handleSelectChange}
             />
-            <Table
+            <ClaimTable
               onRecordClick={this.onClaimCollectionClick}
               columnLabels={CLAIMS_TABLE_LABELS}
               records={this.state.claimCollections}

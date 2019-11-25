@@ -1,8 +1,10 @@
 import React from 'react';
+import toastr from 'react-redux-toastr';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Claim from '../../../../components/User/Claim';
 import ContentHeader from '../../../../components/User/ContentHeader';
 import AddClaim from '../../../../components/User/AddClaim';
+import cookie from 'react-cookies';
 import Spinner from '../../../../components/User/Spinner';
 import s from './ClaimDetails.css';
 import { SERVER } from '../../constants';
@@ -12,64 +14,27 @@ class ClaimDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.context.params.id,
-      isLoading: false,
-      claims: [
-        {
-          id: 1,
-          orderId: 23,
-          messageHtml: '<div><b>salam honey</b><h1>test</h1></div>',
-          createdAt: '23/5/65',
-          status: { value: 1, label: 'new' },
-          customerName: 'abbas salkhorde',
-          publisherName: 'kamal karegar',
-        },
-        {
-          id: 2,
-          orderId: 203,
-          messageHtml:
-            'asdjnaskcnejkdnasd;alidjnaslkdansmdljendasdkj.asdnas.dal',
-          createdAt: '13/5/65',
-          status: { value: 1, label: 'seen' },
-          customerName: 'abbas salkhorde',
-          publisherName: 'kamal karegar',
-        },
-        {
-          id: 1,
-          orderId: 23,
-          messageHtml:
-            'asdjnaskcnejkdnasd;alidjnaslkdansmdljendasdkj.asdnas.dal',
-          createdAt: '23/5/65',
-          status: { value: 1, label: 'new' },
-          customerName: 'abbas salkhorde',
-          publisherName: 'kamal karegar',
-        },
-        {
-          id: 2,
-          orderId: 203,
-          messageHtml:
-            'asdjnaskcnejkdnasd;alidjnaslkdansmdljendasdkj.asdnas.dal',
-          createdAt: '13/5/65',
-          status: { value: 1, label: 'accepted' },
-          customerName: 'abbas salkhorde',
-          publisherName: 'kamal karegar',
-        },
-      ],
+      orderId: this.props.context.params.id,
+      isLoading: true,
+      claims: [],
     };
     this.fetchClaims = this.fetchClaims.bind(this);
   }
   componentDidMount() {
-    // this.fetchClaims();
+    this.setState({
+      userId: cookie.load('id'),
+    });
+    this.fetchClaims();
   }
 
   onOrderClick(id) {
     history.push(`/user/publisherOrder/${id}`);
   }
   fetchClaims() {
-    const url = `${SERVER}/getClaims`;
+    const url = `${SERVER}/getClaimCollection`;
     this.setState({ isLoading: true });
     const credentials = {
-      orderId: this.state.id,
+      publisherOrderId: this.state.orderId,
     };
     const options = {
       method: 'POST',
@@ -84,23 +49,25 @@ class ClaimDetails extends React.Component {
       url,
       options,
       response => {
-        if (response.error === undefined) {
+        if (response.error == undefined) {
           that.setState({
-            claims: response.publisherOrders,
+            claims: response,
             isLoading: false,
           });
         } else {
           toastr.error(response.error.title, response.error.description);
         }
       },
-      () => {
+      error => {
         // toastr.error('sala', ERRORS.REPEATED_USER);
-        // console.log('login e rror : ', error);
+        console.log('claim error : ', error);
       },
     );
   }
   render() {
-    let claims = <div>Nothing</div>;
+    let claims = <div>This Order Has No Claims Yet</div>;
+
+    // window.alert(localStorage.getItem('TokenId'));
     if (
       !this.state.isLoading &&
       this.state.claims !== undefined &&
@@ -108,7 +75,7 @@ class ClaimDetails extends React.Component {
     )
       claims = this.state.claims.map((claim, i) => (
         // orderId={this.state.customerOrderId}
-        <Claim claim={claim} />
+        <Claim claim={claim} userId={localStorage.getItem('id')} />
       ));
     return (
       <div>
@@ -117,17 +84,17 @@ class ClaimDetails extends React.Component {
           <Spinner />
         ) : (
           <div>
-            <ContentHeader title="Claim List" hasSort={false} />
-
-            {/* <div className="row">
-              <div className="col-12"> */}
-
-            {/* </div>
-            </div> */}
+            <ContentHeader
+              title={`Claim Messages for Claim `}
+              hasSort={false}
+            />
             <div className={` container-fluid ${s.mainContainer} `}>
               {claims}
             </div>
-            <AddClaim orderId={this.state.claims[0].orderId} />
+            <AddClaim
+              orderId={this.state.orderId}
+              reloadOnAdd={this.fetchClaims}
+            />
             <div className={`row`}>
               <div className="offset-xl-10 col-xl-2">
                 {' '}

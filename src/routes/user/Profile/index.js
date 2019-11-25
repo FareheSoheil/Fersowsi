@@ -9,14 +9,14 @@
 
 import React from 'react';
 import Profile from './Profile';
-import UserLayout from '../../../components/User/UserLayout';
+import UserLayout from '../../../components/User/Layouts/UserLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
     chunks: ['userProfile'],
     component: (
-      <UserLayout>
+      <UserLayout context={context}>
         <Profile context={context} />
       </UserLayout>
     ),

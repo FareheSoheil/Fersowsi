@@ -3,8 +3,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import s from './PublisherOrderTable.css';
 
-import zeroTrimmer from '../../../zeroTrimmer';
-import dateTrimmer from '../../../dateTrimmer';
+import zeroTrimmer from '../../../../zeroTrimmer';
+import dateTrimmer from '../../../../dateTrimmer';
 
 class PublisherOrderTable extends React.Component {
   static propTypes = {
@@ -80,12 +80,18 @@ class PublisherOrderTable extends React.Component {
             </button>
             <button
               onClick={e => {
-                this.renew(e, record.Product.id);
+                this.props.renew(record.Product.id);
               }}
             >
               Renew
             </button>
-            <button>Cancel</button>
+            <button
+              onClick={e => {
+                this.props.cancel(record.id);
+              }}
+            >
+              Cancel
+            </button>
           </td>
         </tr>
       ));

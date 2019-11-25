@@ -21,10 +21,10 @@ class RichText extends React.Component {
         init={{
           min_height: this.props.min_height,
           width: this.props.width,
-          plugins: 'link image paste imagetools code table',
+          plugins: 'image',
           toolbar1:
-            'insertfile | undo redo | bold italic underline | link image | bullist numlist indent outdent | forecolor backcolor| alignleft aligncenter alignright | code',
-          image_advtab: true,
+            'insertfile | undo redo | bold italic underline | image | bullist numlist indent outdent | forecolor backcolor| alignleft aligncenter alignright | code',
+          image_advtab: false,
           images_upload_url: './index.js',
 
           images_upload_handler: (blobInfo, success, failure) => {

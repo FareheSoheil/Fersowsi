@@ -1,0 +1,7 @@
+{
+    "name": "OrderTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./OrderTable.js"
+  }
+  

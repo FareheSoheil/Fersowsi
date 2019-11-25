@@ -35,6 +35,15 @@
     word-break: break-word;
 }
 .modal {
-    min-width: 700px;
+    min-width: 900px;
     min-height: 700px;
+}
+.input {
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: inherit;
+}
+.addBtn {
+    background-color: #aadde0
 }

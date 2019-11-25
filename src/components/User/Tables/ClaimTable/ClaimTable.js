@@ -1,47 +1,58 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
-import s from './ProductTable.css';
-
-import zeroTrimmer from '../../../../zeroTrimmer';
+import s from './ClaimTable.css';
 import dateTrimmer from '../../../../dateTrimmer';
 
-class ProductTable extends React.Component {
+class ClaimTable extends React.Component {
   static propTypes = {
     records: PropTypes.array.isRequired,
+    columnLabels: PropTypes.array.isRequired,
+    recordItemNames: PropTypes.array.isRequired,
     onRecordClick: PropTypes.func.isRequired,
   };
-  gotoClaims(e, customerOrderId) {
-    e.stopPropagation();
-    this.props.goToClaimsofThisOrder(customerOrderId);
-  }
+
   render() {
     const tableHeaders = (
       <tr>
         <th>Id</th>
-        <th>Total Cost</th>
-        <th>Total Price</th>
-        <th>Discount</th>
+        <th>Order Id</th>
+        <th>Customer</th>
+        <th>Publisher</th>
         <th>Date</th>
-        <th>Status</th>
+        <th>Is Finished</th>
       </tr>
     );
+
     let records = '';
-    let sign = parseInt(localStorage.getItem('currency'));
     let toDisplay = <div className={s.noRecords}> No Match Found</div>;
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
           onClick={() => {
-            this.props.onRecordClick(record.id, record.customerOrderId);
+            this.props.onRecordClick(record.id, record.publisherOrderId);
           }}
         >
           <td>{record.id}</td>
-          <td>{zeroTrimmer(record.totalCost[sign], 'price')}</td>
-          <td>{zeroTrimmer(record.totalPrice[sign], 'price')}</td>
-          <td>{zeroTrimmer(record.discount, 'price')}</td>
-          <td width="150">{dateTrimmer(record.createdAt)}</td>
-          <td>{record.status.label}</td>
+          <td>{record.publisherOrderId}</td>
+          <td>{record.customerName}</td>
+          <td>{record.publisherName}</td>
+          <td>{dateTrimmer(record.createdAt)}</td>
+
+          {record.isFinished ? (
+            <td>
+              <i style={{ color: 'green' }} class="fas fa-check" />
+            </td>
+          ) : (
+            <td>
+              {' '}
+              <i
+                style={{ color: 'red' }}
+                class="fa fa-times"
+                aria-hidden="true"
+              />
+            </td>
+          )}
         </tr>
       ));
       // table-hover
@@ -67,4 +78,4 @@ class ProductTable extends React.Component {
   }
 }
 
-export default withStyles(s)(ProductTable);
+export default withStyles(s)(ClaimTable);

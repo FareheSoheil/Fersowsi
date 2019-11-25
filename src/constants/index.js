@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
+const CHANGE_CURRECNY = 'CHANGE_CURRECNY';
 const USER_LOGIN = 'USER_LOGIN';
 const selectQuery = 'SELECT * FROM UserTokens WHERE tokenID = ? ';
 const updateQuery =
@@ -81,6 +82,7 @@ const translationsObject = {
 };
 export {
   SET_RUNTIME_VARIABLE,
+  CHANGE_CURRECNY,
   selectQuery,
   updateQuery,
   deleteQuery,

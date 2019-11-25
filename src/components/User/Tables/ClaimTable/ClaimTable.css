@@ -1,0 +1,43 @@
+.userHoverableTr tr {
+    cursor: pointer;
+}
+.userHoverableTr tr:hover {
+    background-color: #c4ecf8;
+}
+.userTable {
+    padding-right: 25px;
+    padding-left: 25px;
+    margin-bottom: 30px;
+    /* table-layout: fixed; */
+}
+.userTable td {
+    max-width: 35px;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+}
+.empty{
+    border: 1px solid red;
+    width:10px !important;
+}
+.noRecords {
+    text-align: center;
+    width: 100%;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.tableHeader>tr>th:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #ebebeb;
+}
+.tableHeader>tr>th{
+    background-color: #ebebeb;
+}
+.tableHeader>tr>th:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #ebebeb;
+}

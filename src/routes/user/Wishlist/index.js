@@ -9,14 +9,14 @@
 
 import React from 'react';
 import Wishlist from './Wishlist';
-import UserLayout from '../../../components/User/UserLayout';
+import UserLayout from '../../../components/User/Layouts/UserLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
     chunks: ['userWishlist'],
     component: (
-      <UserLayout>
+      <UserLayout context={context}>
         <Wishlist context={context} />
       </UserLayout>
     ),

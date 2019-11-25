@@ -40,16 +40,14 @@ const CLAIMS_TABLE_LABELS = [
   'Customer',
   'Publisher',
   'Date',
-  'Status',
   'is Finished',
 ];
 const CLAIMS_RECORD_ITEMS = [
   'id',
-  'orderId',
+  'publisherOrderId',
   'customerName',
   'publisherName',
-  'date',
-  'status',
+  'createdAt',
   'isFinished',
 ];
 const MESSAGE_STATUS_ARRAY = [

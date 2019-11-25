@@ -23,19 +23,19 @@ class WishItem extends React.Component {
     this.state = {
       selectedPrice: '',
       selectedAddress: '',
-      startDate: '',
+      startDate: new Date(),
       count: '',
       endDate: '',
       allAddresses: '',
     };
     this.gotoProductDetails = this.gotoProductDetails.bind(this);
-    // this.fetchAddresses = this.fetchAddresses.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
   componentDidMount() {
     // this.fetchAddresses();
+    console.log('wish item : ', this.props.wish);
     if (this.props.wish.product.selectedProductPriceAndCost[0] != undefined)
       this.setState({
         selectedPrice: {
@@ -54,20 +54,47 @@ class WishItem extends React.Component {
           privatePrice: this.props.wish.product.selectedProductPriceAndCost[0]
             .privateCustomerPrice,
         },
+        startDate: this.startDateCalculator(),
+        endDate: this.endDateCalculator(
+          this.props.wish.product.selectedProductPriceAndCost[0],
+        ),
       });
+    // if()
+  }
+  startDateCalculator() {
+    let tomorrow = new Date(new Date());
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    return tomorrow;
+  }
+  endDateCalculator(so) {
+    // let tomorrow = new Date(new Date());
+    let end = new Date(new Date());
+    // tomorrow.setDate(tomorrow.getDate() + 1);
+    if (so.ProductSubscriptionTypeName == '6-Month')
+      end.setMonth(end.getMonth() + 6);
+    else if (so.ProductSubscriptionTypeName == '12-Month')
+      end.setMonth(end.getMonth() + 12);
+    else end.setMonth(end.getMonth() + 12);
+    return end;
+  }
+  dateCalculator(so) {
+    let tomorrow = new Date(new Date());
+    let end = new Date(new Date());
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    if (so.period == '6-Month') end.setMonth(end.getMonth() + 6);
+    else if (so.period == '12-Month') end.setMonth(end.getMonth() + 12);
+    else end.setMonth(end.getMonth() + 12);
+    return { tomorrow: tomorrow, end: end };
   }
   onSelectChange(so, op) {
     if (op == 'selectedPrice') {
       let preState = { ...this.state };
-      let tomorrow = new Date(new Date());
-      let end = new Date(new Date());
-
-      tomorrow.setDate(tomorrow.getDate() + 1);
+      let tomorrow = this.dateCalculator(so).tomorrow;
+      let end = this.dateCalculator(so).end;
 
       preState.startDate = tomorrow;
-      if (so.period == '6-Month') end.setMonth(end.getMonth() + 6);
-      else if (so.period == '12-Month') end.setMonth(end.getMonth() + 12);
-      else end.setMonth(end.getMonth() + 12);
+
       preState.endDate = end;
       preState.selectedPrice = so;
       this.setState(preState, () => {
@@ -157,6 +184,7 @@ class WishItem extends React.Component {
           label: `${price.zoneName} with ${price.deliveryTypeName} ${
             price.ProductSubscriptionTypeName
           }`,
+          index: i,
           period: price.ProductSubscriptionTypeName,
           instPrice: price.institutionalCustomerPrice[sign],
           privatePrice: price.privateCustomerPrice[sign],
@@ -303,24 +331,39 @@ class WishItem extends React.Component {
                 </div>
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
                   // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  manPrices[this.state.selectedPrice.index] != undefined ? (
+                    <span className={s.priceSpan}>
+                      {`= ${zeroTrimmer(
+                        manPrices[this.state.selectedPrice.index].privatePrice,
+                        'price',
+                      )}`}
+                    </span>
+                  ) : (
+                    <span className={s.priceSpan}>
+                      {`= ${zeroTrimmer(
+                        this.state.selectedPrice.privatePrice,
+                        'price',
+                      )}`}
+                    </span>
+                  )
+                ) : manPrices[this.state.selectedPrice.index] != undefined ? (
                   <span className={s.priceSpan}>
                     {`= ${zeroTrimmer(
-                      this.state.selectedPrice.privatePrice,
+                      manPrices[this.state.selectedPrice.index].instPrice,
                       'price',
                     )}`}
                   </span>
                 ) : (
-                  // </div>
-                  // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-
                   <span className={s.priceSpan}>
                     {`= ${zeroTrimmer(
                       this.state.selectedPrice.instPrice,
                       'price',
                     )}`}
                   </span>
-                  // </div>
-                )}
+                )
+
+                // </div>
+                }
               </div>
 
               {/* <div

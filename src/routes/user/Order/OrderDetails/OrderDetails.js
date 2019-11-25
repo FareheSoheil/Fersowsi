@@ -2,7 +2,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import toastr from 'react-redux-toastr';
 import AddressDetails from '../../../../components/User/AddressDetails';
-import PublisherOrderTable from '../../../../components/User/PublisherOrderTable';
+import PublisherOrderTable from '../../../../components/User/Tables/PublisherOrderTable';
 import ContentHeader from '../../../../components/User/ContentHeader';
 import Spinner from '../../../../components/User/Spinner';
 import s from './OrderDetails.css';
@@ -107,6 +107,39 @@ class OrderDetails extends React.Component {
       },
     );
   }
+  cancel(id) {
+    if (confirm('Are you sure you want to cancel this order?')) {
+      const url = `${SERVER}/cancelActiveOrder`;
+      const credentials = {
+        publisherOrderId: id,
+      };
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      fetchWithTimeOut(
+        url,
+        options,
+        response => {
+          if (response.error == undefined) {
+            window.alert(response.message);
+          } else {
+            console.log(' error : ', response.error);
+            // toastr.error(response.error.title, response.error.description);
+          }
+        },
+        error => {
+          // toastr.error('shit');
+          // toastr.error('sala', ERRORS.REPEATED_USER);
+          console.log('login e rror : ', error);
+        },
+      );
+    }
+  }
   onOrderClick(id1, id2, productId) {
     history.push(`/user/products/${productId}`);
   }
@@ -167,16 +200,9 @@ class OrderDetails extends React.Component {
             <div className={`${s.addressContainer} container-fluid`}>
               <div className="row">
                 <div className="col-xl-12 col-lg-12 addInputContainer">
-                  {/* <CustomTable
-                    pageCount={0}
-                    hasPagination={false}
-                    records={this.state.publisherOrders}
-                    columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
-                    recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
-                    onRecordClick={this.onOrderClick}
-                  /> */}
                   <PublisherOrderTable
                     renew={this.renew}
+                    cancel={this.cancel}
                     onAddressClick={this.onAddressClick}
                     hasPagination={false}
                     records={this.state.publisherOrders}

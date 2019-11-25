@@ -329,6 +329,11 @@ const routes = {
             },
           ],
         },
+        {
+          path: '/newClaims',
+          load: () =>
+            import(/* webpackChunkName: 'newClaims' */ './user/Claim/newClaims'),
+        },
       ],
     },
     {

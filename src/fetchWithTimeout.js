@@ -13,7 +13,6 @@ const fetchWithTimeOut = (url, options, resolveCallback, rejectCallback) => {
     options.headers.Authorization = cookie.load('TokenId');
     // --------------------------------------------------- START of fetching data
     fetch(url, options)
-      // fetch was successful
       .then(response => response.json())
       .then(data => {
         clearTimeout(timeOut);

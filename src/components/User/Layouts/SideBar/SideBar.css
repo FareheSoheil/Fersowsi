@@ -27,7 +27,7 @@
       margin-bottom: 18px;
   }
   .usersidebar a {
-      cursor: pointer;
+    cursor: pointer;
     display: block;
     margin:5px 0px 5px 0px;
     height: 45px;
@@ -52,7 +52,15 @@
     padding: 1px 16px;
     height: 1000px;
   }
-  
+
+  .submenu {
+    /* border: 2px solid red !important; */
+    width: 80% !important;
+    margin-left: 25px !important;
+  }
+  .hide {
+    display: none !important;
+  }
   /* On screens that are less than 700px wide, make the sidebar into a topbar */
   @media screen and (max-width: 700px) {
     .usersidebar {
@@ -60,6 +68,11 @@
       height: auto;
       position: relative;
       /* display: none; */
+    }
+    .submenu {
+      /* border: 2px solid red; */
+      width: 80%;
+      margin-left: 15px;
     }
     .usersidebar a {width: 95%;margin-top: 2px;}
     /* .usersidebar:first-child a {margin-left: 3%;border: 1px solid red;} */

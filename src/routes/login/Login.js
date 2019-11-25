@@ -86,12 +86,17 @@ class Login extends React.Component {
               path: '/',
               expires,
             });
+            cookie.save('id', data.id, {
+              path: '/',
+              expires,
+            });
             cookie.save('userSubCategory', data.userSubCategory.value, {
               path: '/',
               expires,
             });
             localStorage.setItem('TokenId', data.TokenId);
-            if (data.role.value === 4) history.push('/user/myAccount');
+            localStorage.setItem('id', data.id);
+            if (data.role.value === 4) history.push('/user/products');
             else history.push('/admin/');
           });
         } else {

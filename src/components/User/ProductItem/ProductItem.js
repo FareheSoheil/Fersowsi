@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
 import cookie from 'react-cookies';
+// import { connect } from 'react-redux';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
 import zeroTrimmer from '../../../zeroTrimmer';
@@ -11,6 +12,15 @@ import { USER_SUBCATEGORY } from '../../../constants/constantData';
 
 import { PRODUCT_STATUS } from '../../../constants/constantData';
 import s from './ProductItem.css';
+
+let prices;
+let categories;
+let manCategories;
+let manPrices;
+
+// const mapStateToProps = state => {
+//   return { selectedPrice: state.changeCurrency.currency };
+// };
 class ProductItem extends React.Component {
   static propTypes = {
     product: PropTypes.object.isRequired,
@@ -21,6 +31,7 @@ class ProductItem extends React.Component {
     super(props);
     this.state = {
       selectedPrice: '',
+      currency: '',
     };
     this.onPriceChange = this.onPriceChange.bind(this);
     this.addToWishList = this.addToWishList.bind(this);
@@ -72,11 +83,13 @@ class ProductItem extends React.Component {
     history.push(`/user/products/${this.props.product.id}`);
   }
   render() {
-    let prices = this.props.product.productPriceAndCost;
-    let categories = this.props.product.contentCategory;
-    let manCategories = '';
-    let manPrices = [];
+    prices = this.props.product.productPriceAndCost;
+    categories = this.props.product.contentCategory;
+    manCategories = '';
+    manPrices = [];
     const sign = parseInt(localStorage.getItem('currency'));
+    // window.alert('rerendering');
+    // window.alert(localStorage.getItem('currency'));
     if (prices.length > 0) {
       prices.map((price, i) => {
         manPrices.push({
@@ -84,7 +97,7 @@ class ProductItem extends React.Component {
             price.ProductSubscriptionTypeName
           }`,
           instPrice: price.institutionalCustomerPrice[sign],
-
+          index: i,
           privatePrice: price.privateCustomerPrice[sign],
           value: price.id,
         });
@@ -200,16 +213,24 @@ class ProductItem extends React.Component {
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     {' '}
                     <span>
-                      {zeroTrimmer(
-                        this.state.selectedPrice.privatePrice,
-                        'price',
-                      )}
+                      {manPrices[this.state.selectedPrice.index] != undefined
+                        ? zeroTrimmer(
+                            manPrices[this.state.selectedPrice.index]
+                              .privatePrice,
+                            'price',
+                          )
+                        : ''}
                     </span>
                   </div>
                 ) : (
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
-                      {zeroTrimmer(this.state.selectedPrice.instPrice, 'price')}
+                      {manPrices[this.state.selectedPrice.index] != undefined
+                        ? zeroTrimmer(
+                            manPrices[this.state.selectedPrice.index].instPrice,
+                            'price',
+                          )
+                        : ''}
                     </span>
                   </div>
                 )}

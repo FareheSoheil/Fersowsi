@@ -2,9 +2,10 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cookie from 'react-cookies';
 import s from './Header.css';
-import history from '../../../history';
-import { SSRSERVER, SERVER } from '../../../constants';
-import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import { changeCurrency } from '../../../../actions/changeCurrency';
+import history from '../../../../history';
+import { SSRSERVER, SERVER } from '../../../../constants';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 const tabNames = [
   // 'productTab',
   'categoryTab',
@@ -34,6 +35,7 @@ class Header extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
     this.drop = this.drop.bind(this);
+    console.log('in header : ', this.props.context.store.getState());
   }
   searchProducts(value) {
     localStorage.setItem('category', value);
@@ -102,8 +104,13 @@ class Header extends React.Component {
   }
   changeCurrency(id) {
     localStorage.setItem('currency', id);
-
-    document.location.reload(true);
+    this.props.context.store.dispatch(
+      changeCurrency({
+        name: 'currency',
+        value: id,
+      }),
+    );
+    // document.location.reload(true);
   }
   componentDidMount() {
     this.fetchCategories();
@@ -311,13 +318,13 @@ class Header extends React.Component {
               <div className={s.headerIconContainer}>
                 {' '}
                 <img
-                  height="25"
-                  width="25"
+                  height="20"
+                  width="20"
                   src="/assets/images/sweden_flag.png"
                 />
                 <img
-                  height="25"
-                  width="25"
+                  height="20"
+                  width="20"
                   src="/assets/images/british_flag.png"
                 />
                 {/* <input type="text" /> */}
@@ -339,7 +346,7 @@ class Header extends React.Component {
                       ''
                     )}
                     {cookie.load('TokenId') != undefined ? (
-                      <a onClick={() => this.logOut()}>logOut</a>
+                      <a onClick={() => this.logOut()}>log out</a>
                     ) : (
                       <a onClick={() => this.goTo('/login')}>login</a>
                     )}

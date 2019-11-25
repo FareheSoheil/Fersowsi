@@ -9,14 +9,14 @@
 
 import React from 'react';
 import Claim from './Claim';
-import UserLayout from '../../../components/User/UserLayout';
+import UserLayout from '../../../components/User/Layouts/UserLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
     chunks: ['userClaim'],
     component: (
-      <UserLayout>
+      <UserLayout context={context}>
         <Claim context={context} />
       </UserLayout>
     ),

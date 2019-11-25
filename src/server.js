@@ -120,7 +120,7 @@ async function Authorize(req, res, next) {
     } else {
       // -------------------------------------if other pages
       if (otherPathResolver(req.path)) {
-        console.log('in not allowed pages');
+        // console.log('in not allowed pages');
         //  => not allowed to go
         if (req.cookies.role == ROLES.customer.value) {
           res.redirect('/user/myAccount');
@@ -196,12 +196,12 @@ app.get('*', async (req, res, next) => {
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
-    // store.dispatch(
-    //   setRuntimeVariable({
-    //     name: 'initialNow',
-    //     value: Date.now(),
-    //   }),
-    // );
+    store.dispatch(
+      setRuntimeVariable({
+        name: 'initialNow',
+        value: Date.now(),
+      }),
+    );
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html

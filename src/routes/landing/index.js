@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import LandingLayout from '../../components/User/LandingLayout';
+import LandingLayout from '../../components/User/Layouts/LandingLayout';
 import Landing from './Landing';
 
 const title = 'Ferdosi Landing';
@@ -18,7 +18,7 @@ function action(context) {
     chunks: ['landing'],
     title,
     component: (
-      <LandingLayout>
+      <LandingLayout context={context}>
         <Landing title={title} context={context} />
       </LandingLayout>
     ),

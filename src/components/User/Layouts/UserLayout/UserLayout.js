@@ -8,23 +8,44 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
 import s from './UserLayout.css';
 import Header from '../Header';
 import SideBar from '../SideBar';
 // import Feedback from '../Feedback';
-import Footer from '../../Footer';
+import Footer from '../Footer';
+
+// by connecting input.text component will update everytime input.text change
+// const mapStateToProps = ({ input }) => ({ text: input.text });
+const mapStateToProps = state => {
+  return { currency: state.changeCurrency.currency };
+};
+// function mapDispatchToProps(dispatch) {
+//   return({
+//       sendTheAlert: () => {dispatch(ALERT_ACTION)}
+//   })
+// }
+// const mapDispatchToPros = dispatch =>
+//   bindActionCreators({ changeCurrency }, dispatch);
 
 class UserLayout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    context: PropTypes.object.isRequired,
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currency: '',
+    };
+  }
 
   render() {
+    // window.alert('rerendering');
     return (
       <div
         style={{
@@ -33,7 +54,11 @@ class UserLayout extends React.Component {
           width: '100%',
         }}
       >
-        <Header />
+        {/* {this.props.context} */}
+        <Header
+          context={this.props.context}
+          changeCurrency={this.props.changeCurrency}
+        />
         <div
           style={{
             backgroundColor: 'white',
@@ -56,5 +81,6 @@ class UserLayout extends React.Component {
     );
   }
 }
-
-export default withStyles(normalizeCss, s)(UserLayout);
+export default withStyles(normalizeCss, s)(
+  connect(mapStateToProps, null)(UserLayout),
+);
