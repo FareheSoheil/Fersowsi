@@ -50,6 +50,9 @@ class WishItem extends React.Component {
               this.props.wish.product.selectedProductPriceAndCost[0]
                 .ProductSubscriptionTypeName
             }`,
+            index: this.props.index,
+            period: this.props.wish.product.selectedProductPriceAndCost[0]
+              .ProductSubscriptionTypeName,
             instPrice: this.props.wish.product.selectedProductPriceAndCost[0]
               .institutionalCustomerPrice,
             privatePrice: this.props.wish.product.selectedProductPriceAndCost[0]
@@ -141,14 +144,35 @@ class WishItem extends React.Component {
     );
   }
   handleDateChange(date, name) {
-    this.setState(
-      {
-        [name]: date,
-      },
-      () => {
-        this.props.setShoppingDetails(this.props.index, name, date);
-      },
-    );
+    if (name == 'startDate') {
+      // let tomorrow = new Date(new Date());
+      let end = new Date(date);
+      // tomorrow.setDate(tomorrow.getDate() + 1);
+      if (this.state.selectedPrice.period == '6-Month') {
+        end.setMonth(end.getMonth() + 6);
+      } else if (this.state.selectedPrice.period == '12-Month')
+        end.setMonth(end.getMonth() + 12);
+      else end.setMonth(end.getMonth() + 12);
+
+      this.setState(
+        {
+          startDate: date,
+          endDate: end,
+        },
+        () => {
+          this.props.setShoppingDetails(this.props.index, 'startDate', date);
+          this.props.setShoppingDetails(this.props.index, 'endDate', end);
+        },
+      );
+    } else
+      this.setState(
+        {
+          [name]: date,
+        },
+        () => {
+          this.props.setShoppingDetails(this.props.index, name, date);
+        },
+      );
   }
   addAddress() {
     const url = `${SERVER}/getAllAddressesOfSpecificUser`;
@@ -213,6 +237,8 @@ class WishItem extends React.Component {
           (manCategories = `${category.label} ,${manCategories}`),
       );
     }
+    // if (window != undefined) window.alert('rendering');
+
     return (
       <div
         className={
@@ -355,7 +381,7 @@ class WishItem extends React.Component {
                     </span>
                   ) : (
                     <span className={s.priceSpan}>
-                      {`= ${zeroTrimmer(
+                      {` = ${zeroTrimmer(
                         this.state.selectedPrice.privatePrice,
                         'price',
                       )}`}

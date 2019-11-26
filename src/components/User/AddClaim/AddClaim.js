@@ -69,8 +69,6 @@ class AddAddress extends React.Component {
       url,
       options,
       response => {
-        window.alert(this.props.orderId);
-
         if (response.error == undefined) {
           // toastr.success('', 'Order Added Successfully');
           // window.alert('okay');
@@ -92,7 +90,6 @@ class AddAddress extends React.Component {
   }
 
   handleEditorChange(e) {
-    console.log('editor : ', e.target.getContent());
     let oldState = this.state.newClaim;
     oldState.messageHtml.content = e.target.getContent();
     this.setState({ newClaim: oldState });
