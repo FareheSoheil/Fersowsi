@@ -140,7 +140,6 @@ class Header extends React.Component {
       removeStateURL,
       logoutOptions,
       () => {
-        console.log('deleting cookie');
         cookie.remove('TokenId', { path: '/' });
         cookie.remove('role', { path: '/' });
         history.push('/login');
@@ -249,7 +248,7 @@ class Header extends React.Component {
           <div className={s.mainContainer}>
             {' '}
             <nav
-              class={` navbar navbar-expand-lg navbar-fixed-top bg-dark navbar-dark ${
+              className={` navbar navbar-expand-lg navbar-fixed-top bg-dark navbar-dark ${
                 s.userHeaderContainer
               }`}
             >
@@ -259,11 +258,11 @@ class Header extends React.Component {
                 src="/assets/images/logo.png"
                 // style={{ border: '1px solid red' }}
               />
-              {/* <a class={`${s.UserNavBrand} navbar-brand`} href="#">
+              {/* <a className={`${s.UserNavBrand} navbar-brand`} href="#">
           FERDOSI
         </a> */}
               <button
-                class="navbar-toggler"
+                className="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarNav"
@@ -271,43 +270,47 @@ class Header extends React.Component {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <span class="navbar-toggler-icon" />
+                <span className="navbar-toggler-icon" />
               </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
+              <div className="collapse navbar-collapse" id="navbarNav">
                 <ul
                   id="hoverMenueHolder"
-                  class={`${s.leftSide} navbar-nav`}
+                  className={`${s.leftSide} navbar-nav`}
                   style={{ paddingTop: '5px', height: '55px' }}
                 >
-                  {/* <li id="productTab" class={`${s.dropdown}nav-item`}>
+                  {/* <li id="productTab" className={`${s.dropdown}nav-item`}>
                 <a
                   id="productLink"
-                  class="nav-link"
+                  className="nav-link"
                   onClick={() => this.goTo('/user/products')}
                 >
                   Productss   
                 </a>
               </li> */}
-                  <li class="nav-item hidden" id="categoryTab">
-                    <a class="nav-link hidden" id="categoryLink">
+                  <li className="nav-item hidden" id="categoryTab">
+                    <a className="nav-link hidden" id="categoryLink">
                       Category
                     </a>
                   </li>
 
-                  <li class="nav-item hidden" id="serviceTab">
-                    <a id="serviceLink hidden" class="nav-link hidden" href="#">
+                  <li className="nav-item hidden" id="serviceTab">
+                    <a
+                      id="serviceLink hidden"
+                      className="nav-link hidden"
+                      href="#"
+                    >
                       Our Services
                     </a>
                   </li>
-                  <li class="nav-item hidden" id="customerTab">
-                    <a id="customerLink" class="nav-link hidden" href="#">
+                  <li className="nav-item hidden" id="customerTab">
+                    <a id="customerLink" className="nav-link hidden" href="#">
                       Customers
                     </a>
                   </li>
-                  <li class="nav-item hidden" id="publisherPartnerTab">
+                  <li className="nav-item hidden" id="publisherPartnerTab">
                     <a
                       id="publisherPartnerLink"
-                      class="nav-link hidden"
+                      className="nav-link hidden"
                       href="#"
                     >
                       Publishers&amp;Partners
@@ -328,16 +331,16 @@ class Header extends React.Component {
                   src="/assets/images/british_flag.png"
                 />
                 {/* <input type="text" /> */}
-                <div class="userdropdown">
-                  <button class="userdropbtn">
+                <div className="userdropdown">
+                  <button className="userdropbtn">
                     <i
                       onClick={() => {
                         this.drop('userDropDown', 'usershow');
                       }}
-                      class="far fa-user userdropbtn"
+                      className="far fa-user userdropbtn"
                     />
                   </button>
-                  <div id="userDropDown" class="userdropdown-content">
+                  <div id="userDropDown" className="userdropdown-content">
                     {cookie.load('TokenId') !== undefined ? (
                       <a onClick={() => this.goTo('/user/myAccount')}>
                         My Account
@@ -351,7 +354,7 @@ class Header extends React.Component {
                       <a onClick={() => this.goTo('/login')}>login</a>
                     )}
                   </div>
-                  <div id="userDropDown" class="userdropdown-content">
+                  <div id="userDropDown" className="userdropdown-content">
                     <a>Euro</a>
                     <a>US Dollar</a>
                     <a>GB Pound</a>
@@ -359,16 +362,16 @@ class Header extends React.Component {
                     <a>Swedish Krona</a>
                   </div>
                 </div>
-                <div class="moneydropdown">
-                  <button class="moneydropbtn">
+                <div className="moneydropdown">
+                  <button className="moneydropbtn">
                     <i
                       onClick={() => {
                         this.drop('moneyDown', 'moneyshow');
                       }}
-                      class="fa fa-money moneydropbtn"
+                      className="fa fa-money moneydropbtn"
                     />
                   </button>
-                  <div id="moneyDown" class="moneydropdown-content">
+                  <div id="moneyDown" className="moneydropdown-content">
                     <a onClick={() => this.changeCurrency(0)}>Euro</a>
                     <a onClick={() => this.changeCurrency(1)}>US Dollar</a>
                     <a onClick={() => this.changeCurrency(2)}>GB Pound</a>
@@ -376,8 +379,11 @@ class Header extends React.Component {
                     <a onClick={() => this.changeCurrency(4)}>Swedish Krona</a>
                   </div>
                 </div>
-                <i onClick={() => {}} class={`${s.searchBtn} fas fa-search`} />
-                <i class="fas fa-home" onClick={() => this.goTo('/')} />
+                <i
+                  onClick={() => {}}
+                  className={`${s.searchBtn} fas fa-search`}
+                />
+                <i className="fas fa-home" onClick={() => this.goTo('/')} />
               </div>
             </nav>
             <div className={`${s.submenuContainer} container-fluid`}>
@@ -395,22 +401,28 @@ class Header extends React.Component {
               <div id="serviceDiv" className={`${s.subMenuContainer} hidden`}>
                 <div className="container-fluid hidden">
                   <div className="row hidden" id="servicesSubDiv">
-                    <div className="col-xl-2 hidden">Subscription Services</div>
-                    <div className="col-xl-3 hidden">
+                    <div className="col-xl-2 mb-1 hidden">
+                      Subscription Services
+                    </div>
+                    <div className="col-xl-3 mb-1 hidden">
                       Electronic Resource Management
                     </div>
-                    <div className="col-xl-2 hidden">Digitization Services</div>
-                    <div className="col-xl-2 hidden">Research Services</div>
+                    <div className="col-xl-2 mb-1 hidden">
+                      Digitization Services
+                    </div>
+                    <div className="col-xl-2 mb-1 hidden">
+                      Research Services
+                    </div>
                   </div>
                 </div>
               </div>
               <div id="customerDiv" className={`${s.subMenuContainer} hidden`}>
                 <div className="container-fluid hidden">
                   <div className="row hidden" id="servicesSubDiv">
-                    <div className="col-xl-2 hidden">Corporations</div>
-                    <div className="col-xl-2 hidden">Academic</div>
-                    <div className="col-xl-2 hidden">Libraries</div>
-                    <div className="col-xl-2 hidden">Agent/Resellers</div>
+                    <div className="col-xl-2 hidden mb-1">Corporations</div>
+                    <div className="col-xl-2 mb-1 hidden">Academic</div>
+                    <div className="col-xl-2 mb-1 hidden">Libraries</div>
+                    <div className="col-xl-2 mb-1 hidden">Agent/Resellers</div>
                   </div>
                 </div>
               </div>

@@ -74,14 +74,14 @@ class Html extends React.Component {
             rel="stylesheet"
             href="/assets/vendor/fonts/fontawesome/css/fontawesome-all.css"
           />
-          <link
+          {/* <link
             rel="stylesheet"
             href="/assets/vendor/charts/chartist-bundle/chartist.css"
           />
           <link
             rel="stylesheet"
             href="/assets/vendor/charts/morris-bundle/morris.css"
-          />
+          /> */}
           <link
             rel="stylesheet"
             href="/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css"
@@ -130,16 +130,16 @@ class Html extends React.Component {
           />
           <script src="/assets/vendor/jquery/jquery-3.3.1.min.js" />
           <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js" />
-          <script src="/assets/vendor/slimscroll/jquery.slimscroll.js" />
+          {/* <script src="/assets/vendor/slimscroll/jquery.slimscroll.js" /> */}
           <script src="/assets/libs/js/main-js.js" />
-          <script src="/assets/vendor/charts/chartist-bundle/chartist.min.js" />
+          {/* <script src="/assets/vendor/charts/chartist-bundle/chartist.min.js" />
           <script src="/assets/vendor/charts/sparkline/jquery.sparkline.js" />
           <script src="/assets/vendor/charts/morris-bundle/raphael.min.js" />
           <script src="/assets/vendor/charts/morris-bundle/morris.js" />
           <script src="/assets/vendor/charts/c3charts/c3.min.js" />
           <script src="/assets/vendor/charts/c3charts/d3-5.4.0.min.js" />
-          <script src="/assets/vendor/charts/c3charts/C3chartjs.js" />
-          <script src="/assets/libs/js/dashboard-ecommerce.js" />
+          <script src="/assets/vendor/charts/c3charts/C3chartjs.js" /> */}
+          {/* <script src="/assets/libs/js/dashboard-ecommerce.js" /> */}
         </body>
       </html>
     );

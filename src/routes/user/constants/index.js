@@ -24,6 +24,10 @@ const ADDRESS_SORT_OPTION = [
   { value: 4, label: 'Country' },
   { value: 5, label: 'Zip Code' },
 ];
+const REQUEST_SORT_OPTION = [
+  { value: 4, label: 'Name' },
+  { value: 5, label: 'Zip Code' },
+];
 const ORDER_TABLE_LABELS = ['Name', 'Price', 'Date', 'Status', 'Order No.'];
 const ORDER_RECORD_ITEMS = ['id', 'name', 'price', 'date', 'status', 'orderNo'];
 const ORDER_SORT_OPTION = [
@@ -70,6 +74,7 @@ export {
   ORDER_RECORD_ITEMS,
   ORDER_TABLE_LABELS,
   ORDER_SORT_OPTION,
+  REQUEST_SORT_OPTION,
   PUBLISHER_ORDER_TABLE_LABELS,
   PUBLISHER_ORDER_RECORD_ITEMS,
   CLAIMS_RECORD_ITEMS,

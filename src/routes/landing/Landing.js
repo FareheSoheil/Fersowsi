@@ -115,7 +115,7 @@ class Landing extends React.Component {
           <div className="offset-xl-2 col-xl-3 mb-3">
             <div className={s.grayCard}>
               <h1>
-                <i class="fas fa-gift" />
+                <i className="fas fa-gift" />
               </h1>
 
               <h3>Gift Card</h3>
@@ -128,7 +128,7 @@ class Landing extends React.Component {
           <div className="col-xl-3 mb-3">
             <div className={s.grayCard}>
               <h1>
-                <i class="fa fa-cog" aria-hidden="true" />
+                <i className="fa fa-cog" aria-hidden="true" />
               </h1>
 
               <h3>Settings</h3>
@@ -141,7 +141,7 @@ class Landing extends React.Component {
           <div className="col-xl-3 mb-3">
             <div className={s.grayCard}>
               <h1>
-                <i class="fa fa-shopping-basket" aria-hidden="true" />
+                <i className="fa fa-shopping-basket" aria-hidden="true" />
               </h1>
 
               <h3>Basket</h3>

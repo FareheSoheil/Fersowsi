@@ -39,9 +39,9 @@ class SideBar extends React.Component {
         >
           All Claim
         </a>
-        {/* <a onClick={() => this.goTo('/user/myAccount')}>Request</a>
-        <a onClick={() => this.goTo('/user/myAccount')}>Reviews</a>
-        <a onClick={() => this.goTo('/user/myAccount')}>Prefrences</a> */}
+        <a onClick={() => this.goTo('/user/request')}>Request</a>
+        {/* <a onClick={() => this.goTo('/user/myAccount')}>Reviews</a>
+        <a onClick={() => this.goTo('/user/myAccount')}>Prefrences</a>  */}
       </div>
     );
   }

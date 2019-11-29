@@ -1,12 +1,12 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
-import ContentHeader from '../../../components/User/ContentHeader';
-import Spinner from '../../../components/User/Spinner';
+import ContentHeader from '../../../../components/User/ContentHeader';
+import Spinner from '../../../../components/User/Spinner';
 import s from './AddressDetail.css';
-import { SERVER } from '../constants';
-import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import history from '../../../history';
+import { SERVER } from '../../constants';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
+import history from '../../../../history';
 class AddressDetail extends React.Component {
   constructor(props) {
     super(props);

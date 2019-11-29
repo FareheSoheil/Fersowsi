@@ -264,17 +264,22 @@ class WishItem extends React.Component {
               </div>
             </div>
             <div className="col-xl-10 col-lg-10 col-md-12">
-              <div className={`${s.title} row pl-0`}>
+              {/* <div className={`${s.title} row pl-0`}>
                 <div className="col-12">
                   <u>{this.props.wish.product.originalTitle}</u>
                 </div>
-              </div>
+              </div> */}
 
               <div className="row mb-2">
                 <div
                   className="col-xl-4 pl-3"
                   // style={{ border: '1px solid red' }}
                 >
+                  <div className="row mb-2">
+                    <div className={`${s.title} col-12`}>
+                      <u>{this.props.wish.product.originalTitle}</u>
+                    </div>
+                  </div>
                   <div className="row">
                     <div className="col-12 ">
                       <div className={s.categories}>

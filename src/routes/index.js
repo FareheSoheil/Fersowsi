@@ -290,13 +290,28 @@ const routes = {
             {
               path: '',
               load: () =>
-                import(/* webpackChunkName: 'userAddressBook' */ './user/AddressBook'),
+                import(/* webpackChunkName: 'userAddressBook' */ './user/Address/AddressBook'),
             },
             {
               path: '/:id',
               load: () =>
-                import(/* webpackChunkName: 'userAddressDetail' */ './user/AddressDetail'),
+                import(/* webpackChunkName: 'userAddressDetail' */ './user/Address/AddressDetail'),
             },
+          ],
+        },
+        {
+          path: '/request',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'userRequestTable' */ './user/Requests/Request'),
+            },
+            // {
+            //   path: '/:id',
+            //   load: () =>
+            //     import(/* webpackChunkName: 'userAddressDetail' */ './user/Requests'),
+            // },
           ],
         },
         {

@@ -1,19 +1,19 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactPaginate from 'react-paginate';
-import ContentHeader from '../../../components/User/ContentHeader';
-import AddAddress from '../../../components/User/AddAddress';
-import Table from '../../../components/User/Table';
-import Spinner from '../../../components/User/Spinner';
+import ContentHeader from '../../../../components/User/ContentHeader';
+import AddAddress from '../../../../components/User/AddAddress';
+import Table from '../../../../components/User/Table';
+import Spinner from '../../../../components/User/Spinner';
 import s from './AddressBook.css';
 import {
   ADDRESS_TABLE_LABELS,
   ADDRESS_RECORD_ITEMS,
   ADDRESS_SORT_OPTION,
   SERVER,
-} from '../constants';
-import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import history from '../../../history';
+} from '../../constants';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
+import history from '../../../../history';
 class AddressBook extends React.Component {
   constructor(props) {
     super(props);

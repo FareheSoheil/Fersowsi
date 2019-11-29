@@ -8,16 +8,16 @@
  */
 
 import React from 'react';
-import AddressBook from './AddressBook';
-import UserLayout from '../../../components/User/Layouts/UserLayout';
+import AddressDetail from './AddressDetail';
+import UserLayout from '../../../../components/User/Layouts/UserLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
-    chunks: ['userAddressBook'],
+    chunks: ['userAddressDetail'],
     component: (
       <UserLayout context={context}>
-        <AddressBook context={context} />
+        <AddressDetail context={context} />
       </UserLayout>
     ),
   };

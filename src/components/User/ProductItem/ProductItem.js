@@ -210,7 +210,7 @@ class ProductItem extends React.Component {
                   />
                 </div>
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
+                  <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     {' '}
                     <span>
                       {manPrices[this.state.selectedPrice.index] != undefined
