@@ -307,12 +307,17 @@ const routes = {
               load: () =>
                 import(/* webpackChunkName: 'userRequestTable' */ './user/Requests/Request'),
             },
-            // {
-            //   path: '/:id',
-            //   load: () =>
-            //     import(/* webpackChunkName: 'userAddressDetail' */ './user/Requests'),
-            // },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'userRequestDetail' */ './user/Requests/RequestDetail'),
+            },
           ],
+        },
+        {
+          path: '/advancedSearch',
+          load: () =>
+            import(/* webpackChunkName: 'userAdvancedSearch' */ './user/AdvancedSearch'),
         },
         {
           path: '/order',

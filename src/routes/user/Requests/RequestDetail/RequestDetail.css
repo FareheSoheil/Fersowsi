@@ -1,0 +1,27 @@
+.addressContainer {
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    padding: 30px 50px 10px 80px;
+    background-color: #ebebeb;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 300px;
+    color: rgb(65, 64, 64);
+    font-size: 15px;
+}
+.addressContainer input {
+    border-radius: 5px;
+    padding: 5px;
+    width: inherit;
+    border: 1px solid lightgray;
+}
+.addressContainer textarea {
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 5px;
+}
+/* .selectWS div:nth-child(2){
+    border: 1px solid red;
+} */

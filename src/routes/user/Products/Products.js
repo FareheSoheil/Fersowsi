@@ -66,19 +66,18 @@ class Products extends React.Component {
     history.push(`/admin/products/${id}`);
   }
   fetchProducts() {
-    console.log('product search : ', this.state.productsSearchFilter);
     const url = `${SERVER}/getAllProducts`;
     this.setState({
       isLoading: true,
     });
     let creCopy = { ...this.state.productsSearchFilter };
     if (localStorage.getItem('category') != null) {
-      // window.alert(localStorage.getItem('category'));
       creCopy.productContentTypes = [
         { value: localStorage.getItem('category') },
       ];
     }
-
+    if (localStorage.getItem('searchTxt') != null)
+      creCopy.originalTitle = localStorage.getItem('searchTxt');
     const credentials = {
       sortBy: this.state.sortBy,
       searchBy: creCopy,

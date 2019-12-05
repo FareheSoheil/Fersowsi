@@ -40,6 +40,7 @@ class Header extends React.Component {
   searchProducts(value) {
     localStorage.setItem('category', value);
     window.location.replace('/user/products');
+    // history.push('user/')
   }
   eventListenerAssigner(trigger, i) {
     trigger.addEventListener(
@@ -167,9 +168,7 @@ class Header extends React.Component {
           isFetched: true,
         });
       },
-      () => {
-        window.alert(this.state.isFetched);
-      },
+      () => {},
     );
   }
   render() {
@@ -380,8 +379,8 @@ class Header extends React.Component {
                   </div>
                 </div>
                 <i
-                  onClick={() => {}}
                   className={`${s.searchBtn} fas fa-search`}
+                  onClick={() => this.goTo('/user/advancedSearch')}
                 />
                 <i className="fas fa-home" onClick={() => this.goTo('/')} />
               </div>

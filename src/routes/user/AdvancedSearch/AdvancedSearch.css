@@ -1,0 +1,139 @@
+.mainContainer{
+    color: rgb(104, 102, 102);
+}
+.mainContainer {
+    cursor: pointer;
+}
+.menueIcon {
+    cursor: pointer;
+}
+.show {
+    display: block !important;
+}
+.menuedropdownContainer {
+    background: white;
+    border: 1px solid rgb(197, 197, 197);
+    width: 205px;
+    min-height: 215px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 5;
+    top:50px;
+    display: none;
+    color: rgb(126, 122, 122);
+    cursor: pointer;
+    padding: 15px ;
+    padding-top: 15px;
+    box-shadow: 2px 6px lightgray;
+}
+
+.menuedropdownContainer div div {
+    /* background-color: #2e74ab; */
+    /* padding: 8px; */
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+.menuedropdownContainer div div i{
+    font-size: 22px;
+}
+.requestdropdownContainer {
+    /* background: rgb(247, 247, 247); */
+    border: 1px solid rgb(175, 174, 174);
+    text-align: center;
+    width: 220px;
+    height: 230px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 5;
+    top:40px;
+    left: -150px;
+    display: none;
+    color: rgb(126, 122, 122);
+    cursor: pointer;
+    padding: 10px ;
+    padding-top: 15px;
+    box-shadow: 2px 6px lightgray;
+}
+.menuedropdownContainer i {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px white;
+    color: white;
+    border-radius: 50%;
+    /* padding: 0.4em 0.5em; */
+    padding: 12px;
+}
+.profile {
+    background-color: red;
+}
+.product {
+    background-color: rgb(37, 255, 37);
+}
+.order{
+    background-color: blue;
+}
+.address {
+    background-color: rgb(255, 98, 125);
+}
+.request {
+    background-color: rgb(255, 167, 4);
+}
+.wishlist {
+    background-color: rgb(126, 213, 241);
+}
+.claim {
+    background-color: yellow;
+}
+.requestBtn {
+    padding-top: 10px;
+}
+.reqBtn {
+    background-color: gray;
+    border: 1px solid gray;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+.requestdropdownContainer input , textarea {
+    padding: 5px;
+    color: gray;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}
+.requestdropdownContainer input:focus , textarea:focus {
+    outline: none;
+}
+.avatar{
+border: 1px solid lightblue;
+border-radius: 50px;
+margin-left: 20px;
+width: 40px;
+height: 40px;
+}
+.logoContainer {
+    padding-top: 100px;
+    padding-left: 15px;
+
+}
+.logoContainer>div {
+    font-size: 45px;
+    font-weight: bolder;
+    color: #2e74ab;
+}
+.searchContainer input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}
+.searchContainer input:focus{
+    outline: none;
+}
+.searchBtn {
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    border-radius: 8px;
+    border: 1px solid #2e74ab;
+    background-color: #2e74ab;
+}
