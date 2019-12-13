@@ -35,7 +35,6 @@ class WishItem extends React.Component {
 
   componentDidMount() {
     // this.fetchAddresses();
-    console.log('wish item : ', this.props.wish);
     if (this.props.wish.product.selectedProductPriceAndCost[0] != undefined)
       this.setState(
         {

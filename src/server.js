@@ -97,31 +97,22 @@ async function Authorize(req, res, next) {
     }
     if ('/' === req.path) {
       return next();
-    } else res.redirect('/');
-    // else {
-    //   // if logged in
-    //   // customer goes to userside
-    //   if (req.cookies.role === ROLES.customer.value)
-    //     res.redirect('/user/myAccount');
-    //   else
-    //     // others go to admin
-    //     res.redirect('/admin');
-    // }
+    } else {
+      res.redirect('/');
+    }
   } else if (req.cookies.TokenId !== undefined) {
     // user has logged in
     // logged in but not valid
     const fetchedState = await readTokenIdFromDB(req.cookies.TokenId);
     if (fetchedState === undefined) {
-      console.log('in state not defined');
       res.clearCookie('TokenId');
       res.clearCookie('role');
       res.redirect('/login');
       // logged in but valid
     } else {
       // -------------------------------------if other pages
+      console.log('url requeste : ', req.path);
       if (otherPathResolver(req.path)) {
-        // console.log('in not allowed pages');
-        //  => not allowed to go
         if (req.cookies.role == ROLES.customer.value) {
           res.redirect('/user/myAccount');
         } else res.redirect('/admin');
@@ -131,7 +122,9 @@ async function Authorize(req, res, next) {
         // if it is user
         if (req.cookies.role == ROLES.customer.value) {
           if (homePat.test(req.path)) {
-            return next();
+            console.log('im fixing redirections : ', req.path);
+            // return next();
+            res.redirect('/user/advancedSearch');
           } else if (!userPaths.test(req.path)) {
             console.log('in user wants admin pages');
             res.redirect('/user/products');

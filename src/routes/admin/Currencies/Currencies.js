@@ -55,7 +55,6 @@ class Countries extends React.Component {
     });
   }
   applyChanges() {
-    console.log(this.state.currentCurrencies);
     this.setState({
       isLoading: true,
     });
@@ -136,7 +135,6 @@ class Countries extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
-    console.log(credentials);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),

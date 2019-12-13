@@ -81,6 +81,7 @@ class UserLayout extends React.Component {
     );
   }
 }
+//
 export default withStyles(normalizeCss, s)(
   connect(mapStateToProps, null)(UserLayout),
 );

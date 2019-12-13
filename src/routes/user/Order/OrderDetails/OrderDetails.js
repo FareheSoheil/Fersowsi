@@ -51,7 +51,6 @@ class OrderDetails extends React.Component {
       options,
       response => {
         if (response.error == undefined) {
-          console.log(' response : ', response);
           that.setState(
             {
               fetchedAddress: response,
@@ -64,14 +63,12 @@ class OrderDetails extends React.Component {
             },
           );
         } else {
-          console.log(' error : ', response.error);
           // toastr.error(response.error.title, response.error.description);
         }
       },
       error => {
         // toastr.error('shit');
         // toastr.error('sala', ERRORS.REPEATED_USER);
-        console.log('login e rror : ', error);
       },
     );
   }
@@ -165,7 +162,6 @@ class OrderDetails extends React.Component {
       options,
       response => {
         if (response.error === undefined) {
-          console.log(' response : ', response);
           that.setState({
             publisherOrders: response.publisherOrders,
             isLoading: false,

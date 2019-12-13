@@ -120,7 +120,6 @@ class ProductPriceTable extends React.Component {
     let records;
     const length = this.props.prices.length;
     if (this.props.prices !== undefined && this.props.prices.length !== 0) {
-      console.log('prices in if : ', this.props.prices);
       records = this.props.prices.map((record, i) => (
         <ProductPriceRecord
           index={i}

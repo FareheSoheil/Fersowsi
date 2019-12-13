@@ -29,7 +29,6 @@ class Claim extends React.Component {
   };
   constructor(props) {
     super(props);
-    console.log('claims : ', this.props.claim);
     this.goToOrder = this.goToOrder.bind(this);
   }
   goToOrder() {

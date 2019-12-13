@@ -275,7 +275,6 @@ class Wishlist extends React.Component {
       url,
       options,
       response => {
-        console.log;
         if (response.error === undefined) {
           let selectedIndicesArray = [];
           const l = response.length;
@@ -316,10 +315,6 @@ class Wishlist extends React.Component {
     });
   }
   handleWishItemSelect(id, index) {
-    console.log(
-      'ihis.state.currentWishes[index].basketId : ',
-      this.state.currentWishes[index].basketId,
-    );
     let selectedIds = [],
       selectedIndices;
     selectedIds.push(id);

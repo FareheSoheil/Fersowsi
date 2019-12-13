@@ -70,6 +70,7 @@ class Products extends React.Component {
     this.setState({
       isLoading: true,
     });
+    console.log('in fetchProducts : ');
     let creCopy = { ...this.state.productsSearchFilter };
     if (localStorage.getItem('category') != null) {
       creCopy.productContentTypes = [
@@ -97,7 +98,7 @@ class Products extends React.Component {
       url,
       options,
       response => {
-        console.log('products : ', response);
+        console.log('hey : ', response.currentRecords[0]);
         that.setState(
           {
             currentproducts: response.currentRecords,
@@ -107,6 +108,7 @@ class Products extends React.Component {
           },
           () => {
             localStorage.removeItem('category');
+            localStorage.removeItem('searchTxt');
             // window.alert(localStorage.getItem('category'));
             window.scroll(10, 20);
           },
@@ -266,7 +268,6 @@ class Products extends React.Component {
         (product, i) =>
           (products = <ProductItem hasWish={true} product={product} />),
       );
-      console.log('productsSS : ', products);
     } else if (this.props.isLoading && receivedProducts == undefined)
       products = (
         <div className="col-12">

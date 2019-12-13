@@ -245,11 +245,6 @@ class AccountSearch extends React.Component {
               </div>
               <div className="row mt-3">
                 <div className="col-xl-8 col-lg-10 col-md-10 col-sm-12 form-group">
-                  {/* <span className="advancedSearchLabel">
-                    Acount Status : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </span>
-                  <br />
-                  <br /> */}
                   <label className="custom-color-theme custom-control custom-radio custom-control-inline">
                     <input
                       type="radio"

@@ -51,7 +51,8 @@ class ClaimDetails extends React.Component {
       response => {
         if (response.error == undefined) {
           that.setState({
-            claims: response,
+            claims: response.claims,
+            customerId: response.customerId,
             isLoading: false,
           });
         } else {
@@ -70,12 +71,12 @@ class ClaimDetails extends React.Component {
     // window.alert(localStorage.getItem('TokenId'));
     if (
       !this.state.isLoading &&
-      this.state.claims !== undefined &&
-      this.state.claims.length !== 0
+      this.state.claims != undefined &&
+      this.state.claims.length != 0
     )
       claims = this.state.claims.map((claim, i) => (
         // orderId={this.state.customerOrderId}
-        <Claim claim={claim} userId={localStorage.getItem('id')} />
+        <Claim claim={claim} userId={this.state.customerId} />
       ));
     return (
       <div>

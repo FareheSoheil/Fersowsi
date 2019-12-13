@@ -122,7 +122,7 @@ class AddAddress extends React.Component {
     );
     const wrongNo = (
       <div className="row mb-3">
-        <div className="col-xl-4 col-lg-4 col-md-6">
+        <div className="col-xl-5 col-lg-5 col-md-6">
           Please Enter wrong numbers you have recieved :{' '}
         </div>
         <div className="col-xl-6 col-lg-6 col-md-6">
@@ -137,7 +137,7 @@ class AddAddress extends React.Component {
     );
     const brokenIssue = (
       <div className="row mb-3">
-        <div className="col-xl-3 col-lg-4 col-md-6">
+        <div className="col-xl-5 col-lg-5 col-md-6">
           Please Enter numbers of the damaged issues :{' '}
         </div>
         <div className="col-xl-6 col-lg-6 col-md-6">

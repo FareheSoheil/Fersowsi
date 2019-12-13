@@ -1,9 +1,9 @@
 
 .container {
-    border: 2px solid lightgray;
+    border: 2px solid lightgrey;
     border-radius: 5px;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-top: 25px ;
+    padding-right: 5px ;
     background-color: white;
 }
 .link {
@@ -30,7 +30,7 @@
 }
 .orderSmallInfoContainer input{
     display: inline;
-    width: auto;
+    width: 80px;
 }
 .imageContainer {
     text-align: center;

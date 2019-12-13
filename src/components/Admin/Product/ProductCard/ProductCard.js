@@ -16,7 +16,6 @@ class ProductCard extends React.Component {
     window.alert('delete');
   }
   render() {
-    console.log(this.props.product);
     return (
       <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 product-card">
         <div

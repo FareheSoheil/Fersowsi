@@ -20,6 +20,7 @@ class RequestDetail extends React.Component {
         language: { value: 2, label: 'English' },
         ageGroup: { value: 2, label: 'Teenager' },
         period: { value: 2, label: 'Daily' },
+        details: 'alskjhd;owuefdlougfbdslofucshwfjzd',
       },
       allCountries: [
         { value: '1', label: 'iran' },

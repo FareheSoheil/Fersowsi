@@ -152,7 +152,6 @@ class ProductDetail extends React.Component {
       url,
       options,
       response => {
-        console.log('subs: ', response.product);
         that.setState({
           product: response.product,
           isLoading: false,

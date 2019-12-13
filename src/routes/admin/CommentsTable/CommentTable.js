@@ -41,7 +41,6 @@ class CommentTable extends React.Component {
   }
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log('comment : ', selectedOption);
   };
   commentDetails(id, msg) {
     this.setState({

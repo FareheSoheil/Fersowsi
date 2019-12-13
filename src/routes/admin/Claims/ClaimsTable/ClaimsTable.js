@@ -11,18 +11,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import history from '../../../history';
-import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import history from '../../../../history';
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 // import { fetchURL, SERVER } from '../../../constants';
 import s from './ClaimsTable.css';
-import Spinner from '../../../components/Admin/Spinner';
-import CustomTable from '../../../components/CustomTabel';
-import ClaimSearch from '../../../components/Admin/ClaimSearch';
+import Spinner from '../../../../components/Admin/Spinner';
+import CustomTable from '../../../../components/CustomTabel';
+import ClaimSearch from '../../../../components/Admin/ClaimSearch';
 import {
   CLAIMS_COLUMNS_LABELS_ARRAY,
   CLAIMS_RECORDE_ITEM_NAMES_ARRAY,
-} from '../../../constants/constantData';
-import { SERVER } from '../../../constants';
+} from '../../../../constants/constantData';
+import { SERVER } from '../../../../constants';
 
 class ClaimsTable extends React.Component {
   constructor(props) {
@@ -82,7 +82,7 @@ class ClaimsTable extends React.Component {
     });
   }
   fetchClaims() {
-    const url = `${SERVER}/getAllClaims`;
+    const url = `${SERVER}/getAllClaimCollections`;
     this.setState({
       // isLoading: true,
     });
@@ -126,7 +126,6 @@ class ClaimsTable extends React.Component {
     });
   }
   render() {
-    console.log('context : ', this.props.context);
     return (
       <div className="container-fluid dashboard-content">
         <div className="row">

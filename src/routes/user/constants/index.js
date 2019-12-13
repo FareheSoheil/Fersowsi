@@ -1,4 +1,5 @@
 const SERVER = 'http://localhost:3004';
+const SSRSERVER = 'http://localhost:3000';
 const OPCODES = {
   checkbox: 1,
   range: 2,
@@ -70,6 +71,7 @@ export {
   ADDRESS_TABLE_LABELS,
   ADDRESS_RECORD_ITEMS,
   SERVER,
+  SSRSERVER,
   ADDRESS_SORT_OPTION,
   ORDER_RECORD_ITEMS,
   ORDER_TABLE_LABELS,

@@ -17,7 +17,6 @@ import history from '../../../../history';
 
 class SideBar extends React.Component {
   goTo(url) {
-    // console.log(history);
     history.push(url);
   }
   logOut() {
@@ -40,6 +39,7 @@ class SideBar extends React.Component {
         cookie.remove('TokenId', { path: '/' });
         cookie.remove('role', { path: '/' });
         history.push('/login');
+        localStorage.clear();
       },
       error => {
         console.log('error fetchWithTimeOut: ', error);
@@ -437,20 +437,19 @@ class SideBar extends React.Component {
                 </a>
               </li>
               {/* Comments item */}
-              <li className="nav-item ">
+              {/* <li className="nav-item ">
                 <a
                   className="nav-link"
                   onClick={() => this.goTo('/admin/comments')}
                 >
-                  {/* <i className="fa fa-comments" /> */}
                   Comments{' '}
                 </a>
-              </li>
+              </li> */}
               {/* Comments item */}
               <li className="nav-item ">
                 <a
                   className="nav-link"
-                  onClick={() => this.goTo('/admin/address')}
+                  onClick={() => this.goTo('/admin/addresses  ')}
                 >
                   {/* <i className="fa fa-comments" /> */}
                   Address{' '}

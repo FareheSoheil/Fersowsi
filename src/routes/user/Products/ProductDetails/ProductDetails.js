@@ -45,7 +45,6 @@ class Products extends React.Component {
       url,
       options,
       response => {
-        console.log('recieved produvt ', response.product);
         that.setState(
           {
             product: response.product,

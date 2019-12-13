@@ -63,7 +63,7 @@ class UserSimpleLayout extends React.Component {
     );
   }
 }
-
+// connect(mapStateToProps, null)
 export default withStyles(normalizeCss, s)(
   connect(mapStateToProps, null)(UserSimpleLayout),
 );

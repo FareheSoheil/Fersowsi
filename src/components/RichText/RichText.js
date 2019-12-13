@@ -20,6 +20,7 @@ class RichText extends React.Component {
         initialValue={this.props.initialValue}
         init={{
           min_height: this.props.min_height,
+          z_index: '0',
           width: this.props.width,
           plugins: 'image',
           toolbar1:
@@ -29,10 +30,6 @@ class RichText extends React.Component {
 
           images_upload_handler: (blobInfo, success, failure) => {
             setTimeout(function() {
-              console.log('blob blob: ', blobInfo.blob());
-              console.log('blob uri: ', blobInfo.blobUri());
-              console.log('blob filename: ', blobInfo.filename());
-              console.log('blob uri: ', blobInfo.uri());
               success(
                 'data:' + blobInfo.blob().type + ';base64,' + blobInfo.base64(),
                 // window.url.createobjecturl(blobInfo),

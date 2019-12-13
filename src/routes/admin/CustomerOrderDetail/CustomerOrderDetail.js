@@ -145,7 +145,7 @@ class CustomerOrderDetail extends React.Component {
 
   render() {
     return (
-      <div className="dashboard-ecommerce">
+      <div>
         {!this.state.isLoading ? (
           <div className={` container-fluid dashboard-content`}>
             <PageHeader
@@ -158,172 +158,205 @@ class CustomerOrderDetail extends React.Component {
                 { link: '', label: 'Customer Orders Detail' },
               ]}
             />
-            <div className="row">
-              <div
-                className={`${
-                  s.container
-                }  offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12`}
-              >
-                <div className="row">
-                  <div
-                    className={`col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30 ${
-                      s.CustomerOrderDetailContainer
-                    }`}
-                  >
-                    <div className="product-details">
-                      <div className="border-bottom pb-3 mb-3">
-                        <form className={s.orderSmallInfoContainer}>
-                          <div className="form-group">
-                            <div className="row">
-                              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                <div className="row ">
-                                  {' '}
-                                  <div className="col-12">
-                                    {' '}
-                                    <label className="mb-0">
-                                      Total Price :
-                                    </label>
-                                    <br />
-                                    <input
-                                      name="totalPrice"
-                                      type="text"
-                                      className="form-control form-control-sm numberInput"
-                                      value={
-                                        this.state.customerOrder.totalPrice[0]
-                                      }
-                                      onChange={this.onChangeInput}
-                                    />
-                                  </div>
-                                </div>
 
-                                <div className="row mt-3">
+            <div className={`${s.container} container-fluid`}>
+              <div className="row">
+                <div
+                  className={`col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-30 ${
+                    s.CustomerOrderDetailContainer
+                  }`}
+                >
+                  <div>
+                    <div className="border-bottom pb-3 mb-3">
+                      <form className={s.orderSmallInfoContainer}>
+                        <div className="form-group">
+                          <div className="row">
+                            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                              <div className="row ">
+                                {' '}
+                                <div className="col-12">
                                   {' '}
-                                  <div className="col-12">
-                                    {' '}
-                                    <label className="mr-2">
-                                      Cancel Price : &nbsp;&nbsp;
-                                    </label>
-                                    <input
-                                      name="cancelPrice"
-                                      type="text"
-                                      className="form-control form-control-sm numberInput"
-                                      value={
-                                        this.state.customerOrder.cancelPrice
-                                      }
-                                      onChange={this.onChangeInput}
-                                    />
-                                  </div>
-                                </div>
-                                <div className="row mt-3">
-                                  {' '}
-                                  <div className="col-12">
-                                    {' '}
-                                    <label className="mr-2">
-                                      Total Delivery Cost : &nbsp;
-                                    </label>
-                                    <input
-                                      name="totalDeliveryCost"
-                                      type="text"
-                                      className="form-control form-control-sm"
-                                      value={
-                                        this.state.customerOrder
-                                          .totalDeliveryCost[0]
-                                      }
-                                      onChange={this.onChangeInput}
-                                    />
-                                  </div>
-                                </div>
-
-                                <div className="row mt-3">
-                                  {' '}
-                                  <div className="col-12">
-                                    {' '}
-                                    <label className="mr-4">
-                                      Total Cost :&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </label>
-                                    <input
-                                      name="totalCost"
-                                      type="text"
-                                      className="form-control form-control-sm"
-                                      value={
-                                        this.state.customerOrder.totalCost[0]
-                                      }
-                                      onChange={this.onChangeInput}
-                                    />
-                                  </div>
+                                  <label className="mb-1">
+                                    Total Price : &nbsp; &nbsp; &nbsp;
+                                    &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                    &nbsp;&nbsp; &nbsp;&nbsp;
+                                  </label>
+                                  <input
+                                    name="totalPrice"
+                                    type="text"
+                                    className="form-control form-control-sm"
+                                    value={
+                                      this.state.customerOrder.totalPrice[0]
+                                    }
+                                    onChange={this.onChangeInput}
+                                  />
                                 </div>
                               </div>
-                              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                <div className="row">
-                                  <div className="col-12">
-                                    <label className="mb-0">
-                                      Customer Id : &nbsp;
-                                    </label>
-                                    <span
-                                      className={s.link}
-                                      onClick={this.gotoUser}
-                                    >
-                                      {this.state.customerOrder.customerId}{' '}
-                                    </span>
-                                    {/* <input
-                                      name="customerOrderId"
-                                      type="text"
-                                      className="form-control form-control-sm numberInput"
-                                      value={
-                                        this.state.customerOrder
-                                          .customerOrderId
-                                      }
-                                      onChange={this.onChangeInput}
-                                      disabled
-                                    /> */}
-                                  </div>
-                                </div>
-                                <div className="row mt-3">
-                                  <div className="col-12">
-                                    <label>User Order No :</label>
-                                    <span className={s.orderNo}>
-                                      {this.state.customerOrder.userOrderNo}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="row mt-3">
-                                  <div className="col-12">
-                                    <label className="mr-5">
-                                      Discount : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </label>
-                                    <input
-                                      name="discount"
-                                      type="text"
-                                      className="form-control form-control-sm numberInput"
-                                      value={this.state.customerOrder.discount}
-                                      onChange={this.onChangeInput}
-                                    />
-                                  </div>
-                                </div>
 
-                                <div className="row mt-3">
-                                  <div className="col-12">
-                                    <label className="mr-5">
-                                      Total Tax Cost:
-                                    </label>
-                                    <input
-                                      name="totalTaxCost"
-                                      type="text"
-                                      className="form-control form-control-sm numberInput"
-                                      value={
-                                        this.state.customerOrder.totalTaxCost[0]
-                                      }
-                                      onChange={this.onChangeInput}
-                                    />
-                                  </div>
+                              <div className="row mt-3">
+                                {' '}
+                                <div className="col-12">
+                                  {' '}
+                                  <label className="mr-2">
+                                    Cancel Price : &nbsp;&nbsp; &nbsp; &nbsp;
+                                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  </label>
+                                  <input
+                                    name="cancelPrice"
+                                    type="text"
+                                    className="form-control form-control-sm numberInput"
+                                    value={this.state.customerOrder.cancelPrice}
+                                    onChange={this.onChangeInput}
+                                  />
+                                </div>
+                              </div>
+                              <div className="row mt-3">
+                                {' '}
+                                <div className="col-12">
+                                  {' '}
+                                  <label className="mr-2">
+                                    Total Delivery Cost : &nbsp;
+                                  </label>
+                                  <input
+                                    name="totalDeliveryCost"
+                                    type="text"
+                                    className="form-control form-control-sm"
+                                    value={
+                                      this.state.customerOrder
+                                        .totalDeliveryCost[0]
+                                    }
+                                    onChange={this.onChangeInput}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="row mt-3">
+                                {' '}
+                                <div className="col-12">
+                                  {' '}
+                                  <label className="mr-4">
+                                    Total Cost :&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                  </label>
+                                  <input
+                                    name="totalCost"
+                                    type="text"
+                                    className="form-control form-control-sm"
+                                    value={
+                                      this.state.customerOrder.totalCost[0]
+                                    }
+                                    onChange={this.onChangeInput}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                              <div className="row">
+                                <div className="col-12">
+                                  <label className="mb-0">
+                                    Customer Id : &nbsp;
+                                  </label>
+                                  <span
+                                    className={s.link}
+                                    onClick={this.gotoUser}
+                                  >
+                                    {this.state.customerOrder.customerId}{' '}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="row mt-3">
+                                <div className="col-12">
+                                  <label>User Order No :</label>
+                                  <span className={s.orderNo}>
+                                    {this.state.customerOrder.userOrderNo}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="row mt-3">
+                                <div className="col-12">
+                                  <label>
+                                    Discount : &nbsp; &nbsp; &nbsp; &nbsp;
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                  </label>
+                                  <input
+                                    name="discount"
+                                    type="text"
+                                    className="form-control form-control-sm numberInput"
+                                    value={this.state.customerOrder.discount}
+                                    onChange={this.onChangeInput}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="row mt-3">
+                                <div className="col-12">
+                                  <label>
+                                    Total Tax Cost: &nbsp; &nbsp; &nbsp; &nbsp;
+                                  </label>
+                                  <input
+                                    name="totalTaxCost"
+                                    type="text"
+                                    className="form-control form-control-sm numberInput"
+                                    value={
+                                      this.state.customerOrder.totalTaxCost[0]
+                                    }
+                                    onChange={this.onChangeInput}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-xl-6 col-lg-4 col-md-6 col-sm-12">
+                              <div className="row">
+                                <div className="col-6">
+                                  <label>Currency</label>
+                                  <Select
+                                    name="currency"
+                                    options={this.state.allCurrencies}
+                                    value={this.state.customerOrder.currency}
+                                    onChange={so =>
+                                      this.handleSelectChange(so, 'currency')
+                                    }
+                                  />
+                                </div>
+                                <div className="col-6">
+                                  <label>Order Status </label>
+                                  <br />
+                                  <Select
+                                    name="status"
+                                    options={CUSTOMER_ORDER_STATUS_ARRAY}
+                                    value={this.state.customerOrder.status}
+                                    onChange={so =>
+                                      this.handleSelectChange(so, 'status')
+                                    }
+                                  />
+                                </div>
+                              </div>
+                              <div className="row mt-3">
+                                <div className="col-12">
+                                  <label>Delivery Address </label>
+                                  <br />
+                                  <Select
+                                    name="deliveryAddress"
+                                    options={this.state.allDeliveryAddresess}
+                                    value={
+                                      this.state.customerOrder.deliveryAddress
+                                    }
+                                    onChange={so =>
+                                      this.handleSelectChange(
+                                        so,
+                                        'deliveryAddress',
+                                      )
+                                    }
+                                  />
                                 </div>
                               </div>
                             </div>
                           </div>
+                        </div>
 
-                          <div className="row mt-3">
-                            {' '}
-                            {/* <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div className="row mt-3">
+                          {' '}
+                          {/* <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                               <div className="row">
                                 <div className="col-xl-4 col-lg-5 col-md-5 col-sm-12 mr-2">
                                   <label>Start Date </label>
@@ -362,104 +395,64 @@ class CustomerOrderDetail extends React.Component {
                               </div>
                             </div>
                          */}
-                          </div>
-                          <br />
-                          <hr />
-                          <br />
-                          <div className="form-group">
-                            <div className="row mt-2">
-                              <div className="col-xl-6 col-lg-6 col-md-6">
-                                <div className="row">
-                                  <div className="col-xl-12">
-                                    <label>Currency</label>
-                                    <Select
-                                      name="currency"
-                                      options={this.state.allCurrencies}
-                                      value={this.state.customerOrder.currency}
-                                      onChange={so =>
-                                        this.handleSelectChange(so, 'currency')
-                                      }
-                                    />
-                                  </div>
-                                </div>
-                                <br />
-                              </div>
-                              <div className="col-6">
-                                <div className="row">
-                                  <div className="col-xl-12">
-                                    <label>Order Status </label>
-                                    <br />
-                                    <Select
-                                      name="status"
-                                      options={CUSTOMER_ORDER_STATUS_ARRAY}
-                                      value={this.state.customerOrder.status}
-                                      onChange={so =>
-                                        this.handleSelectChange(so, 'status')
-                                      }
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="row mt-2">
-                              <div className="col-xl-12 col-lg-12 col-md-12">
-                                <div className="col-xl-12">
-                                  <label>Delivery Address </label>
-                                  <br />
-                                  <Select
-                                    name="deliveryAddress"
-                                    options={this.state.allDeliveryAddresess}
-                                    value={
-                                      this.state.customerOrder.deliveryAddress
-                                    }
-                                    onChange={so =>
-                                      this.handleSelectChange(
-                                        so,
-                                        'deliveryAddress',
-                                      )
-                                    }
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-
-                      <div className="form-group">
-                        <div className="row">
-                          <div className="col-12">
-                            {' '}
-                            <label className="mb-2">
-                              Description <br />
-                            </label>
-                            <textarea
-                              name="description"
-                              rows="4"
-                              cols="10"
-                              type="text"
-                              className="form-control form-control-sm numberInput"
-                              value={this.state.customerOrder.description}
-                              onChange={this.onChangeInput}
-                            />
-                          </div>
                         </div>
-                      </div>
+                      </form>
+                    </div>
 
+                    <div className="form-group">
                       <div className="row">
-                        <div className="col-3">
-                          <a className="btn btn-rounded btn-danger">
-                            <i className="fas fa-trash-alt" />&nbsp;&nbsp;Delete
-                            Order
-                          </a>
+                        <div className="col-xl-3 col-lg-4 col-md-6">
+                          {' '}
+                          <label className="mb-2">
+                            Description <br />
+                          </label>
+                          <textarea
+                            name="description"
+                            rows="7"
+                            cols="10"
+                            type="text"
+                            className="form-control form-control-sm numberInput"
+                            value={this.state.customerOrder.description}
+                            onChange={this.onChangeInput}
+                          />
                         </div>
-                        <div className="col-3">
-                          <a className="btn btn-rounded btn-success">
-                            {' '}
-                            <i className="far fa-edit" />&nbsp;&nbsp;Apply
-                            Changes
-                          </a>
+                        <div className="col-xl-9 col-lg-8">
+                          <h4 className="card-header">
+                            Publisher Orders Of This Order
+                          </h4>
+                          <div className="card-body p-0">
+                            <div className="container-fluid">
+                              <CustomTable
+                                hasPagination={false}
+                                records={
+                                  this.state.customerOrder.publisherOrders
+                                }
+                                columnLabels={
+                                  PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY
+                                }
+                                recordItemNames={
+                                  PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
+                                }
+                                onRecordClick={this.onPublisherOrderClick}
+                              />
+                            </div>
+                          </div>{' '}
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="row mt-4">
+                      <div className="offset-6 col-2">
+                        <a className="btn btn-rounded btn-danger">
+                          <i className="fas fa-trash-alt" />&nbsp;&nbsp;Delete
+                          Order
+                        </a>
+                      </div>
+                      <div className="col-3">
+                        <a className="btn btn-rounded btn-success">
+                          {' '}
+                          <i className="far fa-edit" />&nbsp;&nbsp;Apply Changes
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -467,8 +460,8 @@ class CustomerOrderDetail extends React.Component {
               </div>
             </div>
 
-            <div className="row mt-5">
-              <div className="offset-xl-1 col-xl-10 col-lg-8 col-md-8 col-sm-12 col-12">
+            {/* <div className="row mt-3">
+              <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="card">
                   <h4 className="card-header">
                     Publisher Orders Of This Order
@@ -488,7 +481,7 @@ class CustomerOrderDetail extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         ) : (
           <Spinner />

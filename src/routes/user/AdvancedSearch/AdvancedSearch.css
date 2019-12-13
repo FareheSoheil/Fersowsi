@@ -10,6 +10,23 @@
 .show {
     display: block !important;
 }
+.avatardropdowncontainer {
+    background: white;
+    border: 1px solid rgb(197, 197, 197);
+    width: 120px;
+    min-height: 35px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 5;
+    top:41px;
+    left: 70px;
+    display: none;
+    color: rgb(126, 122, 122);
+    cursor: pointer;
+    padding: 10px ;
+    padding-top: 10px;
+    box-shadow: 2px 6px lightgray;
+}
 .menuedropdownContainer {
     background: white;
     border: 1px solid rgb(197, 197, 197);
@@ -18,7 +35,7 @@
     border-radius: 5px;
     position: absolute;
     z-index: 5;
-    top:50px;
+    top:41px;
     display: none;
     color: rgb(126, 122, 122);
     cursor: pointer;
@@ -28,8 +45,6 @@
 }
 
 .menuedropdownContainer div div {
-    /* background-color: #2e74ab; */
-    /* padding: 8px; */
     padding-top: 5px;
     padding-bottom: 10px;
 }
@@ -58,31 +73,40 @@
     display: inline-block;
     border-radius: 60px;
     box-shadow: 0px 0px 2px white;
+    width: 45px;
+    height: 45px;
     color: white;
     border-radius: 50%;
     /* padding: 0.4em 0.5em; */
-    padding: 12px;
+    
 }
 .profile {
     background-color: red;
+    padding: 11px 1px 1px 13px;
 }
 .product {
     background-color: rgb(37, 255, 37);
+    padding: 12px;
 }
 .order{
     background-color: blue;
+    padding: 11px 1px 1px 11px;
 }
 .address {
     background-color: rgb(255, 98, 125);
+    padding: 11px 1px 1px 13px;
 }
 .request {
     background-color: rgb(255, 167, 4);
+    padding: 11px 1px 1px 14px;
 }
 .wishlist {
     background-color: rgb(126, 213, 241);
+    padding: 11px 1px 1px 10px;
 }
 .claim {
     background-color: yellow;
+    padding: 11px 1px 1px 11px;
 }
 .requestBtn {
     padding-top: 10px;
@@ -111,14 +135,18 @@ width: 40px;
 height: 40px;
 }
 .logoContainer {
-    padding-top: 100px;
-    padding-left: 15px;
+    margin-top: 13%;
+    /* padding-left: 4%; */
 
 }
 .logoContainer>div {
     font-size: 45px;
     font-weight: bolder;
     color: #2e74ab;
+}
+.searchContainer {
+    /* border: 1px solid red; */
+
 }
 .searchContainer input{
     width: 100%;

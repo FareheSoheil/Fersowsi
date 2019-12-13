@@ -51,12 +51,12 @@ class ClaimSearch extends React.Component {
                 Advanced Search
               </button>
             </div>
-            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            {/* <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
               <button onClick={this.onAddClaim} className="btn btn-primary">
                 {' '}
                 Add Claim &nbsp;&nbsp;<i class="fas fa-plus" />
               </button>
-            </div>
+            </div> */}
           </div>
           <div
             class={this.props.searchClear ? 'collapse' : 'collapse show'}

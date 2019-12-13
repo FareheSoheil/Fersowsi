@@ -111,7 +111,6 @@ class Operators extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
-    console.log(this.state.accountsSearchFilter);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -119,7 +118,6 @@ class Operators extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-    console.log('search ', credentials);
     const that = this;
     fetchWithTimeOut(
       url,

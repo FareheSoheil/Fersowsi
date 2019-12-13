@@ -2,7 +2,8 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Spinner from '../../../components/User/Spinner';
 import s from './AdvancedSearch.css';
-import { SERVER } from '../constants';
+import cookie from 'react-cookies';
+import { SSRSERVER } from '../constants';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
 class AdvancedSearch extends React.Component {
@@ -20,28 +21,31 @@ class AdvancedSearch extends React.Component {
   }
   componentDidMount() {
     window.onclick = function(event) {
-      console.log(event.target.classList);
       if (!event.target.classList.contains(s.menueIcon)) {
-        // console.log();
         let dropdowns = document.getElementById('menueDropDown');
-
-        if (dropdowns.classList.contains(s.show)) {
+        if (dropdowns != undefined && dropdowns.classList.contains(s.show)) {
           dropdowns.classList.remove(s.show);
         }
       }
-      if (
-        !event.target.classList.contains(s.requestBtn) &&
-        !event.target.classList.contains('reqInp') &&
-        !event.target.classList.contains('reqTxt')
-      ) {
-        console.log(event.target.classList.contains('reqInp'));
-        // console.log();
-        let dropdowns = document.getElementById('requestDropDown');
 
-        if (dropdowns.classList.contains(s.show)) {
+      if (event.target.name != 'avatarBtn') {
+        let dropdowns = document.getElementById('avatarDropDown');
+
+        if (dropdowns != undefined && dropdowns.classList.contains(s.show)) {
           dropdowns.classList.remove(s.show);
         }
       }
+      // if (
+      //   !event.target.classList.contains(s.requestBtn) &&
+      //   !event.target.classList.contains('reqInp') &&
+      //   !event.target.classList.contains('reqTxt')
+      // ) {
+      //   let dropdowns = document.getElementById('requestDropDown');
+
+      //   if (dropdowns.classList.contains(s.show)) {
+      //     dropdowns.classList.remove(s.show);
+      //   }
+      // }
     };
   }
   goTo(url) {
@@ -50,8 +54,10 @@ class AdvancedSearch extends React.Component {
   handleMenu() {
     document.getElementById('menueDropDown').classList.toggle(s.show);
   }
+  handleAvatar() {
+    document.getElementById('avatarDropDown').classList.toggle(s.show);
+  }
   handleRequest() {
-    console.log('here');
     document.getElementById('requestDropDown').classList.toggle(s.show);
   }
   onChange(e) {
@@ -68,6 +74,32 @@ class AdvancedSearch extends React.Component {
     localStorage.setItem('searchTxt', this.state.search);
     // window.location.replace('/user/products');
     history.push('/user/products');
+  }
+  logOut() {
+    const token = cookie.load('TokenId');
+    const removeStateURL = `${SSRSERVER}/state/removeState`;
+    const removeStateOptions = {
+      tokenId: token,
+    };
+    const logoutOptions = {
+      method: 'POST',
+      body: JSON.stringify(removeStateOptions),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    fetchWithTimeOut(
+      removeStateURL,
+      logoutOptions,
+      () => {
+        cookie.remove('TokenId', { path: '/' });
+        cookie.remove('role', { path: '/' });
+        history.push('/login');
+      },
+      er => {
+        console.log(er);
+      },
+    );
   }
   render() {
     return (
@@ -86,8 +118,27 @@ class AdvancedSearch extends React.Component {
                 <img
                   className={s.avatar}
                   style={{ position: 'absolute' }}
+                  onClick={this.handleAvatar}
+                  name="avatarBtn"
                   src="/assets/images/blank_avatar.png"
                 />{' '}
+                <div
+                  className={`container ${s.avatardropdowncontainer}`}
+                  id="avatarDropDown"
+                >
+                  <div className="row">
+                    {' '}
+                    <div
+                      className="col-12 mb-2"
+                      onClick={() => this.goTo('/user/myAccount')}
+                    >
+                      My Profile
+                    </div>{' '}
+                    <div className="col-12" onClick={this.logOut}>
+                      Log out
+                    </div>{' '}
+                  </div>
+                </div>
                 <div
                   className={`container ${s.menuedropdownContainer}`}
                   id="menueDropDown"
@@ -184,7 +235,7 @@ class AdvancedSearch extends React.Component {
                 {' '}
                 Username
               </div>
-              <div className="offset-xl-9 offset-lg-8 offset-md-7 offset-sm-6  col-1 ">
+              {/* <div className="offset-xl-9 offset-lg-8 offset-md-7 offset-sm-6  col-1 ">
                 <div className={s.requestBtn} onClick={this.handleRequest}>
                   Request
                 </div>
@@ -226,13 +277,14 @@ class AdvancedSearch extends React.Component {
                   </div>
                 </div>
               </div>
+         */}
             </div>
             <div className={`row ${s.logoContainer}`}>
               <div className="offset-5 col-3">FERDOSI</div>
             </div>
 
             <div className={`row ${s.searchContainer}`}>
-              <div className="offset-3 col-5">
+              <div className="offset-3 col-xl-5 col-lg-5 col-md-7">
                 <input
                   name="search"
                   onChange={this.onChange}

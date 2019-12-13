@@ -90,7 +90,6 @@ class ProductsTable extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
-    console.log('searchBy : ,', this.state.productsSearchFilter);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),

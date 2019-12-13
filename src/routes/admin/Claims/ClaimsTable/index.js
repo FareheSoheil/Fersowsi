@@ -8,17 +8,20 @@
  */
 
 import React from 'react';
-import ClaimDetails from './ClaimDetails';
-import AdminLayout from '../../../components/Admin/AdminLayout';
+import ClaimsTable from './ClaimsTable';
+// import Layout from '../../components/Layout';
+import AdminLayout from '../../../../components/Admin/AdminLayout';
 
 async function action(context) {
   return {
     title: 'Ferdowsi',
-    chunks: ['adminClaimDetails'],
+    chunks: ['adminClaims'],
     component: (
+      // <Layout context={context}>
       <AdminLayout>
-        <ClaimDetails context={context} />
+        <ClaimsTable context={context} />
       </AdminLayout>
+      // </Layout>
     ),
   };
 }

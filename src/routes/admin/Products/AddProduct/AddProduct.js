@@ -104,8 +104,6 @@ class AddProduct extends React.Component {
       url,
       options,
       response => {
-        console.log('this.state.product', that.state.product);
-
         that.setState({
           allContentCategories: response.ProductContentTypes,
           allPublishers: response.Publishers,

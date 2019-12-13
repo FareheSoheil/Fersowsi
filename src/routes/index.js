@@ -33,14 +33,14 @@ const routes = {
             {
               path: '',
               load: () =>
-                import(/* webpackChunkName: 'adminClaims' */ './admin/ClaimsTable'),
+                import(/* webpackChunkName: 'adminClaims' */ './admin/Claims/ClaimsTable'),
             },
             {
               path: '/claim',
 
               // query: '?id=:cid&orderId=:oid',
               load: () =>
-                import(/* webpackChunkName: 'adminClaimDetails' */ './admin/ClaimDetails'),
+                import(/* webpackChunkName: 'adminClaimDetails' */ './admin/Claims/ClaimDetails'),
             },
           ],
         },
@@ -246,6 +246,21 @@ const routes = {
               path: '/countries',
               load: () =>
                 import(/* webpackChunkName: 'adminCountries' */ './admin/Settings/Countries'),
+            },
+          ],
+        },
+        {
+          path: '/addresses',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminAddressTable' */ './admin/Address/AddressList'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminDeliveryTypes' */ './admin/Settings/DeliveryTypes'),
             },
           ],
         },

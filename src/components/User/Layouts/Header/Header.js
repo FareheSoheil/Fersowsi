@@ -35,7 +35,6 @@ class Header extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
     this.drop = this.drop.bind(this);
-    console.log('in header : ', this.props.context.store.getState());
   }
   searchProducts(value) {
     localStorage.setItem('category', value);
@@ -143,6 +142,8 @@ class Header extends React.Component {
       () => {
         cookie.remove('TokenId', { path: '/' });
         cookie.remove('role', { path: '/' });
+        cookie.remove('subCategory', { path: '/' });
+        cookie.remove('id', { path: '/' });
         history.push('/login');
       },
       er => {
@@ -237,7 +238,6 @@ class Header extends React.Component {
           );
         }
       });
-      console.log('linksSs : ', links);
     }
     return (
       <div>

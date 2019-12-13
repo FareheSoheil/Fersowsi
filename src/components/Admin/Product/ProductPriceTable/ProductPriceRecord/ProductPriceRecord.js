@@ -38,7 +38,6 @@ class ProductPriceRecord extends React.Component {
     return true;
   }
   render() {
-    console.log('this.props.cost : ', this.props.cost);
     return (
       <tr className={this.props.hasAdd ? '' : s.greenBg}>
         <td>

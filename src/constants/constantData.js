@@ -199,7 +199,7 @@ const CLAIMS_COLUMNS_LABELS_ARRAY = [
 ];
 const CLAIMS_RECORDE_ITEM_NAMES_ARRAY = [
   'id',
-  'customerOrderId',
+  'publisherOrderId',
   'customerName',
   'publisherName',
   'isFinished',

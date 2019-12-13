@@ -96,7 +96,8 @@ class Login extends React.Component {
             });
             localStorage.setItem('TokenId', data.TokenId);
             localStorage.setItem('id', data.id);
-            if (data.role.value === 4) history.push('/user/products');
+            localStorage.setItem('role', data.role.value);
+            if (data.role.value === 4) history.push('/user/AdvancedSearch');
             else history.push('/admin/');
           });
         } else {
@@ -157,28 +158,20 @@ class Login extends React.Component {
               <button
                 onClick={this.handleSubmit}
                 type="submit"
-                class="btn btn-primary btn-lg btn-block"
+                class={`btn btn-lg btn-block ${s.loginBtn}`}
               >
-                log in
+                Log In
               </button>
             </form>
           </div>
           <div class={`${s.footerLinks} card-footer bg-white p-0`}>
             <div class="offset-xl-1 card-footer-item card-footer-item-bordered">
-              <a
-                onClick={() => this.goTo('/register')}
-                class="footer-link text-secondary"
-              >
+              <a onClick={() => this.goTo('/register')} class="">
                 Create An Account
               </a>
             </div>
             <div class="card-footer-item card-footer-item-bordered">
-              <a
-                onClick={() => this.goTo('/forget')}
-                class="footer-link text-secondary"
-              >
-                Forgot Password
-              </a>
+              <a onClick={() => this.goTo('/forget')}>Forgot Password</a>
             </div>
           </div>
         </div>

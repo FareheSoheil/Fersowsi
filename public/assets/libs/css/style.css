@@ -7969,3 +7969,6 @@ margin-bottom: 22px; }
   [data-toggle="collapse"].collapsed .fa:before {
     content: "\f078";
   }
+  .tox .tox-editor-header {
+      z-index: 0 !important;
+  }

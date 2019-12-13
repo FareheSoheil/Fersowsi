@@ -406,7 +406,7 @@ class ProductSideFilter extends React.Component {
                   weight,
                 )
               }
-              onChangeComplete={value => console.log(weight)}
+              // onChangeComplete={value => console.log(weight)}
             />
           </div>
           <div class="product-sidebar-widget">
