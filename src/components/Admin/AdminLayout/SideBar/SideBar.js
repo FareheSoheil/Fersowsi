@@ -430,9 +430,7 @@ class SideBar extends React.Component {
                 <a
                   className="nav-link"
                   onClick={() => this.goTo('/admin/claims')}
-                  // href="/admin/claims"
                 >
-                  {/* <i className="far fa-hdd" /> */}
                   Claims{' '}
                 </a>
               </li>
@@ -449,7 +447,7 @@ class SideBar extends React.Component {
               <li className="nav-item ">
                 <a
                   className="nav-link"
-                  onClick={() => this.goTo('/admin/addresses  ')}
+                  onClick={() => this.goTo('/admin/addresses')}
                 >
                   {/* <i className="fa fa-comments" /> */}
                   Address{' '}

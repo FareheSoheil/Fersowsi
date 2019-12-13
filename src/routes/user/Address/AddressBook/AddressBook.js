@@ -20,34 +20,10 @@ class AddressBook extends React.Component {
     this.state = {
       isLoading: false,
       pageIndex: 0,
-      pageSize: 15,
+      pageSize: 10,
       totalPageNum: 1,
       sortBy: { value: 1, label: 'Country' },
-      addresses: [
-        {
-          id: 1,
-          detailAddress:
-            'asjkdas;lkdas;kljm;ojernfmsakdjwqeifowemfngo;jfnasojfnoflmsejnpwfnwrjg;nm',
-          province: 'Mazandaran',
-          country: 'iran',
-          zipCode: '+98',
-          city: 'sari',
-        },
-        {
-          id: 2,
-          detailAddress:
-            'asjkdas;lkdasksldjfsdfhawluifhWYEFGSBDKQYUFGBldiysbxqiyfgdlbkxnelif;kljm;ojernfmsakdjwqeifowemfngo;jfnasojfnoflmsejnpwfnwrjg;nm',
-          province: 'Tehran',
-          country: 'iran',
-          zipCode: '+98',
-          city: 'Karaj',
-        },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-        { id: 1, address1: 2 },
-      ],
+      addresses: [],
       allCountries: [],
     };
     this.fetchAddresses = this.fetchAddresses.bind(this);
@@ -64,6 +40,7 @@ class AddressBook extends React.Component {
       this.fetchAddresses();
     });
   }
+
   onAddressClick(id) {
     history.push(`/user/address/${id}`);
   }
@@ -82,8 +59,8 @@ class AddressBook extends React.Component {
     const url = `${SERVER}/getAllAddressesOfSpecificUser`;
     this.setState({ isLoading: true });
     const credentials = {
-      pageIndex: this.state.name,
-      pageSize: this.state.password,
+      pageIndex: this.state.pageIndex,
+      pageSize: this.state.pageSize,
       sortBy: this.state.sortBy.value,
     };
     const options = {
@@ -101,8 +78,8 @@ class AddressBook extends React.Component {
       response => {
         if (response.error === undefined) {
           that.setState({
-            addresses: response,
-            // totalPageNum: response.totalPageNum,
+            addresses: response.currentRecords,
+            totalPageNum: response.totalPageNum,
             isLoading: false,
           });
         } else {
@@ -178,11 +155,26 @@ class AddressBook extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-12">
+              <div className="col-3">
                 <AddAddress
                   countries={this.state.allCountries}
                   callBack={this.fetchAddresses}
                   // newAddress={this.state.newAddress}
+                />
+              </div>
+              <div className="offset-xl-3 col-5 ">
+                <ReactPaginate
+                  previousLabel="<"
+                  nextLabel=">"
+                  pageCount={this.state.totalPageNum}
+                  pageRangeDisplayed={3}
+                  onPageChange={this.handlePageChange}
+                  containerClassName="user-paginate"
+                  subContainerClassName="user-pages user-paginate"
+                  activeClassName="user-active-page"
+                  breakClassName="break-me"
+                  initialPage={this.state.pageIndex}
+                  disableInitialCallback
                 />
               </div>
             </div>

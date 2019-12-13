@@ -192,7 +192,7 @@ class ClaimDetails extends React.Component {
               />
               <br />
 
-              {this.state.role == ROLES.publisher.value ? (
+              {this.state.role != ROLES.publisher.value ? (
                 <div className="row">
                   <div className="offset-1 col-xl-3 mb-1">
                     <button

@@ -324,6 +324,7 @@ class ProductDetail extends React.Component {
   }
   handleSelectChange = (selectedOption, op) => {
     let product = { ...this.state.product };
+    if (op == 'publisher') product.currencyId = selectedOption.currencyId;
     product[op] = selectedOption;
     this.setState({ product: product });
   };

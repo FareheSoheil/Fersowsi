@@ -62,8 +62,13 @@ class Wishlist extends React.Component {
     this.setState({
       addressesFetched: false,
     });
+    const cred = {
+      pageIndex: 0,
+      pageSize: 300,
+    };
     const options = {
       method: 'POST',
+      body: JSON.stringify(cred),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -74,7 +79,7 @@ class Wishlist extends React.Component {
       options,
       response => {
         that.setState({
-          allAddresses: arrayResolver(response, 'id', [
+          allAddresses: arrayResolver(response.currentRecords, 'id', [
             'countryName',
             'province',
             'city',

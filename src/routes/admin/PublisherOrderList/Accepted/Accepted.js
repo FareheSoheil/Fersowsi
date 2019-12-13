@@ -9,7 +9,7 @@
 
 import React from 'react';
 import Spinner from '../../../../components/Admin/Spinner';
-import CustomTable from '../../../../components/CustomTabel';
+import PublisherOrderTable from '../../../../components/Admin/PublisherOrder/PublisherOrderTable';
 import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PublisherOrderSideFilter from '../../../../components/Admin/PublisherOrder/PublisherOrderSideFilter';
@@ -266,7 +266,7 @@ class Accepted extends React.Component {
                       </div>
                     </div>
 
-                    <CustomTable
+                    <PublisherOrderTable
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentPublisherOrders}

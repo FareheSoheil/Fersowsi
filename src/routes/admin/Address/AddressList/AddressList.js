@@ -38,13 +38,17 @@ class AddressList extends React.Component {
   }
 
   fetchAddresses() {
-    const url = `${SERVER}/getAllAddressesOfSpecificUser`;
+    const url = `${SERVER}/getAllAddresses`;
     this.setState({
       isLoading: true,
     });
+    const cred = {
+      pageIndex: this.state.pageIndex,
+      pageSize: this.state.pageSize,
+    };
     const options = {
       method: 'POST',
-
+      body: JSON.stringify(cred),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -54,6 +58,7 @@ class AddressList extends React.Component {
       url,
       options,
       response => {
+        console.log(' response.currentRecords : ', response.currentRecords);
         that.setState({
           currentAddresses: response.currentRecords,
           totalPageNum: response.totalPageNum,

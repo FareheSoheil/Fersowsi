@@ -9,7 +9,7 @@
 
 import React from 'react';
 import Spinner from '../../../../components/Admin/Spinner';
-import CustomTable from '../../../../components/CustomTabel';
+import PublisherOrderTable from '../../../../components/Admin/PublisherOrder/PublisherOrderTable';
 import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PublisherOrderSideFilter from '../../../../components/Admin/PublisherOrder/PublisherOrderSideFilter';
@@ -264,14 +264,10 @@ class Cancelled extends React.Component {
                         </div>
                       </div>
                     </div>
-                    <CustomTable
+                    <PublisherOrderTable
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentPublisherOrders}
-                      columnLabels={PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY}
-                      recordItemNames={
-                        PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
-                      }
                       handlePageChange={this.handlePageChange}
                       onRecordClick={this.onCustomerOrderClick}
                     />
