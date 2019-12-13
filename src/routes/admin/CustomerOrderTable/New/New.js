@@ -10,6 +10,7 @@
 import React from 'react';
 import Spinner from '../../../../components/Admin/Spinner';
 import CustomTable from '../../../../components/CustomTabel';
+import CustomerOrderTable from '../../../../components/Admin/CustomerOrderTable';
 import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CustomerOrderSideFilter from '../../../../components/Admin/CustomerOrderSideFilter';
@@ -250,12 +251,10 @@ class New extends React.Component {
                       </div>
                     </div>
 
-                    <CustomTable
+                    <CustomerOrderTable
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentCustomerOrders}
-                      columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
-                      recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
                       handlePageChange={this.handlePageChange}
                       onRecordClick={this.onCustomerOrderClick}
                     />

@@ -36,7 +36,7 @@ const routes = {
                 import(/* webpackChunkName: 'adminClaims' */ './admin/Claims/ClaimsTable'),
             },
             {
-              path: '/claim',
+              path: '/:id',
 
               // query: '?id=:cid&orderId=:oid',
               load: () =>
@@ -125,17 +125,17 @@ const routes = {
             {
               path: '/all',
               load: () =>
-                import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/PublisherOrderTable'),
+                import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/PublisherOrderList'),
             },
             {
               path: '/accepted',
               load: () =>
-                import(/* webpackChunkName: 'adminAcceptedPublisherOrders' */ './admin/PublisherOrderTable/Accepted'),
+                import(/* webpackChunkName: 'adminAcceptedPublisherOrders' */ './admin/PublisherOrderList/Accepted'),
             },
             {
               path: '/cancelled',
               load: () =>
-                import(/* webpackChunkName: 'adminCancelledPublisherOrders' */ './admin/PublisherOrderTable/Cancelled'),
+                import(/* webpackChunkName: 'adminCancelledPublisherOrders' */ './admin/PublisherOrderList/Cancelled'),
             },
             {
               path: '/add',

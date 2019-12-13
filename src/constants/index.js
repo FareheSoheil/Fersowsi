@@ -29,6 +29,7 @@ const SSRSERVER = 'http://localhost:3000';
 const fetchURL = 'http://45.89.139.182:3004/getComments';
 const ROLES = {
   admin: { value: 1, label: 'Super Admin' },
+  adminCustomer: { value: 5, label: 'AdminCustomer' },
   operator: { value: 2, label: 'Operator' },
   customer: { value: 4, label: 'Customer' },
   publisher: { value: 3, label: 'Publisher' },

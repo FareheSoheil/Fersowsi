@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Select from 'react-select';
 import s from './ProductPriceRecord.css';
-import zeroTrimmer from '../../../../../zeroTrimmer';
+import adminPriceTrimmer from '../../../../../adminPriceTrimmer';
+import { PRICE_SIGNS } from '../../../../../constants/constantData';
 
 class ProductPriceRecord extends React.Component {
   static propTypes = {
@@ -67,7 +68,6 @@ class ProductPriceRecord extends React.Component {
             }
           />
         </td>
-
         <td>
           {' '}
           <Select
@@ -84,84 +84,81 @@ class ProductPriceRecord extends React.Component {
           {/*  */}
         </td>
         <td>
-          <form>
-            {' '}
-            <div className="form-group">
-              <input
-                name="publisherPrice"
-                type="text"
-                className="form-control form-control-sm "
-                value={
-                  this.props.hasAdd
-                    ? this.props.cost.publisherPrice
-                    : zeroTrimmer(this.props.cost.publisherPrice[0], 'price')
-                }
-                onChange={e => this.props.onInputChange(e, this.props.index)}
-              />
-            </div>
-          </form>
+          <input
+            name="publisherPrice"
+            type="text"
+            className={s.price}
+            value={
+              this.props.hasAdd
+                ? this.props.cost.publisherPrice[this.props.currencyId]
+                : adminPriceTrimmer(
+                    this.props.cost.publisherPrice[this.props.currencyId],
+                    'price',
+                  )
+            }
+            onChange={e => this.props.onInputChange(e, this.props.index)}
+          />
+          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
         </td>
         <td>
-          <form>
-            {' '}
-            <div className="form-group">
-              <input
-                name="institutionalCustomerPrice"
-                type="text"
-                className="form-control form-control-sm "
-                // disabled
-                value={
-                  this.props.hasAdd
-                    ? this.props.cost.institutionalCustomerPrice
-                    : zeroTrimmer(
-                        this.props.cost.institutionalCustomerPrice[0],
-                        'price',
-                      )
-                }
-                onChange={e => this.props.onInputChange(e, this.props.index)}
-              />
-            </div>
-          </form>
+          {' '}
+          <input
+            name="institutionalCustomerPrice"
+            type="text"
+            className={s.price}
+            // disabled
+            value={
+              this.props.hasAdd
+                ? this.props.cost.institutionalCustomerPrice[
+                    this.props.currencyId
+                  ]
+                : adminPriceTrimmer(
+                    this.props.cost.institutionalCustomerPrice[
+                      this.props.currencyId
+                    ],
+                    'price',
+                  )
+            }
+            onChange={e => this.props.onInputChange(e, this.props.index)}
+          />
+          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
         </td>
         <td>
-          <form>
-            {' '}
-            <div className="form-group">
-              <input
-                name="privateCustomerPrice"
-                type="text"
-                className="form-control form-control-sm "
-                value={
-                  this.props.hasAdd
-                    ? this.props.cost.privateCustomerPrice
-                    : zeroTrimmer(
-                        this.props.cost.privateCustomerPrice[0],
-                        'price',
-                      )
-                }
-                // disabled
-                onChange={e => this.props.onInputChange(e, this.props.index)}
-              />
-            </div>
-          </form>
+          {' '}
+          <input
+            name="privateCustomerPrice"
+            type="text"
+            className={s.price}
+            value={
+              this.props.hasAdd
+                ? this.props.cost.privateCustomerPrice[this.props.currencyId]
+                : adminPriceTrimmer(
+                    this.props.cost.privateCustomerPrice[this.props.currencyId],
+                    'price',
+                  )
+            }
+            // disabled
+            onChange={e => this.props.onInputChange(e, this.props.index)}
+          />
+          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
         </td>
         <td>
-          <form>
-            {' '}
-            <div className="form-group">
-              <input
-                name="postalCost"
-                type="text"
-                className="form-control form-control-sm "
-                value={
-                  this.props.hasAdd
-                    ? this.props.cost.postalCost
-                    : zeroTrimmer(this.props.cost.postalCost[0], 'price')
-                }
-                onChange={e => this.props.onInputChange(e, this.props.index)}
-              />
-            </div>
-          </form>
+          {' '}
+          <input
+            name="postalCost"
+            type="text"
+            className={s.price}
+            value={
+              this.props.hasAdd
+                ? this.props.cost.postalCost[this.props.currencyId]
+                : adminPriceTrimmer(
+                    this.props.cost.postalCost[this.props.currencyId],
+                    'price',
+                  )
+            }
+            onChange={e => this.props.onInputChange(e, this.props.index)}
+          />
+          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
         </td>
         <td>
           {this.props.hasAdd ? (

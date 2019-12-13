@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import PublisherOrderTable from './PublisherOrderTable';
+import PublisherOrderList from './PublisherOrderList';
 import AdminLayout from '../../../components/Admin/AdminLayout';
 
 async function action(context) {
@@ -17,7 +17,7 @@ async function action(context) {
     chunks: ['adminPublisherOrderTable'],
     component: (
       <AdminLayout>
-        <PublisherOrderTable context={context} />
+        <PublisherOrderList context={context} />
       </AdminLayout>
     ),
   };

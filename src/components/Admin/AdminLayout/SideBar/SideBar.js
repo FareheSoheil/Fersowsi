@@ -284,7 +284,7 @@ class SideBar extends React.Component {
                   class={`collapse submenu ${s.submenuContainer} `}
                 >
                   <ul class="nav flex-column">
-                    <li class="nav-item">
+                    {/* <li class="nav-item">
                       <a
                         class="nav-link"
                         onClick={() =>
@@ -293,7 +293,7 @@ class SideBar extends React.Component {
                       >
                         Add Order{' '}
                       </a>
-                    </li>
+                    </li> */}
                     <li class="nav-item">
                       <a
                         class="nav-link"

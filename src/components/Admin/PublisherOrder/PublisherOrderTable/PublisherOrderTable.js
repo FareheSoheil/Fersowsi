@@ -11,11 +11,11 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import s from './CustomerOrderTable.css';
-import adminPriceTrimmer from '../../../adminPriceTrimmer';
-import { PRODUCT_STATUS, PRICE_SIGNS } from '../../../constants/constantData';
+import s from './PublisherOrderTable.css';
+import history from '../.././../../history';
+import dateTrimmer from '../.././../../dateTrimmer';
 
-class CustomerOrderTable extends React.Component {
+class PublisherOrderTable extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
     hasPagination: PropTypes.bool.isRequired,
@@ -27,6 +27,10 @@ class CustomerOrderTable extends React.Component {
   static defaultProps = {
     hasPagination: true,
   };
+  goTo(e, url) {
+    e.stopPropagation();
+    history.push(url);
+  }
   colorPicker(record) {
     let color = '';
 
@@ -46,10 +50,12 @@ class CustomerOrderTable extends React.Component {
     const tableHeaders = (
       <tr>
         <th className="border-0">Id</th>
-        <th className="border-0">Total Cost</th>
-        <th className="border-0">Total Price</th>
-        <th className="border-0">Status</th>
-        <th className="border-0">Discount</th>
+        <th className="border-0"># of Issues</th>
+        <th className="border-0">Customer Order Id</th>
+        <th className="border-0">Product Id</th>
+        <th className="border-0">Start Date</th>
+        <th className="border-0">End Date</th>
+        <th>Claims</th>
       </tr>
     );
     let records = '';
@@ -57,8 +63,6 @@ class CustomerOrderTable extends React.Component {
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
-          // style={{ lineHeight: '14px' }}
-          // className={this.colorPicker(record)}
           onClick={() => {
             this.props.onRecordClick(
               record.id,
@@ -68,22 +72,29 @@ class CustomerOrderTable extends React.Component {
           }}
         >
           <td>{record.id}</td>
-          <td>
-            {adminPriceTrimmer(
-              record.totalCost[record.currencyId - 1],
-              'price',
-            )}{' '}
-            {PRICE_SIGNS[record.currencyId]}
+          <td>{record.count}</td>
+          <td
+            onClick={e =>
+              this.goTo(e, `/admin/customerOrder/${record.customerOrderId}`)
+            }
+          >
+            <u>
+              <i> {record.customerOrderId}</i>
+            </u>
           </td>
-          <td>
-            {adminPriceTrimmer(
-              record.totalPrice[record.currencyId - 1],
-              'price',
-            )}{' '}
-            {PRICE_SIGNS[record.currencyId]}
+          <td
+            onClick={e => this.goTo(e, `/admin/products/${record.productId}`)}
+          >
+            <u>
+              <i>{record.productId}</i>
+            </u>
           </td>
-          <td>{record.status.label}</td>
-          <td>{adminPriceTrimmer(record.discount, 'price')} %</td>
+
+          <td>{dateTrimmer(record.startDate)}</td>
+          <td>{dateTrimmer(record.endDate)}</td>
+          <td onClick={e => this.goTo(e, `/admin/claims/${record.id}`)}>
+            <button>Claims</button>
+          </td>
         </tr>
       ));
       toDisplay = (
@@ -135,4 +146,4 @@ class CustomerOrderTable extends React.Component {
   }
 }
 
-export default withStyles(s)(CustomerOrderTable);
+export default withStyles(s)(PublisherOrderTable);

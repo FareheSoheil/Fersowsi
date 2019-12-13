@@ -120,10 +120,11 @@ class ClaimsTable extends React.Component {
     this.fetchClaims();
   }
   onClaimClick(id, orderId) {
-    history.push({
-      pathname: `/admin/claims/claim`,
-      search: `id=${id}&orderId=${orderId}`,
-    });
+    history.push(`/admin/claims/${orderId}`);
+    //   {
+    //   pathname: `/admin/claims/claim/${orderId}`,
+    //   search: `id=${id}&orderId=${orderId}`,
+    // });
   }
   render() {
     return (

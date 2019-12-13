@@ -44,15 +44,37 @@ class ProfileProInfo extends React.Component {
   };
   constructor(props) {
     super(props);
+    this.state = {
+      claims: this.props.user.claims,
+      claimPageCount: Math.ceil(this.props.user.claims.length / 8),
+      claimCurrentPage: 0,
+      addresses: this.props.user.addresses,
+      addressPageCount: Math.ceil(this.props.user.addresses.length / 8),
+      addressCurrentPage: 0,
+      orders:
+        this.props.user.Role.value == 4
+          ? this.props.user.customerOrders
+          : this.props.user.publisherOrders,
+      ordersPageCount:
+        this.props.user.Role.value == 4
+          ? Math.ceil(this.props.user.customerOrders.length / 8)
+          : Math.ceil(this.props.user.publisherOrders.length / 8),
+      ordersCurrentPage: 0,
+    };
     this.onOrderClick = this.onOrderClick.bind(this);
     this.onClaimClick = this.onClaimClick.bind(this);
     this.onAddressClick = this.onAddressClick.bind(this);
+
+    this.handleAddressPageChange = this.handleAddressPageChange.bind(this);
+    this.handleClaimsPageChange = this.handleClaimsPageChange.bind(this);
+    this.handleOrderPageChange = this.handleOrderPageChange.bind(this);
   }
+
   onClaimClick(id, orderId) {
     history.push({
       pathname: `/admin/claims/claim`,
       search: `id=${id}&orderId=${orderId}`,
-      state: { ab: 'ab' },
+      s,
     });
   }
   onOrderClick(id) {
@@ -67,7 +89,22 @@ class ProfileProInfo extends React.Component {
   onAddressClick(id) {
     history.push(`/admin/address/${id}`);
   }
-  componentDidMount() {}
+
+  handleAddressPageChange(sel) {
+    this.setState({
+      addressCurrentPage: sel.selected,
+    });
+  }
+  handleClaimsPageChange(sel) {
+    this.setState({
+      claimCurrentPage: sel.selected,
+    });
+  }
+  handleOrderPageChange(sel) {
+    this.setState({
+      ordersCurrentPage: sel.selected,
+    });
+  }
   render() {
     return (
       <div class="col-xl-7 col-lg-8 col-md-6 col-sm-12 col-12">
@@ -82,15 +119,19 @@ class ProfileProInfo extends React.Component {
               Save Changes
             </button>
           </div>
-          <div className="col-xl-4 col-md-6">
-            <button
-              className="btn btn-warning"
-              disabled
-              onClick={this.props.onAct}
-            >
-              Act as this user
-            </button>
-          </div>
+          {localStorage.getItem('role') == 2 ||
+          localStorage.getItem('role') == 5 ? (
+            <div className="col-xl-4 col-md-6">
+              <button
+                className="btn btn-warning"
+                onClick={() => this.props.onAct(this.props.user.id)}
+              >
+                Act as this user
+              </button>
+            </div>
+          ) : (
+            ''
+          )}
           <div className="col-xl-4 col-md-6">
             <button
               type="submit"
@@ -175,13 +216,17 @@ class ProfileProInfo extends React.Component {
                 <h5 class="card-header">Claims Of This User</h5>
                 <div class="card-body">
                   <CustomTable
-                    hasPagination={false}
-                    // pageCount={this.props.pageCount}
-                    // currentPageNumber={2}
-                    records={this.props.user.claims}
+                    hasPagination={true}
+                    pageCount={this.state.claimPageCount}
+                    currentPageNumber={this.state.claimCurrentPage}
+                    records={this.state.claims.slice(
+                      this.state.claimCurrentPage * 8 +
+                        this.state.claimCurrentPage * 8 +
+                        9,
+                    )}
                     columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
                     recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
-                    // handlePageChange={this.handlePageChange}
+                    handlePageChange={this.handleClaimsPageChange}
                     onRecordClick={this.onClaimClick}
                   />
                 </div>
@@ -467,25 +512,34 @@ class ProfileProInfo extends React.Component {
                   <div class="card-body">
                     {this.props.user.Role.value == 4 ? (
                       <CustomTable
-                        hasPagination={false}
-                        records={this.props.user.customerOrders}
+                        hasPagination={true}
+                        records={this.state.orders.slice(
+                          this.state.ordersCurrentPage * 8,
+                          this.state.ordersCurrentPage * 8 + 9,
+                        )}
+                        pageCount={this.state.ordersPageCount}
+                        currentPageNumber={this.state.ordersCurrentPage}
                         columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
                         recordItemNames={
                           CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
                         }
+                        handlePageChange={this.handleOrderPageChange}
                         onRecordClick={this.onOrderClick}
                       />
                     ) : (
                       <CustomTable
-                        // pageCount={this.props.pageCount}
-                        // currentPageNumber={2}
-                        hasPagination={false}
-                        records={this.props.user.publisherOrders}
+                        hasPagination={true}
+                        records={this.state.orders.slice(
+                          this.state.ordersCurrentPage * 8,
+                          this.state.ordersCurrentPage * 8 + 9,
+                        )}
+                        pageCount={this.state.ordersPageCount}
+                        currentPageNumber={this.state.ordersCurrentPage}
                         columnLabels={PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY}
                         recordItemNames={
                           PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
                         }
-                        // handlePageChange={this.handlePageChange}
+                        handlePageChange={this.handleOrderPageChange}
                         onRecordClick={this.onOrderClick}
                       />
                     )}
@@ -504,13 +558,16 @@ class ProfileProInfo extends React.Component {
                 <h5 class="card-header">Addresses</h5>
                 <div class="card-body">
                   <CustomTable
-                    // pageCount={this.props.pageCount}
-                    // currentPageNumber={2}
-                    hasPagination={false}
-                    records={this.props.user.addresses}
+                    pageCount={this.state.addressPageCount}
+                    currentPageNumber={this.state.addressCurrentPage}
+                    hasPagination={true}
+                    records={this.state.addresses.slice(
+                      this.state.addressCurrentPage * 8,
+                      this.state.addressCurrentPage * 8 + 9,
+                    )}
                     columnLabels={ADDRESS_TABLE_LABELS}
                     recordItemNames={ADDRESS_RECORD_ITEMS}
-                    // handlePageChange={this.handlePageChange}
+                    handlePageChange={this.handleAddressPageChange}
                     onRecordClick={this.onAddressClick}
                   />
                 </div>

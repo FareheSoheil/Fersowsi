@@ -86,10 +86,7 @@ class Login extends React.Component {
               path: '/',
               expires,
             });
-            cookie.save('id', data.id, {
-              path: '/',
-              expires,
-            });
+
             cookie.save('userSubCategory', data.userSubCategory.value, {
               path: '/',
               expires,

@@ -225,8 +225,12 @@ class ProductDetail extends React.Component {
     const attr = event.target.name;
     let state = { ...this.state };
 
-    if (attr === 'privateRatio' || attr === 'instRatio') {
+    if (attr == 'privateRatio' || attr == 'instRatio') {
       if (this.isNumber(value) || value == '') this.setState({ [attr]: value });
+    } else if (attr == 'tax') {
+      state = { ...this.state.product };
+      state.tax[this.state.product.currencyId] = value;
+      this.setState({ product: state });
     } else {
       state = { ...this.state.product };
       state[attr] = value;
@@ -236,9 +240,12 @@ class ProductDetail extends React.Component {
   // price controllers
   onPriceInputChange(e, index) {
     const value = e.target.value;
+
     const state = e.target.name;
     let product = { ...this.state.product };
-    product.productPriceAndCost[index][state] = value;
+    product.productPriceAndCost[index][state][
+      this.state.product.currencyId
+    ] = value;
     this.setState({ product });
   }
   onPriceSelectChange(so, name, index) {
@@ -369,15 +376,6 @@ class ProductDetail extends React.Component {
         ) : (
           <div className="dashboard-ecommerce">
             <div className="container-fluid dashboard-content ">
-              {/* pageheader   */}
-              {/* <PageHeader
-                title="Product Detail"
-                breadCrumbs={[
-                  { link: '/admin/products/all', label: 'Products' },
-                  { label: 'Product Detail' },
-                ]}
-              /> */}
-
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="influence-profile-content pills-regular">
                   {/* tab headers */}
@@ -581,6 +579,7 @@ class ProductDetail extends React.Component {
                           </div>
 
                           <ProductPriceTable
+                            currencyId={this.state.product.currencyId}
                             applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
                             instRatio={this.state.instRatio}
@@ -605,19 +604,6 @@ class ProductDetail extends React.Component {
                       aria-labelledby="pills-details-tab"
                     >
                       <div class="card">
-                        {/* <h4
-                          class={
-                            this.state.product.productStatus.value ===
-                            PRODUCT_STATUS.Pending.value
-                              ? `${s.pending}  card-header`
-                              : this.state.product.productStatus.value ===
-                                PRODUCT_STATUS.Ready.value
-                                ? `${s.ready} card-header`
-                                : `${s.notAvailable} card-header`
-                          }
-                        >
-                          Product Details
-                        </h4> */}
                         <div class={`${s.cardContainer} card-body`}>
                           <ProductDetailsContainer
                             hasType={true}

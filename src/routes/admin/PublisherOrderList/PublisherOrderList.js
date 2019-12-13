@@ -8,22 +8,18 @@
  */
 
 import React from 'react';
-import Spinner from '../../../../components/Admin/Spinner';
-import CustomTable from '../../../../components/CustomTabel';
-import history from '../../../../history';
+import Spinner from '../../../components/Admin/Spinner';
+import CustomTable from '../../../components/CustomTabel';
+import PublisherOrderTable from '../../../components/Admin/PublisherOrder/PublisherOrderTable';
+import history from '../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import PublisherOrderSideFilter from '../../../../components/Admin/PublisherOrderSideFilter';
-import {
-  PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY,
-  PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
-  PUBLISHER_ORDER_STATUS,
-  OPCODES,
-} from '../../../../constants/constantData';
-import { SSRSERVER, SERVER } from '../../../../constants';
-import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
-import s from './Accepted.css';
+import PublisherOrderSideFilter from '../../../components/Admin/PublisherOrder/PublisherOrderSideFilter';
+import { OPCODES } from '../../../constants/constantData';
+import { SERVER } from '../../../constants';
+import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import s from './PublisherOrderList.css';
 
-class Accepted extends React.Component {
+class PublisherOrderList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +39,7 @@ class Accepted extends React.Component {
         startDate: '',
         endDate: '',
         deliveryType: '',
-        status: PUBLISHER_ORDER_STATUS.Accepted,
+        status: '',
         paymentStatus: '',
         productPeriod: '',
         productionSubscription: '',
@@ -73,10 +69,6 @@ class Accepted extends React.Component {
     this.fetchAllInfo();
     this.fetchPublisherOrders();
   }
-  onCustomerOrderClick(id) {
-    history.push(`/admin/publisherOrder/${id}`);
-  }
-
   onNumberChange() {
     var x = parseInt(document.getElementById('numberSelect').value);
     this.setState(
@@ -87,6 +79,9 @@ class Accepted extends React.Component {
         this.fetchPublisherOrders();
       },
     );
+  }
+  onCustomerOrderClick(id) {
+    history.push(`/admin/publisherOrder/${id}`);
   }
   fetchPublisherOrders() {
     const url = `${SERVER}/getAllPublisherOrders`;
@@ -197,7 +192,7 @@ class Accepted extends React.Component {
           singlProductTypes: '',
           productTypes: '',
           productContentTypes: '',
-          status: PUBLISHER_ORDER_STATUS.Accepted,
+          status: '',
           languages: '',
           ageGroups: '',
           periods: '',
@@ -224,7 +219,7 @@ class Accepted extends React.Component {
           <div className="row">
             <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
               <div className="card">
-                <h4 className="card-header">Accepted Publisher Orders</h4>
+                <h4 className="card-header">Publisher Orders</h4>
                 <div className="card-body p-0">
                   <div className="container-fluid">
                     <div className="row mt-2 pl-3">
@@ -265,15 +260,10 @@ class Accepted extends React.Component {
                         </div>
                       </div>
                     </div>
-
-                    <CustomTable
+                    <PublisherOrderTable
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentPublisherOrders}
-                      columnLabels={PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY}
-                      recordItemNames={
-                        PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
-                      }
                       handlePageChange={this.handlePageChange}
                       onRecordClick={this.onCustomerOrderClick}
                     />
@@ -283,7 +273,7 @@ class Accepted extends React.Component {
             </div>
 
             <PublisherOrderSideFilter
-              hasChoiceForStatus={false}
+              hasChoiceForStatus={true}
               filters={this.state.publisherOrderSearchFilter}
               allProducts={this.state.allProducts}
               allSubscriptions={this.state.allSubscriptions}
@@ -302,4 +292,4 @@ class Accepted extends React.Component {
   }
 }
 
-export default withStyles(s)(Accepted);
+export default withStyles(s)(PublisherOrderList);

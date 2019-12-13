@@ -1,8 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './CustomerOrderDetail.css';
-import DatePicker from 'react-datepicker';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import PageHeader from '../../../components/Admin/PageHeader';
 import Spinner from '../../../components/Admin/Spinner';
@@ -13,8 +12,18 @@ import {
   CUSTOMER_ORDER_STATUS_ARRAY,
 } from '../../../constants/constantData';
 import { SERVER, SSRSERVER } from '../../../constants';
+import { PRICE_SIGNS } from '../../../constants/constantData';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
+import adminPriceTrimmer from '../../../adminPriceTrimmer';
+import s from './CustomerOrderDetail.css';
+const prices = [
+  'totalPrice',
+  'cancelPrice',
+  'totalDeliveryCost',
+  'totalCost',
+  'totalTaxCost',
+];
 class CustomerOrderDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -124,13 +133,20 @@ class CustomerOrderDetail extends React.Component {
     const value = event.target.value;
     const state = event.target.name;
     let customerOrder = { ...this.state.customerOrder };
-    customerOrder[state] = value;
+    if (prices.includes(state)) {
+      customerOrder[state][this.state.customerOrder.currency.id - 1] = value;
+    } else customerOrder[state] = value;
     this.setState({ customerOrder });
   }
 
   handleSelectChange = (selectedOption, op) => {
     let customerOrder = { ...this.state.customerOrder };
-    customerOrder[op] = selectedOption;
+    if (op == 'currency')
+      customerOrder[op] = {
+        id: selectedOption.value,
+        label: selectedOption.label,
+      };
+    else customerOrder[op] = selectedOption;
     this.setState({ customerOrder });
   };
   onExportProduct() {
@@ -177,17 +193,24 @@ class CustomerOrderDetail extends React.Component {
                                 <div className="col-12">
                                   {' '}
                                   <label className="mb-1">
-                                    Total Price : &nbsp; &nbsp; &nbsp;
-                                    &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
-                                    &nbsp;&nbsp; &nbsp;&nbsp;
+                                    {`Total Price (${
+                                      PRICE_SIGNS[
+                                        this.state.customerOrder.currency.id
+                                      ]
+                                    }) :`}{' '}
+                                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                                    &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
                                   </label>
                                   <input
                                     name="totalPrice"
                                     type="text"
                                     className="form-control form-control-sm"
-                                    value={
-                                      this.state.customerOrder.totalPrice[0]
-                                    }
+                                    value={adminPriceTrimmer(
+                                      this.state.customerOrder.totalPrice[
+                                        this.state.customerOrder.currency.id - 1
+                                      ],
+                                      'price',
+                                    )}
                                     onChange={this.onChangeInput}
                                   />
                                 </div>
@@ -198,8 +221,13 @@ class CustomerOrderDetail extends React.Component {
                                 <div className="col-12">
                                   {' '}
                                   <label className="mr-2">
-                                    Cancel Price : &nbsp;&nbsp; &nbsp; &nbsp;
-                                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {`Cancel Price (${
+                                      PRICE_SIGNS[
+                                        this.state.customerOrder.currency.id
+                                      ]
+                                    }) :`}{' '}
+                                    &nbsp;&nbsp; &nbsp; &nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                   </label>
                                   <input
                                     name="cancelPrice"
@@ -215,16 +243,23 @@ class CustomerOrderDetail extends React.Component {
                                 <div className="col-12">
                                   {' '}
                                   <label className="mr-2">
-                                    Total Delivery Cost : &nbsp;
+                                    {`Total Delivery Cost (${
+                                      PRICE_SIGNS[
+                                        this.state.customerOrder.currency.id
+                                      ]
+                                    }) :`}
                                   </label>
                                   <input
                                     name="totalDeliveryCost"
                                     type="text"
                                     className="form-control form-control-sm"
-                                    value={
+                                    value={adminPriceTrimmer(
                                       this.state.customerOrder
-                                        .totalDeliveryCost[0]
-                                    }
+                                        .totalDeliveryCost[
+                                        this.state.customerOrder.currency.id - 1
+                                      ],
+                                      'price',
+                                    )}
                                     onChange={this.onChangeInput}
                                   />
                                 </div>
@@ -235,16 +270,23 @@ class CustomerOrderDetail extends React.Component {
                                 <div className="col-12">
                                   {' '}
                                   <label className="mr-4">
-                                    Total Cost :&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
-                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    {`Total Cost (${
+                                      PRICE_SIGNS[
+                                        this.state.customerOrder.currency.id
+                                      ]
+                                    }) :`}&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                                    &nbsp; &nbsp;
                                   </label>
                                   <input
                                     name="totalCost"
                                     type="text"
                                     className="form-control form-control-sm"
-                                    value={
-                                      this.state.customerOrder.totalCost[0]
-                                    }
+                                    value={adminPriceTrimmer(
+                                      this.state.customerOrder.totalCost[
+                                        this.state.customerOrder.currency.id - 1
+                                      ],
+                                      'price',
+                                    )}
                                     onChange={this.onChangeInput}
                                   />
                                 </div>
@@ -275,14 +317,17 @@ class CustomerOrderDetail extends React.Component {
                               <div className="row mt-3">
                                 <div className="col-12">
                                   <label>
-                                    Discount : &nbsp; &nbsp; &nbsp; &nbsp;
+                                    Discount (%): &nbsp; &nbsp; &nbsp; &nbsp;
                                     &nbsp; &nbsp; &nbsp; &nbsp;
                                   </label>
                                   <input
                                     name="discount"
                                     type="text"
                                     className="form-control form-control-sm numberInput"
-                                    value={this.state.customerOrder.discount}
+                                    value={adminPriceTrimmer(
+                                      this.state.customerOrder.discount,
+                                      'price',
+                                    )}
                                     onChange={this.onChangeInput}
                                   />
                                 </div>
@@ -291,15 +336,23 @@ class CustomerOrderDetail extends React.Component {
                               <div className="row mt-3">
                                 <div className="col-12">
                                   <label>
-                                    Total Tax Cost: &nbsp; &nbsp; &nbsp; &nbsp;
+                                    {`Total Tax Cost (${
+                                      PRICE_SIGNS[
+                                        this.state.customerOrder.currency.id
+                                      ]
+                                    }) :`}
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
                                   </label>
                                   <input
                                     name="totalTaxCost"
                                     type="text"
                                     className="form-control form-control-sm numberInput"
-                                    value={
-                                      this.state.customerOrder.totalTaxCost[0]
-                                    }
+                                    value={adminPriceTrimmer(
+                                      this.state.customerOrder.totalTaxCost[
+                                        this.state.customerOrder.currency.id - 1
+                                      ],
+                                      'price',
+                                    )}
                                     onChange={this.onChangeInput}
                                   />
                                 </div>
@@ -352,49 +405,6 @@ class CustomerOrderDetail extends React.Component {
                               </div>
                             </div>
                           </div>
-                        </div>
-
-                        <div className="row mt-3">
-                          {' '}
-                          {/* <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                              <div className="row">
-                                <div className="col-xl-4 col-lg-5 col-md-5 col-sm-12 mr-2">
-                                  <label>Start Date </label>
-                                </div>
-                                <div className="col-xl-5 col-lg-5 col-md-5">
-                                  <DatePicker
-                                    name="startDate"
-                                    selected={
-                                      new Date(
-                                        this.state.customerOrder.startDate,
-                                      )
-                                    }
-                                    onChange={date =>
-                                      this.handleDateChange(date, 'startDate')
-                                    }
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                              <div className="row">
-                                <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12 mr-2">
-                                  <label>End Date </label>
-                                </div>
-                                <div className="col-xl-5 col-lg-5 col-md-5">
-                                  <DatePicker
-                                    name="endDate"
-                                    selected={
-                                      new Date(this.state.customerOrder.endDate)
-                                    }
-                                    onChange={date =>
-                                      this.handleDateChange(date, 'endDate')
-                                    }
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                         */}
                         </div>
                       </form>
                     </div>

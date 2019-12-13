@@ -24,8 +24,8 @@ class ClaimDetails extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      publisherOrderId: this.props.context.query.orderId,
-      claimId: this.props.context.query.id,
+      publisherOrderId: this.props.context.params.id,
+      // claimId: this.props.context.query.id,
       customerId: '',
       publisherId: '',
       allClaimsOfOrder: [],
@@ -160,7 +160,6 @@ class ClaimDetails extends React.Component {
   }
   onEmailCheck() {
     let preVal = this.state.sendEmail;
-    window.alert(preVal);
     this.setState({
       sendEmail: !preVal,
     });

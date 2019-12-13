@@ -8,11 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import s from './PublisherOrderSideFilter.css';
 import {
   PUBLISHER_ORDER_STATUS_ARRAY,
-  PRODUCT_PERIOD_ARRAY,
-  SINGLE_PRODUCT_TYPE_ARRAY,
-  PRODUCT_TYPE_ARRAY,
   OPCODES,
-} from '../../../constants/constantData';
+} from '../../../../constants/constantData';
 class PublisherOrderSideFilter extends React.Component {
   static propTypes = {
     hasChoiceForStatus: PropTypes.bool.isRequired,

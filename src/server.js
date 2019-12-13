@@ -120,13 +120,17 @@ async function Authorize(req, res, next) {
       } else {
         // in main pages
         // if it is user
-        if (req.cookies.role == ROLES.customer.value) {
+        if (
+          req.cookies.role == ROLES.customer.value ||
+          req.cookies.role == ROLES.adminCustomer.value
+        ) {
           if (homePat.test(req.path)) {
             console.log('im fixing redirections : ', req.path);
             // return next();
             res.redirect('/user/advancedSearch');
           } else if (!userPaths.test(req.path)) {
-            console.log('in user wants admin pages');
+            if (req.cookies.role == ROLES.adminCustomer.value) return next();
+
             res.redirect('/user/products');
           } else {
             console.log('User wants user pages');
@@ -135,6 +139,7 @@ async function Authorize(req, res, next) {
         } else if (req.cookies.role != ROLES.customer.value) {
           // if it is admin
           if (userPaths.test(req.path) || homePat.test(req.path)) {
+            if (req.cookies.role == ROLES.adminCustomer.value) return next();
             res.redirect('/admin');
           } else {
             return next();

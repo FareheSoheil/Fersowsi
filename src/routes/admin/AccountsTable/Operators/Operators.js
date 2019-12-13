@@ -21,6 +21,7 @@ import {
   ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY,
 } from '../../../../constants/constantData';
 import { SERVER } from '../../../../constants';
+import { onAct } from '../userSelectHelper';
 class Operators extends React.Component {
   constructor(props) {
     super(props);
@@ -55,9 +56,14 @@ class Operators extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.showMore = this.showMore.bind(this);
+    this.onAct = this.onAct.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
     this.fetchAccounts = this.fetchAccounts.bind(this);
     this.onAccountClick = this.onAccountClick.bind(this);
+  }
+  onAct(e, id) {
+    e.stopPropagation();
+    onAct(this, id);
   }
   componentDidMount() {
     this.fetchAccounts();
@@ -214,6 +220,7 @@ class Operators extends React.Component {
                     />
 
                     <AccountsTable
+                      onSelect={this.onAct}
                       pageSize={this.state.pageSize}
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}

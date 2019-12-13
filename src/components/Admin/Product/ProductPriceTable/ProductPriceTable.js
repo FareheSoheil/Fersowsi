@@ -32,10 +32,10 @@ class ProductPriceTable extends React.Component {
         zoneName: '',
         deliveryTypeId: '',
         deliveryTypeName: '',
-        privateCustomerPrice: 0,
-        institutionalCustomerPrice: 0,
-        publisherPrice: '',
-        postalCost: 0,
+        privateCustomerPrice: [0, 0, 0, 0, 0],
+        institutionalCustomerPrice: [0, 0, 0, 0, 0],
+        publisherPrice: [0, 0, 0, 0, 0],
+        postalCost: [0, 0, 0, 0, 0],
       },
     };
     this.onSelectChange = this.onSelectChange.bind(this);
@@ -70,10 +70,6 @@ class ProductPriceTable extends React.Component {
     } else this.props.onPriceSelectChange(so, name, index);
   }
   onInputChange(e, index) {
-    // window.alert(e.target.name);
-    // window.alert(e.target.value);
-    // window.alert(index);
-    // window.alert(this.isNumber(e.target.value)); applyRatios && this.isNumber(value)
     let newCost = { ...this.state.newCost };
     const value = e.target.value;
     const state = e.target.name;
@@ -88,12 +84,12 @@ class ProductPriceTable extends React.Component {
         if (this.props.instRatio != '')
           newCost.institutionalCustomerPrice =
             (100 + parseFloat(this.props.instRatio)) * parseFloat(value) / 100;
-        newCost.publisherPrice = zeroTrimmer(value);
+        newCost.publisherPrice[this.props.currencyId] = zeroTrimmer(value);
         this.setState({ newCost }, () => {
           // window.alert(JSON.stringify(newCost));
         });
       } else if (state !== 'publisherPrice') {
-        newCost[state] = value;
+        newCost[state][this.props.currencyId] = value;
         this.setState({ newCost });
       }
     } else this.props.onPriceInputChange(e, index);
@@ -109,10 +105,10 @@ class ProductPriceTable extends React.Component {
         zoneName: '',
         deliveryTypeId: '',
         deliveryTypeName: '',
-        privateCustomerPrice: 0,
-        institutionalCustomerPrice: 0,
-        publisherPrice: 0,
-        postalCost: 0,
+        privateCustomerPrice: [0, 0, 0, 0, 0],
+        institutionalCustomerPrice: [0, 0, 0, 0, 0],
+        publisherPrice: [0, 0, 0, 0, 0],
+        postalCost: [0, 0, 0, 0, 0],
       },
     });
   }
@@ -122,6 +118,7 @@ class ProductPriceTable extends React.Component {
     if (this.props.prices !== undefined && this.props.prices.length !== 0) {
       records = this.props.prices.map((record, i) => (
         <ProductPriceRecord
+          currencyId={this.props.currencyId}
           index={i}
           hasAdd={false}
           isRelative={true}
@@ -162,6 +159,7 @@ class ProductPriceTable extends React.Component {
           <tbody>
             {' '}
             <ProductPriceRecord
+              currencyId={this.props.currencyId - 1}
               index={-1}
               isRelative={true}
               hasAdd={true}

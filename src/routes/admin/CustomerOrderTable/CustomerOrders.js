@@ -254,8 +254,6 @@ class CustomerOrders extends React.Component {
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentCustomerOrders}
-                      columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
-                      recordItemNames={CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY}
                       handlePageChange={this.handlePageChange}
                       onRecordClick={this.onCustomerOrderClick}
                     />

@@ -22,6 +22,7 @@ import {
   ACCOUNTS_RECORDE_ITEM_NAMES_ARRAY,
 } from '../../../../constants/constantData';
 import { SERVER } from '../../../../constants';
+import { onAct } from '../userSelectHelper';
 class Publishers extends React.Component {
   constructor(props) {
     super(props);
@@ -52,6 +53,7 @@ class Publishers extends React.Component {
         numberValue: '',
       },
     };
+    this.onAct = this.onAct.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -59,6 +61,10 @@ class Publishers extends React.Component {
     this.showMore = this.showMore.bind(this);
     this.fetchAccounts = this.fetchAccounts.bind(this);
     this.onAccountClick = this.onAccountClick.bind(this);
+  }
+  onAct(e, id) {
+    e.stopPropagation();
+    onAct(this, id);
   }
   componentDidMount() {
     this.fetchAccounts();
@@ -320,6 +326,7 @@ class Publishers extends React.Component {
                     </div>
 
                     <AccountsTable
+                      onSelect={this.onAct}
                       pageSize={this.state.pageSize}
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}

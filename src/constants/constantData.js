@@ -309,7 +309,7 @@ const OPCODES = {
   simple: 3,
 };
 const SERVER = 'http://localhost:3004';
-
+const PRICE_SIGNS = ['_', '€', '$', '£', 'ریال', 'SEK'];
 export {
   ADDRESS_RECORD_ITEMS,
   ADDRESS_TABLE_LABELS,
@@ -354,4 +354,5 @@ export {
   PRODUCT_TYPES,
   PRODUCT_COLUMNS_LABELS_ARRAY,
   PRODUCT_RECORD_ITEM_NAMES_ARRAY,
+  PRICE_SIGNS,
 };

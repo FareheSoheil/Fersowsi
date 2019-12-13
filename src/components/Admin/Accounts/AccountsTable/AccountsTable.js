@@ -11,10 +11,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import Select from 'react-select';
 import s from './AccountsTable.css';
-import zeroTrimmer from '../../../../zeroTrimmer';
-import { PRODUCT_STATUS } from '../../../../constants/constantData';
 
 class AccountsTable extends React.Component {
   static propTypes = {
@@ -34,27 +31,7 @@ class AccountsTable extends React.Component {
     super(props);
     this.onNumberChange = this.onNumberChange.bind(this);
   }
-  colorPicker(record) {
-    let color = '';
 
-    if (record.productStatus !== undefined) {
-      // PRODUCT_STATUS
-      if (record.productStatus.value === PRODUCT_STATUS.Ready.value) {
-        color = s.readyProduct;
-      }
-      if (record.productStatus.value === PRODUCT_STATUS.Pending.value)
-        color = s.pendingProduct;
-      if (record.productStatus.value === PRODUCT_STATUS.NotAvailable.value)
-        color = s.notAvailableProduct;
-    }
-    return color;
-  }
-  // 'profilePic',
-  // 'id',
-  // 'firstName',
-  // 'lastName',
-  // 'contractName',
-  // 'email',
   onNumberChange() {
     var x = parseInt(document.getElementById('numberSelect').value);
     this.props.showMore(x);
@@ -68,7 +45,13 @@ class AccountsTable extends React.Component {
         <th>Last Name</th>
         <th>Contract Name</th>
         <th>Email</th>
-        <th>Select</th>
+        {localStorage != undefined &&
+        (localStorage.getItem('role') == 2 ||
+          localStorage.getItem('role') == 5) ? (
+          <th>Select</th>
+        ) : (
+          ''
+        )}
       </tr>
     );
     let records = '';
@@ -77,7 +60,7 @@ class AccountsTable extends React.Component {
       records = this.props.records.map((record, i) => (
         <tr
           // style={{ lineHeight: '14px' }}
-          className={this.colorPicker(record)}
+          // className={this.colorPicker(record)}
           onClick={() => {
             this.props.onRecordClick(record.id);
           }}
@@ -88,15 +71,17 @@ class AccountsTable extends React.Component {
           <td>{record.lastName}</td>
           <td>{record.contractName}</td>
           <td>{record.email}</td>
-          <td>
-            <button
-              onClick={e => {
-                e.stopPropagation();
-              }}
-            >
-              Select
-            </button>
-          </td>
+          {localStorage != undefined &&
+          (localStorage.getItem('role') == 2 ||
+            localStorage.getItem('role') == 5) ? (
+            <td>
+              <button onClick={e => this.props.onSelect(e, record.id)}>
+                Select
+              </button>
+            </td>
+          ) : (
+            ''
+          )}
         </tr>
       ));
       toDisplay = (

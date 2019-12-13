@@ -4,13 +4,14 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import s from './ProductDetailsContainer.css';
-import zeroTrimmer from '../../../../zeroTrimmer';
+import adminPriceTrimmer from '../../../../adminPriceTrimmer';
 import {
   PRODUCT_TYPES,
   PRODUCT_TYPE_ARRAY,
   SINGLE_PRODUCT_TYPE_ARRAY,
   PRODUCT_STATUS_ARRAY,
   PRODUCT_STATUS,
+  PRICE_SIGNS,
 } from '../../../../constants/constantData';
 class ProductDetailsLeftContainer extends React.Component {
   static propTypes = {
@@ -185,16 +186,13 @@ class ProductDetailsLeftContainer extends React.Component {
                   </div>
                   <div className="col-xl-2">
                     <div className="form-group">
-                      <label className="mb-1">Discount</label>
+                      <label className="mb-1">Discount (%)</label>
                       <br />
                       <input
                         name="discount"
                         type="text"
                         className="form-control form-control-sm"
-                        value={zeroTrimmer(
-                          this.props.product.discount,
-                          'price',
-                        )}
+                        value={adminPriceTrimmer(this.props.product.discount)}
                         onChange={e => this.onChangeInput(e, 'num')}
                       />
                     </div>{' '}
@@ -214,16 +212,22 @@ class ProductDetailsLeftContainer extends React.Component {
                     </div>
                   </div>
                   <div className="col-xl-2">
-                    <div className="form-group">
-                      <label className="mb-1">Tax</label>
-                      <input
-                        name="tax"
-                        type="text"
-                        className="form-control form-control-sm"
-                        value={zeroTrimmer(this.props.product.tax[0], 'price')}
-                        onChange={e => this.onChangeInput(e, 'num')}
-                      />
-                    </div>
+                    {/* <div className="form-group"> */}
+                    <label className="mb-1">{`Tax ( ${
+                      PRICE_SIGNS[this.props.product.currencyId]
+                    } )`}</label>
+                    <input
+                      name="tax"
+                      type="text"
+                      className="form-control form-control-sm"
+                      value={adminPriceTrimmer(
+                        this.props.product.tax[this.props.product.currencyId],
+                        'price',
+                      )}
+                      onChange={e => this.onChangeInput(e, 'num')}
+                    />
+
+                    {/* </div> */}
                   </div>
                   <div className="col-xl-2">
                     <div className="form-group">
@@ -232,7 +236,7 @@ class ProductDetailsLeftContainer extends React.Component {
                         name="weight"
                         type="text"
                         className="form-control form-control-sm"
-                        value={zeroTrimmer(this.props.product.weight)}
+                        value={adminPriceTrimmer(this.props.product.weight)}
                         onChange={e => this.onChangeInput(e, 'num')}
                       />
                     </div>
@@ -331,7 +335,6 @@ class ProductDetailsLeftContainer extends React.Component {
               s.noPaddR
             } col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12`}
           >
-            {/* <div className="product-detailss"> */}
             <div className="pb-3 mb-3">
               <form className={s.productsmallInfoContainer}>
                 <div className="row">
@@ -366,33 +369,6 @@ class ProductDetailsLeftContainer extends React.Component {
                     </div>
                   </div>
                 </div>
-                {/* <div className="row">
-                  <div className="col-xl-12">
-                    <div className="form-group">
-                      <label className="mb-1"> Title </label>
-                      <input
-                        name="originalTitle"
-                        type="text"
-                        className="form-control form-control-lg "
-                        value={this.props.product.originalTitle}
-                        onChange={e => this.onChangeInput(e, 'txt')}
-                      />
-                    </div>
-                  </div>
-                </div> */}
-
-                {/* <div className="form-group">
-                  <label>weight</label>
-                  <br />
-                  <input
-                    name="weight"
-                    type="text"
-                    className="form-control form-control-sm"
-                    value={zeroTrimmer(this.props.product.weight)}
-                    onChange={e => this.onChangeInput(e, 'num')}
-                  />
-                </div> */}
-
                 <div
                   className={`mt-3 product-description ${s.productDescription}`}
                 >

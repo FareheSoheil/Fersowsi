@@ -9,16 +9,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import cookie from 'react-cookies';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { toastr } from 'react-redux-toastr';
 import ProfileInfo from '../../../components/Profile/ProfileInfo';
 import ProfileProInfo from '../../../components/Profile/ProfileProInfo';
 import Spinner from '../../../components/Admin/Spinner';
-import PageHeader from '../../../components/Admin/PageHeader';
-import { toastr } from 'react-redux-toastr';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import s from './ProfileDetail.css';
-import { USER_ACTIVITION_STATUS_ARRAY } from '../../../constants/constantData';
-import { SERVER, AVATAR } from '../../../constants';
+import {
+  SERVER,
+  SSRSERVER,
+  AVATAR,
+  COOKIE_EXPIRATION,
+} from '../../../constants';
+import history from '../../../history';
 
 class ProfileDetail extends React.Component {
   static propTypes = {
@@ -210,8 +215,64 @@ class ProfileDetail extends React.Component {
   onUserEdit() {
     window.alert(JSON.stringify(this.state.user));
   }
-  onAct() {
-    window.alert('send act ajax with this user id and current userId');
+  onAct(id) {
+    const url = `${SERVER}/loginInsteadACustomer`;
+    const cred = {
+      userId: id,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(cred),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error === undefined) {
+          const setStateURL = `${SSRSERVER}/state/setState`;
+          const setStateOptions = {
+            method: 'POST',
+            body: JSON.stringify(response),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          };
+          fetchWithTimeOut(setStateURL, setStateOptions, () => {
+            const expires = new Date();
+            const now = new Date();
+            expires.setDate(now.getDate() + COOKIE_EXPIRATION);
+
+            cookie.save('role', response.role.value, {
+              path: '/',
+              expires,
+            });
+            cookie.save('TokenId', response.TokenId, {
+              path: '/',
+              expires,
+            });
+
+            cookie.save('userSubCategory', response.userSubCategory.value, {
+              path: '/',
+              expires,
+            });
+            localStorage.setItem('TokenId', response.TokenId);
+            localStorage.setItem('id', response.id);
+            localStorage.setItem('role', response.role.value);
+            history.push('/user/products');
+          });
+        } else {
+          toastr.error(response.error.title, response.error.description);
+          console.log('login error : ', error);
+        }
+      },
+      error => {
+        console.log(error);
+      },
+    );
   }
   // componentDidMount() {}
   render() {
@@ -243,15 +304,6 @@ class ProfileDetail extends React.Component {
                     mobileNumber: this.state.user.mobileNumber,
                     faxNumber: this.state.user.faxNumber,
                     homepage: this.state.user.homepage,
-                    // VatId: this.state.user.VatId,
-                    // glmCode: this.state.user.glmCode,
-                    // referenceNo: this.state.user.referenceNo,
-                    // eoriNo: this.state.user.eoriNo,
-                    // bankName: this.state.user.bankName,
-                    // AccountNo: this.state.user.AccountNo,
-                    // iban: this.state.user.iban,
-                    // swiftAddress: this.state.user.swiftAddress,
-                    // bankGiro: this.state.user.bankGiro,
                     email: this.state.user.email,
                     dateOfBirth: new Date(this.state.user.dateOfBirth),
                     psn: this.state.user.psn,
@@ -273,6 +325,7 @@ class ProfileDetail extends React.Component {
                 <ProfileProInfo
                   isForAdd={false}
                   user={{
+                    id: this.state.user.id,
                     Role: this.state.user.Role,
                     Country: this.state.user.Country,
                     Currency: this.state.user.Currency,

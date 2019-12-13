@@ -12,7 +12,7 @@ import Spinner from '../../../../components/Admin/Spinner';
 import CustomTable from '../../../../components/CustomTabel';
 import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import PublisherOrderSideFilter from '../../../../components/Admin/PublisherOrderSideFilter';
+import PublisherOrderSideFilter from '../../../../components/Admin/PublisherOrder/PublisherOrderSideFilter';
 import {
   PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY,
   PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY,
