@@ -9,9 +9,12 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import cookie from 'react-cookies';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import s from './PublisherOrderTable.css';
+import { SERVER, SSRSERVER, COOKIE_EXPIRATION } from '../../../../constants';
+import { fetchWithTimeOut } from '../.././../../fetchWithTimeout';
 import history from '../.././../../history';
 import dateTrimmer from '../.././../../dateTrimmer';
 
@@ -27,10 +30,15 @@ class PublisherOrderTable extends React.Component {
   static defaultProps = {
     hasPagination: true,
   };
+  constructor(props) {
+    super(props);
+    this.goToCustomerOrder = this.goToCustomerOrder.bind(this);
+  }
   goTo(e, url) {
     e.stopPropagation();
     history.push(url);
   }
+
   colorPicker(record) {
     let color = '';
 
@@ -45,6 +53,70 @@ class PublisherOrderTable extends React.Component {
         color = s.notAvailableProduct;
     }
     return color;
+  }
+  goToCustomerOrder(e, id) {
+    e.stopPropagation();
+    if (cookie.load('role') == 5) history.push(`user/order/${id}`);
+    else {
+      window.alert('please first choose a user ');
+      // const url = `${SERVER}/loginInsteadACustomer`;
+      // const cred = {
+      //   userId: id,
+      // };
+      // const options = {
+      //   method: 'POST',
+      //   body: JSON.stringify(cred),
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // };
+      // const that = this;
+      // fetchWithTimeOut(
+      //   url,
+      //   options,
+      //   response => {
+      //     if (response.error === undefined) {
+      //       const setStateURL = `${SSRSERVER}/state/setState`;
+      //       const setStateOptions = {
+      //         method: 'POST',
+      //         body: JSON.stringify(response),
+      //         headers: {
+      //           'Content-Type': 'application/json',
+      //         },
+      //       };
+      //       fetchWithTimeOut(setStateURL, setStateOptions, () => {
+      //         const expires = new Date();
+      //         const now = new Date();
+      //         expires.setDate(now.getDate() + COOKIE_EXPIRATION);
+
+      //         cookie.save('role', response.role.value, {
+      //           path: '/',
+      //           expires,
+      //         });
+      //         cookie.save('TokenId', response.TokenId, {
+      //           path: '/',
+      //           expires,
+      //         });
+
+      //         cookie.save('userSubCategory', response.userSubCategory.value, {
+      //           path: '/',
+      //           expires,
+      //         });
+      //         localStorage.setItem('TokenId', response.TokenId);
+      //         localStorage.setItem('id', response.id);
+      //         localStorage.setItem('role', response.role.value);
+      //         history.push(`user/order/${id}`);
+      //       });
+      //     } else {
+      //       toastr.error(response.error.title, response.error.description);
+      //       console.log('login error : ', error);
+      //     }
+      //   },
+      //   error => {
+      //     console.log(error);
+      //   },
+      // );
+    }
   }
   render() {
     const tableHeaders = (
@@ -92,8 +164,13 @@ class PublisherOrderTable extends React.Component {
 
           <td>{dateTrimmer(record.startDate)}</td>
           <td>{dateTrimmer(record.endDate)}</td>
-          <td onClick={e => this.goTo(e, `/admin/claims/${record.id}`)}>
-            <button>Claims</button>
+          <td>
+            <button onClick={e => this.goTo(e, `/admin/claims/${record.id}`)}>
+              Claims
+            </button>{' '}
+            <button onClick={e => this.goToCustomerOrder(e, record.id)}>
+              Select
+            </button>
           </td>
         </tr>
       ));

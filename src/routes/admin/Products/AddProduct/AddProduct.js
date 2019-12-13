@@ -24,7 +24,7 @@ class AddProduct extends React.Component {
         id: '',
         publisherPrice: '',
         discount: 0,
-        tax: '',
+        tax: [0, 0, 0, 0, 0, 0],
         issn: '',
         dewey: '',
         asb: '',
@@ -37,7 +37,7 @@ class AddProduct extends React.Component {
         isSingleAvailabel: '',
         createdAt: '',
         updatedAt: '',
-
+        currencyId: 2,
         productType: PRODUCT_TYPES.Single,
         singleProductType: '',
         ageGroup: '',
@@ -49,13 +49,50 @@ class AddProduct extends React.Component {
         productPriceAndCost: [],
         subProducts: [],
       },
+      privateRatio: '',
+      instRatio: '',
       allContentCategories: '',
       allPublishers: '',
       allLanguages: '',
       allAgeGroups: '',
+      allPeriods: '',
+      allZones: [
+        {
+          value: 1,
+          label: 'Europe',
+        },
+        {
+          value: 2,
+          label: 'US and Canada',
+        },
+        {
+          value: 3,
+          label: 'Other',
+        },
+        {
+          value: 4,
+          label: 'Local',
+        },
+      ],
+      allDeliveries: [
+        {
+          value: 1,
+          label: 'Surface Mail',
+        },
+        {
+          value: 2,
+          label: 'Air Mail',
+        },
+      ],
+      allSubscriptions: [
+        { value: 1, label: 'six-monthly' },
+        { value: 2, label: 'yearly' },
+        { value: 3, label: 'two-weekly' },
+      ],
+
+      applyRatios: true,
       allProducts: '',
     };
-    // this.fetchProduct = this.fetchProduct.bind(this);
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
@@ -80,12 +117,48 @@ class AddProduct extends React.Component {
     this.fetchAllInfo();
     // this.fetchProduct();
   }
-
+  applyRatios() {
+    const pre = this.state.applyRatios;
+    this.setState({
+      applyRatios: !pre,
+    });
+  }
   isNumber(string) {
     if (/^[0-9]+$/.test(string) || /^\\s+$/.test(string)) return true;
-    else return false;
+    else return true;
   }
 
+  fetchProduct() {
+    const url = `${SERVER}/getProduct`;
+    this.setState({
+      isLoading: true,
+    });
+    const credentials = {
+      productId: this.state.id,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        that.setState({
+          product: response.product,
+          isLoading: false,
+        });
+      },
+      error => {
+        window.alert('error');
+        console.log('an error occured', error);
+      },
+    );
+  }
   fetchAllInfo() {
     const url = `${SERVER}/getAllAuxInfoForProducts`;
     this.setState({
@@ -98,7 +171,6 @@ class AddProduct extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-
     const that = this;
     fetchWithTimeOut(
       url,
@@ -111,6 +183,7 @@ class AddProduct extends React.Component {
           allAgeGroups: response.AgeGroups,
           allPeriods: response.Periods,
           allProducts: response.products,
+          // allSubscriptions: response.productSubscriptions,
           isLoading: false,
         });
       },
@@ -148,8 +221,12 @@ class AddProduct extends React.Component {
     const attr = event.target.name;
     let state = { ...this.state };
 
-    if (attr === 'privateRatio' || attr === 'instRatio') {
-      if (this.isNumber(value)) this.setState({ [attr]: value });
+    if (attr == 'privateRatio' || attr == 'instRatio') {
+      if (this.isNumber(value) || value == '') this.setState({ [attr]: value });
+    } else if (attr == 'tax') {
+      state = { ...this.state.product };
+      state.tax[this.state.product.currencyId] = value;
+      this.setState({ product: state });
     } else {
       state = { ...this.state.product };
       state[attr] = value;
@@ -159,9 +236,12 @@ class AddProduct extends React.Component {
   // price controllers
   onPriceInputChange(e, index) {
     const value = e.target.value;
+
     const state = e.target.name;
     let product = { ...this.state.product };
-    product.productPriceAndCost[index][state] = value;
+    product.productPriceAndCost[index][state][
+      this.state.product.currencyId
+    ] = value;
     this.setState({ product });
   }
   onPriceSelectChange(so, name, index) {
@@ -174,7 +254,7 @@ class AddProduct extends React.Component {
       product.productPriceAndCost[index].deliveryTypeName = so.label;
       product.productPriceAndCost[index].deliveryTypeId = so.value;
     } else if (name == 'subscription') {
-      product.productPriceAndCost[index].productSubscriptionTypeName = so.label;
+      product.productPriceAndCost[index].ProductSubscriptionTypeName = so.label;
       product.productPriceAndCost[index].productSubscriptionTypeId = so.value;
     } else {
       product.productPriceAndCost[index].productPeriodName = so.label;
@@ -240,6 +320,10 @@ class AddProduct extends React.Component {
   }
   handleSelectChange = (selectedOption, op) => {
     let product = { ...this.state.product };
+    if (op == 'publisher') {
+      window.alert(JSON.stringify(selectedOption));
+      product.currencyId = selectedOption.currencyId;
+    }
     product[op] = selectedOption;
     this.setState({ product: product });
   };
@@ -292,37 +376,11 @@ class AddProduct extends React.Component {
         ) : (
           <div className="dashboard-ecommerce">
             <div className="container-fluid dashboard-content ">
-              {/* pageheader   */}
-              <PageHeader
-                title="Product Detail"
-                breadCrumbs={[
-                  { link: '/admin/products/all', label: 'Products' },
-                  { label: 'Product Detail' },
-                ]}
-              />
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div className={`${s.btnContainer} row`}>
-                  <div className="offset-xl-2 col-3">
-                    <button className="btn  btn-secondary">
-                      Import Product
-                    </button>
-                  </div>
-                  <div className="col-3">
-                    <button className="btn btn-info">Export Product</button>
-                  </div>
-                  <div className="col-3">
-                    <a className="btn btn-success" onClick={this.onProductEdit}>
-                      {' '}
-                      Apply Changes
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-12 col-lg-8 col-md-6 col-sm-12 col-12">
                 <div class="influence-profile-content pills-regular">
                   {/* tab headers */}
                   <ul
-                    class="nav nav-pills mb-3 nav-justified"
+                    class={`${s.productPills} nav nav-pills mb-1 nav-justified`}
                     id="pills-tab"
                     role="tablist"
                   >
@@ -483,17 +541,15 @@ class AddProduct extends React.Component {
                           Product Prices and Costs
                         </h5>
                         <div class="card-body">
-                          <div className="row mt-2 mb-3 pl-4">
-                            <span>
-                              {' '}
-                              Private Price Ratio &nbsp;
-                              :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{' '}
-                            </span>
-                            <div className="col-xl-2">
+                          <div className="row pl-4 mb-1">
+                            <span>Private Price Ratio (%) : </span>
+                            {/* <div className="col-xl-2" /> */}
+                            <div className="col-xl-1">
                               {' '}
                               <div className="form-group">
                                 <input
                                   name="privateRatio"
+                                  // placeholder="Private Price Ratio"
                                   id="privateRatio"
                                   type="text"
                                   className="form-control form-control-sm "
@@ -502,11 +558,12 @@ class AddProduct extends React.Component {
                                 />
                               </div>
                             </div>
-                            <span>%</span>
-                          </div>
-                          <div className="row mt-2 mb-3 pl-4">
-                            <span>Instituitional Price Ratio &nbsp; :</span>
-                            <div className="col-xl-2">
+                            {/* <div className="col-xl-2"> */}
+                            <span className="offset-xl-1">
+                              Instituitional Price Ratio (%) :
+                            </span>
+                            {/* </div> */}
+                            <div className="col-xl-1">
                               {' '}
                               <div className="form-group">
                                 <input
@@ -519,9 +576,11 @@ class AddProduct extends React.Component {
                                 />
                               </div>
                             </div>
-                            <span>%</span>
                           </div>
+
                           <ProductPriceTable
+                            currencyId={this.state.product.currencyId}
+                            applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
                             instRatio={this.state.instRatio}
                             productId={this.state.product.id}
@@ -529,7 +588,7 @@ class AddProduct extends React.Component {
                             zoneOptions={this.state.allZones}
                             periodOptions={this.state.allPeriods}
                             deliveryOptions={this.state.allDeliveries}
-                            subscriptionOptions={this.state.allSunbscriptions}
+                            subscriptionOptions={this.state.allSubscriptions}
                             onPriceInputChange={this.onPriceInputChange}
                             onPriceSelectChange={this.onPriceSelectChange}
                             onAddPrice={this.onAddPrice}
@@ -545,19 +604,6 @@ class AddProduct extends React.Component {
                       aria-labelledby="pills-details-tab"
                     >
                       <div class="card">
-                        <h4
-                          class={
-                            this.state.product.productStatus.value ===
-                            PRODUCT_STATUS.Pending.value
-                              ? `${s.pending}  card-header`
-                              : this.state.product.productStatus.value ===
-                                PRODUCT_STATUS.Ready.value
-                                ? `${s.ready} card-header`
-                                : `${s.notAvailable} card-header`
-                          }
-                        >
-                          Product Details
-                        </h4>
                         <div class={`${s.cardContainer} card-body`}>
                           <ProductDetailsContainer
                             hasType={true}
@@ -579,6 +625,24 @@ class AddProduct extends React.Component {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div className={`${s.btnContainer} row mt-3`}>
+                  <div className="offset-xl-2 col-3">
+                    <button className="btn  btn-secondary">
+                      Import Product
+                    </button>
+                  </div>
+                  <div className="col-3">
+                    <button className="btn btn-info">Export Product</button>
+                  </div>
+                  <div className="col-3">
+                    <a className="btn btn-success" onClick={this.onProductEdit}>
+                      {' '}
+                      Apply Changes
+                    </a>
                   </div>
                 </div>
               </div>

@@ -11,6 +11,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
+
 import s from './AccountsTable.css';
 
 class AccountsTable extends React.Component {

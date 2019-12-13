@@ -90,6 +90,7 @@ class ProductDetail extends React.Component {
         { value: 2, label: 'yearly' },
         { value: 3, label: 'two-weekly' },
       ],
+
       applyRatios: true,
       allProducts: '',
     };
@@ -324,7 +325,10 @@ class ProductDetail extends React.Component {
   }
   handleSelectChange = (selectedOption, op) => {
     let product = { ...this.state.product };
-    if (op == 'publisher') product.currencyId = selectedOption.currencyId;
+    if (op == 'publisher') {
+      window.alert(JSON.stringify(selectedOption));
+      product.currencyId = selectedOption.currencyId;
+    }
     product[op] = selectedOption;
     this.setState({ product: product });
   };
