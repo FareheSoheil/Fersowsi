@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import ReactPaginate from 'react-paginate';
 import history from '../../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RowAdder from '../../../../../components/moreTableRowSelector';
@@ -33,7 +32,7 @@ class Ready extends React.Component {
       isLoading: true,
       firstRender: true,
       pageIndex: 0,
-      pageSize: 100,
+      pageSize: 10,
       totalPageNum: '',
       currentproducts: [{ a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
@@ -44,6 +43,7 @@ class Ready extends React.Component {
       allPeriods: '',
       productsSearchFilter: {
         publishers: '',
+        countries: '',
         singlProductTypes: '',
         productType: '', //remove s
         productContentTypes: '',
@@ -71,8 +71,8 @@ class Ready extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
-    this.showMore = this.showMore.bind(this);
     this.search = this.search.bind(this);
+    this.showMore = this.showMore.bind(this);
   }
   componentDidMount() {
     this.fetchProducts();
@@ -90,7 +90,6 @@ class Ready extends React.Component {
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
-    console.log('searchBy : ,', this.state.productsSearchFilter);
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -193,7 +192,7 @@ class Ready extends React.Component {
           singlProductTypes: '',
           productType: '', //remove s
           productContentTypes: '',
-          productStatus: PRODUCT_STATUS.Ready,
+          productStatus: [PRODUCT_STATUS.Ready],
           productLanguages: '',
           ageGroups: '',
           originalTitle: '',
@@ -231,14 +230,6 @@ class Ready extends React.Component {
   render() {
     return (
       <div className="container-fluid dashboard-content">
-        {/* <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="page-header">
-                <h2 class="pageheader-title">Products List</h2>
-                <hr />
-              </div>
-            </div>
-          </div> */}
         {this.state.isLoading ? (
           <Spinner />
         ) : (
@@ -248,7 +239,7 @@ class Ready extends React.Component {
               <div className="card-body p-0">
                 <div className="container-fluid">
                   <AdvancedSearch
-                    hasChoiceForStatus={true}
+                    hasChoiceForStatus={false}
                     searchClear={this.state.searchClear}
                     allPublishers={this.state.allPublishers}
                     allProductContentTypes={this.state.allProductContentTypes}

@@ -26,7 +26,7 @@ import {
 
 class AdvancedSearch extends React.Component {
   static propTypes = {
-    hasChoiceForRole: PropTypes.bool.isRequired,
+    hasChoiceForStatus: PropTypes.bool.isRequired,
     searchClear: PropTypes.bool.isRequired,
     allPublishers: PropTypes.array.isRequired,
     allProductContentTypes: PropTypes.array.isRequired,

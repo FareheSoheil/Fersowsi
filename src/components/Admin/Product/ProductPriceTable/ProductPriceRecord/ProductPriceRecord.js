@@ -90,9 +90,9 @@ class ProductPriceRecord extends React.Component {
             className={s.price}
             value={
               this.props.hasAdd
-                ? this.props.cost.publisherPrice[this.props.currencyId]
+                ? this.props.cost.publisherPrice[this.props.currencyId - 1]
                 : adminPriceTrimmer(
-                    this.props.cost.publisherPrice[this.props.currencyId],
+                    this.props.cost.publisherPrice[this.props.currencyId - 1],
                     'price',
                   )
             }
@@ -110,11 +110,11 @@ class ProductPriceRecord extends React.Component {
             value={
               this.props.hasAdd
                 ? this.props.cost.institutionalCustomerPrice[
-                    this.props.currencyId
+                    this.props.currencyId - 1
                   ]
                 : adminPriceTrimmer(
                     this.props.cost.institutionalCustomerPrice[
-                      this.props.currencyId
+                      this.props.currencyId - 1
                     ],
                     'price',
                   )
@@ -131,9 +131,13 @@ class ProductPriceRecord extends React.Component {
             className={s.price}
             value={
               this.props.hasAdd
-                ? this.props.cost.privateCustomerPrice[this.props.currencyId]
+                ? this.props.cost.privateCustomerPrice[
+                    this.props.currencyId - 1
+                  ]
                 : adminPriceTrimmer(
-                    this.props.cost.privateCustomerPrice[this.props.currencyId],
+                    this.props.cost.privateCustomerPrice[
+                      this.props.currencyId - 1
+                    ],
                     'price',
                   )
             }
@@ -150,9 +154,9 @@ class ProductPriceRecord extends React.Component {
             className={s.price}
             value={
               this.props.hasAdd
-                ? this.props.cost.postalCost[this.props.currencyId]
+                ? this.props.cost.postalCost[this.props.currencyId - 1]
                 : adminPriceTrimmer(
-                    this.props.cost.postalCost[this.props.currencyId],
+                    this.props.cost.postalCost[this.props.currencyId - 1],
                     'price',
                   )
             }

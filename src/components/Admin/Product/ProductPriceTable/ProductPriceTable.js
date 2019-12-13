@@ -77,19 +77,19 @@ class ProductPriceTable extends React.Component {
     if (index < 0) {
       if (state == 'publisherPrice') {
         if (this.props.privateRatio != '')
-          newCost.privateCustomerPrice =
+          newCost.privateCustomerPrice[this.props.currencyId - 1] =
             (100 + parseFloat(this.props.privateRatio)) *
             parseFloat(value) /
             100;
         if (this.props.instRatio != '')
-          newCost.institutionalCustomerPrice =
+          newCost.institutionalCustomerPrice[this.props.currencyId - 1] =
             (100 + parseFloat(this.props.instRatio)) * parseFloat(value) / 100;
-        newCost.publisherPrice[this.props.currencyId] = zeroTrimmer(value);
+        newCost.publisherPrice[this.props.currencyId - 1] = zeroTrimmer(value);
         this.setState({ newCost }, () => {
           // window.alert(JSON.stringify(newCost));
         });
       } else if (state !== 'publisherPrice') {
-        newCost[state][this.props.currencyId] = value;
+        newCost[state][this.props.currencyId - 1] = value;
         this.setState({ newCost });
       }
     } else this.props.onPriceInputChange(e, index);
@@ -159,7 +159,7 @@ class ProductPriceTable extends React.Component {
           <tbody>
             {' '}
             <ProductPriceRecord
-              currencyId={this.props.currencyId - 1}
+              currencyId={this.props.currencyId}
               index={-1}
               isRelative={true}
               hasAdd={true}

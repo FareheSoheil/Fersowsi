@@ -44,6 +44,7 @@ class NotAvailable extends React.Component {
       allPeriods: '',
       productsSearchFilter: {
         publishers: '',
+        countries: '',
         singlProductTypes: '',
         productType: '', //remove s
         productContentTypes: '',
@@ -67,7 +68,6 @@ class NotAvailable extends React.Component {
       },
     };
     this.fetchProducts = this.fetchProducts.bind(this);
-    this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -76,18 +76,7 @@ class NotAvailable extends React.Component {
     this.showMore = this.showMore.bind(this);
   }
   componentDidMount() {
-    this.fetchAllInfo();
     this.fetchProducts();
-  }
-  showMore(num) {
-    this.setState(
-      {
-        pageSize: num,
-      },
-      () => {
-        this.fetchProducts();
-      },
-    );
   }
   onProductClick(id) {
     history.push(`/admin/products/${id}`);
@@ -118,10 +107,38 @@ class NotAvailable extends React.Component {
           {
             currentproducts: response.currentRecords,
             totalPageNum: response.totalPageNum,
-            isLoading: false,
             firstRender: false,
           },
-          () => window.scroll(10, 20),
+          // () => window.scroll(10, 20),
+          () => {
+            const auxUrl = `${SERVER}/getAllAuxInfoForProducts`;
+
+            const auxOptions = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            };
+            const thatthat = that;
+            fetchWithTimeOut(
+              auxUrl,
+              auxOptions,
+              response => {
+                thatthat.setState({
+                  allPublishers: response.Publishers,
+                  allPeriods: response.Periods,
+                  allProductContentTypes: response.ProductContentTypes,
+                  allLanguages: response.Languages,
+                  allAgeGroups: response.AgeGroups,
+                  allCountries: response.Countries,
+                  isLoading: false,
+                });
+              },
+              error => {
+                console.log(error);
+              },
+            );
+          },
         );
       },
       error => {
@@ -129,36 +146,7 @@ class NotAvailable extends React.Component {
       },
     );
   }
-  fetchAllInfo() {
-    const url = `${SERVER}/getAllAuxInfoForProducts`;
-    this.setState({
-      isLoading: true,
-    });
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const that = this;
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        that.setState({
-          allPublishers: response.Publishers,
-          allPeriods: response.Periods,
-          allProductContentTypes: response.ProductContentTypes,
-          allLanguages: response.Languages,
-          allAgeGroups: response.AgeGroups,
-          allCountries: response.Countries,
-        });
-      },
-      error => {
-        console.log(error);
-      },
-    );
-  }
+
   handleInputChange(opcode, stateName, event) {
     let value,
       productsSearchFilter,
@@ -174,13 +162,14 @@ class NotAvailable extends React.Component {
     this.setState({ productsSearchFilter, searchClear: searchClear });
   }
   handleSelectChange = (selectedOption, op) => {
+    // window.alert(op);
     let productsSearchFilter = { ...this.state.productsSearchFilter },
       searchClear = false;
     if (
-      op === 'publishers' ||
-      op === 'periods' ||
-      op === 'countries' ||
-      op === 'productLanguages'
+      op == 'publishers' ||
+      op == 'periods' ||
+      op == 'countries' ||
+      op == 'productLanguages'
     ) {
       searchClear = true;
     }
@@ -200,10 +189,11 @@ class NotAvailable extends React.Component {
       {
         productsSearchFilter: {
           publishers: '',
+          countries: '',
           singlProductTypes: '',
           productType: '', //remove s
           productContentTypes: '',
-          productStatus: '',
+          productStatus: [PRODUCT_STATUS.NotAvailable],
           productLanguages: '',
           ageGroups: '',
           originalTitle: '',
@@ -228,15 +218,25 @@ class NotAvailable extends React.Component {
       },
     );
   }
+  showMore(num) {
+    this.setState(
+      {
+        pageSize: num,
+      },
+      () => {
+        this.fetchProducts();
+      },
+    );
+  }
   render() {
     return (
       <div className="container-fluid dashboard-content">
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div className="card">
-              <h4 className="card-header">Not Available Products</h4>
+              <h5 className="card-header">Not available Products</h5>
               <div className="card-body p-0">
                 <div className="container-fluid">
                   <AdvancedSearch
@@ -257,7 +257,6 @@ class NotAvailable extends React.Component {
                     pageSize={this.state.pageSize}
                     currentPageNumber={this.state.pageIndex}
                   />
-                  <hr />
                   <div className={`${s.btnContainer} row`}>
                     <div className="col-xl-1 col-md-1 col-sm-2">
                       <RowAdder
@@ -272,10 +271,6 @@ class NotAvailable extends React.Component {
                     records={this.state.currentproducts}
                     columnLabels={PRODUCT_COLUMNS_LABELS_ARRAY}
                     recordItemNames={PRODUCT_RECORD_ITEM_NAMES_ARRAY}
-                    allPublishers={this.state.allPublishers}
-                    allProductContentTypes={this.state.allProductContentTypes}
-                    allLanguages={this.state.allLanguages}
-                    allAgeGroups={this.state.allAgeGroups}
                     handlePageChange={this.handlePageChange}
                     onRecordClick={this.onProductClick}
                   />

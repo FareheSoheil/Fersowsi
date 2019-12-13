@@ -542,7 +542,7 @@ class ProductDetail extends React.Component {
                         </h5>
                         <div class="card-body">
                           <div className="row mt-1 pl-4 mb-1">
-                            <label>Private Price Ratio = </label>
+                            <span>Private Price Ratio (%) : </span>
                             {/* <div className="col-xl-2" /> */}
                             <div className="col-xl-1">
                               {' '}
@@ -559,9 +559,9 @@ class ProductDetail extends React.Component {
                               </div>
                             </div>
                             {/* <div className="col-xl-2"> */}
-                            <label className="offset-xl-1">
-                              Instituitional Price Ratio =
-                            </label>
+                            <span className="offset-xl-1">
+                              Instituitional Price Ratio (%) :
+                            </span>
                             {/* </div> */}
                             <div className="col-xl-1">
                               {' '}
