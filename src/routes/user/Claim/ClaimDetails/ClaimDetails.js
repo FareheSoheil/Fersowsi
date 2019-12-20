@@ -97,7 +97,7 @@ class ClaimDetails extends React.Component {
               reloadOnAdd={this.fetchClaims}
             />
             <div className={`row`}>
-              <div className="offset-xl-10 col-xl-2">
+              <div className="offset-9 col-2 mb-4">
                 {' '}
                 <button
                   data-toggle="modal"

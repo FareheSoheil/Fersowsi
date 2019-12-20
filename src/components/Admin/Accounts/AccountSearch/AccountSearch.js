@@ -261,7 +261,7 @@ class AccountSearch extends React.Component {
                       Wait For Approval Accounts
                     </span>
                   </label>
-                  <label className="custom-color-theme custom-control custom-radio custom-control-inline">
+                  <label className=" custom-control custom-radio custom-control-inline">
                     <input
                       type="radio"
                       name="activeAccounts"

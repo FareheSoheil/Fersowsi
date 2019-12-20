@@ -1,6 +1,5 @@
 .usersidebar {
     margin: 0;
-   
     padding: 5px;
     width: 310px;
     text-align: center;
@@ -85,5 +84,12 @@
     .usersidebar a {
       text-align: center;
       float: none;
+    }
+
+  }
+  @media screen and (max-width: 600px) {
+
+    .usersidebar {
+      padding-left: 25px;
     }
   }

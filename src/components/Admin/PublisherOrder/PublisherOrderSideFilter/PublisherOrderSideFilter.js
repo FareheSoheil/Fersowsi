@@ -25,7 +25,7 @@ class PublisherOrderSideFilter extends React.Component {
 
   render() {
     return (
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+      <div class={` ${s.container}`}>
         <div class="product-sidebar">
           <div
             class="product-sidebar-widget"

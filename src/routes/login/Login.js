@@ -111,11 +111,12 @@ class Login extends React.Component {
   };
   render() {
     return (
-      <div>
+      <div className="col-xl-4">
         <div class="card ">
           <div class="text-center">
             <div className={s.logoContainer}>
               <img
+                width="300"
                 className="logo-img"
                 src="/assets/images/logo.png"
                 alt="logo"
@@ -162,14 +163,14 @@ class Login extends React.Component {
             </form>
           </div>
           <div class={`${s.footerLinks} card-footer bg-white p-0`}>
-            <div class="offset-xl-1 card-footer-item card-footer-item-bordered">
+            <div class="">
               <a onClick={() => this.goTo('/register')} class="">
                 Create An Account
               </a>
             </div>
-            <div class="card-footer-item card-footer-item-bordered">
+            {/* <div class="card-footer-item ">
               <a onClick={() => this.goTo('/forget')}>Forgot Password</a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

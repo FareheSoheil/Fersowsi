@@ -130,7 +130,7 @@ class Html extends React.Component {
           />
           <script src="/assets/vendor/jquery/jquery-3.3.1.min.js" />
           <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js" />
-          {/* <script src="/assets/vendor/slimscroll/jquery.slimscroll.js" /> */}
+          {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js" /> */}
           <script src="/assets/libs/js/main-js.js" />
           {/* <script src="/assets/vendor/charts/chartist-bundle/chartist.min.js" />
           <script src="/assets/vendor/charts/sparkline/jquery.sparkline.js" />

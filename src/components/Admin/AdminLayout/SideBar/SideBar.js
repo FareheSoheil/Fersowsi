@@ -112,22 +112,21 @@ class SideBar extends React.Component {
 
                 <div
                   id="avatar"
-                  class={`collapse submenu ${s.submenuContainer} `}
+                  className={`collapse submenu ${s.submenuContainer} `}
                 >
                   <ul className="nav flex-column">
-                    <li class="nav-item">
+                    {/* <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/accounts/all', '')}
                       >
-                        {/*  */}
                         My Account{' '}
                       </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" onClick={() => this.logOut()}>
+                    </li> */}
+                    <li className="nav-item">
+                      <a className="nav-link" onClick={() => this.logOut()}>
                         {/*  */}
-                        log out{' '}
+                        Log out{' '}
                       </a>
                     </li>
                   </ul>
@@ -135,9 +134,9 @@ class SideBar extends React.Component {
               </li>
 
               {/* Accounts item */}
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link"
+                  className="nav-link"
                   href="#accounts"
                   data-toggle="collapse"
                   aria-expanded="false"
@@ -149,21 +148,21 @@ class SideBar extends React.Component {
                 </a>
                 <div
                   id="accounts"
-                  class={`collapse submenu ${s.submenuContainer} `}
+                  className={`collapse submenu ${s.submenuContainer} `}
                 >
-                  <ul class="nav flex-column">
-                    <li class="nav-item">
+                  <ul className="nav flex-column">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/accounts/all', '')}
                       >
                         {/*  */}
                         All Users{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/accounts/customers')}
                       >
                         {/*  */}
@@ -171,41 +170,51 @@ class SideBar extends React.Component {
                       </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/accounts/publishers')}
                       >
                         {/*  */}
                         Publishers{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/accounts/operators')}
                       >
                         {/*  */}
                         Operators{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
-                        onClick={() => this.goTo('/admin/accounts/add')}
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/accounts/waitForApproval')
+                        }
                       >
                         {/*  */}
-                        Add User{' '}
+                        Wait For Approval{' '}
                       </a>
                     </li>
+                    {/* <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() => this.goTo('/admin/accounts/add')}
+                      >
+                        Add User{' '}
+                      </a>
+                    </li> */}
                   </ul>
                 </div>
               </li>
 
               {/* Product item */}
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link"
+                  className="nav-link"
                   href="#products"
                   data-toggle="collapse"
                   aria-expanded="false"
@@ -217,36 +226,36 @@ class SideBar extends React.Component {
                 </a>
                 <div
                   id="products"
-                  class={`collapse submenu ${s.submenuContainer} `}
+                  className={`collapse submenu ${s.submenuContainer} `}
                 >
-                  <ul class="nav flex-column">
-                    <li class="nav-item">
+                  <ul className="nav flex-column">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/products/all')}
                       >
                         All Products{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/products/ready')}
                       >
                         Ready Products{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/products/pending')}
                       >
                         Pending Products{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/products/notAvailable')
                         }
@@ -255,9 +264,9 @@ class SideBar extends React.Component {
                       </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/products/add')}
                       >
                         Add Product{' '}
@@ -267,9 +276,9 @@ class SideBar extends React.Component {
                 </div>
               </li>
 
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link"
+                  className="nav-link"
                   href="#customerOrders"
                   data-toggle="collapse"
                   aria-expanded="false"
@@ -277,26 +286,16 @@ class SideBar extends React.Component {
                   aria-controls="customerOrders"
                 >
                   {/*  */}
-                  Customer Orders
+                  Customer Invoice
                 </a>
                 <div
                   id="customerOrders"
-                  class={`collapse submenu ${s.submenuContainer} `}
+                  className={`collapse submenu ${s.submenuContainer} `}
                 >
-                  <ul class="nav flex-column">
-                    {/* <li class="nav-item">
+                  <ul className="nav flex-column">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
-                        onClick={() =>
-                          this.goTo('/admin/customerOrder/add', '')
-                        }
-                      >
-                        Add Order{' '}
-                      </a>
-                    </li> */}
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/customerOrder/all', '')
                         }
@@ -304,48 +303,17 @@ class SideBar extends React.Component {
                         All Orders{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/customerOrder/new')}
                       >
                         New Orders{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
-                        onClick={() =>
-                          this.goTo('/admin/customerOrder/ignored')
-                        }
-                      >
-                        Ignored Orders{' '}
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        onClick={() =>
-                          this.goTo('/admin/customerOrder/cancelled')
-                        }
-                      >
-                        Cancelled Orders{' '}
-                      </a>
-                    </li>
-
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        onClick={() =>
-                          this.goTo('/admin/customerOrder/delayed')
-                        }
-                      >
-                        Delayed Orders{' '}
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/customerOrder/inProgress')
                         }
@@ -353,12 +321,44 @@ class SideBar extends React.Component {
                         In Progress Orders{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/customerOrder/delayed')
+                        }
+                      >
+                        Delayed Orders{' '}
+                      </a>
+                    </li>
+
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/customerOrder/done')}
                       >
                         Done Orders{' '}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/customerOrder/ignored')
+                        }
+                      >
+                        Ignored Orders{' '}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/customerOrder/cancelled')
+                        }
+                      >
+                        Cancelled Orders{' '}
                       </a>
                     </li>
                   </ul>
@@ -367,9 +367,9 @@ class SideBar extends React.Component {
 
               {/* Publisher Order item */}
 
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link"
+                  className="nav-link"
                   href="#publisherOrder"
                   data-toggle="collapse"
                   aria-expanded="false"
@@ -377,16 +377,16 @@ class SideBar extends React.Component {
                   aria-controls="publisherOrder"
                 >
                   {/* <i className="fab fa-leanpub" />  */}
-                  Orders For Publishers
+                  Orders
                 </a>
                 <div
                   id="publisherOrder"
-                  class={`collapse submenu ${s.submenuContainer} `}
+                  className={`collapse submenu ${s.submenuContainer} `}
                 >
-                  <ul class="nav flex-column">
-                    <li class="nav-item">
+                  <ul className="nav flex-column">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/publisherOrder/all', '')
                         }
@@ -394,9 +394,9 @@ class SideBar extends React.Component {
                         All Orders{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/publisherOrder/cancelled')
                         }
@@ -404,9 +404,9 @@ class SideBar extends React.Component {
                         Cancelled Orders{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/publisherOrder/accepted')
                         }
@@ -414,9 +414,9 @@ class SideBar extends React.Component {
                         Accepted Orders{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/publisherOrder/add')}
                       >
                         Add Order{' '}
@@ -425,7 +425,17 @@ class SideBar extends React.Component {
                   </ul>
                 </div>
               </li>
+              <li className="nav-item ">
+                <a
+                  className="nav-link"
+                  onClick={() => this.goTo('/admin/ordersForPublisher')}
+                >
+                  Orders For Publishers{' '}
+                </a>
+              </li>
+
               {/* claims item */}
+
               <li className="nav-item ">
                 <a
                   className="nav-link"
@@ -455,34 +465,34 @@ class SideBar extends React.Component {
               </li>
 
               {/* Settings item */}
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link"
+                  className="nav-link"
                   href="#"
                   data-toggle="collapse"
                   aria-expanded="false"
                   data-target="#submenu"
                   aria-controls="submenu"
                 >
-                  {/* <i class="fa fa-fw fa-rocket" /> */}
+                  {/* <i className="fa fa-fw fa-rocket" /> */}
                   Settings
                 </a>
                 <div
                   id="submenu"
-                  class={`collapse submenu ${s.submenuContainer} `}
+                  className={`collapse submenu ${s.submenuContainer} `}
                 >
-                  <ul class="nav flex-column">
-                    <li class="nav-item">
+                  <ul className="nav flex-column">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/settings/ageGroups')}
                       >
                         Age Groups{' '}
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/settings/poductLanguages')
                         }
@@ -490,9 +500,9 @@ class SideBar extends React.Component {
                         Product Language
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/settings/siteLanguages')
                         }
@@ -500,9 +510,9 @@ class SideBar extends React.Component {
                         Site Language
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/settings/productContentTypes')
                         }
@@ -510,17 +520,17 @@ class SideBar extends React.Component {
                         Product Content Type
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/settings/currencies')}
                       >
                         Currency
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/settings/deliveryTypes')
                         }
@@ -528,25 +538,25 @@ class SideBar extends React.Component {
                         Delivery Type
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/settings/jobs')}
                       >
                         Job
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/settings/zones')}
                       >
                         Zone
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link"
+                        className="nav-link"
                         onClick={() => this.goTo('/admin/settings/countries')}
                       >
                         Country

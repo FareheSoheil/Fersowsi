@@ -43,15 +43,15 @@ class Landing extends React.Component {
             </div>
           </div>
         </div>
+        <div className={`${s.whiteBanner} row`}>
+          <div className="col-12">
+            Built for Professionals <br /> from Freelancer to Agency
+          </div>
+        </div>
         <div className="row">
           <div className={`${s.whiteContainer} col-12`}>
-            <div className={`${s.whiteBanner} row`}>
-              <div className="col-12">
-                Built for Professionals <br /> from Freelancer to Agency
-              </div>
-            </div>
             <div className={`${s.img} row`}>
-              <div className="offset-xl-1 col-xl-4 col-md-6 col-lg-6 col-sm-12">
+              <div className="offset-xl-1 col-xl-4 col-md-6 col-lg-6 col-sm-12 col-12">
                 <br />
                 <h2>Expansion and history</h2>
                 <div className={s.justify}>
@@ -94,6 +94,7 @@ class Landing extends React.Component {
             </div>{' '}
           </div>
         </div>
+
         <div className="row">
           {' '}
           <div className={`${s.woodContainer} col-12`}>
@@ -105,8 +106,8 @@ class Landing extends React.Component {
             />
           </div>
         </div>
-        <div className="row">
-          <div className="offset-xl-4">
+        <div className="row mt-4" style={{ textAlign: 'center' }}>
+          <div className="col-12">
             <h2>Technology For Institutions</h2>
           </div>
         </div>

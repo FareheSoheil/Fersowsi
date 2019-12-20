@@ -2433,7 +2433,13 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 .product-btn{}
 .product-del{font-size: 14px; color: #71748d;}
 .product-sidebar{ background-color: #fff; border:1px solid #e6e6f2;  }
-.product-sidebar-widget{border-bottom: 1px solid #e6e6f2; padding: 10px 20px; margin-bottom: 10px;padding-bottom: 10px;}
+
+.product-sidebar-widget {
+    border-bottom: 1px solid #e6e6f2;
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
 .product-sidebar-widget:last-child{border:0px;}
 .product-sidebar-widget-title{font-size: 15px;color:rgb(85, 85, 85);margin-bottom: 16px;}
 

@@ -46,10 +46,12 @@ class CustomerOrderTable extends React.Component {
     const tableHeaders = (
       <tr>
         <th className="border-0">Id</th>
+        <th className="border-0">Username</th>
+
+        <th className="border-0">User Type</th>
+        <th className="border-0">Invoice Number</th>
         <th className="border-0">Total Cost</th>
-        <th className="border-0">Total Price</th>
-        <th className="border-0">Status</th>
-        <th className="border-0">Discount</th>
+        <th className="border-0">Payment Method</th>
       </tr>
     );
     let records = '';
@@ -68,13 +70,19 @@ class CustomerOrderTable extends React.Component {
           }}
         >
           <td>{record.id}</td>
-          <td>
+          {/* {record.user.username} */}
+          <td>username</td>
+          {/* {record.user.username} */}
+          <td>user type</td>
+          {/* {record.invoiceNumber} */}
+          <td>Invoice Number</td>
+          {/* <td>
             {adminPriceTrimmer(
               record.totalCost[record.currencyId - 1],
               'price',
             )}{' '}
             {PRICE_SIGNS[record.currencyId]}
-          </td>
+          </td> */}
           <td>
             {adminPriceTrimmer(
               record.totalPrice[record.currencyId - 1],
@@ -82,8 +90,8 @@ class CustomerOrderTable extends React.Component {
             )}{' '}
             {PRICE_SIGNS[record.currencyId]}
           </td>
-          <td>{record.status.label}</td>
-          <td>{adminPriceTrimmer(record.discount, 'price')} %</td>
+          <td>{record.paymentMethod}</td>
+          {/* <td>{adminPriceTrimmer(record.discount, 'price')} %</td> */}
         </tr>
       ));
       toDisplay = (

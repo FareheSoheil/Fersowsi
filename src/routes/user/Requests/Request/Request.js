@@ -138,7 +138,7 @@ class Request extends React.Component {
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div>
+          <div className="container-fluid">
             <ContentHeader
               title="Request List"
               hasSort={true}
@@ -162,7 +162,7 @@ class Request extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-12">
+              <div className="col-12 offset-sm-2 offset-2">
                 <AddRequest
                   periods={this.state.allPeriods}
                   ageGroups={this.state.allAgeGroups}

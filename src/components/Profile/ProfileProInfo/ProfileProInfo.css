@@ -1,5 +1,7 @@
 .mainContainer{
-    padding-top: 0px !important;
+    padding: 0px 2px 0px 2px !important;
+
+    font-size: 13px;
     
 }
 .mainContainer label {
@@ -8,10 +10,14 @@
     color: rgb(44, 67, 78);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     /* rgb(59, 58, 58); */
-    font-size: 13px;
+    font-size: 12px;
+}
+.additionalInfoContainer{
+    padding-top: 0px;
 }
 .additionalInfoContainer>div {
-    padding-bottom: 15px;}
+    padding-bottom: 15px;
+}
 
     .userPills a {
         padding: 5px 15px 5px 15px !important;
@@ -21,7 +27,8 @@
     padding-bottom: 0px;    
 }
 .btnContainer {
-    padding: 8px 22px 8px 22px;
+    padding: 2px 22px 2px 22px;
+    margin-bottom: 0px;
     /* background-color: white; */
     /* border-radius: 6px; */
     /* border: 1px solid lightgray; */

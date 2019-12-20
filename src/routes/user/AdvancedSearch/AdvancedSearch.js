@@ -1,6 +1,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Spinner from '../../../components/User/Spinner';
+// import { Preview, print } from 'react-html2pdf';
 import s from './AdvancedSearch.css';
 import cookie from 'react-cookies';
 import { SSRSERVER } from '../constants';
@@ -101,6 +102,7 @@ class AdvancedSearch extends React.Component {
       },
     );
   }
+
   render() {
     return (
       <div>
@@ -109,7 +111,7 @@ class AdvancedSearch extends React.Component {
         ) : (
           <div className={`container-fluid ${s.mainContainer}`}>
             <div className="row mb-1">
-              <div className="col-xl-1 col-lg-2 col-md-2 col-sm-3 pt-0">
+              <div className="col-xl-1 col-lg-2 col-md-2 col-sm-3 col-9 pt-0">
                 <i
                   onClick={this.handleMenu}
                   class={`fa fa-bars ${s.menueIcon}`}
@@ -143,7 +145,7 @@ class AdvancedSearch extends React.Component {
                   className={`container ${s.menuedropdownContainer}`}
                   id="menueDropDown"
                 >
-                  <div className="row">
+                  <div className={`row ${s.menuedropdownRow}`}>
                     <div
                       className="col-xl-4 col-md-4 col-sm-6 col-6"
                       onClick={() => this.goTo('/user/myAccount')}
@@ -211,10 +213,9 @@ class AdvancedSearch extends React.Component {
                     >
                       <i class={`fa fa-envelope ${s.claim}`} />
                     </div>
-                    {/* </div> */}
-                    {/* <div className="row"> */}
+
                     <div
-                      className="col-7"
+                      className="col-xl-4 col-md-4 col-sm-6 col-6"
                       onClick={() => this.goTo('/user/address')}
                     >
                       <i
@@ -228,13 +229,11 @@ class AdvancedSearch extends React.Component {
                 </div>
               </div>
 
-              <div
-                className="col-xl-1 col-lg-1 col-md-2 col-sm-2"
-                style={{ paddingTop: '10px' }}
-              >
+              {/* <div className="col-xl-1 col-lg-1 col-md-2 col-sm-5 col-3 mt-2">
                 {' '}
                 Username
-              </div>
+              </div> */}
+
               {/* <div className="offset-xl-9 offset-lg-8 offset-md-7 offset-sm-6  col-1 ">
                 <div className={s.requestBtn} onClick={this.handleRequest}>
                   Request
@@ -280,18 +279,22 @@ class AdvancedSearch extends React.Component {
          */}
             </div>
             <div className={`row ${s.logoContainer}`}>
-              <div className="offset-5 col-3">FERDOSI</div>
+              <div className="col-12">FERDOSI</div>
             </div>
 
             <div className={`row ${s.searchContainer}`}>
-              <div className="offset-3 col-xl-5 col-lg-5 col-md-7">
+              <div className="offset-xl-3 offset-lg-2 offset-md-3 col-xl-5 col-lg-5 col-md-7">
                 <input
                   name="search"
                   onChange={this.onChange}
                   placeholder="search here"
                 />{' '}
               </div>
-              <div className="col-1">
+              <div
+                className={`col-xl-1 col-lg-2 col-md-2 col-sm-12 ${
+                  s.btnContainer
+                }`}
+              >
                 <button className={s.searchBtn} onClick={this.searchProducts}>
                   Search
                 </button>

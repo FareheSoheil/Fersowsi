@@ -1,0 +1,160 @@
+
+.mainContainer {
+        border: 1px solid #4fb9ae;
+        border-radius: 3px;
+        margin: 6px;
+        margin-left: 0px;
+}
+.mainContainer >div {
+    padding: 5px;
+}
+.title {
+    background-color: #4fb9ae;
+    margin-bottom: 0px;
+}
+.reciever {
+    border-right: 1px solid #366e73;
+}
+.container {
+    border: 1px solid lightgray;
+    padding: 25px 12px 15px 12px;
+    border-radius: 5px;
+    padding-top: 9px;
+    /* padding-left: 0px; */
+    /* margin-left: 15px; */
+    margin-right: 15px;
+    /* padding-right: 0px; */
+    background-color: white;
+}
+.container * {
+    font-size: 13px;
+}
+.container label {
+    font-size: 13px;
+    color: #3d405c !important;
+}
+.container h5 {
+    color: white;
+    border-bottom: 1px solid #3d405c;
+}
+
+.subContainer,.editSubContainer {
+    border-radius: 3px;
+    padding: 0px;
+    border: 1px solid #4fb9ae;
+    border: 1px solid #4fb9ae;
+    margin-right: 7px;
+}
+.editSubContainer {
+    padding-bottom: 6px;
+}
+.editSubContainer input{
+    padding: 2px;
+    width:130px;
+}
+.subContainer input {
+padding: 2px;
+width:100px;
+}
+.subContainer h5 ,.editSubContainer h5 {
+        background-color: #4fb9ae;
+        
+        margin-bottom: 5px;
+        padding: 3px;
+        width: 100%;
+}
+.subContainer label, .editSubContainer label {
+    padding-left: 10px;
+}
+.subContainer2 {
+    border-radius: 3px;
+    padding: 0px;
+    border: 1px solid #4fb9ae;
+    border: 1px solid #4fb9ae;
+    margin-right: 9px;  
+}
+.subContainer2 h5 {
+    background-color: #4fb9ae;
+    
+    margin-bottom: 5px;
+    padding: 3px;
+    width: 100%;
+}
+.subContainer2>div>div {
+padding-left: 5px;
+}
+.subContainer2 textarea {
+    width: 100%;
+    /* border: none; */
+    background-color: white;
+}
+.link {
+    padding-left: 20px;
+    color: blue;
+    cursor: pointer;
+    font-size: 17px;
+}
+.container label {
+    color:black;
+}
+.imgContainer {
+    width: inherit;
+}
+.orderSmallInfoContainer, .paymentContainer {
+    padding: 5px 20px 5px 15px;
+    /* text-align: center; */
+}
+.orderSmallInfoContainer>div {
+    text-align: left;
+}
+.orderSmallInfoContainer input{
+    display: inline;
+    width: auto;
+}
+.imageContainer {
+    /* text-align: center; */
+}
+.imageUploader {
+    width: 200px !important;
+    border: 1px solid red;
+}
+.imageContainer img {
+    border: 2px solid lightgray;
+    border-radius: 3px;
+}
+
+
+.dropDownContainer>div{
+    margin-bottom: 12px;
+    /* border: 1px solid violet; */
+}
+.dropDownContainer > input {
+    width: 100px;
+}
+.dropDownContainer>div>label , .productsmallInfoContainer>div>label{ 
+    color: rgb(80, 78, 78);
+}
+.advancedContainer {
+    /* border: 1px solid greenyellow; */
+    text-align: left;
+    padding: 10px;
+    background-color: white;
+}
+.publisherOrderDetailContainer form {
+    width: 100%;
+    display: inline-block;
+}
+.publisherOrderDetailContainer label {
+    display: inline-block;
+}
+.publisherOrderDetailContainer input{
+    margin-left: 5px;
+    width:100px;
+    display: inline-block;
+}
+@media only screen and (max-width: 600px) {
+    .customerOrderDetailContainer input{
+        
+        width:100%;
+    }
+}

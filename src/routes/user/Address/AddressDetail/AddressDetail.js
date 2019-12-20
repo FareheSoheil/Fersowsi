@@ -281,12 +281,12 @@ class AddressDetail extends React.Component {
                 </div>
               </div>
               <div className="row">
-                <div className="offset-xl-7 col-xl-2">
+                <div className="offset-xl-7 col-xl-2 col-lg-4 col-4">
                   <button className="user-btn edit-btn" onClick={this.onEdit}>
                     edit
                   </button>
                 </div>
-                <div className="col-xl-2">
+                <div className="col-xl-2 col-4">
                   <button
                     className="user-btn delete-btn"
                     onClick={this.onDelete}

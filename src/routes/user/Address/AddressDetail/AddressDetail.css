@@ -16,6 +16,8 @@
     width: inherit;
     border: 1px solid lightgray;
 }
-/* .selectWS div:nth-child(2){
-    border: 1px solid red;
-} */
+@media only screen and (max-width: 600px) {
+    .addressContainer {
+      padding: 15px;
+    }
+  }

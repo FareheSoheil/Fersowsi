@@ -152,6 +152,7 @@ class Profile extends React.Component {
           profilePic: e.target.result,
         });
       };
+
       let imgt = reader.readAsDataURL(inp.files[0]);
     }
   }
@@ -163,9 +164,6 @@ class Profile extends React.Component {
           <Spinner />
         ) : (
           <div>
-            <div className="row">
-              <div className="offset-xl-9 col-xl-3" />
-            </div>
             {/* General */}
             <div className={s.card}>
               <div className={s.banner}>
@@ -175,10 +173,7 @@ class Profile extends React.Component {
               <div className={s.mainContainer}>
                 <div className="container-fluid">
                   <div className="row">
-                    <div
-                      className="col-xl-8"
-                      // style={{ border: '1px solid red' }}
-                    >
+                    <div className="col-xl-8">
                       {cookie.load('userSubCategory') !==
                       USER_SUBCATEGORY.Single ? (
                         <div className="row mb-3">
@@ -187,7 +182,7 @@ class Profile extends React.Component {
                               <div className="col-4">
                                 <label>Institution Name</label>
                               </div>
-                              <div className="col-5">
+                              <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-8">
                                 <input
                                   name="contractName"
                                   value={this.state.user.contractName}
@@ -204,7 +199,7 @@ class Profile extends React.Component {
                               <div className="col-4">
                                 <label>Contact</label>
                               </div>
-                              <div className="col-5">
+                              <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-8">
                                 <input
                                   name="firstName"
                                   value={`${this.state.user.firstName}  ${
@@ -224,7 +219,7 @@ class Profile extends React.Component {
                             <div className="col-4">
                               <label>VAT Number</label>
                             </div>
-                            <div className="col-5">
+                            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-8">
                               <input
                                 name="VatId"
                                 value={this.state.user.VatId}
@@ -240,7 +235,7 @@ class Profile extends React.Component {
                             <div className="col-4">
                               <label>GLM Code</label>
                             </div>
-                            <div className="col-5">
+                            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-8">
                               <input
                                 name="glmCode"
                                 value={this.state.user.glmCode}
@@ -256,7 +251,7 @@ class Profile extends React.Component {
                             <div className="col-4">
                               <label>Refrence Number</label>
                             </div>
-                            <div className="col-5">
+                            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-8">
                               <input
                                 name="referenceNo"
                                 value={this.state.user.referenceNo}
@@ -272,7 +267,7 @@ class Profile extends React.Component {
                             <div className="col-4">
                               <label>EAORI Number</label>
                             </div>
-                            <div className="col-5">
+                            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-8">
                               <input
                                 name="eaoriNo"
                                 value={this.state.user.eaoriNo}
@@ -323,14 +318,14 @@ class Profile extends React.Component {
               <div className={s.banner}>
                 <h3>Contact Info</h3>
               </div>
-              <div className={s.mainContainer}>
+              <div className={`container-fluid ${s.mainContainer}`}>
                 <div className="row">
                   <div className="col-xl-12">
                     <div className="row mb-3">
                       <div className="col-2">
                         <label>Phone</label>
                       </div>
-                      <div className="col-5">
+                      <div className="col-xl-3 col-lg-5 col-md-5 col-sm-5 col-8">
                         <input
                           name="phoneNumber"
                           value={this.state.user.phoneNumber}
@@ -346,7 +341,7 @@ class Profile extends React.Component {
                       <div className="col-2">
                         <label>Fax</label>
                       </div>
-                      <div className="col-5">
+                      <div className="col-xl-3 col-lg-5 col-md-5 col-sm-5 col-8">
                         <input
                           name="faxNumber"
                           value={this.state.user.faxNumber}
@@ -362,7 +357,7 @@ class Profile extends React.Component {
                       <div className="col-2">
                         <label>Mobile</label>
                       </div>
-                      <div className="col-5">
+                      <div className="col-xl-3 col-lg-5 col-md-5 col-sm-5 col-8">
                         <input
                           name="mobileNumber"
                           value={this.state.user.mobileNumber}
@@ -378,7 +373,7 @@ class Profile extends React.Component {
                       <div className="col-2">
                         <label>Email</label>
                       </div>
-                      <div className="col-5">
+                      <div className="col-xl-3 col-lg-5 col-md-5 col-sm-5 col-8">
                         <input
                           name="email"
                           value={this.state.user.email}
@@ -394,7 +389,7 @@ class Profile extends React.Component {
                       <div className="col-2">
                         <label>Home Page</label>
                       </div>
-                      <div className="col-5">
+                      <div className="col-xl-3 col-lg-5 col-md-5 col-sm-5 col-8">
                         <input
                           name="homePage"
                           value={this.state.user.homePage}
@@ -415,10 +410,10 @@ class Profile extends React.Component {
                 <div className="row">
                   <div className="col-xl-12">
                     <div className="row mb-3">
-                      <div className="col-2">
+                      <div className="col-xl-2  col-3">
                         <label>Username</label>
                       </div>
-                      <div className="col-5">
+                      <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-8">
                         <input
                           name="username"
                           value={this.state.user.username}
@@ -491,7 +486,7 @@ class Profile extends React.Component {
               */}
               </div>
             </div>
-            <div className={s.banner}>
+            {/* <div className={s.banner}>
               <h3>Address Info</h3>
             </div>
             <div className={` container-fluid`}>
@@ -512,7 +507,7 @@ class Profile extends React.Component {
               <div className="offset-xl-9 col-xl-3">
                 <button className={s.editBtn}>Edit</button>
               </div>
-            </div>
+            </div> */}
           </div>
         )}
       </div>

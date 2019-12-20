@@ -2,7 +2,6 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './AddProduct.css';
 import Spinner from '../../../../components/Admin/Spinner';
-import PageHeader from '../../../../components/Admin/PageHeader';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import SubproductTable from '../../../../components/Admin/Product/SubproductTable';
 import ProductPriceTable from '../../../../components/Admin/Product/ProductPriceTable';
@@ -31,12 +30,13 @@ class AddProduct extends React.Component {
         originalTitle: '',
         originalDesc: '',
         weight: '',
-        coverImage: '',
+        coverImage: '/assets/images/magazine.png',
         creationDate: '',
         publisherPriceUpdatedAt: '',
         isSingleAvailabel: '',
-        createdAt: '',
+        createdAt: new Date(),
         updatedAt: '',
+        currency: { value: 2, label: 'USD' },
         currencyId: 2,
         productType: PRODUCT_TYPES.Single,
         singleProductType: '',
@@ -51,6 +51,7 @@ class AddProduct extends React.Component {
       },
       privateRatio: '',
       instRatio: '',
+      inPostalRatio: '',
       allContentCategories: '',
       allPublishers: '',
       allLanguages: '',
@@ -89,16 +90,18 @@ class AddProduct extends React.Component {
         { value: 2, label: 'yearly' },
         { value: 3, label: 'two-weekly' },
       ],
-
+      allCountries: [],
       applyRatios: true,
       allProducts: '',
     };
+
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleUploadedImage = this.handleUploadedImage.bind(this);
+
     // price handlers
     this.onPriceInputChange = this.onPriceInputChange.bind(this);
     this.onPriceSelectChange = this.onPriceSelectChange.bind(this);
@@ -221,7 +224,11 @@ class AddProduct extends React.Component {
     const attr = event.target.name;
     let state = { ...this.state };
 
-    if (attr == 'privateRatio' || attr == 'instRatio') {
+    if (
+      attr == 'privateRatio' ||
+      attr == 'instRatio' ||
+      attr == 'inPostalRatio'
+    ) {
       if (this.isNumber(value) || value == '') this.setState({ [attr]: value });
     } else if (attr == 'tax') {
       state = { ...this.state.product };
@@ -375,7 +382,7 @@ class AddProduct extends React.Component {
           <Spinner />
         ) : (
           <div className="dashboard-ecommerce">
-            <div className="container-fluid dashboard-content ">
+            <div className={`container-fluid ${s.container}`}>
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="influence-profile-content pills-regular">
                   {/* tab headers */}
@@ -453,7 +460,7 @@ class AddProduct extends React.Component {
                       role="tabpanel"
                       aria-labelledby="pills-subproducts-tab"
                     >
-                      <div class="card">
+                      <div class="card ">
                         <h5
                           class={
                             this.state.product.productStatus.value ===
@@ -541,7 +548,7 @@ class AddProduct extends React.Component {
                           Product Prices and Costs
                         </h5>
                         <div class="card-body">
-                          <div className="row pl-4 mb-1">
+                          <div className="row mt-1 pl-4 mb-1">
                             <span>Private Price Ratio (%) : </span>
                             {/* <div className="col-xl-2" /> */}
                             <div className="col-xl-1">
@@ -576,13 +583,31 @@ class AddProduct extends React.Component {
                                 />
                               </div>
                             </div>
+                            <span className="offset-xl-1 mt-1">
+                              In Postal Ratio (%) :
+                            </span>
+                            {/* </div> */}
+                            <div className="col-xl-1">
+                              {' '}
+                              <div className="form-group">
+                                <input
+                                  name="inPostalRatio"
+                                  type="text"
+                                  id="inPostalRatio"
+                                  className="form-control form-control-sm "
+                                  value={this.state.inPostalRatio}
+                                  onChange={e => this.onChangeInput(e)}
+                                />
+                              </div>
+                            </div>
                           </div>
 
                           <ProductPriceTable
-                            currencyId={this.state.product.currencyId}
+                            currencyId={this.state.product.currency.value}
                             applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
                             instRatio={this.state.instRatio}
+                            inPostalRatio={this.state.inPostalRatio}
                             productId={this.state.product.id}
                             prices={this.state.product.productPriceAndCost}
                             zoneOptions={this.state.allZones}

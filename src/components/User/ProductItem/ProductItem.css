@@ -122,15 +122,14 @@
     }
 }
 @media only screen and (max-width: 600px) {
-    .container {
+    /* .container {
         height:600px;
-    }
+    } */
     .imgContainer{
         width: 100%
     }
     .wishContainer{
         padding-top: 15px;
-        padding-left: 40%;
     }
 }
 .yellow {

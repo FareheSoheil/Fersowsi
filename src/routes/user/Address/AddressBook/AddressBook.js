@@ -129,21 +129,23 @@ class AddressBook extends React.Component {
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div>
+          <div className="container-fluid">
             <ContentHeader
               title="Address List"
               hasSort={true}
               onSortFunc={this.handleSelectChange}
               sortOptions={ADDRESS_SORT_OPTION}
             />
+
             <Table
               onRecordClick={this.onAddressClick}
               columnLabels={ADDRESS_TABLE_LABELS}
               records={this.state.addresses}
               recordItemNames={ADDRESS_RECORD_ITEMS}
             />
+
             <div className="row">
-              <div className="offset-xl-1 col-xl-3">
+              <div className="offset-1 col-xl-3">
                 {' '}
                 <button
                   data-toggle="modal"
@@ -162,6 +164,8 @@ class AddressBook extends React.Component {
                   // newAddress={this.state.newAddress}
                 />
               </div>
+            </div>
+            <div className="row">
               <div className="offset-xl-3 col-5 ">
                 <ReactPaginate
                   previousLabel="<"

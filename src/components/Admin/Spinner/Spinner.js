@@ -10,8 +10,8 @@ class Spinner extends React.Component {
           s.spinnerContainer
         }`}
       >
-        {/* <div class="card-body"> */}
-        <span class="dashboard-spinner spinner-primary spinner-xxl" />
+        {/* <div className="card-body"> */}
+        <span className="dashboard-spinner spinner-primary spinner-xxl" />
         {/* </div> */}
       </div>
     );

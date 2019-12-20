@@ -1,9 +1,8 @@
 .mainContainer{
     color: rgb(104, 102, 102);
-}
-.mainContainer {
     cursor: pointer;
 }
+
 .menueIcon {
     cursor: pointer;
 }
@@ -82,31 +81,32 @@
 }
 .profile {
     background-color: red;
-    padding: 11px 1px 1px 13px;
+    /* padding: 11px 1px 1px 13px; */
+    padding-top: 11px;
 }
 .product {
     background-color: rgb(37, 255, 37);
-    padding: 12px;
+    padding-top: 12px;
 }
 .order{
     background-color: blue;
-    padding: 11px 1px 1px 11px;
+    padding-top: 11px ;
 }
 .address {
     background-color: rgb(255, 98, 125);
-    padding: 11px 1px 1px 13px;
+    padding-top: 11px ;
 }
 .request {
     background-color: rgb(255, 167, 4);
-    padding: 11px 1px 1px 14px;
+    padding-top: 11px ;
 }
 .wishlist {
     background-color: rgb(126, 213, 241);
-    padding: 11px 1px 1px 10px;
+    padding-top: 11px;
 }
 .claim {
     background-color: yellow;
-    padding: 11px 1px 1px 11px;
+    padding-top: 11px ;
 }
 .requestBtn {
     padding-top: 10px;
@@ -136,6 +136,8 @@ height: 40px;
 }
 .logoContainer {
     margin-top: 13%;
+    /* border: 1px solid firebrick; */
+    text-align: center !important;
     /* padding-left: 4%; */
 
 }
@@ -157,6 +159,7 @@ height: 40px;
 .searchContainer input:focus{
     outline: none;
 }
+
 .searchBtn {
     cursor: pointer;
     padding: 10px;
@@ -165,3 +168,12 @@ height: 40px;
     border: 1px solid #2e74ab;
     background-color: #2e74ab;
 }
+.menuedropdownRow div {
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    .btnContainer {
+      margin-top: 15px;
+      text-align: center;
+    }
+  }

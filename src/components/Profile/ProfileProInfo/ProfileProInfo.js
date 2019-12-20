@@ -54,11 +54,15 @@ class ProfileProInfo extends React.Component {
       orders:
         this.props.user.Role.value == 4
           ? this.props.user.customerOrders
-          : this.props.user.publisherOrders,
+          : this.props.user.Role.value == 3
+            ? this.props.user.publisherOrders
+            : '',
       ordersPageCount:
         this.props.user.Role.value == 4
           ? Math.ceil(this.props.user.customerOrders.length / 8)
-          : Math.ceil(this.props.user.publisherOrders.length / 8),
+          : this.props.user.Role.value == 3
+            ? Math.ceil(this.props.user.publisherOrders.length / 8)
+            : '',
       ordersCurrentPage: 0,
     };
     this.onOrderClick = this.onOrderClick.bind(this);
@@ -114,7 +118,7 @@ class ProfileProInfo extends React.Component {
             <button
               type="submit"
               class="btn btn-success "
-              onClick={this.props.onUserDelete}
+              onClick={this.props.onUserEdit}
             >
               Save Changes
             </button>
@@ -136,7 +140,7 @@ class ProfileProInfo extends React.Component {
             <button
               type="submit"
               class="btn btn-danger"
-              onClick={this.props.onUserEdit}
+              onClick={this.props.onUserDelete}
             >
               Delete User
             </button>
@@ -162,21 +166,31 @@ class ProfileProInfo extends React.Component {
                 Details
               </a>
             </li>
-            <li class="nav-item ">
-              <a
-                class="nav-link "
-                id="pills-claims-tab"
-                data-toggle="pill"
-                href="#pills-claims"
-                role="tab"
-                aria-controls="pills-claims"
-                aria-selected="false"
-              >
-                Claims
-              </a>
-            </li>
+            {this.props.user.Role.value != ROLES.operator.value &&
+            this.props.user.Role.value != ROLES.superAdmin.value ? (
+              <li class="nav-item ">
+                <a
+                  class="nav-link "
+                  id="pills-orders-tab"
+                  data-toggle="pill"
+                  href="#pills-orders"
+                  role="tab"
+                  aria-controls="pills-orders"
+                  aria-selected="false"
+                >
+                  {this.props.user.Role.value == ROLES.customer.value
+                    ? 'Customer Invoices'
+                    : this.props.user.Role.value == ROLES.publisher.value
+                      ? 'Orders'
+                      : ''}
+                </a>
+              </li>
+            ) : (
+              ''
+            )}
+
             {/* ddddddddd */}
-            <li class="nav-item ">
+            {/* <li class="nav-item ">
               <a
                 class="nav-link "
                 id="pills-orders-tab"
@@ -188,7 +202,7 @@ class ProfileProInfo extends React.Component {
               >
                 Orders
               </a>
-            </li>
+            </li> */}
             {/* ddddddddd */}
             <li class="nav-item ">
               <a
@@ -208,27 +222,48 @@ class ProfileProInfo extends React.Component {
           <div class="tab-content" id="pills-tabContent">
             <div
               class="tab-pane fade "
-              id="pills-claims"
+              id="pills-orders"
               role="tabpanel"
-              aria-labelledby="pills-claims-tab"
+              aria-labelledby="pills-orders-tab"
             >
               <div class="card">
-                <h5 class="card-header">Claims Of This User</h5>
+                <h5 class="card-header">Orders</h5>
                 <div class="card-body">
-                  <CustomTable
-                    hasPagination={true}
-                    pageCount={this.state.claimPageCount}
-                    currentPageNumber={this.state.claimCurrentPage}
-                    records={this.state.claims.slice(
-                      this.state.claimCurrentPage * 8 +
-                        this.state.claimCurrentPage * 8 +
-                        9,
+                  <div class="card-body">
+                    {this.props.user.Role.value == 4 ? (
+                      <CustomTable
+                        hasPagination={true}
+                        records={this.state.orders.slice(
+                          this.state.ordersCurrentPage * 8,
+                          this.state.ordersCurrentPage * 8 + 9,
+                        )}
+                        pageCount={this.state.ordersPageCount}
+                        currentPageNumber={this.state.ordersCurrentPage}
+                        columnLabels={CUSTOMER_ORDERS_COLUMNS_LABELS_ARRAY}
+                        recordItemNames={
+                          CUSTOMER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
+                        }
+                        handlePageChange={this.handleOrderPageChange}
+                        onRecordClick={this.onOrderClick}
+                      />
+                    ) : (
+                      <CustomTable
+                        hasPagination={true}
+                        records={this.state.orders.slice(
+                          this.state.ordersCurrentPage * 8,
+                          this.state.ordersCurrentPage * 8 + 9,
+                        )}
+                        pageCount={this.state.ordersPageCount}
+                        currentPageNumber={this.state.ordersCurrentPage}
+                        columnLabels={PUBLISHER_ORDERS_COLUMNS_LABELS_ARRAY}
+                        recordItemNames={
+                          PUBLISHER_ORDERS_RECORDE_ITEM_NAMES_ARRAY
+                        }
+                        handlePageChange={this.handleOrderPageChange}
+                        onRecordClick={this.onOrderClick}
+                      />
                     )}
-                    columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
-                    recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
-                    handlePageChange={this.handleClaimsPageChange}
-                    onRecordClick={this.onClaimClick}
-                  />
+                  </div>
                 </div>
               </div>
             </div>
@@ -306,7 +341,7 @@ class ProfileProInfo extends React.Component {
                             />
                           </div>
 
-                          <div class="form-group col-xl-4">
+                          {/* <div class="form-group col-xl-4">
                             <label for="email">User Role</label>
                             <Select
                               options={ROLES_ARRAY}
@@ -316,21 +351,26 @@ class ProfileProInfo extends React.Component {
                                 this.props.handleSelectInputChange(so, 'Role')
                               }
                             />
-                          </div>
-                          <div class="form-group col-xl-4">
-                            <label for="email">User Subcategory</label>
-                            <Select
-                              options={USER_SUBCATEGORY_ARRAY}
-                              isSearchable
-                              value={this.props.user.UserSubCategory}
-                              onChange={so =>
-                                this.props.handleSelectInputChange(
-                                  so,
-                                  'UserSubCategory',
-                                )
-                              }
-                            />
-                          </div>
+                          </div> */}
+                          {this.props.user.Role.value ==
+                          ROLES.customer.value ? (
+                            <div class="form-group col-xl-4">
+                              <label for="email">User Subcategory</label>
+                              <Select
+                                options={USER_SUBCATEGORY_ARRAY}
+                                isSearchable
+                                value={this.props.user.UserSubCategory}
+                                onChange={so =>
+                                  this.props.handleSelectInputChange(
+                                    so,
+                                    'UserSubCategory',
+                                  )
+                                }
+                              />
+                            </div>
+                          ) : (
+                            ''
+                          )}
                         </div>
                         <div
                           className="row pt-2  "
@@ -481,13 +521,37 @@ class ProfileProInfo extends React.Component {
                           </div> */}
                           <div className="col-xl-3">
                             <div className="form-group ">
-                              <label>discount</label>
+                              <label>Local Discount</label>
                               <input
-                                name="referenceNo"
+                                name="discount"
                                 type="text"
                                 className="form-control form-control-sm "
                                 onChange={this.props.handleSimpleInputChange}
                                 value={this.props.user.discount}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-xl-3">
+                            <div className="form-group ">
+                              <label>Non-local Discount</label>
+                              <input
+                                name="nonLocalDiscount"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.nonLocalDiscount}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-xl-3">
+                            <div className="form-group ">
+                              <label>Expected Payment Method</label>
+                              <input
+                                name="expectedPaymentMethod"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.expectedPaymentMethod}
                               />
                             </div>
                           </div>
@@ -500,7 +564,7 @@ class ProfileProInfo extends React.Component {
             </div>
 
             {/* dddddddddddddd */}
-            <div
+            {/* <div
               class="tab-pane fade "
               id="pills-orders"
               role="tabpanel"
@@ -546,7 +610,8 @@ class ProfileProInfo extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
+           
+            </div> */}
 
             <div
               class="tab-pane fade "

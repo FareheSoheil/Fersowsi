@@ -1,5 +1,12 @@
 .mainContainer {
     padding-top: 10px;
+    padding-left: 7px !important;
+}
+.mainContainer * {
+    font-size: 13px;
+}
+.mainContainer input {
+    width:80px;
 }
 .productDescription {
     word-break: break-word;
@@ -54,10 +61,17 @@
     margin-bottom: 12px;
     /* border: 1px solid violet; */
 }
+.dropDownContainer h2 {
+    font-size: 20px;
+    color: white;
+    background-color: #31585b;
+    border-bottom: 2px solid #31585b;
+
+}
 .advancedContainer {
     /* border: 1px solid greenyellow; */
-    text-align: left;
-    padding: 10px;
+    /* text-align: left; */
+    /* padding: 10px; */
 }
 .cardContainer {
     border-bottom: 1px solid #ded8d8;
@@ -70,7 +84,7 @@
 }
 .cardContainer input {
     color: black;
-    padding: 6px;
+    padding: 2px;
     margin-bottom: 3px;
     margin-top: 3px;
 }
@@ -136,4 +150,7 @@
     padding: 0px;
     border: 5px solid red;
     border-radius: 3px;
+}
+.lastContainer>div , .firstContainer>div {
+display: inline-block;
 }

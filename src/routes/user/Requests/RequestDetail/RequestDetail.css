@@ -9,6 +9,7 @@
     min-height: 300px;
     color: rgb(65, 64, 64);
     font-size: 15px;
+    margin-bottom: 25px;
 }
 .addressContainer input {
     border-radius: 5px;
@@ -22,6 +23,9 @@
     border-radius: 8px;
     padding: 5px;
 }
-/* .selectWS div:nth-child(2){
-    border: 1px solid red;
-} */
+@media only screen and (max-width: 600px) {
+    .addressContainer {
+        
+        padding: 15px;
+    }
+  }

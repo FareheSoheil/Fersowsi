@@ -2,6 +2,9 @@
 .banner {
     padding-left: 20px;
 }
+.imgContainer {
+    text-align: center;
+}
 .imgContainer img {
     margin-bottom: 20px;
     border: 2px solid #8cd3e8;
@@ -21,7 +24,6 @@
     border: 1px solid #ebebeb;
     border-radius: 8px;
     background-color: #ebebeb;
-    padding: 10px;
     padding: 20px 10px 15px 30px;
     margin-bottom: 30px;
     font-family: 'Myriad Light';
@@ -29,7 +31,9 @@
 }
 .mainContainer input {
     padding: 7px;
-    min-width: 280px;
+    /* min-width: 280px; */
+    width: inherit;
+    display:block;
     border: 1px solid lightgray;
     border-radius: 7px;
 }
@@ -46,3 +50,9 @@
     border: 1px solid rgb(35, 35, 85);
     border-radius: 6px;
 }
+   
+@media only screen and (max-width: 600px) {
+    .mainContainer input  {
+      /* max-width: 110px !important; */
+    }
+  }

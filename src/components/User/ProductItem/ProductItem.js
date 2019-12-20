@@ -238,7 +238,7 @@ class ProductItem extends React.Component {
             </div>
 
             <div
-              className="col-xl-2 offset-xl-0 "
+              className="col-xl-2"
               // style={{ border: '1px solid red' }}
             >
               <div className={s.wishContainer}>

@@ -9,6 +9,7 @@ class ProductPriceTable extends React.Component {
   static propTypes = {
     privateRatio: PropTypes.number.isRequired,
     instRatio: PropTypes.number.isRequired,
+    inPostalRatio: PropTypes.number.isRequired,
     productId: PropTypes.string.isRequired,
     prices: PropTypes.array.isRequired,
     onEditPrices: PropTypes.func.isRequired,
@@ -34,8 +35,10 @@ class ProductPriceTable extends React.Component {
         deliveryTypeName: '',
         privateCustomerPrice: [0, 0, 0, 0, 0],
         institutionalCustomerPrice: [0, 0, 0, 0, 0],
-        publisherPrice: [0, 0, 0, 0, 0],
-        postalCost: [0, 0, 0, 0, 0],
+        privatePublisherPrice: [0, 0, 0, 0, 0],
+        institutionalPublisherPrice: [0, 0, 0, 0, 0],
+        inPostalCost: [0, 0, 0, 0, 0],
+        outPostalCost: [0, 0, 0, 0, 0],
       },
     };
     this.onSelectChange = this.onSelectChange.bind(this);
@@ -75,23 +78,30 @@ class ProductPriceTable extends React.Component {
     const state = e.target.name;
 
     if (index < 0) {
-      if (state == 'publisherPrice') {
+      if (state == 'privatePublisherPrice') {
         if (this.props.privateRatio != '')
           newCost.privateCustomerPrice[this.props.currencyId - 1] =
             (100 + parseFloat(this.props.privateRatio)) *
             parseFloat(value) /
             100;
+
+        newCost.privatePublisherPrice[this.props.currencyId - 1] = value;
+      }
+      if (state == 'institutionalPublisherPrice') {
         if (this.props.instRatio != '')
           newCost.institutionalCustomerPrice[this.props.currencyId - 1] =
             (100 + parseFloat(this.props.instRatio)) * parseFloat(value) / 100;
-        newCost.publisherPrice[this.props.currencyId - 1] = zeroTrimmer(value);
-        this.setState({ newCost }, () => {
-          // window.alert(JSON.stringify(newCost));
-        });
-      } else if (state !== 'publisherPrice') {
-        newCost[state][this.props.currencyId - 1] = value;
-        this.setState({ newCost });
+        newCost.institutionalPublisherPrice[this.props.currencyId - 1] = value;
       }
+      if (state == 'inPostalCost') {
+        if (this.props.inPostalRatio != '')
+          newCost.outPostalCost[this.props.currencyId - 1] =
+            (100 + parseFloat(this.props.inPostalRatio)) *
+            parseFloat(value) /
+            100;
+        newCost.inPostalCost[this.props.currencyId - 1] = value;
+      } else newCost[state][this.props.currencyId - 1] = value;
+      this.setState({ newCost });
     } else this.props.onPriceInputChange(e, index);
   }
   add() {
@@ -107,8 +117,10 @@ class ProductPriceTable extends React.Component {
         deliveryTypeName: '',
         privateCustomerPrice: [0, 0, 0, 0, 0],
         institutionalCustomerPrice: [0, 0, 0, 0, 0],
-        publisherPrice: [0, 0, 0, 0, 0],
-        postalCost: [0, 0, 0, 0, 0],
+        privatePublisherPrice: [0, 0, 0, 0, 0],
+        institutionalPublisherPrice: [0, 0, 0, 0, 0],
+        inPostalCost: [0, 0, 0, 0, 0],
+        outPostalCost: [0, 0, 0, 0, 0],
       },
     });
   }
@@ -132,7 +144,6 @@ class ProductPriceTable extends React.Component {
           onDeletePrice={() => this.props.onDeletePrice(i)}
         />
       ));
-      console.log(records);
     }
     return (
       <div className={`table-responsive ${s.table}`}>
@@ -141,18 +152,20 @@ class ProductPriceTable extends React.Component {
             <th width="160" className="border-0">
               Zone
             </th>
-            <th width="170" className="border-0">
+            <th width="150" className="border-0">
               Delivery Type
             </th>
 
             <th width="160" className="border-0">
               Subscription
             </th>
-            <th className="border-0">Publisher Price</th>
-            <th className="border-0">Inst. Price</th>
-            <th className="border-0">Private Price</th>
-            <th className="border-0">Postal Price</th>
-            <th>
+            <th className="border-0">Private Publisher Price</th>
+            <th className="border-0">Inst. Publisher Price</th>
+            <th className="border-0">In Postal Price</th>
+            <th className="border-0">Private Cutomer Price</th>
+            <th className="border-0">Inst. Cutomer Price</th>
+            <th className="border-0">Out Postal Price</th>
+            <th width="30">
               <i className="fas fa-trash-alt" />
             </th>
           </thead>

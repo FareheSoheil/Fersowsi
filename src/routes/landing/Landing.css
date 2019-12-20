@@ -61,8 +61,7 @@
 
 }
 .justify div {
-  /* text-justify: inter-word; */
-  /* text-align: justify; */
+
   text-align: justify;
   line-height: 3ch;
   width: 290px;
@@ -84,7 +83,7 @@
 .grayCard h3 {color: black;}
 .grayCardRow {
   min-height: 600px;
-  padding-top: 85px;
+  padding-top: 45px;
   padding-bottom: 80px;
   background-color: white;
 }
@@ -114,4 +113,28 @@ padding-top: 15px;
   width: 100%;
   height: 300px;
   background-image: linear-gradient(to top,#47aab0, #58d4d0,#60daa6);
+}
+
+@media only screen and (max-width: 640px) {
+  .justify {
+    padding: 6px 10px 2px 30px;
+  }
+  .justify div {
+  
+    text-align: justify;
+    line-height: 3ch;
+    width: 290px;
+    color: rgb(94, 94, 94);
+  }
+}
+@media only screen and (max-width: 340px) {
+  .justify {
+    padding: 6px 5px 2px 5px;
+  }
+  .justify div {
+    text-align: justify;
+    line-height: 3ch;
+    width: 290px;
+    color: rgb(94, 94, 94);
+  }
 }

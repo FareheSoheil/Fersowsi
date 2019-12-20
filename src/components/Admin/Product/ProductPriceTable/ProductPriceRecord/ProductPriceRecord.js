@@ -85,17 +85,52 @@ class ProductPriceRecord extends React.Component {
         </td>
         <td>
           <input
-            name="publisherPrice"
+            name="privatePublisherPrice"
             type="text"
             className={s.price}
             value={
-              this.props.hasAdd
-                ? this.props.cost.publisherPrice[this.props.currencyId - 1]
-                : adminPriceTrimmer(
-                    this.props.cost.publisherPrice[this.props.currencyId - 1],
-                    'price',
-                  )
+              this.props.cost.privatePublisherPrice[this.props.currencyId - 1]
             }
+            onChange={e => this.props.onInputChange(e, this.props.index)}
+          />
+          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
+        </td>
+        <td>
+          <input
+            name="institutionalPublisherPrice"
+            type="text"
+            className={s.price}
+            value={
+              this.props.cost.institutionalPublisherPrice[
+                this.props.currencyId - 1
+              ]
+            }
+            onChange={e => this.props.onInputChange(e, this.props.index)}
+          />
+          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
+        </td>
+
+        <td>
+          <input
+            name="inPostalCost"
+            type="text"
+            className={s.price}
+            value={this.props.cost.inPostalCost[this.props.currencyId - 1]}
+            onChange={e => this.props.onInputChange(e, this.props.index)}
+          />
+          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
+        </td>
+
+        <td>
+          {' '}
+          <input
+            name="privateCustomerPrice"
+            type="text"
+            className={s.price}
+            value={
+              this.props.cost.privateCustomerPrice[this.props.currencyId - 1]
+            }
+            // disabled
             onChange={e => this.props.onInputChange(e, this.props.index)}
           />
           <span>{PRICE_SIGNS[this.props.currencyId]}</span>
@@ -108,58 +143,22 @@ class ProductPriceRecord extends React.Component {
             className={s.price}
             // disabled
             value={
-              this.props.hasAdd
-                ? this.props.cost.institutionalCustomerPrice[
-                    this.props.currencyId - 1
-                  ]
-                : adminPriceTrimmer(
-                    this.props.cost.institutionalCustomerPrice[
-                      this.props.currencyId - 1
-                    ],
-                    'price',
-                  )
+              this.props.cost.institutionalCustomerPrice[
+                this.props.currencyId - 1
+              ]
             }
             onChange={e => this.props.onInputChange(e, this.props.index)}
           />
           <span>{PRICE_SIGNS[this.props.currencyId]}</span>
         </td>
+
         <td>
           {' '}
           <input
-            name="privateCustomerPrice"
+            name="outPostalCost"
             type="text"
             className={s.price}
-            value={
-              this.props.hasAdd
-                ? this.props.cost.privateCustomerPrice[
-                    this.props.currencyId - 1
-                  ]
-                : adminPriceTrimmer(
-                    this.props.cost.privateCustomerPrice[
-                      this.props.currencyId - 1
-                    ],
-                    'price',
-                  )
-            }
-            // disabled
-            onChange={e => this.props.onInputChange(e, this.props.index)}
-          />
-          <span>{PRICE_SIGNS[this.props.currencyId]}</span>
-        </td>
-        <td>
-          {' '}
-          <input
-            name="postalCost"
-            type="text"
-            className={s.price}
-            value={
-              this.props.hasAdd
-                ? this.props.cost.postalCost[this.props.currencyId - 1]
-                : adminPriceTrimmer(
-                    this.props.cost.postalCost[this.props.currencyId - 1],
-                    'price',
-                  )
-            }
+            value={this.props.cost.outPostalCost[this.props.currencyId - 1]}
             onChange={e => this.props.onInputChange(e, this.props.index)}
           />
           <span>{PRICE_SIGNS[this.props.currencyId]}</span>

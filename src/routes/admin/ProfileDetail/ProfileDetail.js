@@ -37,7 +37,7 @@ class ProfileDetail extends React.Component {
       id: this.props.context.params.id,
       user: {
         id: '',
-
+        password: '',
         firstName: '',
         lastName: '',
         username: '',
@@ -85,7 +85,9 @@ class ProfileDetail extends React.Component {
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
     this.fetchUser = this.fetchUser.bind(this);
     this.onUserEdit = this.onUserEdit.bind(this);
+    this.onUserDelete = this.onUserDelete.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
+    this.setAvatar = this.setAvatar.bind(this);
   }
   componentDidMount() {
     // window.alert;
@@ -113,7 +115,9 @@ class ProfileDetail extends React.Component {
       url,
       options,
       response => {
-        if (response.error == undefined)
+        if (response.error == undefined) {
+          response.user.password = '';
+          response.user.contractName = 'salam';
           that.setState(
             {
               user: response.user,
@@ -146,7 +150,7 @@ class ProfileDetail extends React.Component {
               );
             },
           );
-        else window.alert(response.error.title);
+        } else window.alert(response.error.title);
       },
       error => {
         console.log(error);
@@ -169,7 +173,6 @@ class ProfileDetail extends React.Component {
       url,
       options,
       response => {
-        window.alert('all fetched');
         that.setState({
           countries: response.Country,
           siteLanguages: response.SiteLanguage,
@@ -209,11 +212,65 @@ class ProfileDetail extends React.Component {
     user[op] = selectedOption;
     this.setState({ user: user });
   };
+  setAvatar(src) {
+    let user = { ...this.state.user };
+    user.profilePic = src;
+    this.setState({ user: user });
+  }
   onUserDelete() {
-    window.alert('send delete ajax with user id');
+    if (confirm('Are you sure you want to delete this user?')) {
+      const url = `${SERVER}/deleteUser`;
+      const cred = {
+        userId: this.state.id,
+      };
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(cred),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      fetchWithTimeOut(
+        url,
+        options,
+        response => {
+          if (response.error == undefined) {
+            toastr.success('', 'User Deleted Successfully');
+            history.goBack();
+          } else {
+            toastr.error('', "Couldn't Delete the user");
+          }
+        },
+        error => {
+          toastr.error('', "Couldn't Delete the User");
+        },
+      );
+    }
   }
   onUserEdit() {
-    window.alert(JSON.stringify(this.state.user));
+    const url = `${SERVER}/editUser`;
+    console.log(this.state.user.phoneNumber);
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(this.state.user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error == undefined) {
+          toastr.success('', 'User Edited Successfully');
+        } else {
+          toastr.error('', "Couldn't save the changes");
+        }
+      },
+      error => {
+        toastr.error('', "Couldn't save the changes");
+      },
+    );
   }
   onAct(id) {
     const url = `${SERVER}/loginInsteadACustomer`;
@@ -266,7 +323,6 @@ class ProfileDetail extends React.Component {
           });
         } else {
           toastr.error(response.error.title, response.error.description);
-          console.log('login error : ', error);
         }
       },
       error => {
@@ -276,7 +332,6 @@ class ProfileDetail extends React.Component {
   }
   // componentDidMount() {}
   render() {
-    console.log('publisherRRRr :  : ', this.state.user);
     return (
       <div class="influence-profile">
         <div class="container-fluid dashboard-content ">
@@ -284,15 +339,7 @@ class ProfileDetail extends React.Component {
             <Spinner />
           ) : (
             <div>
-              {/* <PageHeader
-                title="User Details"
-                breadCrumbs={[
-                  { label: 'Accounts', link: '/admin/accounts/all' },
-                  { label: 'User Profile Details' },
-                ]}
-              /> */}
-
-              <div className="row">
+              <div className={`row ${s.container}`}>
                 <ProfileInfo
                   user={{
                     Role: this.state.user.Role,
@@ -300,13 +347,16 @@ class ProfileDetail extends React.Component {
                     lastName: this.state.user.lastName,
                     username: this.state.user.username,
                     contractName: this.state.user.contractName,
+                    userSubCategory: this.state.user.UserSubCategory,
                     phoneNumber: this.state.user.phoneNumber,
                     mobileNumber: this.state.user.mobileNumber,
                     faxNumber: this.state.user.faxNumber,
                     homepage: this.state.user.homepage,
                     email: this.state.user.email,
+                    Country: this.state.user.Country,
                     dateOfBirth: new Date(this.state.user.dateOfBirth),
                     psn: this.state.user.psn,
+                    address: this.state.user.address,
                     discount: this.state.user.discount,
                     emailConfirmed: this.state.user.emailConfirmed,
                     profilePic:
@@ -315,6 +365,7 @@ class ProfileDetail extends React.Component {
                         : this.state.user.profilePic,
                     bio: this.state.user.bio,
                   }}
+                  setAvatar={this.setAvatar}
                   userStatus={this.state.user.UserActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
                   changeStatus={this.changeStatus}
@@ -332,7 +383,7 @@ class ProfileDetail extends React.Component {
                     UserSubCategory: this.state.user.UserSubCategory,
                     UserActivitionStatus: this.state.user.UserActivitionStatus,
                     Job: this.state.user.Job,
-
+                    nonLocalDiscount: this.state.user.nonLocalDiscount,
                     claims: this.state.user.claims,
                     addresses: this.state.user.addresses,
                     VatId: this.state.user.VatId,
@@ -347,9 +398,11 @@ class ProfileDetail extends React.Component {
                     email: this.state.user.email,
                     dateOfBirth: new Date(this.state.user.dateOfBirth),
                     psn: this.state.user.psn,
+                    expectedPaymentMethod: this.state.user
+                      .expectedPaymentMethod,
                     discount: this.state.user.discount,
-                    customerOrders: this.state.user.customerOrders,
-                    publisherOrders: this.state.user.publisherOrders,
+                    customerOrders: this.state.user.customerInvoices,
+                    publisherOrders: this.state.user.orders,
                     handleSimpleInputChange: this.onChangeInput,
                     handleDateInputChange: this.handleDateChange,
                   }}

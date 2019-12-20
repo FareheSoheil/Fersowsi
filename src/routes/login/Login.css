@@ -15,12 +15,12 @@
 .logoContainer{
   background-color: black;
   height: 100px;
-  width: 450px;
+  /* width: 450px; */
   margin-bottom: 15px;
 }
 .logoContainer img {
   height: inherit;
-  width: inherit;
+  /* width: 100%; */
 }
 .root {
   padding-left: 20px;
@@ -170,4 +170,22 @@
 }
 .footerLinks a:hover {
   cursor: pointer;
+}
+.footerLinks {
+  /* border: 1px solid red; */
+}
+.footerLinks > div {
+  text-align: center;
+  padding: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .footerLinks {
+    padding: 5px !important;
+    text-align: center !important;
+  }
+  .footerLinks div {
+    border-right: none !important;
+    text-align: center !important;
+  }
 }

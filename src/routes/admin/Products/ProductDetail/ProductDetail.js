@@ -52,6 +52,7 @@ class ProductDetail extends React.Component {
       },
       privateRatio: '',
       instRatio: '',
+      inPostalRatio: '',
       allContentCategories: '',
       allPublishers: '',
       allLanguages: '',
@@ -90,7 +91,7 @@ class ProductDetail extends React.Component {
         { value: 2, label: 'yearly' },
         { value: 3, label: 'two-weekly' },
       ],
-
+      allProducts: [],
       applyRatios: true,
       allProducts: '',
     };
@@ -166,9 +167,9 @@ class ProductDetail extends React.Component {
   }
   fetchAllInfo() {
     const url = `${SERVER}/getAllAuxInfoForProducts`;
-    this.setState({
-      isLoading: true,
-    });
+    // this.setState({
+    //   isLoading: true,
+    // });
 
     const options = {
       method: 'POST',
@@ -188,8 +189,11 @@ class ProductDetail extends React.Component {
           allAgeGroups: response.AgeGroups,
           allPeriods: response.Periods,
           allProducts: response.products,
+          // allCurrencies: response.
+          // allZones :response.
+          // allDeliveryTypes:response
           // allSubscriptions: response.productSubscriptions,
-          isLoading: false,
+          // isLoading: false,
         });
       },
       error => {
@@ -226,11 +230,15 @@ class ProductDetail extends React.Component {
     const attr = event.target.name;
     let state = { ...this.state };
 
-    if (attr == 'privateRatio' || attr == 'instRatio') {
+    if (
+      attr == 'privateRatio' ||
+      attr == 'instRatio' ||
+      attr == 'inPostalRatio'
+    ) {
       if (this.isNumber(value) || value == '') this.setState({ [attr]: value });
     } else if (attr == 'tax') {
       state = { ...this.state.product };
-      state.tax[this.state.product.currencyId] = value;
+      state.tax[this.props.product.currency.value] = value;
       this.setState({ product: state });
     } else {
       state = { ...this.state.product };
@@ -241,11 +249,11 @@ class ProductDetail extends React.Component {
   // price controllers
   onPriceInputChange(e, index) {
     const value = e.target.value;
-
     const state = e.target.name;
     let product = { ...this.state.product };
+
     product.productPriceAndCost[index][state][
-      this.state.product.currencyId
+      parseInt(this.state.product.currency.value) - 1
     ] = value;
     this.setState({ product });
   }
@@ -325,10 +333,10 @@ class ProductDetail extends React.Component {
   }
   handleSelectChange = (selectedOption, op) => {
     let product = { ...this.state.product };
-    if (op == 'publisher') {
-      window.alert(JSON.stringify(selectedOption));
-      product.currencyId = selectedOption.currencyId;
-    }
+    // if (op == 'publisher') {
+    //   window.alert(JSON.stringify(selectedOption));
+    //   product.currencyId = selectedOption.currencyId;
+    // }
     product[op] = selectedOption;
     this.setState({ product: product });
   };
@@ -380,7 +388,7 @@ class ProductDetail extends React.Component {
           <Spinner />
         ) : (
           <div className="dashboard-ecommerce">
-            <div className="container-fluid dashboard-content ">
+            <div className={`container-fluid ${s.container}`}>
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="influence-profile-content pills-regular">
                   {/* tab headers */}
@@ -458,7 +466,7 @@ class ProductDetail extends React.Component {
                       role="tabpanel"
                       aria-labelledby="pills-subproducts-tab"
                     >
-                      <div class="card">
+                      <div class="card ">
                         <h5
                           class={
                             this.state.product.productStatus.value ===
@@ -546,7 +554,7 @@ class ProductDetail extends React.Component {
                           Product Prices and Costs
                         </h5>
                         <div class="card-body">
-                          <div className="row mt-1 pl-4 mb-1">
+                          <div className="row pl-4 mb-1">
                             <span>Private Price Ratio (%) : </span>
                             {/* <div className="col-xl-2" /> */}
                             <div className="col-xl-1">
@@ -564,7 +572,7 @@ class ProductDetail extends React.Component {
                               </div>
                             </div>
                             {/* <div className="col-xl-2"> */}
-                            <span className="offset-xl-1">
+                            <span className="offset-xl-1 mt-1">
                               Instituitional Price Ratio (%) :
                             </span>
                             {/* </div> */}
@@ -581,13 +589,32 @@ class ProductDetail extends React.Component {
                                 />
                               </div>
                             </div>
+
+                            <span className="offset-xl-1 mt-1">
+                              In Postal Ratio (%) :
+                            </span>
+                            {/* </div> */}
+                            <div className="col-xl-1">
+                              {' '}
+                              <div className="form-group">
+                                <input
+                                  name="inPostalRatio"
+                                  type="text"
+                                  id="inPostalRatio"
+                                  className="form-control form-control-sm "
+                                  value={this.state.inPostalRatio}
+                                  onChange={e => this.onChangeInput(e)}
+                                />
+                              </div>
+                            </div>
                           </div>
 
                           <ProductPriceTable
-                            currencyId={this.state.product.currencyId}
+                            currencyId={this.state.product.currency.value}
                             applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
                             instRatio={this.state.instRatio}
+                            inPostalRatio={this.state.inPostalRatio}
                             productId={this.state.product.id}
                             prices={this.state.product.productPriceAndCost}
                             zoneOptions={this.state.allZones}

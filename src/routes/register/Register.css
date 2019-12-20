@@ -16,7 +16,24 @@
   max-width: 250px;
   width: 450px;
 }
+.root button {
+  background-color: black;
+  color: white;
+}
+.root input {
+  padding: 5px;
+}
+.header {
+  text-align: center;
+  background-color: black;
+    padding-top: 7px !important;
+    padding-bottom: 3px !important;
+    border-bottom: 1px solid #e6e6f2;
+}
+.header h3 {
+  color: white;
 
+}
 .container {
   margin: 0 auto;
   padding: 0 0 40px;

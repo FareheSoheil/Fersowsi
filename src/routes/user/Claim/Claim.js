@@ -96,7 +96,7 @@ class Claim extends React.Component {
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <div>
+          <div className="container-fluid">
             <ContentHeader
               title="Claim List"
               hasSort={false}

@@ -2,9 +2,10 @@
     cursor: pointer;
 }
 .table {
+    font-size: 13px;
     padding-right: 10px;
     padding-left: 10px;
-    padding-top: ۳px;
+    padding-top: 3px;
     margin-bottom: 30px;
 }
 .profilePicContiner {

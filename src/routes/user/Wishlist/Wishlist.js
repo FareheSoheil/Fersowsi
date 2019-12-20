@@ -363,7 +363,7 @@ class Wishlist extends React.Component {
             />
             <div className={`${s.wishContainer} row`}>{wishes}</div>
             <div className="row">
-              <div className="offset-xl-7 col-5 ">
+              <div className="mb-4 offset-xl-7 offset-lg-6 offset-lg-5 offset-md-6 offset-sm-3 offset-5 col-5 ">
                 <button onClick={this.checkOut} className="btn btn-info">
                   Checkout
                 </button>

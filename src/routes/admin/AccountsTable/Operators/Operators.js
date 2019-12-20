@@ -72,7 +72,7 @@ class Operators extends React.Component {
     let state, value;
     if (event.target.type === 'radio') {
       state = 'userActivitionStatus';
-      value = parseInt(event.target.value);
+      value = { value: parseInt(event.target.value) };
     } else {
       state = event.target.name;
       value = event.target.value;

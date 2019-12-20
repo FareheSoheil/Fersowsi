@@ -22,18 +22,18 @@ const PRODUCT_SORT_OPTIONS = [
   { value: 3, label: 'Privce' },
 ];
 const USER_SUBCATEGORY_ARRAY = [
-  { value: 1, name: 'Library', label: 'Library' },
+  { value: 4, name: 'Library', label: 'Library' },
   { value: 2, name: 'Government', label: 'Government' },
-  { id: 3, value: 3, name: 'School', label: 'School' },
-  { id: 4, value: 4, name: 'Corporation', label: 'Corporation' },
-  { id: 5, value: 5, name: 'Single Customer', label: 'Single Customer' },
+  { value: 3, name: 'School', label: 'School' },
+  { value: 5, name: 'Corporation', label: 'Corporation' },
+  { value: 1, name: 'Private', label: 'Private' },
 ];
 const USER_SUBCATEGORY = {
   Library: { value: 4, label: 'Library' },
   Government: { value: 2, label: 'Government' },
   School: { value: 3, label: 'School' },
   Corporation: { value: 5, label: 'Corporation' },
-  Single: { value: 1, label: 'Single Customer' },
+  Single: { value: 1, label: 'Private' },
 };
 const ROLES_ARRAY = [
   { id: 1, value: 1, label: 'SuperAdmin', name: 'SuperAdmin' },
@@ -42,6 +42,7 @@ const ROLES_ARRAY = [
   { id: 4, value: 4, label: 'Customer', name: 'Customer' },
 ];
 const ROLES = {
+  superAdmin: { label: 'superAdmin', value: 1 },
   customer: { label: 'Customer', value: 4 },
   operator: { label: 'Operator', value: 2 },
   publisher: { label: 'Publisher', value: 3 },
@@ -309,7 +310,7 @@ const OPCODES = {
   simple: 3,
 };
 const SERVER = 'http://localhost:3004';
-const PRICE_SIGNS = ['_', '€', '$', '£', 'ریال', 'SEK'];
+const PRICE_SIGNS = ['_', '€', 'USD', '£', 'ریال', 'SEK'];
 export {
   ADDRESS_RECORD_ITEMS,
   ADDRESS_TABLE_LABELS,

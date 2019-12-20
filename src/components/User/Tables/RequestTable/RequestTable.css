@@ -41,3 +41,11 @@
     border-bottom-right-radius: 15px;
     background-color: #ebebeb;
 }
+@media only screen and (max-width: 640px) {
+    .userTable {
+        padding-right: 5px;
+        padding-left: 5px;
+        margin-bottom: 30px;
+        /* table-layout: fixed; */
+    }
+  }

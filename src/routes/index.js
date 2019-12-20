@@ -68,6 +68,11 @@ const routes = {
                 import(/* webpackChunkName: 'adminOperators' */ './admin/AccountsTable/Operators'),
             },
             {
+              path: '/waitForApproval',
+              load: () =>
+                import(/* webpackChunkName: 'adminWaitForApproval' */ './admin/AccountsTable/WaitForApproval'),
+            },
+            {
               path: '/add',
               load: () =>
                 import(/* webpackChunkName: 'adminAddUser' */ './admin/AddUser'),
@@ -90,22 +95,22 @@ const routes = {
             {
               path: '/all',
               load: () =>
-                import(/* webpackChunkName: 'adminProducts' */ './admin/Products/ProductsTable'),
+                import(/* webpackChunkName: 'adminProducts' */ './admin/Products/ProductsList'),
             },
             {
               path: '/pending',
               load: () =>
-                import(/* webpackChunkName: 'adminPendingProducts' */ './admin/Products/ProductsTable/Pending'),
+                import(/* webpackChunkName: 'adminPendingProducts' */ './admin/Products/ProductsList/Pending'),
             },
             {
               path: '/ready',
               load: () =>
-                import(/* webpackChunkName: 'adminReadyProducts' */ './admin/Products/ProductsTable/Ready'),
+                import(/* webpackChunkName: 'adminReadyProducts' */ './admin/Products/ProductsList/Ready'),
             },
             {
               path: '/notAvailable',
               load: () =>
-                import(/* webpackChunkName: 'adminNotAvailableProducts' */ './admin/Products/ProductsTable/NotAvailable'),
+                import(/* webpackChunkName: 'adminNotAvailableProducts' */ './admin/Products/ProductsList/NotAvailable'),
             },
             {
               path: '/add',
@@ -120,22 +125,37 @@ const routes = {
           ],
         },
         {
+          path: '/ordersForPublisher',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminOrdersForPublishers' */ './admin/OrdersForPubisher/OrdersForPubisherList'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminOrdersForPublishersDetails' */ './admin/OrdersForPubisher/OrdersForPubisherDetails'),
+            },
+          ],
+        },
+        {
           path: '/publisherOrder',
           children: [
             {
               path: '/all',
               load: () =>
-                import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/PublisherOrderList'),
+                import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/Orders/PublisherOrderList'),
             },
             {
               path: '/accepted',
               load: () =>
-                import(/* webpackChunkName: 'adminAcceptedPublisherOrders' */ './admin/PublisherOrderList/Accepted'),
+                import(/* webpackChunkName: 'adminOrdersForPublishersDetails' */ './admin/Orders/PublisherOrderList/Accepted'),
             },
             {
               path: '/cancelled',
               load: () =>
-                import(/* webpackChunkName: 'adminCancelledPublisherOrders' */ './admin/PublisherOrderList/Cancelled'),
+                import(/* webpackChunkName: 'adminCancelledPublisherOrders' */ './admin/Orders/PublisherOrderList/Cancelled'),
             },
             {
               path: '/add',
@@ -145,7 +165,7 @@ const routes = {
             {
               path: '/:id',
               load: () =>
-                import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/PublisherOrderDetail'),
+                import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/Orders/PublisherOrderDetail'),
             },
           ],
         },
@@ -155,37 +175,37 @@ const routes = {
             {
               path: '/all',
               load: () =>
-                import(/* webpackChunkName: 'adminCustomerOrderTable' */ './admin/CustomerOrderTable'),
+                import(/* webpackChunkName: 'adminCustomerOrderTable' */ './admin/CustomerOrder/CustomerOrderTable'),
             },
             {
               path: '/new',
               load: () =>
-                import(/* webpackChunkName: 'adminNewCustomerOrders' */ './admin/CustomerOrderTable/New'),
+                import(/* webpackChunkName: 'adminNewCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/New'),
             },
             {
               path: '/ignored',
               load: () =>
-                import(/* webpackChunkName: 'adminIgnoredCustomerOrders' */ './admin/CustomerOrderTable/Ignored'),
+                import(/* webpackChunkName: 'adminIgnoredCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Ignored'),
             },
             {
               path: '/cancelled',
               load: () =>
-                import(/* webpackChunkName: 'adminCancelledCustomerOrders' */ './admin/CustomerOrderTable/Cancelled'),
+                import(/* webpackChunkName: 'adminCancelledCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Cancelled'),
             },
             {
               path: '/delayed',
               load: () =>
-                import(/* webpackChunkName: 'adminDelayedCustomerOrders' */ './admin/CustomerOrderTable/Delayed'),
+                import(/* webpackChunkName: 'adminDelayedCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Delayed'),
             },
             {
               path: '/inProgress',
               load: () =>
-                import(/* webpackChunkName: 'adminInProgressCustomerOrders */ './admin/CustomerOrderTable/InProgress'),
+                import(/* webpackChunkName: 'adminInProgressCustomerOrders */ './admin/CustomerOrder/CustomerOrderTable/InProgress'),
             },
             {
               path: '/done',
               load: () =>
-                import(/* webpackChunkName: 'adminDoneCustomerOrders' */ './admin/CustomerOrderTable/Done'),
+                import(/* webpackChunkName: 'adminDoneCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Done'),
             },
             {
               path: '/add',
@@ -195,7 +215,7 @@ const routes = {
             {
               path: '/:id',
               load: () =>
-                import(/* webpackChunkName: 'adminCustomerOrderDetail' */ './admin/CustomerOrderDetail'),
+                import(/* webpackChunkName: 'adminCustomerOrderDetail' */ './admin/CustomerOrder/CustomerOrderDetail'),
             },
           ],
         },

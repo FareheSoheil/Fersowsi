@@ -20,8 +20,7 @@ class AccountsTable extends React.Component {
     hasPagination: PropTypes.bool.isRequired,
     currentPageNumber: PropTypes.number.isRequired,
     records: PropTypes.array.isRequired,
-    columnLabels: PropTypes.array.isRequired,
-    recordItemNames: PropTypes.array.isRequired,
+    isCustomer: PropTypes.bool.isRequired,
     onRecordClick: PropTypes.func.isRequired,
     handlePageChange: PropTypes.func.isRequired,
   };
@@ -41,12 +40,13 @@ class AccountsTable extends React.Component {
     const tableHeaders = (
       <tr>
         <th>Id</th>
-        <th>Avatar</th>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>Type</th>
+        <th>Customer Name</th>
         <th>Contract Name</th>
         <th>Email</th>
+        <th>Country</th>
         {localStorage != undefined &&
+        this.props.isCustomer &&
         (localStorage.getItem('role') == 2 ||
           localStorage.getItem('role') == 5) ? (
           <th>Select</th>
@@ -67,12 +67,14 @@ class AccountsTable extends React.Component {
           }}
         >
           <td>{record.id}</td>
-          <td>{record.profilePic != null ? record.profilePic : ''}</td>
-          <td>{record.firstName}</td>
-          <td>{record.lastName}</td>
+          <td>{record.subCategory}</td>
+          <td>{record.customerName}</td>
+
           <td>{record.contractName}</td>
           <td>{record.email}</td>
+          <td>{record.country}</td>
           {localStorage != undefined &&
+          this.props.isCustomer &&
           (localStorage.getItem('role') == 2 ||
             localStorage.getItem('role') == 5) ? (
             <td>

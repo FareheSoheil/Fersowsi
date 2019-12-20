@@ -256,24 +256,13 @@ class WishItem extends React.Component {
                 {' '}
                 <img
                   onClick={this.gotoProductDetails}
-                  // width="180"
-                  // height="200"
                   src={this.props.wish.product.coverImage}
                 />
               </div>
             </div>
-            <div className="col-xl-10 col-lg-10 col-md-12">
-              {/* <div className={`${s.title} row pl-0`}>
-                <div className="col-12">
-                  <u>{this.props.wish.product.originalTitle}</u>
-                </div>
-              </div> */}
-
+            <div className="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
               <div className="row mb-2">
-                <div
-                  className="col-xl-4 pl-3"
-                  // style={{ border: '1px solid red' }}
-                >
+                <div className="col-xl-4 pl-3">
                   <div className="row mb-2">
                     <div className={`${s.title} col-12`}>
                       <u>{this.props.wish.product.originalTitle}</u>
@@ -305,7 +294,7 @@ class WishItem extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-2">
+                <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3">
                   <div className={s.count}>
                     <label>Count :</label>
                     <br />
@@ -320,7 +309,7 @@ class WishItem extends React.Component {
                     />
                   </div>
                 </div>
-                <div className="col-xl-2">
+                <div className="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-6">
                   <div className={s.details}>
                     <label>Start Date : &nbsp;</label> <br />
                     <DatePicker
@@ -336,7 +325,7 @@ class WishItem extends React.Component {
                     />{' '}
                   </div>
                 </div>
-                <div className="col-xl-2">
+                <div className="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-6">
                   <div className={s.details}>
                     <label>End Date : &nbsp;&nbsp; </label> <br />
                     <DatePicker
@@ -363,7 +352,7 @@ class WishItem extends React.Component {
                 ) : (
                   <label>Private Price </label>
                 )}
-                <div className="col-xl-6 col-lg-6 col-md-8 col-sm-12 mb-2">
+                <div className="col-xl-6 col-lg-6 col-md-8 col-sm-8 mb-2">
                   <Select
                     isDisabled={this.props.isDisabled}
                     options={manPrices}
@@ -463,10 +452,10 @@ class WishItem extends React.Component {
               </div> */}
 
               <div className={` row mb-3 ${s.select} pl-0`}>
-                <div className="col-xl-2 col-lg-4 col-md-8 col-sm-12">
+                <div className="col-xl-2 col-lg-4 ">
                   <label>Address : </label>
                 </div>
-                <div className="col-xl-8 col-lg-6 col-md-8 col-sm-12">
+                <div className="col-xl-8 col-lg-6 col-md-8  col-sm-10 col-10">
                   <Select
                     options={this.props.allAddresses}
                     value={this.state.selectedAddress}
@@ -477,7 +466,7 @@ class WishItem extends React.Component {
                   />
                 </div>
                 <div
-                  className={`col-xl-1 col-lg-4 col-md-8 col-sm-12 ${
+                  className={`col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 ${
                     s.addBtnContainer
                   }`}
                 >
@@ -494,7 +483,7 @@ class WishItem extends React.Component {
                 <div className="col-xl-2">
                   <label>description: </label>
                 </div>
-                <div className="col-9">
+                <div className="col-10">
                   <div className={s.description}>
                     <textarea
                       value={this.props.wish.product.originalDesc}
@@ -505,7 +494,7 @@ class WishItem extends React.Component {
               </div>
 
               <div className="row mb-2">
-                <div className="offset-xl-6 col-xl-2">
+                <div className="offset-xl-6 offset-lg-5 offset-md-4 offset-sm-3 offset-4 col-xl-2 col-4">
                   <div className={s.deleteBtnContainer}>
                     <button
                       onClick={() =>
@@ -516,7 +505,7 @@ class WishItem extends React.Component {
                     </button>
                   </div>
                 </div>
-                <div className="col-xl-2">
+                <div className="col-xl-2 col-3">
                   <div className={s.selectBtnContainer}>
                     <button
                       className={this.props.isWished ? s.isWished : s.notWished}
