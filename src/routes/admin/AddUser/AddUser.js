@@ -156,6 +156,9 @@ class AddUser extends React.Component {
     } else if (obj.address.zipCode == '') {
       toastr.error('Add UserError', 'Zip Code can not be empty');
       pass = false;
+    } else if (Object.entries(obj.UserActivitionStatus).length === 0) {
+      toastr.error('Add UserError', 'User Status can not be empty');
+      pass = false;
     } else if (Object.entries(obj.Country).length === 0) {
       toastr.error('Add UserError', 'Country can not be empty');
       pass = false;
@@ -173,6 +176,26 @@ class AddUser extends React.Component {
       pass = false;
     } else if (obj.psn == '') {
       toastr.error('Add UserError', 'PSN Id can not be empty');
+      pass = false;
+    } else if (
+      isNaN(parseFloat(obj.discount)) ||
+      !isFinite(obj.discount) ||
+      parseFloat(obj.discount) > 100
+    ) {
+      toastr.error(
+        'Add UserError',
+        'User discount should be a number less than 100',
+      );
+      pass = false;
+    } else if (
+      isNaN(parseFloat(obj.nonLocalDiscount)) ||
+      !isFinite(obj.nonLocalDiscount) ||
+      parseFloat(obj.nonLocalDiscount) > 100
+    ) {
+      toastr.error(
+        'Add UserError',
+        'User Non Local Discount should be a number less than 100',
+      );
       pass = false;
     } else if (Object.entries(obj.UserActivitionStatus).length === 0) {
       toastr.error('Add UserError', 'User Status can not be empty');

@@ -62,6 +62,24 @@ class ProfileDetail extends React.Component {
     // this.fetchAllInfo();
   }
   // TO DO
+  reponseValidator(tmp) {
+    if (tmp.address === null || tmp.address === undefined) tmp.address = {};
+    if (
+      tmp.UserActivitionStatus === null ||
+      tmp.UserActivitionStatus === undefined
+    )
+      tmp.UserActivitionStatus = {};
+    if (tmp.Country === null || tmp.Country === undefined) tmp.Country = {};
+    if (tmp.Job === null || tmp.Job === undefined) tmp.Job = {};
+    if (tmp.Role === null || tmp.Job === undefined) tmp.Role = {};
+    if (tmp.UserSubCategory === null || tmp.UserSubCategory === undefined)
+      tmp.UserSubCategory = {};
+    if (tmp.Currency === null || tmp.Currency === undefined) tmp.Currency = {};
+    if (tmp.Country === null || tmp.Country === undefined) tmp.Country = {};
+
+    if (tmp.dateOfBirth === null || tmp.dateOfBirth === undefined)
+      tmp.dateOfBirth = new Date();
+  }
   fetchUser() {
     const url = `${SERVER}/getUser`;
     this.setState({
@@ -83,32 +101,15 @@ class ProfileDetail extends React.Component {
       options,
       response => {
         if (response.error == undefined) {
-          // if (response.profilePic == undefined || response.profilePic == null) {
-          //   console.log(
-          //     'type response.profilePic  : ',
-          //     typeof response.profilePic,
-          //   );
-          //   response.profilePic = AVATAR;
-          // }
           let tmp = { ...response.user };
-          console.log(
-            'before : ',
-            tmp,
-            '  ',
-            typeof tmp.AccountNo,
-            '    type empy',
-            typeof '',
-          );
-          console.log('_________________________________', null, '');
-
+          this.reponseValidator(tmp);
           nullFillerHelper(tmp);
-          console.log('after : ', tmp);
           that.setState(
             {
-              user: response.user,
+              user: tmp,
             },
             () => {
-              console.log('after .profilePic  : ', that.state.user.profilePic);
+              console.log('state : ', that.state.user);
               const auxUrl = `${SERVER}/getAuxInfoForAll`;
               const auxOptions = {
                 method: 'POST',
@@ -143,6 +144,129 @@ class ProfileDetail extends React.Component {
       },
     );
   }
+  onUserEdit() {
+    const url = `${SERVER}/editUser`;
+    let cred = { ...this.state.user };
+    if (this.errorHanlder(cred)) {
+      cred.vatId = cred.VatId;
+      cred.languageId = 22;
+      cred.userActivitionStatusId = cred.UserActivitionStatus.value;
+      cred.countryId = cred.Country.value;
+      cred.jobId = cred.Job.value;
+      cred.roleId = cred.Role.value;
+      cred.userSubCategoryId = cred.UserSubCategory.value;
+      cred.currencyId = cred.Currency.value;
+      cred.address.countryId = cred.address.Country.value;
+      cred.discount = 0.3;
+      //  parseFloat(this.state.user.discount);
+      cred.nonLocalDiscount = 0.4;
+      // parseFloat(this.state.user.nonLocalDiscount);
+      // nullFillerHelper(cred);
+      console.log('cred : ', JSON.stringify(cred));
+      console.log('cred : ', cred);
+      if (this.state.user.profilePic == null) cred.profilePic = '';
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(cred),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const that = this;
+      fetchWithTimeOut(
+        url,
+        options,
+        response => {
+          if (response.error == undefined) {
+            toastr.success('', 'User Edited Successfully');
+            that.setState({
+              user: cred,
+            });
+          } else {
+            toastr.error(response.error.title, response.error.description);
+          }
+        },
+        error => {
+          toastr.error('', "Couldn't save the changes");
+        },
+      );
+    }
+  }
+  errorHanlder(obj) {
+    let pass = true;
+    if (obj.email == '') {
+      toastr.error('Edit UserError', 'Email can not be empty');
+      pass = false;
+    } else if (
+      Object.entries(obj.address).length === 0 ||
+      Object.entries(obj.address.Country).length === 0
+    ) {
+      toastr.error('Add UserError', 'Address Country can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.UserActivitionStatus).length === 0) {
+      toastr.error('Add UserError', 'User Status can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Country).length === 0) {
+      // else if (obj.address.province == '') {
+      //   toastr.error('Add UserError', 'Province can not be empty');
+      //   pass = false;
+      // } else if (obj.address.city == '') {
+      //   toastr.error('Add UserError', 'City can not be empty');
+      //   pass = false;
+      // } else if (obj.address.detailAddress == '') {
+      //   toastr.error('Add UserError', 'Address can not be empty');
+      //   pass = false;
+      // } else if (obj.address.zipCode == '') {
+      //   toastr.error('Add UserError', 'Zip Code can not be empty');
+      //   pass = false;
+      // }
+      toastr.error('Add UserError', 'Country can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Job).length === 0) {
+      toastr.error('Add UserError', 'Job can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Currency).length === 0) {
+      toastr.error('Add UserError', 'Currency can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Role).length === 0) {
+      toastr.error('Add UserError', 'Role can not be empty');
+      pass = false;
+    } else if (obj.VatId == '') {
+      toastr.error('Add UserError', 'VAT Id can not be empty');
+      pass = false;
+    } else if (obj.psn == '') {
+      toastr.error('Add UserError', 'PSN Id can not be empty');
+      pass = false;
+    } else if (
+      isNaN(parseFloat(obj.discount)) ||
+      !isFinite(obj.discount) ||
+      parseFloat(obj.discount) > 100
+    ) {
+      toastr.error(
+        'Add UserError',
+        'User discount should be a number less than 100',
+      );
+      pass = false;
+    } else if (
+      isNaN(parseFloat(obj.nonLocalDiscount)) ||
+      !isFinite(obj.nonLocalDiscount) ||
+      parseFloat(obj.nonLocalDiscount) > 100
+    ) {
+      toastr.error(
+        'Add UserError',
+        'User Non Local Discount should be a number less than 100',
+      );
+      pass = false;
+    } else if (Object.entries(obj.UserSubCategory).length === 0) {
+      if (obj.Role.value == ROLES.customer.value) {
+        toastr.error('Add UserError', 'SubCategory can not be empty');
+        pass = false;
+      } else obj.UserSubCategory = USER_SUBCATEGORY_ARRAY[4];
+    }
+    // window.alert(pass);
+    return pass;
+  }
+
   fetchAllInfo() {
     const url = `${SERVER}/getAuxInfoForAll`;
     this.setState({
@@ -246,59 +370,7 @@ class ProfileDetail extends React.Component {
       );
     }
   }
-  onUserEdit() {
-    const url = `${SERVER}/editUser`;
-    console.log('this.state.user : ', this.state.user);
-    let cred = { ...this.state.user };
-    cred.vatId = this.state.user.VatId;
-    cred.languageId = 22;
 
-    // if (this.state.user.UserActivitionStatus != null)
-    //   cred.userActivitionStatusId = this.state.user.UserActivitionStatus.value;
-    // else cred.userActivitionStatusId = '';
-
-    // if (this.state.user.Country != null)
-    //   cred.countryId = this.state.user.Country.value;
-    // else cred.countryId = '';
-
-    // if (this.state.user.Job != null) cred.jobId = this.state.user.Job.value;
-    // else cred.jobId = '';
-
-    // if (this.state.user.UserSubCategory != null)
-    //   cred.userSubCategoryId = this.state.user.UserSubCategory.value;
-    // else cred.userSubCategoryId = '';
-
-    // if (this.state.user.Currency != null)
-    //   cred.currencyId = this.state.user.Currency.value;
-    // else cred.currencyId = '';
-
-    // if (this.state.user.Country != null)
-    //   cred.address.countryId = this.state.user.address.Country.value;
-    // else cred.address.countryId = '';
-
-    if (this.state.user.profilePic == null) cred.profilePic = '';
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(cred),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        if (response.error == undefined) {
-          toastr.success('', 'User Edited Successfully');
-        } else {
-          toastr.error(response.error.title, response.error.description);
-        }
-      },
-      error => {
-        toastr.error('', "Couldn't save the changes");
-      },
-    );
-  }
   onAct(id) {
     const url = `${SERVER}/loginInsteadACustomer`;
     const cred = {
