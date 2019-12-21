@@ -105,7 +105,9 @@ class ProfileInfo extends React.Component {
                   >
                     <img
                       src={
-                        this.props.user.profilePic == undefined
+                        this.props.user.profilePic == undefined ||
+                        this.props.user.profilePic == null ||
+                        this.props.user.profilePic == ''
                           ? AVATAR
                           : this.props.user.profilePic
                       }

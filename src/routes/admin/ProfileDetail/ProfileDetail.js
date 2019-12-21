@@ -245,6 +245,7 @@ class ProfileDetail extends React.Component {
     cred.userSubCategoryId = this.state.user.UserSubCategory.value;
     cred.currencyId = this.state.user.Currency.value;
     cred.address.countryId = this.state.user.address.Country.value;
+    if (this.state.user.profilePic == null) cred.profilePic = '';
     const options = {
       method: 'POST',
       body: JSON.stringify(cred),
