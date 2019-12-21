@@ -151,19 +151,20 @@ class AddUser extends React.Component {
     } else if (Object.entries(obj.address.Country).length === 0) {
       toastr.error('Add UserError', 'Address Country can not be empty');
       pass = false;
-    } else if (obj.address.province == '') {
-      toastr.error('Add UserError', 'Province can not be empty');
-      pass = false;
-    } else if (obj.address.city == '') {
-      toastr.error('Add UserError', 'City can not be empty');
-      pass = false;
-    } else if (obj.address.detailAddress == '') {
-      toastr.error('Add UserError', 'Address can not be empty');
-      pass = false;
-    } else if (obj.address.zipCode == '') {
-      toastr.error('Add UserError', 'Zip Code can not be empty');
-      pass = false;
     } else if (Object.entries(obj.UserActivitionStatus).length === 0) {
+      //  else if (obj.address.province == '') {
+      //   toastr.error('Add UserError', 'Province can not be empty');
+      //   pass = false;
+      // } else if (obj.address.city == '') {
+      //   toastr.error('Add UserError', 'City can not be empty');
+      //   pass = false;
+      // } else if (obj.address.detailAddress == '') {
+      //   toastr.error('Add UserError', 'Address can not be empty');
+      //   pass = false;
+      // } else if (obj.address.zipCode == '') {
+      //   toastr.error('Add UserError', 'Zip Code can not be empty');
+      //   pass = false;
+      // }
       toastr.error('Add UserError', 'User Status can not be empty');
       pass = false;
     } else if (Object.entries(obj.Country).length === 0) {
