@@ -199,14 +199,14 @@ class SideBar extends React.Component {
                         Wait For Approval{' '}
                       </a>
                     </li>
-                    {/* <li className="nav-item">
+                    <li className="nav-item">
                       <a
                         className="nav-link"
                         onClick={() => this.goTo('/admin/accounts/add')}
                       >
                         Add User{' '}
                       </a>
-                    </li> */}
+                    </li>
                   </ul>
                 </div>
               </li>

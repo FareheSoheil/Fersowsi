@@ -39,7 +39,7 @@ class SubproductRecord extends React.Component {
                 name="title"
                 type="text"
                 className="form-control form-control-sm "
-                value={this.props.subProduct.originalTitle}
+                value={this.props.subProduct.label}
               />
             </div>
           </form>
@@ -67,7 +67,7 @@ class SubproductRecord extends React.Component {
                 type="text"
                 disabled
                 className="form-control form-control-sm "
-                value={this.props.subProduct.publisher.label}
+                value={this.props.subProduct.PublisherName}
               />
             </div>
           </form>
@@ -81,7 +81,7 @@ class SubproductRecord extends React.Component {
                 type="text"
                 disabled
                 className="form-control form-control-sm "
-                value={this.props.subProduct.ageGroup.label}
+                value={this.props.subProduct.AgeGroupName}
               />
             </div>
           </form>

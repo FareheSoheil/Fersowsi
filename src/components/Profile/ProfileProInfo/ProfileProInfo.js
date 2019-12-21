@@ -118,12 +118,12 @@ class ProfileProInfo extends React.Component {
             <button
               type="submit"
               class="btn btn-success "
-              onClick={this.props.onUserEdit}
+              onClick={this.props.onUserEditAdd}
             >
-              Save Changes
+              {this.props.isForAdd ? 'Add User' : 'Save Changes'}
             </button>
           </div>
-          {localStorage.getItem('role') == 2 ||
+          {(!this.props.isForAdd && localStorage.getItem('role') == 2) ||
           localStorage.getItem('role') == 5 ? (
             <div className="col-xl-4 col-md-6">
               <button
@@ -136,15 +136,19 @@ class ProfileProInfo extends React.Component {
           ) : (
             ''
           )}
-          <div className="col-xl-4 col-md-6">
-            <button
-              type="submit"
-              class="btn btn-danger"
-              onClick={this.props.onUserDelete}
-            >
-              Delete User
-            </button>
-          </div>
+          {this.props.isForAdd ? (
+            ''
+          ) : (
+            <div className="col-xl-4 col-md-6">
+              <button
+                type="submit"
+                class="btn btn-danger"
+                onClick={this.props.onUserDelete}
+              >
+                Delete User
+              </button>
+            </div>
+          )}
         </div>
         <hr />
         <div class="influence-profile-content pills-regular">
@@ -166,7 +170,8 @@ class ProfileProInfo extends React.Component {
                 Details
               </a>
             </li>
-            {this.props.user.Role.value != ROLES.operator.value &&
+            {!this.props.isForAdd &&
+            this.props.user.Role.value != ROLES.operator.value &&
             this.props.user.Role.value != ROLES.superAdmin.value ? (
               <li class="nav-item ">
                 <a
@@ -204,19 +209,23 @@ class ProfileProInfo extends React.Component {
               </a>
             </li> */}
             {/* ddddddddd */}
-            <li class="nav-item ">
-              <a
-                class="nav-link "
-                id="pills-addresses-tab"
-                data-toggle="pill"
-                href="#pills-addresses"
-                role="tab"
-                aria-controls="pills-addresses"
-                aria-selected="false"
-              >
-                Addresses
-              </a>
-            </li>
+            {!this.props.isForAdd ? (
+              <li class="nav-item ">
+                <a
+                  class="nav-link "
+                  id="pills-addresses-tab"
+                  data-toggle="pill"
+                  href="#pills-addresses"
+                  role="tab"
+                  aria-controls="pills-addresses"
+                  aria-selected="false"
+                >
+                  Addresses
+                </a>
+              </li>
+            ) : (
+              ''
+            )}
           </ul>
 
           <div class="tab-content" id="pills-tabContent">
@@ -299,6 +308,7 @@ class ProfileProInfo extends React.Component {
                               value={this.props.user.UserActivitionStatus}
                             />
                           </div>
+
                           <div class="form-group col-xl-4">
                             <label for="name">User Country</label>
                             <Select
@@ -341,17 +351,21 @@ class ProfileProInfo extends React.Component {
                             />
                           </div>
 
-                          {/* <div class="form-group col-xl-4">
-                            <label for="email">User Role</label>
-                            <Select
-                              options={ROLES_ARRAY}
-                              isSearchable
-                              value={this.props.user.Role}
-                              onChange={so =>
-                                this.props.handleSelectInputChange(so, 'Role')
-                              }
-                            />
-                          </div> */}
+                          {this.props.isForAdd ? (
+                            <div class="form-group col-xl-4">
+                              <label for="email">User Role</label>
+                              <Select
+                                options={ROLES_ARRAY}
+                                isSearchable
+                                value={this.props.user.Role}
+                                onChange={so =>
+                                  this.props.handleSelectInputChange(so, 'Role')
+                                }
+                              />
+                            </div>
+                          ) : (
+                            ''
+                          )}
                           {this.props.user.Role.value ==
                           ROLES.customer.value ? (
                             <div class="form-group col-xl-4">
@@ -386,6 +400,20 @@ class ProfileProInfo extends React.Component {
                                 className="form-control form-control-sm "
                                 onChange={this.props.handleSimpleInputChange}
                                 value={this.props.user.VatId}
+                              />
+                              {/* </div> */}
+                            </div>{' '}
+                          </div>
+                          <div className="col-xl-3">
+                            {' '}
+                            <div className="form-group">
+                              <label>Psn : </label>
+                              <input
+                                name="psn"
+                                type="text"
+                                className="form-control form-control-sm "
+                                onChange={this.props.handleSimpleInputChange}
+                                value={this.props.user.psn}
                               />
                               {/* </div> */}
                             </div>{' '}

@@ -62,7 +62,7 @@ class ProductPriceTable extends React.Component {
         newCost.deliveryTypeId = so.value;
         this.setState({ newCost });
       } else if (name == 'subscription') {
-        newCost.productSubscriptionTypeName = so.label;
+        newCost.ProductSubscriptionTypeName = so.label;
         newCost.productSubscriptionTypeId = so.value;
         this.setState({ newCost });
       } else {

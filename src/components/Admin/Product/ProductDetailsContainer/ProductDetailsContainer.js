@@ -199,9 +199,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="numberOfCopyPerPeriod"
                     type="text"
                     className="form-control form-control-sm"
-                    value={adminPriceTrimmer(
-                      this.props.product.numberOfCopyPerPeriod,
-                    )}
+                    value={this.props.product.numberOfCopyPerPeriod}
                     onChange={e => this.onChangeInput(e, 'num')}
                   />
                   {/* </div>{' '} */}
@@ -240,7 +238,7 @@ class ProductDetailsLeftContainer extends React.Component {
                   <label>Currency </label>
                   <Select
                     name="ageGroup"
-                    options={this.props.allAgeGroups}
+                    options={this.props.allCurrencies}
                     value={this.props.product.currency}
                     onChange={so => this.handleSelectChange(so, 'currency')}
                   />
@@ -253,10 +251,9 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="tax"
                     type="text"
                     className="form-control form-control-sm"
-                    value={adminPriceTrimmer(
-                      this.props.product.tax[this.props.product.currency.value],
-                      'price',
-                    )}
+                    value={
+                      this.props.product.tax[this.props.product.currency.value]
+                    }
                     onChange={e => this.onChangeInput(e, 'num')}
                   />
                 </div>
@@ -268,7 +265,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="localDiscount"
                     type="text"
                     className="form-control form-control-sm"
-                    value={adminPriceTrimmer(this.props.product.localDiscount)}
+                    value={this.props.product.localDiscount}
                     onChange={e => this.onChangeInput(e, 'num')}
                   />
                   {/* </div>{' '} */}
@@ -281,7 +278,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="discount"
                     type="text"
                     className="form-control form-control-sm"
-                    value={adminPriceTrimmer(this.props.product.discount)}
+                    value={this.props.product.discount}
                     onChange={e => this.onChangeInput(e, 'num')}
                   />
                   {/* </div>{' '} */}
@@ -310,7 +307,7 @@ class ProductDetailsLeftContainer extends React.Component {
                     name="weight"
                     type="text"
                     className="form-control form-control-sm"
-                    value={adminPriceTrimmer(this.props.product.weight)}
+                    value={this.props.product.weight}
                     onChange={e => this.onChangeInput(e, 'num')}
                   />
                 </div>

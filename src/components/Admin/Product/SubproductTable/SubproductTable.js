@@ -12,9 +12,6 @@ class SubproductTable extends React.Component {
     onAddSubproduct: PropTypes.func.isRequired,
     onDeleteSubproduct: PropTypes.func.isRequired,
     productOptions: PropTypes.array.isRequired,
-    // onTranslationInputChange: PropTypes.func.isRequired,
-    // onTranslationSelectChange: PropTypes.func.isRequired,
-    // onAddSubproduct: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
@@ -27,14 +24,13 @@ class SubproductTable extends React.Component {
   }
   onSelectChange(so) {
     let newSubproduct = { ...this.state.newSubproduct };
-
-    newSubproduct.label = so.label;
-    newSubproduct.value = so.value;
+    newSubproduct = { ...so };
     this.setState({ newSubproduct });
   }
 
   add() {
     let nt = { ...this.state.newSubproduct };
+
     if (Object.keys(nt).length) {
       this.props.onAddSubproduct(nt);
       this.setState({
@@ -51,6 +47,7 @@ class SubproductTable extends React.Component {
       this.props.subproducts !== undefined &&
       this.props.subproducts.length !== 0
     ) {
+      console.log('this.props.subproducts: ', this.props.subproducts);
       records = this.props.subproducts.map((record, i) => (
         <SubproductRecord
           index={i}
@@ -68,6 +65,7 @@ class SubproductTable extends React.Component {
           <div className="col-4">
             <Select
               options={this.props.productOptions}
+              //
               onChange={this.onSelectChange}
               value={this.state.newSubproduct}
             />

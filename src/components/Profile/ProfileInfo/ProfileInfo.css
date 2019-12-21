@@ -81,3 +81,19 @@
 .iconBtn:hover {
     opacity: .8;
 }
+.address input{
+    padding: 6px;
+    width: 100px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: 5px 12px 3px 10px;
+}
+.address label {
+    font-size: 13px;
+    font-weight: 100 !important;
+    margin-bottom: 0px;
+}
+.country {
+    width: 220px;
+    /* margin-left: 5px; */
+}

@@ -53,44 +53,16 @@ class ProductDetail extends React.Component {
       privateRatio: '',
       instRatio: '',
       inPostalRatio: '',
-      allContentCategories: '',
-      allPublishers: '',
-      allLanguages: '',
-      allAgeGroups: '',
-      allPeriods: '',
-      allZones: [
-        {
-          value: 1,
-          label: 'Europe',
-        },
-        {
-          value: 2,
-          label: 'US and Canada',
-        },
-        {
-          value: 3,
-          label: 'Other',
-        },
-        {
-          value: 4,
-          label: 'Local',
-        },
-      ],
-      allDeliveries: [
-        {
-          value: 1,
-          label: 'Surface Mail',
-        },
-        {
-          value: 2,
-          label: 'Air Mail',
-        },
-      ],
-      allSubscriptions: [
-        { value: 1, label: 'six-monthly' },
-        { value: 2, label: 'yearly' },
-        { value: 3, label: 'two-weekly' },
-      ],
+      allContentCategories: [],
+      allPublishers: [],
+      allLanguages: [],
+      allAgeGroups: [],
+      allPeriods: [],
+      allZones: [],
+      allDeliveries: [],
+      allSubscriptions: [],
+      allCountries: [],
+      allCurrencies: [],
       allProducts: [],
       applyRatios: true,
       allProducts: '',
@@ -139,6 +111,7 @@ class ProductDetail extends React.Component {
     this.setState({
       isLoading: true,
     });
+    // window.alert(this.state.id);
     const credentials = {
       productId: this.state.id,
     };
@@ -154,6 +127,7 @@ class ProductDetail extends React.Component {
       url,
       options,
       response => {
+        console.log('response.product : ', response.product);
         that.setState({
           product: response.product,
           isLoading: false,
@@ -188,11 +162,12 @@ class ProductDetail extends React.Component {
           allLanguages: response.Languages,
           allAgeGroups: response.AgeGroups,
           allPeriods: response.Periods,
-          allProducts: response.products,
-          // allCurrencies: response.
-          // allZones :response.
-          // allDeliveryTypes:response
-          // allSubscriptions: response.productSubscriptions,
+          allZones: response.Zones,
+          allDeliveries: response.DeliveryTypes,
+          allSubscriptions: response.productSubscriptions,
+          allCountries: response.Countries,
+          allCurrencies: response.Currency,
+          allProducts: response.Products,
           // isLoading: false,
         });
       },
@@ -238,7 +213,7 @@ class ProductDetail extends React.Component {
       if (this.isNumber(value) || value == '') this.setState({ [attr]: value });
     } else if (attr == 'tax') {
       state = { ...this.state.product };
-      state.tax[this.props.product.currency.value] = value;
+      state.tax[this.state.product.currency.value] = value;
       this.setState({ product: state });
     } else {
       state = { ...this.state.product };
@@ -315,9 +290,7 @@ class ProductDetail extends React.Component {
   // subproducts controllers
   onAddSubproduct(newSub) {
     let product = { ...this.state.product };
-    let nsp = { ...this.state.allProducts };
-    product.subProducts.unshift(nsp[newSub.index]);
-    window.alert(newSub);
+    product.subProducts.unshift(newSub);
     this.setState({ product: product });
   }
   onDeleteSubproduct(index, e) {
@@ -347,37 +320,38 @@ class ProductDetail extends React.Component {
     window.alert('send delete ajax with user id');
   }
   onProductEdit() {
-    const url = `${SERVER}/updateProduct`;
-    this.setState({
-      isLoading: true,
-    });
-    const credentials = {
-      productId: this.state.id,
-      product: this.state.product,
-    };
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const that = this;
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        window.alert('Product Updated Successfully');
-        that.setState({
-          product: response.product,
-          isLoading: false,
-        });
-      },
-      error => {
-        window.alert('error');
-        console.log('an error occured', error);
-      },
-    );
+    console.log(this.state.product);
+    // const url = `${SERVER}/updateProduct`;
+    // this.setState({
+    //   isLoading: true,
+    // });
+    // const credentials = {
+    //   productId: this.state.id,
+    //   product: this.state.product,
+    // };
+    // const options = {
+    //   method: 'POST',
+    //   body: JSON.stringify(credentials),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // };
+    // const that = this;
+    // fetchWithTimeOut(
+    //   url,
+    //   options,
+    //   response => {
+    //     window.alert('Product Updated Successfully');
+    //     that.setState({
+    //       product: response.product,
+    //       isLoading: false,
+    //     });
+    //   },
+    //   error => {
+    //     window.alert('error');
+    //     console.log('an error occured', error);
+    //   },
+    // );
   }
 
   render() {
@@ -487,7 +461,7 @@ class ProductDetail extends React.Component {
                           <SubproductTable
                             productId={this.state.product.id}
                             subproducts={this.state.product.subProducts}
-                            productOptions={this.state.allLanguages}
+                            productOptions={this.state.allProducts}
                             onAddSubproduct={this.onAddSubproduct}
                             onDeleteSubproduct={this.onDeleteSubproduct}
                           />
@@ -641,13 +615,15 @@ class ProductDetail extends React.Component {
                             hasType={true}
                             changeStatus={this.changeStatus}
                             product={this.state.product}
-                            allAgeGroups={this.state.allAgeGroups}
+                            allPublishers={this.state.allPublishers}
                             allContentCategories={
                               this.state.allContentCategories
                             }
-                            allPeriods={this.state.allPeriods}
+                            allAgeGroups={this.state.allAgeGroups}
                             allLanguages={this.state.allLanguages}
-                            allPublishers={this.state.allPublishers}
+                            allPeriods={this.state.allPeriods}
+                            allCountries={this.state.allCountries}
+                            allCurrencies={this.state.allCurrencies}
                             uploadImage={this.uploadImage}
                             handleDateChange={this.handleDateChange}
                             handleSelectChange={this.handleSelectChange}

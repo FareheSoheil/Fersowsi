@@ -36,43 +36,7 @@ class ProfileDetail extends React.Component {
       isLoading: true,
       id: this.props.context.params.id,
       user: {
-        id: '',
-        password: '',
-        firstName: '',
-        lastName: '',
-        username: '',
-        contractName: '',
-        phoneNumber: '',
-        mobileNumber: '',
-        faxNumber: '',
-        homepage: '',
-        VatId: '',
-        email: '',
-        dateOfBirth: new Date(),
-        psn: '',
-        discount: '',
-        emailConfirmed: true,
-        profilePic: AVATAR,
-        bio: '',
-        claims: '',
-        createdAt: '',
-        updatedAt: '',
-        glmCode: '',
-        referenceNo: '',
-        eoriNo: '',
-        bankName: '',
-        AccountNo: '',
-        iban: '',
-        swiftAddress: '',
-        bankGiro: '',
-        // pro info
-        Role: {},
-        Country: {},
-        Currency: {},
-        UserSubCategory: {},
-        UserActivitionStatus: '',
-        siteLanguage: {},
-        Job: {},
+        id: this.props.context.params.id,
       },
       countries: '',
       jobs: '',
@@ -88,6 +52,8 @@ class ProfileDetail extends React.Component {
     this.onUserDelete = this.onUserDelete.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
     this.setAvatar = this.setAvatar.bind(this);
+    this.onAddressChange = this.onAddressChange.bind(this);
+    this.onAddressSelectChange = this.onAddressSelectChange.bind(this);
   }
   componentDidMount() {
     // window.alert;
@@ -116,13 +82,20 @@ class ProfileDetail extends React.Component {
       options,
       response => {
         if (response.error == undefined) {
-          response.user.password = '';
-          response.user.contractName = 'salam';
+          // if (response.profilePic == undefined || response.profilePic == null) {
+          //   console.log(
+          //     'type response.profilePic  : ',
+          //     typeof response.profilePic,
+          //   );
+          //   response.profilePic = AVATAR;
+          // }
+
           that.setState(
             {
               user: response.user,
             },
             () => {
+              console.log('after .profilePic  : ', that.state.user.profilePic);
               const auxUrl = `${SERVER}/getAuxInfoForAll`;
               const auxOptions = {
                 method: 'POST',
@@ -193,6 +166,19 @@ class ProfileDetail extends React.Component {
     user.emailConfirmed = value;
     this.setState({ user: user });
   }
+  onAddressChange(e) {
+    let user = { ...this.state.user };
+    const value = event.target.value;
+    const state = event.target.name;
+    user.address[state] = value;
+    this.setState({ user: user });
+  }
+  onAddressSelectChange(so) {
+    let user = { ...this.state.user };
+
+    user.address.Country = so;
+    this.setState({ user: user });
+  }
   onChangeInput(event) {
     let value;
     if (event.target.type === 'checkbox') value = event.target.checked;
@@ -249,10 +235,19 @@ class ProfileDetail extends React.Component {
   }
   onUserEdit() {
     const url = `${SERVER}/editUser`;
-    console.log(this.state.user.phoneNumber);
+    console.log('this.state.user : ', this.state.user);
+    let cred = { ...this.state.user };
+    cred.vatId = this.state.user.VatId;
+    cred.languageId = 22;
+    cred.userActivitionStatusId = this.state.user.UserActivitionStatus.value;
+    cred.countryId = this.state.user.Country.value;
+    cred.jobId = this.state.user.Job.value;
+    cred.userSubCategoryId = this.state.user.UserSubCategory.value;
+    cred.currencyId = this.state.user.Currency.value;
+    cred.address.countryId = this.state.user.address.Country.value;
     const options = {
       method: 'POST',
-      body: JSON.stringify(this.state.user),
+      body: JSON.stringify(cred),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -264,7 +259,7 @@ class ProfileDetail extends React.Component {
         if (response.error == undefined) {
           toastr.success('', 'User Edited Successfully');
         } else {
-          toastr.error('', "Couldn't save the changes");
+          toastr.error(response.error.title, response.error.description);
         }
       },
       error => {
@@ -341,30 +336,11 @@ class ProfileDetail extends React.Component {
             <div>
               <div className={`row ${s.container}`}>
                 <ProfileInfo
-                  user={{
-                    Role: this.state.user.Role,
-                    firstName: this.state.user.firstName,
-                    lastName: this.state.user.lastName,
-                    username: this.state.user.username,
-                    contractName: this.state.user.contractName,
-                    userSubCategory: this.state.user.UserSubCategory,
-                    phoneNumber: this.state.user.phoneNumber,
-                    mobileNumber: this.state.user.mobileNumber,
-                    faxNumber: this.state.user.faxNumber,
-                    homepage: this.state.user.homepage,
-                    email: this.state.user.email,
-                    Country: this.state.user.Country,
-                    dateOfBirth: new Date(this.state.user.dateOfBirth),
-                    psn: this.state.user.psn,
-                    address: this.state.user.address,
-                    discount: this.state.user.discount,
-                    emailConfirmed: this.state.user.emailConfirmed,
-                    profilePic:
-                      this.state.user.profilePic === null
-                        ? AVATAR
-                        : this.state.user.profilePic,
-                    bio: this.state.user.bio,
-                  }}
+                  isForAdd={false}
+                  user={this.state.user}
+                  onAddressSelectChange={this.onAddressSelectChange}
+                  onAddressChange={this.onAddressChange}
+                  countries={this.state.countries}
                   setAvatar={this.setAvatar}
                   userStatus={this.state.user.UserActivitionStatus}
                   handleSimpleInputChange={this.onChangeInput}
@@ -407,7 +383,7 @@ class ProfileDetail extends React.Component {
                     handleDateInputChange: this.handleDateChange,
                   }}
                   onUserDelete={this.onUserDelete}
-                  onUserEdit={this.onUserEdit}
+                  onUserEditAdd={this.onUserEdit}
                   onAct={this.onAct}
                   pageCount={this.state.user.claims.length / 15}
                   countries={this.state.countries}

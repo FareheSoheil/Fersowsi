@@ -10,8 +10,9 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
+import cookie from 'react-cookies';
 import ReactPaginate from 'react-paginate';
-
+import { ROLES } from '../../../../constants/constantData';
 import s from './AccountsTable.css';
 
 class AccountsTable extends React.Component {
@@ -45,14 +46,13 @@ class AccountsTable extends React.Component {
         <th>Contract Name</th>
         <th>Email</th>
         <th>Country</th>
-        {localStorage != undefined &&
-        this.props.isCustomer &&
-        (localStorage.getItem('role') == 2 ||
-          localStorage.getItem('role') == 5) ? (
-          <th>Select</th>
-        ) : (
-          ''
-        )}
+        <th>
+          {' '}
+          {cookie.load('role') == ROLES.superAdmin.value ||
+          cookie.load('role') == ROLES.userAdmin.value
+            ? Select
+            : ''}
+        </th>
       </tr>
     );
     let records = '';
@@ -69,22 +69,24 @@ class AccountsTable extends React.Component {
           <td>{record.id}</td>
           <td>{record.subCategory}</td>
           <td>{record.customerName}</td>
-
           <td>{record.contractName}</td>
           <td>{record.email}</td>
-          <td>{record.country}</td>
-          {localStorage != undefined &&
-          this.props.isCustomer &&
-          (localStorage.getItem('role') == 2 ||
-            localStorage.getItem('role') == 5) ? (
-            <td>
+          <td>
+            {record.country}
+            {}
+          </td>
+          <td>
+            {' '}
+            {record.roleId == ROLES.customer.value &&
+            (cookie.load('role') == ROLES.superAdmin.value ||
+              cookie.load('role') == ROLES.userAdmin.value) ? (
               <button onClick={e => this.props.onSelect(e, record.id)}>
                 Select
               </button>
-            </td>
-          ) : (
-            ''
-          )}
+            ) : (
+              ''
+            )}
+          </td>
         </tr>
       ));
       toDisplay = (

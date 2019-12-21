@@ -124,10 +124,10 @@ class Html extends React.Component {
               defer
             />
           )}
-          <script
+          {/* <script
             src="https://kit.fontawesome.com/1d4320cba5.js"
             crossorigin="anonymous"
-          />
+          /> */}
           <script src="/assets/vendor/jquery/jquery-3.3.1.min.js" />
           <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js" />
           {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js" /> */}

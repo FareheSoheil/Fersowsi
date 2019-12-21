@@ -36,13 +36,14 @@ const USER_SUBCATEGORY = {
   Single: { value: 1, label: 'Private' },
 };
 const ROLES_ARRAY = [
-  { id: 1, value: 1, label: 'SuperAdmin', name: 'SuperAdmin' },
+  // { id: 1, value: 1, label: 'SuperAdmin', name: 'SuperAdmin' },
   { id: 2, value: 2, label: 'Operator', name: 'Operator' },
   { id: 3, value: 3, label: 'Publisher', name: 'Publisher' },
   { id: 4, value: 4, label: 'Customer', name: 'Customer' },
 ];
 const ROLES = {
   superAdmin: { label: 'superAdmin', value: 1 },
+  userAdmin: { label: 'userAdmin', value: 5 },
   customer: { label: 'Customer', value: 4 },
   operator: { label: 'Operator', value: 2 },
   publisher: { label: 'Publisher', value: 3 },

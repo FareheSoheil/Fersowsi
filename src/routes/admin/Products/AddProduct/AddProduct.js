@@ -20,7 +20,6 @@ class AddProduct extends React.Component {
     this.state = {
       isLoading: true,
       product: {
-        id: '',
         publisherPrice: '',
         discount: 0,
         tax: [0, 0, 0, 0, 0, 0],
@@ -49,50 +48,23 @@ class AddProduct extends React.Component {
         productPriceAndCost: [],
         subProducts: [],
       },
+
       privateRatio: '',
       instRatio: '',
       inPostalRatio: '',
-      allContentCategories: '',
-      allPublishers: '',
-      allLanguages: '',
-      allAgeGroups: '',
-      allPeriods: '',
-      allZones: [
-        {
-          value: 1,
-          label: 'Europe',
-        },
-        {
-          value: 2,
-          label: 'US and Canada',
-        },
-        {
-          value: 3,
-          label: 'Other',
-        },
-        {
-          value: 4,
-          label: 'Local',
-        },
-      ],
-      allDeliveries: [
-        {
-          value: 1,
-          label: 'Surface Mail',
-        },
-        {
-          value: 2,
-          label: 'Air Mail',
-        },
-      ],
-      allSubscriptions: [
-        { value: 1, label: 'six-monthly' },
-        { value: 2, label: 'yearly' },
-        { value: 3, label: 'two-weekly' },
-      ],
+
+      allContentCategories: [],
+      allPublishers: [],
+      allLanguages: [],
+      allAgeGroups: [],
+      allPeriods: [],
+      allZones: [],
+      allDeliveries: [],
+      allSubscriptions: [],
       allCountries: [],
+      allCurrencies: [],
+      allProducts: [],
       applyRatios: true,
-      allProducts: '',
     };
 
     this.fetchAllInfo = this.fetchAllInfo.bind(this);
@@ -185,8 +157,12 @@ class AddProduct extends React.Component {
           allLanguages: response.Languages,
           allAgeGroups: response.AgeGroups,
           allPeriods: response.Periods,
-          allProducts: response.products,
-          // allSubscriptions: response.productSubscriptions,
+          allZones: response.Zones,
+          allDeliveries: response.DeliveryTypes,
+          allSubscriptions: response.productSubscriptions,
+          allCountries: response.Countries,
+          allCurrencies: response.Currency,
+          allProducts: response.Products,
           isLoading: false,
         });
       },
@@ -340,18 +316,15 @@ class AddProduct extends React.Component {
   onImportProduct() {
     window.alert('send delete ajax with user id');
   }
-  onProductEdit() {
-    const url = `${SERVER}/updateProduct`;
+  onProductAdd() {
+    const url = `${SERVER}/addProduct`;
     this.setState({
       isLoading: true,
     });
-    const credentials = {
-      productId: this.state.id,
-      product: this.state.product,
-    };
+
     const options = {
       method: 'POST',
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(this.state.product),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -481,7 +454,7 @@ class AddProduct extends React.Component {
                           <SubproductTable
                             productId={this.state.product.id}
                             subproducts={this.state.product.subProducts}
-                            productOptions={this.state.allLanguages}
+                            productOptions={this.state.allProducts}
                             onAddSubproduct={this.onAddSubproduct}
                             onDeleteSubproduct={this.onDeleteSubproduct}
                           />
@@ -634,13 +607,15 @@ class AddProduct extends React.Component {
                             hasType={true}
                             changeStatus={this.changeStatus}
                             product={this.state.product}
-                            allAgeGroups={this.state.allAgeGroups}
+                            allPublishers={this.state.allPublishers}
                             allContentCategories={
                               this.state.allContentCategories
                             }
-                            allPeriods={this.state.allPeriods}
+                            allAgeGroups={this.state.allAgeGroups}
                             allLanguages={this.state.allLanguages}
-                            allPublishers={this.state.allPublishers}
+                            allPeriods={this.state.allPeriods}
+                            allCountries={this.state.allCountries}
+                            allCurrencies={this.state.allCurrencies}
                             uploadImage={this.uploadImage}
                             handleDateChange={this.handleDateChange}
                             handleSelectChange={this.handleSelectChange}
@@ -664,9 +639,9 @@ class AddProduct extends React.Component {
                     <button className="btn btn-info">Export Product</button>
                   </div>
                   <div className="col-3">
-                    <a className="btn btn-success" onClick={this.onProductEdit}>
+                    <a className="btn btn-success" onClick={this.onProductAdd}>
                       {' '}
-                      Apply Changes
+                      Add Product
                     </a>
                   </div>
                 </div>

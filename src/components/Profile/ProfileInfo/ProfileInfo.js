@@ -11,12 +11,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DatePicker from 'react-datepicker';
+import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
   USER_ACTIVITION_STATUS,
   ROLES,
   USER_SUBCATEGORY,
 } from '../../../constants/constantData';
+import { AVATAR } from '../../../constants';
 import s from './ProfileInfo.css';
 
 class ProfileInfo extends React.Component {
@@ -75,74 +77,11 @@ class ProfileInfo extends React.Component {
   onStatusChange(value) {
     this.props.changeStatus(value);
   }
+
   render() {
     return (
       <div className="col-xl-5 col-lg-4 col-md-6 col-sm-12 col-12">
-        {/* user profile  */}
         <div className={`card ${s.userDetailContainer}`}>
-          {/* <div className={`${s.avatarContainer} card-body`}>
-            <div
-              className={
-                this.props.userStatus.value === USER_ACTIVITION_STATUS.ACTIVE
-                  ? `${s.activeUser} 
-                  user-avatar text-center d-block`
-                  : this.props.userStatus.value ===
-                    USER_ACTIVITION_STATUS.DEACTIVE
-                    ? `${s.deactiveUser} 
-                    user-avatar text-center d-block`
-                    : this.props.userStatus.value ===
-                      USER_ACTIVITION_STATUS.WAITFORAPPROVAL
-                      ? `${s.pendingUser} 
-                    user-avatar text-center d-block`
-                      : 'user-avatar text-center d-block'
-              }
-            >
-              <img
-                src={this.props.user.profilePic}
-                alt="User Avatar"
-                id="detailsAvatar"
-                onClick={this.uploadImage}
-                className={`rounded-circle user-avatar-xl ${s.avatar}`}
-              />
-
-              <div>
-                <input
-                  onChange={this.handleUploadedImage}
-                  style={{ display: 'none' }}
-                  type="file"
-                  id="fileInput"
-                  name="fileInput"
-                />
-              </div>
-            </div>
-          </div>
-          */}
-
-          {/* <div className={`${s.emailConfirmation} card-body`}>
-            <div className="text-center">
-              <label>Confirm User Email : &nbsp;&nbsp;</label>
-              {this.props.user.emailConfirmed === true ? (
-                <i
-                  style={{ color: 'red', fontSize: '20px' }}
-                  class="fa fa-times"
-                  aria-hidden="true"
-                  onClick={() =>
-                    this.onStatusChange(!this.props.user.emailConfirmed)
-                  }
-                />
-              ) : (
-                <i
-                  style={{ color: 'green', fontSize: '20px' }}
-                  class="fas fa-check"
-                  onClick={() =>
-                    this.onStatusChange(!this.props.user.emailConfirmed)
-                  }
-                />
-              )}
-            </div>
-        
-          </div> */}
-
           <div className="card-body">
             <div className="row">
               <div className="col-xl-4">
@@ -165,7 +104,11 @@ class ProfileInfo extends React.Component {
                     }
                   >
                     <img
-                      src={this.props.user.profilePic}
+                      src={
+                        this.props.user.profilePic == undefined
+                          ? AVATAR
+                          : this.props.user.profilePic
+                      }
                       alt="User Avatar"
                       id="detailsAvatar"
                       onClick={this.uploadImage}
@@ -185,8 +128,16 @@ class ProfileInfo extends React.Component {
                 </div>
                 <br />
               </div>
+              {/* {this.props.user.Role.value == ROLES.customer.value
+                ? 'yes'
+                : 'no'}
+              <br />
+              {this.props.user.UserSubCategory.value ==
+              USER_SUBCATEGORY.Single.value
+                ? 'seccond yes'
+                : 'seccond no'} */}
               {this.props.user.Role.value == ROLES.customer.value &&
-              this.props.user.userSubCategory.value ==
+              this.props.user.UserSubCategory.value ==
                 USER_SUBCATEGORY.Single.value ? (
                 <div className={`${s.essentials} col-xl-8`}>
                   <form className={s.formS}>
@@ -232,7 +183,7 @@ class ProfileInfo extends React.Component {
                           <DatePicker
                             name="dateOfBirth"
                             style={{ width: '30px' }}
-                            selected={this.props.user.dateOfBirth}
+                            selected={new Date(this.props.user.dateOfBirth)}
                             onChange={this.props.handleDateInputChange}
                           />
                         </div>
@@ -367,7 +318,6 @@ class ProfileInfo extends React.Component {
                         title="email"
                       />
                       &nbsp;
-                      {/* <div className="col-xl-10 col-md-12"> */}
                       <input
                         name="email"
                         type="text"
@@ -375,7 +325,6 @@ class ProfileInfo extends React.Component {
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.email}
                       />
-                      {/* </div> */}
                     </div>
                   </div>
                   <div className="col-xl-6 col-md-12">
@@ -385,7 +334,6 @@ class ProfileInfo extends React.Component {
                         data-toggle="tooltip"
                         title="phone number"
                       />
-                      {/* <div className="col-xl-10 col-md-12"> */}
                       <input
                         name="phoneNumber"
                         type="text"
@@ -393,7 +341,6 @@ class ProfileInfo extends React.Component {
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.phoneNumber}
                       />
-                      {/* </div> */}
                     </div>
                   </div>
                 </div>
@@ -405,7 +352,6 @@ class ProfileInfo extends React.Component {
                         data-toggle="tooltip"
                         title="fax number"
                       />
-                      {/* <div className="col-xl-10 col-md-12"> */}
                       <input
                         name="faxNumber"
                         type="text"
@@ -413,7 +359,6 @@ class ProfileInfo extends React.Component {
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.faxNumber}
                       />
-                      {/* </div> */}
                     </div>
                   </div>
                   <div className="col-xl-6 col-md-12">
@@ -423,7 +368,6 @@ class ProfileInfo extends React.Component {
                         data-toggle="tooltip"
                         title="mobile number"
                       />
-                      {/* <div className="col-xl-10 col-md-12"> */}
                       <input
                         name="mobileNumber"
                         type="text"
@@ -431,7 +375,6 @@ class ProfileInfo extends React.Component {
                         onChange={this.props.handleSimpleInputChange}
                         value={this.props.user.mobileNumber}
                       />
-                      {/* </div> */}
                     </div>
                   </div>
                 </div>
@@ -458,18 +401,51 @@ class ProfileInfo extends React.Component {
             </div>
           </div>
           <div className="card-body border-top">
-            {this.props.user.Role.value == ROLES.customer.value ||
+            {this.props.isForAdd ||
+            this.props.user.Role.value == ROLES.customer.value ||
             this.props.user.Role.value == ROLES.publisher.value ? (
-              <div className="row mb-2">
+              <div className={`row mb-2 ${s.address}`}>
                 <div className="col-12">
-                  <label>
-                    Active Address : <br />
-                  </label>{' '}
-                  <span>{`${this.props.user.Country.label}, ${
-                    this.props.user.address.province
-                  } ${this.props.user.address.city}  ${
-                    this.props.user.address.detailAddress
-                  }  ${this.props.user.address.zipCode}`}</span>
+                  <div className="row mb-2 pl-3">
+                    <label>Country : </label>
+                    <div className="col-7">
+                      {' '}
+                      <Select
+                        className={s.country}
+                        styles={{ width: '220px' }}
+                        options={this.props.countries}
+                        value={this.props.user.address.Country}
+                        onChange={this.props.onAddressSelectChange}
+                      />
+                    </div>
+                  </div>
+                  <label>Province : </label>
+                  <input
+                    name="province"
+                    value={this.props.user.address.province}
+                    onChange={this.props.onAddressChange}
+                  />
+                  <label>City : </label>
+                  <input
+                    name="city"
+                    value={this.props.user.address.city}
+                    onChange={this.props.onAddressChange}
+                  />
+                  <br />
+                  <label>Address : </label>
+                  <input
+                    style={{ width: '250px' }}
+                    name="detailAddress"
+                    value={this.props.user.address.detailAddress}
+                    onChange={this.props.onAddressChange}
+                  />
+                  <br />
+                  <label>Zip Code : </label>
+                  <input
+                    name="zipCode"
+                    value={this.props.user.address.zipCode}
+                    onChange={this.props.onAddressChange}
+                  />
                 </div>
               </div>
             ) : (
@@ -488,37 +464,6 @@ class ProfileInfo extends React.Component {
             </div>
           </div>
         </div>
-        {/* end user profile */}
-        {/* <div className={`  ${s.btnContainer} row mb-5`}>
-          {' '}
-          <div className="col-xl-4 col-md-6">
-            <button
-              type="submit"
-              class="btn btn-success "
-              onClick={this.props.onUserDelete}
-            >
-              Save Changes
-            </button>
-          </div>
-          <div className="col-xl-4 col-md-6">
-            <button
-              className="btn btn-warning"
-              disabled
-              onClick={this.props.onAct}
-            >
-              Act as this user
-            </button>
-          </div>
-          <div className="col-xl-4 col-md-6">
-            <button
-              type="submit"
-              class="btn btn-danger"
-              onClick={this.props.onUserEdit}
-            >
-              Delete User
-            </button>
-          </div>
-        </div> */}
       </div>
     );
   }
