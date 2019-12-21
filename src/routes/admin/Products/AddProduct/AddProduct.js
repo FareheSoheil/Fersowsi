@@ -24,13 +24,14 @@ class AddProduct extends React.Component {
       product: {
         publisherPrice: [0, 0, 0, 0, 0, 0],
         discount: 0,
+        localDiscount: 0,
         tax: [0, 0, 0, 0, 0, 0],
         issn: '',
         dewey: '',
         asb: '',
         originalTitle: '',
         originalDesc: '',
-        weight: '',
+        weight: 0,
         coverImage: '/assets/images/magazine.png',
         creationDate: '',
         publisherPriceUpdatedAt: '',
@@ -42,15 +43,17 @@ class AddProduct extends React.Component {
         currency: { value: 2, label: 'USD' },
         currencyId: 2,
         productType: PRODUCT_TYPES.Single,
-        singleProductType: '',
-        ageGroup: '',
-        publisher: '',
-        productLanguage: '',
+        singleProductType: {},
+        ageGroup: {},
+        publisher: {},
+        productLanguage: {},
+        numberOfCopyPerPeriod: '',
         productStatus: PRODUCT_STATUS.Pending,
         contentCategory: [],
         translations: [],
         productPriceAndCost: [],
         subProducts: [],
+        operatorNote: '',
       },
 
       privateRatio: '',
@@ -107,6 +110,189 @@ class AddProduct extends React.Component {
     else return true;
   }
 
+  errorHanlder(obj) {
+    console.log('obj.contentCategory : ', obj.contentCategory);
+    let pass = true;
+    if (obj.originalTitle == '') {
+      toastr.error('Add Product Error', 'Title can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.publisher).length === 0) {
+      toastr.error('Add Product Error', 'Publisher can not be empty');
+      pass = false;
+    } else if (obj.issn == '') {
+      toastr.error('Add Product Error', 'ISSN can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.productType).length === 0) {
+      toastr.error('Add Product Error', 'Product Type can not be empty');
+      pass = false;
+    } else if (obj.contentCategory.length == 0) {
+      toastr.error('Add Product Error', 'Content Category can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.ageGroup).length === 0) {
+      toastr.error('Add Product Error', 'Age Group can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.productLanguage).length === 0) {
+      toastr.error('Add Product Error', 'Language can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.productPeriod).length === 0) {
+      toastr.error('Add Product Error', 'Period can not be empty');
+      pass = false;
+    } else if (obj.numberOfCopyPerPeriod == '') {
+      toastr.error(
+        'Add Product Error',
+        'Number of Copies Per Period can not be empty',
+      );
+      pass = false;
+    } else if (Object.entries(obj.singleProductType).length === 0) {
+      toastr.error('Add Product Error', 'Single Product Type can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.country).length === 0) {
+      toastr.error('Add Product Error', 'Country can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.currency).length === 0) {
+      toastr.error('Add Product Error', 'Currency can not be empty');
+      pass = false;
+    } else if (obj.tax == '') {
+      toastr.error('Add Product Error', 'tax can not be empty');
+      pass = false;
+    } else if (
+      isNaN(parseFloat(obj.discount)) ||
+      !isFinite(obj.discount) ||
+      parseFloat(obj.discount) > 100
+    ) {
+      window.alert(obj.discount);
+      toastr.error(
+        'Add Product Error',
+        'Product discount should be a number less than 100',
+      );
+      pass = false;
+    } else if (
+      isNaN(parseFloat(obj.localDiscount)) ||
+      !isFinite(obj.localDiscount) ||
+      parseFloat(obj.localDiscount) > 100
+    ) {
+      window.alert(obj.nonLocalDiscount);
+      toastr.error(
+        'Add Product Error',
+        'Product Non Local Discount should be a number less than 100',
+      );
+      pass = false;
+    } else if (obj.operatorNote == '') {
+      toastr.error('Add Product Error', 'Operator Note can not be empty');
+      pass = false;
+    }
+    // window.alert(pass);
+    return pass;
+  }
+  onProductAdd() {
+    const url = `${SERVER}/addProduct`;
+    const cred = {
+      ...this.state.product,
+    };
+    if (this.errorHanlder(cred)) {
+      cred.isSingleAvailable = true;
+      cred.currencyId = this.state.product.currency.value;
+      cred.ageGroupId = this.state.product.ageGroup.value;
+      cred.productPeriodId = this.state.product.productPeriod.value;
+      cred.countryId = this.state.product.country.value;
+      cred.publisherId = this.state.product.publisher.value;
+      cred.singleProductTypeId = this.state.product.singleProductType.value;
+      cred.productTypeId = this.state.product.productType.value;
+      cred.productLanguageId = this.state.product.productLanguage.value;
+      cred.productStatusId = this.state.product.productStatus.value;
+      cred.tax = this.state.product.tax[this.state.product.currency.value - 1];
+      cred.publisherPrice = this.state.product.publisherPrice[
+        this.state.product.currency.value - 1
+      ];
+      cred.productPriceAndCost.forEach(ppc => {
+        ppc.privateCustomerPrice =
+          ppc.privateCustomerPrice[this.state.product.currency.value - 1];
+        ppc.institutionalCustomerPrice =
+          ppc.institutionalCustomerPrice[this.state.product.currency.value - 1];
+        ppc.privatePublisherPrice =
+          ppc.privatePublisherPrice[this.state.product.currency.value - 1];
+        ppc.institutionalPublisherPrice =
+          ppc.institutionalPublisherPrice[
+            this.state.product.currency.value - 1
+          ];
+        ppc.inPostalCost =
+          ppc.inPostalCost[this.state.product.currency.value - 1];
+        ppc.outPostalCost =
+          ppc.outPostalCost[this.state.product.currency.value - 1];
+      });
+      cred.contentCategory.forEach(cc => {
+        cc.contentCategoryId = cc.value;
+      });
+      cred.translations.forEach(trans => {
+        trans.languageId = trans.value;
+      });
+      cred.subProducts.forEach(spr => {
+        spr.productId = spr.value;
+      });
+      console.log('cred : ', cred);
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(cred),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const that = this;
+      fetchWithTimeOut(
+        url,
+        options,
+        response => {
+          if (response.error == undefined) {
+            toastr.success('', 'Product Added Successfully');
+            that.setState(
+              {
+                product: {
+                  publisherPrice: '',
+                  discount: 0,
+                  tax: [0, 0, 0, 0, 0, 0],
+                  issn: '',
+                  dewey: '',
+                  asb: '',
+                  originalTitle: '',
+                  originalDesc: '',
+                  weight: '',
+                  coverImage: '/assets/images/magazine.png',
+                  creationDate: '',
+                  publisherPriceUpdatedAt: '',
+                  isSingleAvailabel: '',
+                  createdAt: new Date(),
+                  updatedAt: '',
+                  currency: { value: 2, label: 'USD' },
+                  currencyId: 2,
+                  productType: PRODUCT_TYPES.Single,
+                  singleProductType: '',
+                  ageGroup: '',
+                  publisher: '',
+                  productLanguage: '',
+                  productStatus: PRODUCT_STATUS.Pending,
+                  contentCategory: [],
+                  translations: [],
+                  productPriceAndCost: [],
+                  subProducts: [],
+                },
+                // isLoading: false,
+              },
+              () => {
+                history.goBack();
+              },
+            );
+          } else {
+            toastr.error(response.error.title, response.error.description);
+          }
+        },
+        error => {
+          toastr.error(error.title, error.description);
+          window.alert('error');
+          console.log('an error occured', error);
+        },
+      );
+    }
+  }
   fetchProduct() {
     const url = `${SERVER}/getProduct`;
     this.setState({
@@ -318,111 +504,6 @@ class AddProduct extends React.Component {
   }
   onImportProduct() {
     window.alert('send delete ajax with user id');
-  }
-  onProductAdd() {
-    const url = `${SERVER}/addProduct`;
-    const cred = {
-      ...this.state.product,
-    };
-    cred.isSingleAvailable = true;
-    cred.currencyId = this.state.product.currency.value;
-    cred.ageGroupId = this.state.product.ageGroup.value;
-    cred.productPeriodId = this.state.product.productPeriod.value;
-    cred.countryId = this.state.product.country.value;
-    cred.publisherId = this.state.product.publisher.value;
-    cred.singleProductTypeId = this.state.product.singleProductType.value;
-    cred.productTypeId = this.state.product.productType.value;
-    cred.productLanguageId = this.state.product.productLanguage.value;
-    cred.productStatusId = this.state.product.productStatus.value;
-    cred.tax = this.state.product.tax[this.state.product.currency.value - 1];
-    cred.publisherPrice = this.state.product.publisherPrice[
-      this.state.product.currency.value - 1
-    ];
-    cred.productPriceAndCost.forEach(ppc => {
-      ppc.privateCustomerPrice =
-        ppc.privateCustomerPrice[this.state.product.currency.value - 1];
-      ppc.institutionalCustomerPrice =
-        ppc.institutionalCustomerPrice[this.state.product.currency.value - 1];
-      ppc.privatePublisherPrice =
-        ppc.privatePublisherPrice[this.state.product.currency.value - 1];
-      ppc.institutionalPublisherPrice =
-        ppc.institutionalPublisherPrice[this.state.product.currency.value - 1];
-      ppc.inPostalCost =
-        ppc.inPostalCost[this.state.product.currency.value - 1];
-      ppc.outPostalCost =
-        ppc.outPostalCost[this.state.product.currency.value - 1];
-    });
-    cred.contentCategory.forEach(cc => {
-      cc.contentCategoryId = cc.value;
-    });
-    cred.translations.forEach(trans => {
-      trans.languageId = trans.value;
-    });
-    cred.subProducts.forEach(spr => {
-      spr.productId = spr.value;
-    });
-    console.log('cred : ', cred);
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(cred),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const that = this;
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        if (response.error == undefined) {
-          toastr.success('', 'Product Added Successfully');
-          that.setState(
-            {
-              product: {
-                publisherPrice: '',
-                discount: 0,
-                tax: [0, 0, 0, 0, 0, 0],
-                issn: '',
-                dewey: '',
-                asb: '',
-                originalTitle: '',
-                originalDesc: '',
-                weight: '',
-                coverImage: '/assets/images/magazine.png',
-                creationDate: '',
-                publisherPriceUpdatedAt: '',
-                isSingleAvailabel: '',
-                createdAt: new Date(),
-                updatedAt: '',
-                currency: { value: 2, label: 'USD' },
-                currencyId: 2,
-                productType: PRODUCT_TYPES.Single,
-                singleProductType: '',
-                ageGroup: '',
-                publisher: '',
-                productLanguage: '',
-                productStatus: PRODUCT_STATUS.Pending,
-                contentCategory: [],
-                translations: [],
-                productPriceAndCost: [],
-                subProducts: [],
-              },
-              // isLoading: false,
-            },
-            () => {
-              history.goBack();
-            },
-          );
-        } else {
-          toastr.error(response.error.title, response.error.description);
-        }
-      },
-      error => {
-        toastr.error(error.title, error.description);
-        window.alert('error');
-        console.log('an error occured', error);
-      },
-    );
   }
 
   render() {

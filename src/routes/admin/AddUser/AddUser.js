@@ -48,8 +48,8 @@ class AddUser extends React.Component {
         VatId: '',
         dateOfBirth: new Date(),
         psn: '',
-        discount: '',
-        nonLocalDiscount: '',
+        discount: 0,
+        nonLocalDiscount: 0,
         emailConfirmed: true,
         profilePic: AVATAR,
         bio: '',
@@ -81,6 +81,7 @@ class AddUser extends React.Component {
           city: '',
           detailAddress: '',
           zipCode: '',
+          countryId: '',
           Country: {},
         },
         Country: {},
@@ -138,7 +139,13 @@ class AddUser extends React.Component {
   }
   errorHanlder(obj) {
     let pass = true;
-    if (obj.email == '') {
+    if (obj.username == '') {
+      toastr.error('Add UserError', 'username can not be empty');
+      pass = false;
+    } else if (obj.password == '') {
+      toastr.error('Add UserError', 'password can not be empty');
+      pass = false;
+    } else if (obj.email == '') {
       toastr.error('Add UserError', 'Email can not be empty');
       pass = false;
     } else if (Object.entries(obj.address.Country).length === 0) {
@@ -171,17 +178,18 @@ class AddUser extends React.Component {
     } else if (Object.entries(obj.Role).length === 0) {
       toastr.error('Add UserError', 'Role can not be empty');
       pass = false;
-    } else if (obj.VatId == '') {
-      toastr.error('Add UserError', 'VAT Id can not be empty');
-      pass = false;
-    } else if (obj.psn == '') {
-      toastr.error('Add UserError', 'PSN Id can not be empty');
-      pass = false;
     } else if (
       isNaN(parseFloat(obj.discount)) ||
       !isFinite(obj.discount) ||
       parseFloat(obj.discount) > 100
     ) {
+      // else if (obj.VatId == '') {
+      //   toastr.error('Add UserError', 'VAT Id can not be empty');
+      //   pass = false;
+      // } else if (obj.psn == '') {
+      //   toastr.error('Add UserError', 'PSN Id can not be empty');
+      //   pass = false;
+      // }
       toastr.error(
         'Add UserError',
         'User discount should be a number less than 100',
@@ -225,11 +233,9 @@ class AddUser extends React.Component {
       cred.userSubCategoryId = cred.UserSubCategory.value;
       cred.currencyId = cred.Currency.value;
       cred.address.countryId = cred.address.Country.value;
-      cred.discount = 0.3;
-      //  parseFloat(this.state.user.discount);
-      cred.nonLocalDiscount = 0.4;
-      // parseFloat(this.state.user.nonLocalDiscount);
-      // nullFillerHelper(cred);
+      cred.discount = parseFloat(this.state.user.discount);
+      cred.nonLocalDiscount = parseFloat(this.state.user.nonLocalDiscount);
+
       console.log(cred);
       const options = {
         method: 'POST',

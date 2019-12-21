@@ -252,23 +252,12 @@ class ProductDetailsLeftContainer extends React.Component {
                     type="text"
                     className="form-control form-control-sm"
                     value={
-                      this.props.product.tax[this.props.product.currency.value]
+                      this.props.product.tax[
+                        this.props.product.currency.value - 1
+                      ]
                     }
                     onChange={e => this.onChangeInput(e, 'num')}
                   />
-                </div>
-                <div className="mr-3">
-                  {/* <div className="form-group"> */}
-                  <label className="mb-1">Local Discount (%)</label>
-                  <br />
-                  <input
-                    name="localDiscount"
-                    type="text"
-                    className="form-control form-control-sm"
-                    value={this.props.product.localDiscount}
-                    onChange={e => this.onChangeInput(e, 'num')}
-                  />
-                  {/* </div>{' '} */}
                 </div>
                 <div className="mr-3">
                   {/* <div className="form-group"> */}
@@ -279,6 +268,19 @@ class ProductDetailsLeftContainer extends React.Component {
                     type="text"
                     className="form-control form-control-sm"
                     value={this.props.product.discount}
+                    onChange={e => this.onChangeInput(e, 'num')}
+                  />
+                  {/* </div>{' '} */}
+                </div>
+                <div className="mr-3">
+                  {/* <div className="form-group"> */}
+                  <label className="mb-1">Local Discount (%)</label>
+                  <br />
+                  <input
+                    name="localDiscount"
+                    type="text"
+                    className="form-control form-control-sm"
+                    value={this.props.product.localDiscount}
                     onChange={e => this.onChangeInput(e, 'num')}
                   />
                   {/* </div>{' '} */}

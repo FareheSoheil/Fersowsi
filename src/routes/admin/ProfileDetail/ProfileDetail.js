@@ -157,10 +157,10 @@ class ProfileDetail extends React.Component {
       cred.userSubCategoryId = cred.UserSubCategory.value;
       cred.currencyId = cred.Currency.value;
       cred.address.countryId = cred.address.Country.value;
-      cred.discount = 0.3;
-      //  parseFloat(this.state.user.discount);
-      cred.nonLocalDiscount = 0.4;
-      // parseFloat(this.state.user.nonLocalDiscount);
+      cred.discount = parseFloat(this.state.user.discount);
+      //
+      cred.nonLocalDiscount = parseFloat(this.state.user.nonLocalDiscount);
+      //
       // nullFillerHelper(cred);
       console.log('cred : ', JSON.stringify(cred));
       console.log('cred : ', cred);
@@ -194,7 +194,13 @@ class ProfileDetail extends React.Component {
   }
   errorHanlder(obj) {
     let pass = true;
-    if (obj.email == '') {
+    if (obj.username == '') {
+      toastr.error('Edit UserError', 'username can not be empty');
+      pass = false;
+    } else if (obj.password == '') {
+      toastr.error('Edit UserError', 'password can not be empty');
+      pass = false;
+    } else if (obj.email == '') {
       toastr.error('Edit UserError', 'Email can not be empty');
       pass = false;
     } else if (
@@ -231,17 +237,18 @@ class ProfileDetail extends React.Component {
     } else if (Object.entries(obj.Role).length === 0) {
       toastr.error('Add UserError', 'Role can not be empty');
       pass = false;
-    } else if (obj.VatId == '') {
-      toastr.error('Add UserError', 'VAT Id can not be empty');
-      pass = false;
-    } else if (obj.psn == '') {
-      toastr.error('Add UserError', 'PSN Id can not be empty');
-      pass = false;
     } else if (
       isNaN(parseFloat(obj.discount)) ||
       !isFinite(obj.discount) ||
       parseFloat(obj.discount) > 100
     ) {
+      // else if (obj.VatId == '') {
+      //   toastr.error('Add UserError', 'VAT Id can not be empty');
+      //   pass = false;
+      // } else if (obj.psn == '') {
+      //   toastr.error('Add UserError', 'PSN Id can not be empty');
+      //   pass = false;
+      // }
       toastr.error(
         'Add UserError',
         'User discount should be a number less than 100',
