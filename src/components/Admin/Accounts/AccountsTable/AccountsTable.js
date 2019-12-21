@@ -46,13 +46,7 @@ class AccountsTable extends React.Component {
         <th>Contract Name</th>
         <th>Email</th>
         <th>Country</th>
-        <th>
-          {' '}
-          {cookie.load('role') == ROLES.superAdmin.value ||
-          cookie.load('role') == ROLES.userAdmin.value
-            ? Select
-            : ''}
-        </th>
+        <th> {cookie.load('role') != ROLES.publisher.value ? 'Select' : ''}</th>
       </tr>
     );
     let records = '';
@@ -78,8 +72,7 @@ class AccountsTable extends React.Component {
           <td>
             {' '}
             {record.roleId == ROLES.customer.value &&
-            (cookie.load('role') == ROLES.superAdmin.value ||
-              cookie.load('role') == ROLES.userAdmin.value) ? (
+            cookie.load('role') != ROLES.publisher.value ? (
               <button onClick={e => this.props.onSelect(e, record.id)}>
                 Select
               </button>

@@ -321,13 +321,13 @@ class ProductDetail extends React.Component {
   }
   onProductEdit() {
     console.log(this.state.product);
-    // const url = `${SERVER}/updateProduct`;
+    // const url = `${SERVER}/editProduct`;
     // this.setState({
     //   isLoading: true,
     // });
     // const credentials = {
-    //   productId: this.state.id,
-    //   product: this.state.product,
+    //   ...
+    //  this.state.product
     // };
     // const options = {
     //   method: 'POST',
