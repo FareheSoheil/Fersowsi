@@ -1,7 +1,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactDOM from 'react-dom/server';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import ReactPaginate from 'react-paginate';
 import ContentHeader from '../../../components/User/ContentHeader';

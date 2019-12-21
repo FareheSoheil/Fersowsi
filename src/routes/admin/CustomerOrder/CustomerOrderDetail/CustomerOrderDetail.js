@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 import 'react-datepicker/dist/react-datepicker.css';
 import PageHeader from '../../../../components/Admin/PageHeader';
 import Spinner from '../../../../components/Admin/Spinner';
