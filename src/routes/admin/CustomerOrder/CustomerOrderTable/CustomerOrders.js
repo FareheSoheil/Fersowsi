@@ -68,12 +68,13 @@ class CustomerOrders extends React.Component {
     history.push(`/admin/customerOrder/${id}`);
   }
   fetchCustomerOrders() {
-    const url = `${SERVER}/getAllCustomerOrders`;
+    const url = `${SERVER}/getAllCustomerInvoices`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
-      searchBy: this.state.customerOrderSearchFilter,
+      searchBy: { status: '' },
+      //  this.state.customerOrderSearchFilter,
       pageSize: this.state.pageSize,
       pageIndex: this.state.pageIndex,
     };

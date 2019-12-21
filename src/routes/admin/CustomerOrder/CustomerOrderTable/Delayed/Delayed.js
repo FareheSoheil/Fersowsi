@@ -82,7 +82,7 @@ class Delayed extends React.Component {
     history.push(`/admin/customerOrder/${id}`);
   }
   fetchCustomerOrders() {
-    const url = `${SERVER}/getAllCustomerOrders`;
+    const url = `${SERVER}/getAllCustomerInvoices`;
     this.setState({
       isLoading: true,
     });

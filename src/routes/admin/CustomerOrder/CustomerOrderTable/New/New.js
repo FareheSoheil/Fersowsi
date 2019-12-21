@@ -82,7 +82,7 @@ class New extends React.Component {
     );
   }
   fetchCustomerOrders() {
-    const url = `${SERVER}/getAllCustomerOrders`;
+    const url = `${SERVER}/getAllCustomerInvoices`;
     this.setState({
       isLoading: true,
     });

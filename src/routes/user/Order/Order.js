@@ -81,7 +81,7 @@ class Order extends React.Component {
       );
   };
   fetchOrders() {
-    const url = `${SERVER}/getAllCustomerOrdersOfSpecificUser`;
+    const url = `${SERVER}/getAllCustomerInvoicesOfSpecificUser`;
     this.setState({ isLoading: true });
     const credentials = {
       pageIndex: this.state.pageIndex,

@@ -40,6 +40,7 @@ class Accounts extends React.Component {
         firstName: '',
         lastName: '',
         contractName: '',
+        companyName: '',
         email: '',
         userName: '', //remove
         country: '',
@@ -236,10 +237,12 @@ class Accounts extends React.Component {
                             <div className="col-md-2 col-sm-4 form-group">
                               <input
                                 id="un"
-                                name="userName"
+                                name="companyName"
                                 type="text"
-                                placeholder="User Name"
-                                value={this.state.accountsSearchFilter.userName}
+                                placeholder="Company Name"
+                                value={
+                                  this.state.accountsSearchFilter.companyName
+                                }
                                 className="form-control"
                                 onChange={this.handleInputChange}
                               />

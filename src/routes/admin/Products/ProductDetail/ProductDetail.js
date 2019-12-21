@@ -1,7 +1,8 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
+import { toastr } from 'react-redux-toastr';
 import s from './ProductDetail.css';
+import history from '../../../../history';
 import Spinner from '../../../../components/Admin/Spinner';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import SubproductTable from '../../../../components/Admin/Product/SubproductTable';
@@ -188,8 +189,10 @@ class ProductDetail extends React.Component {
     if (inp.files && inp.files[0]) {
       reader.onload = function(e) {
         imgContainer.src = e.target.result;
+        let pres = that.state.product;
+        pres.coverImage = e.target.result;
         that.setState({
-          product: { coverImage: e.target.result },
+          product: pres,
         });
       };
       reader.readAsDataURL(inp.files[0]);
@@ -320,38 +323,75 @@ class ProductDetail extends React.Component {
     window.alert('send delete ajax with user id');
   }
   onProductEdit() {
-    console.log(this.state.product);
-    // const url = `${SERVER}/editProduct`;
+    const url = `${SERVER}/editProduct`;
     // this.setState({
     //   isLoading: true,
     // });
-    // const credentials = {
-    //   ...
-    //  this.state.product
-    // };
-    // const options = {
-    //   method: 'POST',
-    //   body: JSON.stringify(credentials),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // };
-    // const that = this;
-    // fetchWithTimeOut(
-    //   url,
-    //   options,
-    //   response => {
-    //     window.alert('Product Updated Successfully');
-    //     that.setState({
-    //       product: response.product,
-    //       isLoading: false,
-    //     });
-    //   },
-    //   error => {
-    //     window.alert('error');
-    //     console.log('an error occured', error);
-    //   },
-    // );
+    const cred = {
+      ...this.state.product,
+    };
+
+    cred.currencyId = this.state.product.currency.value;
+    cred.ageGroupId = this.state.product.ageGroup.value;
+    cred.productPeriodId = this.state.product.productPeriod.value;
+    cred.countryId = this.state.product.country.value;
+    cred.publisherId = this.state.product.publisher.value;
+    cred.singleProductTypeId = this.state.product.singleProductType.value;
+    cred.productTypeId = this.state.product.productType.value;
+    cred.productLanguageId = this.state.product.productLanguage.value;
+    cred.productStatusId = this.state.product.productStatus.value;
+    cred.tax = this.state.product.tax[this.state.product.currency.value - 1];
+    cred.publisherPrice = this.state.product.publisherPrice[
+      this.state.product.currency.value - 1
+    ];
+    cred.productPriceAndCost.forEach(ppc => {
+      ppc.privateCustomerPrice =
+        ppc.privateCustomerPrice[this.state.product.currency.value - 1];
+      ppc.institutionalCustomerPrice =
+        ppc.institutionalCustomerPrice[this.state.product.currency.value - 1];
+      ppc.privatePublisherPrice =
+        ppc.privatePublisherPrice[this.state.product.currency.value - 1];
+      ppc.institutionalPublisherPrice =
+        ppc.institutionalPublisherPrice[this.state.product.currency.value - 1];
+      ppc.inPostalCost =
+        ppc.inPostalCost[this.state.product.currency.value - 1];
+      ppc.outPostalCost =
+        ppc.outPostalCost[this.state.product.currency.value - 1];
+    });
+    cred.contentCategory.forEach(cc => {
+      cc.contentCategoryId = cc.value;
+    });
+    cred.translations.forEach(trans => {
+      trans.languageId = trans.value;
+    });
+    cred.subProducts.forEach(spr => {
+      spr.productId = spr.value;
+    });
+    console.log('cred : ', cred);
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(cred),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error == undefined) {
+          toastr.success('', 'Product Updated Successfully');
+          history.goBack();
+        } else {
+          toastr.error(response.error.title, response.error.description);
+        }
+      },
+      error => {
+        window.alert('error');
+        console.log('an error occured', error);
+      },
+    );
   }
 
   render() {

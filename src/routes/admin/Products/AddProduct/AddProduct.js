@@ -1,6 +1,8 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { toastr } from 'react-redux-toastr';
 import s from './AddProduct.css';
+import history from '../../../../history';
 import Spinner from '../../../../components/Admin/Spinner';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import SubproductTable from '../../../../components/Admin/Product/SubproductTable';
@@ -20,7 +22,7 @@ class AddProduct extends React.Component {
     this.state = {
       isLoading: true,
       product: {
-        publisherPrice: '',
+        publisherPrice: [0, 0, 0, 0, 0, 0],
         discount: 0,
         tax: [0, 0, 0, 0, 0, 0],
         issn: '',
@@ -32,6 +34,8 @@ class AddProduct extends React.Component {
         coverImage: '/assets/images/magazine.png',
         creationDate: '',
         publisherPriceUpdatedAt: '',
+        productPeriod: '',
+        country: '',
         isSingleAvailabel: '',
         createdAt: new Date(),
         updatedAt: '',
@@ -73,7 +77,7 @@ class AddProduct extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleUploadedImage = this.handleUploadedImage.bind(this);
-
+    this.onProductAdd = this.onProductAdd.bind(this);
     // price handlers
     this.onPriceInputChange = this.onPriceInputChange.bind(this);
     this.onPriceSelectChange = this.onPriceSelectChange.bind(this);
@@ -183,8 +187,10 @@ class AddProduct extends React.Component {
     if (inp.files && inp.files[0]) {
       reader.onload = function(e) {
         imgContainer.src = e.target.result;
+        let pres = that.state.product;
+        pres.coverImage = e.target.result;
         that.setState({
-          product: { coverImage: e.target.result },
+          product: pres,
         });
       };
       reader.readAsDataURL(inp.files[0]);
@@ -208,7 +214,7 @@ class AddProduct extends React.Component {
       if (this.isNumber(value) || value == '') this.setState({ [attr]: value });
     } else if (attr == 'tax') {
       state = { ...this.state.product };
-      state.tax[this.state.product.currencyId] = value;
+      state.tax[this.state.product.currency.value] = value;
       this.setState({ product: state });
     } else {
       state = { ...this.state.product };
@@ -285,9 +291,7 @@ class AddProduct extends React.Component {
   // subproducts controllers
   onAddSubproduct(newSub) {
     let product = { ...this.state.product };
-    let nsp = { ...this.state.allProducts };
-    product.subProducts.unshift(nsp[newSub.index]);
-    window.alert(newSub);
+    product.subProducts.unshift(newSub);
     this.setState({ product: product });
   }
   onDeleteSubproduct(index, e) {
@@ -304,7 +308,6 @@ class AddProduct extends React.Component {
   handleSelectChange = (selectedOption, op) => {
     let product = { ...this.state.product };
     if (op == 'publisher') {
-      window.alert(JSON.stringify(selectedOption));
       product.currencyId = selectedOption.currencyId;
     }
     product[op] = selectedOption;
@@ -318,13 +321,50 @@ class AddProduct extends React.Component {
   }
   onProductAdd() {
     const url = `${SERVER}/addProduct`;
-    this.setState({
-      isLoading: true,
+    const cred = {
+      ...this.state.product,
+    };
+    cred.isSingleAvailable = true;
+    cred.currencyId = this.state.product.currency.value;
+    cred.ageGroupId = this.state.product.ageGroup.value;
+    cred.productPeriodId = this.state.product.productPeriod.value;
+    cred.countryId = this.state.product.country.value;
+    cred.publisherId = this.state.product.publisher.value;
+    cred.singleProductTypeId = this.state.product.singleProductType.value;
+    cred.productTypeId = this.state.product.productType.value;
+    cred.productLanguageId = this.state.product.productLanguage.value;
+    cred.productStatusId = this.state.product.productStatus.value;
+    cred.tax = this.state.product.tax[this.state.product.currency.value - 1];
+    cred.publisherPrice = this.state.product.publisherPrice[
+      this.state.product.currency.value - 1
+    ];
+    cred.productPriceAndCost.forEach(ppc => {
+      ppc.privateCustomerPrice =
+        ppc.privateCustomerPrice[this.state.product.currency.value - 1];
+      ppc.institutionalCustomerPrice =
+        ppc.institutionalCustomerPrice[this.state.product.currency.value - 1];
+      ppc.privatePublisherPrice =
+        ppc.privatePublisherPrice[this.state.product.currency.value - 1];
+      ppc.institutionalPublisherPrice =
+        ppc.institutionalPublisherPrice[this.state.product.currency.value - 1];
+      ppc.inPostalCost =
+        ppc.inPostalCost[this.state.product.currency.value - 1];
+      ppc.outPostalCost =
+        ppc.outPostalCost[this.state.product.currency.value - 1];
     });
-
+    cred.contentCategory.forEach(cc => {
+      cc.contentCategoryId = cc.value;
+    });
+    cred.translations.forEach(trans => {
+      trans.languageId = trans.value;
+    });
+    cred.subProducts.forEach(spr => {
+      spr.productId = spr.value;
+    });
+    console.log('cred : ', cred);
     const options = {
       method: 'POST',
-      body: JSON.stringify(this.state.product),
+      body: JSON.stringify(cred),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -334,13 +374,51 @@ class AddProduct extends React.Component {
       url,
       options,
       response => {
-        window.alert('Product Updated Successfully');
-        that.setState({
-          product: response.product,
-          isLoading: false,
-        });
+        if (response.error == undefined) {
+          toastr.success('', 'Product Added Successfully');
+          that.setState(
+            {
+              product: {
+                publisherPrice: '',
+                discount: 0,
+                tax: [0, 0, 0, 0, 0, 0],
+                issn: '',
+                dewey: '',
+                asb: '',
+                originalTitle: '',
+                originalDesc: '',
+                weight: '',
+                coverImage: '/assets/images/magazine.png',
+                creationDate: '',
+                publisherPriceUpdatedAt: '',
+                isSingleAvailabel: '',
+                createdAt: new Date(),
+                updatedAt: '',
+                currency: { value: 2, label: 'USD' },
+                currencyId: 2,
+                productType: PRODUCT_TYPES.Single,
+                singleProductType: '',
+                ageGroup: '',
+                publisher: '',
+                productLanguage: '',
+                productStatus: PRODUCT_STATUS.Pending,
+                contentCategory: [],
+                translations: [],
+                productPriceAndCost: [],
+                subProducts: [],
+              },
+              // isLoading: false,
+            },
+            () => {
+              history.goBack();
+            },
+          );
+        } else {
+          toastr.error(response.error.title, response.error.description);
+        }
       },
       error => {
+        toastr.error(error.title, error.description);
         window.alert('error');
         console.log('an error occured', error);
       },
