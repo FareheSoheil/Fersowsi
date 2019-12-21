@@ -99,12 +99,7 @@ class AddProduct extends React.Component {
     this.fetchAllInfo();
     // this.fetchProduct();
   }
-  applyRatios() {
-    const pre = this.state.applyRatios;
-    this.setState({
-      applyRatios: !pre,
-    });
-  }
+
   isNumber(string) {
     if (/^[0-9]+$/.test(string) || /^\\s+$/.test(string)) return true;
     else return true;
@@ -440,8 +435,19 @@ class AddProduct extends React.Component {
   }
   onAddPrice(newPrice) {
     let product = { ...this.state.product };
-    product.productPriceAndCost.unshift(newPrice);
-    this.setState({ product: product });
+    if (
+      newPrice.deliveryTypeId == '' ||
+      newPrice.deliveryTypeName == '' ||
+      newPrice.productSubscriptionTypeId == '' ||
+      newPrice.ProductSubscriptionTypeName == '' ||
+      newPrice.zoneId == '' ||
+      newPrice.zoneName == ''
+    )
+      toastr.error('Please Fill out All Fields');
+    else {
+      product.productPriceAndCost.unshift(newPrice);
+      this.setState({ product: product });
+    }
   }
   onDeletePrice(index) {
     let product = { ...this.state.product };
@@ -466,8 +472,17 @@ class AddProduct extends React.Component {
   }
   onAddTranslation(newTranslation) {
     let product = { ...this.state.product };
-    product.translations.unshift(newTranslation);
-    this.setState({ product: product });
+    console.log(product);
+    if (
+      newTranslation.label == '' ||
+      newTranslation.title == '' ||
+      newTranslation.value == ''
+    ) {
+      toastr.error('Please Fill out All Fields');
+    } else {
+      product.translations.unshift(newTranslation);
+      this.setState({ product: product });
+    }
   }
   onDeleteTranslation(index) {
     let product = { ...this.state.product };
@@ -736,7 +751,6 @@ class AddProduct extends React.Component {
 
                           <ProductPriceTable
                             currencyId={this.state.product.currency.value}
-                            applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
                             instRatio={this.state.instRatio}
                             inPostalRatio={this.state.inPostalRatio}

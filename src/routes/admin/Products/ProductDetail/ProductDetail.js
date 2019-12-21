@@ -81,7 +81,6 @@ class ProductDetail extends React.Component {
     this.onPriceInputChange = this.onPriceInputChange.bind(this);
     this.onPriceSelectChange = this.onPriceSelectChange.bind(this);
     this.onAddPrice = this.onAddPrice.bind(this);
-    this.applyRatios = this.applyRatios.bind(this);
     this.onDeletePrice = this.onDeletePrice.bind(this);
     // translation handlers
     this.onTranslationInputChange = this.onTranslationInputChange.bind(this);
@@ -96,12 +95,7 @@ class ProductDetail extends React.Component {
     this.fetchAllInfo();
     this.fetchProduct();
   }
-  applyRatios() {
-    const pre = this.state.applyRatios;
-    this.setState({
-      applyRatios: !pre,
-    });
-  }
+
   isNumber(string) {
     if (/^[0-9]+$/.test(string) || /^\\s+$/.test(string)) return true;
     else return true;
@@ -256,8 +250,20 @@ class ProductDetail extends React.Component {
   }
   onAddPrice(newPrice) {
     let product = { ...this.state.product };
-    product.productPriceAndCost.unshift(newPrice);
-    this.setState({ product: product });
+    console.log(newPrice);
+    if (
+      newPrice.deliveryTypeId == '' ||
+      newPrice.deliveryTypeName == '' ||
+      newPrice.productSubscriptionTypeId == '' ||
+      newPrice.ProductSubscriptionTypeName == '' ||
+      newPrice.zoneId == '' ||
+      newPrice.zoneName == ''
+    )
+      toastr.error('Please Fill out All Fields');
+    else {
+      product.productPriceAndCost.unshift(newPrice);
+      this.setState({ product: product });
+    }
   }
   onDeletePrice(index) {
     let product = { ...this.state.product };
@@ -282,8 +288,16 @@ class ProductDetail extends React.Component {
   }
   onAddTranslation(newTranslation) {
     let product = { ...this.state.product };
-    product.translations.unshift(newTranslation);
-    this.setState({ product: product });
+    if (
+      newTranslation.label == '' ||
+      newTranslation.title == '' ||
+      newTranslation.value == ''
+    ) {
+      toastr.error('Please Fill out All Fields');
+    } else {
+      product.translations.unshift(newTranslation);
+      this.setState({ product: product });
+    }
   }
   onDeleteTranslation(index) {
     let product = { ...this.state.product };
@@ -326,46 +340,49 @@ class ProductDetail extends React.Component {
     console.log('obj.contentCategory : ', obj.contentCategory);
     let pass = true;
     if (obj.originalTitle == '') {
-      toastr.error('Add Product Error', 'Title can not be empty');
+      toastr.error('Edit Product Error', 'Title can not be empty');
       pass = false;
     } else if (Object.entries(obj.publisher).length === 0) {
-      toastr.error('Add Product Error', 'Publisher can not be empty');
+      toastr.error('Edit Product Error', 'Publisher can not be empty');
       pass = false;
     } else if (obj.issn == '') {
-      toastr.error('Add Product Error', 'ISSN can not be empty');
+      toastr.error('Edit Product Error', 'ISSN can not be empty');
       pass = false;
     } else if (Object.entries(obj.productType).length === 0) {
-      toastr.error('Add Product Error', 'Product Type can not be empty');
+      toastr.error('Edit Product Error', 'Product Type can not be empty');
       pass = false;
     } else if (obj.contentCategory.length == 0) {
-      toastr.error('Add Product Error', 'Content Category can not be empty');
+      toastr.error('Edit Product Error', 'Content Category can not be empty');
       pass = false;
     } else if (Object.entries(obj.ageGroup).length === 0) {
-      toastr.error('Add Product Error', 'Age Group can not be empty');
+      toastr.error('Edit Product Error', 'Age Group can not be empty');
       pass = false;
     } else if (Object.entries(obj.productLanguage).length === 0) {
-      toastr.error('Add Product Error', 'Language can not be empty');
+      toastr.error('Edit Product Error', 'Language can not be empty');
       pass = false;
     } else if (Object.entries(obj.productPeriod).length === 0) {
-      toastr.error('Add Product Error', 'Period can not be empty');
+      toastr.error('Edit Product Error', 'Period can not be empty');
       pass = false;
     } else if (obj.numberOfCopyPerPeriod == '') {
       toastr.error(
-        'Add Product Error',
+        'Edit Product Error',
         'Number of Copies Per Period can not be empty',
       );
       pass = false;
     } else if (Object.entries(obj.singleProductType).length === 0) {
-      toastr.error('Add Product Error', 'Single Product Type can not be empty');
+      toastr.error(
+        'Edit Product Error',
+        'Single Product Type can not be empty',
+      );
       pass = false;
     } else if (Object.entries(obj.country).length === 0) {
-      toastr.error('Add Product Error', 'Country can not be empty');
+      toastr.error('Edit Product Error', 'Country can not be empty');
       pass = false;
     } else if (Object.entries(obj.currency).length === 0) {
-      toastr.error('Add Product Error', 'Currency can not be empty');
+      toastr.error('Edit Product Error', 'Currency can not be empty');
       pass = false;
     } else if (Object.entries(obj.tax).length === 0) {
-      toastr.error('Add Product Error', 'tax can not be empty');
+      toastr.error('Edit Product Error', 'tax can not be empty');
       pass = false;
     } else if (
       isNaN(parseFloat(obj.discount)) ||
@@ -374,7 +391,7 @@ class ProductDetail extends React.Component {
     ) {
       window.alert(obj.discount);
       toastr.error(
-        'Add Product Error',
+        'Edit Product Error',
         'Product discount should be a number less than 100',
       );
       pass = false;
@@ -385,12 +402,12 @@ class ProductDetail extends React.Component {
     ) {
       window.alert(obj.nonLocalDiscount);
       toastr.error(
-        'Add Product Error',
+        'Edit Product Error',
         'Product Non Local Discount should be a number less than 100',
       );
       pass = false;
     } else if (obj.operatorNote == '') {
-      toastr.error('Add Product Error', 'Operator Note can not be empty');
+      toastr.error('Edit Product Error', 'Operator Note can not be empty');
       pass = false;
     }
     // window.alert(pass);
@@ -708,7 +725,6 @@ class ProductDetail extends React.Component {
 
                           <ProductPriceTable
                             currencyId={this.state.product.currency.value}
-                            applyRatios={this.state.applyRatios}
                             privateRatio={this.state.privateRatio}
                             instRatio={this.state.instRatio}
                             inPostalRatio={this.state.inPostalRatio}
