@@ -16,6 +16,7 @@ import ProfileInfo from '../../../components/Profile/ProfileInfo';
 import ProfileProInfo from '../../../components/Profile/ProfileProInfo';
 import Spinner from '../../../components/Admin/Spinner';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
+import { nullFillerHelper } from '../../../nullFillerHelper';
 import s from './ProfileDetail.css';
 import {
   SERVER,
@@ -89,7 +90,19 @@ class ProfileDetail extends React.Component {
           //   );
           //   response.profilePic = AVATAR;
           // }
+          let tmp = { ...response.user };
+          console.log(
+            'before : ',
+            tmp,
+            '  ',
+            typeof tmp.AccountNo,
+            '    type empy',
+            typeof '',
+          );
+          console.log('_________________________________', null, '');
 
+          nullFillerHelper(tmp);
+          console.log('after : ', tmp);
           that.setState(
             {
               user: response.user,
@@ -239,12 +252,30 @@ class ProfileDetail extends React.Component {
     let cred = { ...this.state.user };
     cred.vatId = this.state.user.VatId;
     cred.languageId = 22;
-    cred.userActivitionStatusId = this.state.user.UserActivitionStatus.value;
-    cred.countryId = this.state.user.Country.value;
-    cred.jobId = this.state.user.Job.value;
-    cred.userSubCategoryId = this.state.user.UserSubCategory.value;
-    cred.currencyId = this.state.user.Currency.value;
-    cred.address.countryId = this.state.user.address.Country.value;
+
+    // if (this.state.user.UserActivitionStatus != null)
+    //   cred.userActivitionStatusId = this.state.user.UserActivitionStatus.value;
+    // else cred.userActivitionStatusId = '';
+
+    // if (this.state.user.Country != null)
+    //   cred.countryId = this.state.user.Country.value;
+    // else cred.countryId = '';
+
+    // if (this.state.user.Job != null) cred.jobId = this.state.user.Job.value;
+    // else cred.jobId = '';
+
+    // if (this.state.user.UserSubCategory != null)
+    //   cred.userSubCategoryId = this.state.user.UserSubCategory.value;
+    // else cred.userSubCategoryId = '';
+
+    // if (this.state.user.Currency != null)
+    //   cred.currencyId = this.state.user.Currency.value;
+    // else cred.currencyId = '';
+
+    // if (this.state.user.Country != null)
+    //   cred.address.countryId = this.state.user.address.Country.value;
+    // else cred.address.countryId = '';
+
     if (this.state.user.profilePic == null) cred.profilePic = '';
     const options = {
       method: 'POST',

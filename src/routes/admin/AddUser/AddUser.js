@@ -17,8 +17,12 @@ import Spinner from '../../../components/Admin/Spinner';
 
 import PageHeader from '../../../components/Admin/PageHeader';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import { SERVER, AVATAR } from '../../../constants';
-import { USER_ACTIVITION_STATUS_ARRAY } from '../../../constants/constantData';
+import history from '../../../history';
+import { SERVER, AVATAR, ROLES } from '../../../constants';
+import {
+  USER_ACTIVITION_STATUS_ARRAY,
+  USER_SUBCATEGORY_ARRAY,
+} from '../../../constants/constantData';
 import s from './AddUser.css';
 class AddUser extends React.Component {
   static propTypes = {
@@ -49,7 +53,7 @@ class AddUser extends React.Component {
         emailConfirmed: true,
         profilePic: AVATAR,
         bio: '',
-        contractName: 'dasdsfsd',
+        contractName: '',
         roleId: 4,
         userActivitionStatusId: '',
         expectedPaymentMethod: '',
@@ -71,15 +75,15 @@ class AddUser extends React.Component {
         UserSubCategory: {},
         Role: {},
         Job: {},
-        Currency: '',
+        Currency: {},
         address: {
           province: '',
           city: '',
           detailAddress: '',
           zipCode: '',
-          Country: '',
+          Country: {},
         },
-        Country: '',
+        Country: {},
         claims: [],
         addresses: [],
         customerInvoices: [],
@@ -132,43 +136,102 @@ class AddUser extends React.Component {
       },
     );
   }
+  errorHanlder(obj) {
+    let pass = true;
+    if (obj.email == '') {
+      toastr.error('Add UserError', 'Email can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.address.Country).length === 0) {
+      toastr.error('Add UserError', 'Address Country can not be empty');
+      pass = false;
+    } else if (obj.address.province == '') {
+      toastr.error('Add UserError', 'Province can not be empty');
+      pass = false;
+    } else if (obj.address.city == '') {
+      toastr.error('Add UserError', 'City can not be empty');
+      pass = false;
+    } else if (obj.address.detailAddress == '') {
+      toastr.error('Add UserError', 'Address can not be empty');
+      pass = false;
+    } else if (obj.address.zipCode == '') {
+      toastr.error('Add UserError', 'Zip Code can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Country).length === 0) {
+      toastr.error('Add UserError', 'Country can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Job).length === 0) {
+      toastr.error('Add UserError', 'Job can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Currency).length === 0) {
+      toastr.error('Add UserError', 'Currency can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.Role).length === 0) {
+      toastr.error('Add UserError', 'Role can not be empty');
+      pass = false;
+    } else if (obj.VatId == '') {
+      toastr.error('Add UserError', 'VAT Id can not be empty');
+      pass = false;
+    } else if (obj.psn == '') {
+      toastr.error('Add UserError', 'PSN Id can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.UserActivitionStatus).length === 0) {
+      toastr.error('Add UserError', 'User Status can not be empty');
+      pass = false;
+    } else if (Object.entries(obj.UserSubCategory).length === 0) {
+      if (obj.Role.value == ROLES.customer.value) {
+        toastr.error('Add UserError', 'SubCategory can not be empty');
+        pass = false;
+      } else obj.UserSubCategory = USER_SUBCATEGORY_ARRAY[4];
+    }
+    // window.alert(pass);
+    return pass;
+  }
   onUserAdd() {
     const url = `${SERVER}/addUser`;
     let cred = { ...this.state.user };
-
-    cred.vatId = this.state.user.VatId;
-    cred.languageId = 22;
-    cred.userActivitionStatusId = this.state.user.UserActivitionStatus.value;
-    cred.countryId = this.state.user.Country.value;
-    cred.jobId = this.state.user.Job.value;
-    cred.roleId = this.state.user.Role.value;
-    cred.userSubCategoryId = this.state.user.UserSubCategory.value;
-    cred.currencyId = this.state.user.Currency.value;
-    cred.address.countryId = this.state.user.address.Country.value;
-    cred.discount = parseFloat(this.state.user.discount);
-    cred.nonLocalDiscount = parseFloat(this.state.user.nonLocalDiscount);
-    console.log(cred);
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(cred),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    fetchWithTimeOut(
-      url,
-      options,
-      response => {
-        if (response.error == undefined) {
-          toastr.success('', 'User Added Successfully');
-        } else {
-          toastr.error(response.error.title, response.error.description);
-        }
-      },
-      error => {
-        toastr.error('', "Couldn't Add User");
-      },
-    );
+    //
+    // this.errorHanlder(cred);
+    console.log('cred ', cred);
+    if (this.errorHanlder(cred)) {
+      cred.vatId = cred.VatId;
+      cred.languageId = 22;
+      cred.userActivitionStatusId = cred.UserActivitionStatus.value;
+      cred.countryId = cred.Country.value;
+      cred.jobId = cred.Job.value;
+      cred.roleId = cred.Role.value;
+      cred.userSubCategoryId = cred.UserSubCategory.value;
+      cred.currencyId = cred.Currency.value;
+      cred.address.countryId = cred.address.Country.value;
+      cred.discount = 0.3;
+      //  parseFloat(this.state.user.discount);
+      cred.nonLocalDiscount = 0.4;
+      // parseFloat(this.state.user.nonLocalDiscount);
+      // nullFillerHelper(cred);
+      console.log(cred);
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(cred),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      fetchWithTimeOut(
+        url,
+        options,
+        response => {
+          if (response.error == undefined) {
+            toastr.success('', 'User Added Successfully');
+            history.goBack();
+          } else {
+            toastr.error(response.error.title, response.error.description);
+          }
+        },
+        error => {
+          toastr.error('', "Couldn't Add User");
+          console.log('error : ', error);
+        },
+      );
+    }
   }
   onAddressChange(e) {
     let user = { ...this.state.user };

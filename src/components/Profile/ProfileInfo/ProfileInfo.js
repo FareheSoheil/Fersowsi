@@ -109,7 +109,7 @@ class ProfileInfo extends React.Component {
                         this.props.user.profilePic == null ||
                         this.props.user.profilePic == ''
                           ? AVATAR
-                          : this.props.user.profilePic
+                          : this.props.user.profilePic == 'no_image.png'? '/no_image.png':this.props.user.profilePic
                       }
                       alt="User Avatar"
                       id="detailsAvatar"
