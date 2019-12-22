@@ -1,7 +1,0 @@
-{
-    "name": "CustomerOrderTable",
-    "version": "0.0.0",
-    "private": true,
-    "main": "./CustomerOrderTable.js"
-  }
-  

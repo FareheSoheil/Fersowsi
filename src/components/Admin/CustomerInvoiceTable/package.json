@@ -1,0 +1,7 @@
+{
+    "name": "CustomerInvoiceTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./CustomerInvoiceTable.js"
+  }
+  

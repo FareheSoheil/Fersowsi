@@ -27,15 +27,22 @@ class CustomerInvoice extends React.Component {
   render() {
     return (
       <div className={`row mb-2 ${s.mainContainer}`}>
-        <h5 className={`col-12 ${s.title}`}> Publication Title : </h5>
+        <h5 className={`col-12 ${s.title}`}>
+          {' '}
+          Publication Title : {this.props.invoice.Product.label}{' '}
+        </h5>
         <div className={`col-xl-3 col-lg-5 col-md-6 ${s.reciever}`}>
           <b>Reciever : </b> <br />
-          {this.props.invoice.reciever}
+          {this.props.invoice.Address.province}
+          {this.props.invoice.Address.city}
+          {this.props.invoice.Address.detailAddress}
+          {this.props.invoice.Address.zipCode}
+          {this.props.invoice.Address.Country.label}
         </div>
         <div className="col-xl-4 col-lg-5 col-md-6 ">
           <div>
             <label>Order No: &nbsp;</label>
-            {this.props.invoice.orderNo}
+            {this.props.invoice.id}
           </div>
           <div>
             <label>User Order No: &nbsp;</label>
@@ -47,7 +54,7 @@ class CustomerInvoice extends React.Component {
           </div>
           <div>
             <label>Terms Of Delivery No:&nbsp;</label>
-            {this.props.invoice.deliveryType.label}
+            {this.props.invoice.DeliveryType.label}
           </div>
           <div>
             <label>Start Date : &nbsp;</label>
@@ -61,20 +68,25 @@ class CustomerInvoice extends React.Component {
         <div className="col-xl-4 col-lg-5 col-md-6 ">
           <div>
             <label>Price: &nbsp;</label>
-            {this.props.invoice.orderNo}
+            {
+              this.props.invoice.totalToBePaid[
+                this.props.invoice.currencyId - 1
+              ]
+            }{' '}
+            {PRICE_SIGNS[this.props.invoice.currencyId]}
           </div>
           <div>
             <label>Discount: &nbsp;</label>
-            {adminPriceTrimmer(this.props.invoice.discount)}
+            {this.props.invoice.discount[this.props.invoice.currencyId - 1]}
+            {/* Discount */}
           </div>
           <div>
             <label>Postal Cost: &nbsp;</label>
-            {adminPriceTrimmer(
-              this.props.invoice.deliveryCost[
+            {
+              this.props.invoice.totalDeliveryCost[
                 this.props.invoice.currencyId - 1
-              ],
-              'price',
-            )}{' '}
+              ]
+            }{' '}
             {PRICE_SIGNS[this.props.invoice.currencyId]}
           </div>
         </div>

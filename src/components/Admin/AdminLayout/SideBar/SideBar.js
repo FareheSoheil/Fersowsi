@@ -279,17 +279,17 @@ class SideBar extends React.Component {
               <li className="nav-item">
                 <a
                   className="nav-link"
-                  href="#customerOrders"
+                  href="#CustomerInvoices"
                   data-toggle="collapse"
                   aria-expanded="false"
-                  data-target="#customerOrders"
-                  aria-controls="customerOrders"
+                  data-target="#CustomerInvoices"
+                  aria-controls="CustomerInvoices"
                 >
                   {/*  */}
                   Customer Invoice
                 </a>
                 <div
-                  id="customerOrders"
+                  id="CustomerInvoices"
                   className={`collapse submenu ${s.submenuContainer} `}
                 >
                   <ul className="nav flex-column">
@@ -297,7 +297,7 @@ class SideBar extends React.Component {
                       <a
                         className="nav-link"
                         onClick={() =>
-                          this.goTo('/admin/customerOrder/all', '')
+                          this.goTo('/admin/CustomerInvoice/all', '')
                         }
                       >
                         All Orders{' '}
@@ -306,7 +306,7 @@ class SideBar extends React.Component {
                     <li className="nav-item">
                       <a
                         className="nav-link"
-                        onClick={() => this.goTo('/admin/customerOrder/new')}
+                        onClick={() => this.goTo('/admin/CustomerInvoice/new')}
                       >
                         New Orders{' '}
                       </a>
@@ -315,7 +315,7 @@ class SideBar extends React.Component {
                       <a
                         className="nav-link"
                         onClick={() =>
-                          this.goTo('/admin/customerOrder/inProgress')
+                          this.goTo('/admin/CustomerInvoice/inProgress')
                         }
                       >
                         In Progress Orders{' '}
@@ -326,7 +326,7 @@ class SideBar extends React.Component {
                       <a
                         className="nav-link"
                         onClick={() =>
-                          this.goTo('/admin/customerOrder/delayed')
+                          this.goTo('/admin/CustomerInvoice/delayed')
                         }
                       >
                         Delayed Orders{' '}
@@ -336,7 +336,7 @@ class SideBar extends React.Component {
                     <li className="nav-item">
                       <a
                         className="nav-link"
-                        onClick={() => this.goTo('/admin/customerOrder/done')}
+                        onClick={() => this.goTo('/admin/CustomerInvoice/done')}
                       >
                         Done Orders{' '}
                       </a>
@@ -345,7 +345,7 @@ class SideBar extends React.Component {
                       <a
                         className="nav-link"
                         onClick={() =>
-                          this.goTo('/admin/customerOrder/ignored')
+                          this.goTo('/admin/CustomerInvoice/ignored')
                         }
                       >
                         Ignored Orders{' '}
@@ -355,7 +355,7 @@ class SideBar extends React.Component {
                       <a
                         className="nav-link"
                         onClick={() =>
-                          this.goTo('/admin/customerOrder/cancelled')
+                          this.goTo('/admin/CustomerInvoice/cancelled')
                         }
                       >
                         Cancelled Orders{' '}

@@ -1,7 +1,0 @@
-{
-    "name": "CustomerOrderSideFilter",
-    "version": "0.0.0",
-    "private": true,
-    "main": "./CustomerOrderSideFilter.js"
-  }
-  

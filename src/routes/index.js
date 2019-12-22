@@ -170,52 +170,52 @@ const routes = {
           ],
         },
         {
-          path: '/customerOrder',
+          path: '/CustomerInvoice',
           children: [
             {
               path: '/all',
               load: () =>
-                import(/* webpackChunkName: 'adminCustomerOrderTable' */ './admin/CustomerOrder/CustomerOrderTable'),
+                import(/* webpackChunkName: 'adminCustomerInvoiceTable' */ './admin/CustomerInvoice/CustomerInvoiceTable'),
             },
             {
               path: '/new',
               load: () =>
-                import(/* webpackChunkName: 'adminNewCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/New'),
+                import(/* webpackChunkName: 'adminNewCustomerInvoices' */ './admin/CustomerInvoice/CustomerInvoiceTable/New'),
             },
             {
               path: '/ignored',
               load: () =>
-                import(/* webpackChunkName: 'adminIgnoredCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Ignored'),
+                import(/* webpackChunkName: 'adminIgnoredCustomerInvoices' */ './admin/CustomerInvoice/CustomerInvoiceTable/Ignored'),
             },
             {
               path: '/cancelled',
               load: () =>
-                import(/* webpackChunkName: 'adminCancelledCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Cancelled'),
+                import(/* webpackChunkName: 'adminCancelledCustomerInvoices' */ './admin/CustomerInvoice/CustomerInvoiceTable/Cancelled'),
             },
             {
               path: '/delayed',
               load: () =>
-                import(/* webpackChunkName: 'adminDelayedCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Delayed'),
+                import(/* webpackChunkName: 'adminDelayedCustomerInvoices' */ './admin/CustomerInvoice/CustomerInvoiceTable/Delayed'),
             },
             {
               path: '/inProgress',
               load: () =>
-                import(/* webpackChunkName: 'adminInProgressCustomerOrders */ './admin/CustomerOrder/CustomerOrderTable/InProgress'),
+                import(/* webpackChunkName: 'adminInProgressCustomerInvoices */ './admin/CustomerInvoice/CustomerInvoiceTable/InProgress'),
             },
             {
               path: '/done',
               load: () =>
-                import(/* webpackChunkName: 'adminDoneCustomerOrders' */ './admin/CustomerOrder/CustomerOrderTable/Done'),
+                import(/* webpackChunkName: 'adminDoneCustomerInvoices' */ './admin/CustomerInvoice/CustomerInvoiceTable/Done'),
             },
             {
               path: '/add',
               load: () =>
-                import(/* webpackChunkName: 'adminAddCustomerOrder' */ './admin/AddCustomerOrder'),
+                import(/* webpackChunkName: 'adminAddCustomerInvoice' */ './admin/CustomerInvoice/AddCustomerInvoice'),
             },
             {
               path: '/:id',
               load: () =>
-                import(/* webpackChunkName: 'adminCustomerOrderDetail' */ './admin/CustomerOrder/CustomerOrderDetail'),
+                import(/* webpackChunkName: 'adminCustomerInvoiceDetail' */ './admin/CustomerInvoice/CustomerInvoiceDetail'),
             },
           ],
         },

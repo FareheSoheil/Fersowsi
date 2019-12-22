@@ -1,0 +1,104 @@
+
+.container {
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    padding-top: 25px ;
+    padding-bottom: 25px;
+    padding-right: 5px ;
+    background-color: white;
+    font-size: 13px;
+}
+.container label {
+    font-size: 13px;
+    color: #3d405c !important;
+}
+.container h5 {
+    border-bottom: 1px solid #3d405c;
+    background-color: #4fb9ae;
+    padding: 6px;
+}
+.userInfo {
+    /* border: 1px solid #4fb9ae; */
+
+}
+.container textarea {
+    width: 95%;
+    padding: 5px;
+
+}
+.total input {
+    max-width: 100px;
+}
+.link {
+    padding-left: 20px;
+    color: blue;
+    cursor: pointer;
+    font-size: 17px;
+}
+.orderNo {
+    padding-left: 20px;
+    color: gray;
+    cursor: pointer;
+    font-size: 17px; 
+}
+.container label {
+    color:black;
+}
+.orderSmallInfoContainer {
+    padding: 5px 20px 5px 15px;
+    text-align: center;
+}
+.orderSmallInfoContainer>div {
+    text-align: left;
+}
+.orderSmallInfoContainer input{
+    display: inline;
+    width: 80px;
+}
+.imageContainer {
+    text-align: center;
+}
+.imageUploader {
+    width: 200px !important;
+    border: 1px solid red;
+}
+.imageContainer img {
+    border: 2px solid lightgray;
+    border-radius: 3px;
+}
+
+
+.dropDownContainer>div{
+    margin-bottom: 12px;
+    /* border: 1px solid violet; */
+}
+.dropDownContainer > input {
+    width: 100px;
+}
+.dropDownContainer>div>label , .productsmallInfoContainer>div>label{ 
+    color: rgb(80, 78, 78);
+}
+.advancedContainer {
+    /* border: 1px solid greenyellow; */
+    text-align: left;
+    padding: 10px;
+    background-color: white;
+}
+.publisherOrderDetailContainer form {
+    width: 100%;
+    display: inline-block;
+}
+.publisherOrderDetailContainer label {
+    display: inline-block;
+}
+.publisherOrderDetailContainer input{
+    margin-left: 5px;
+    width:100px;
+    display: inline-block;
+}
+@media only screen and (max-width: 600px) {
+    .customerOrderDetailContainer input{
+        
+        width:100%;
+    }
+}
