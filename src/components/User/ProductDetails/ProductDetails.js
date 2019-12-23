@@ -214,10 +214,16 @@ class ProductDetails extends React.Component {
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
                   <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
                     <label> Institutional Price </label>
+                    <br />
+                    <br />
+                    <label> Postal Price </label>
                   </div>
                 ) : (
                   <div className="col-xl-3 col-lg-2 col-md-2 col-sm-12">
                     <label>Private Price</label>
+                    <br />
+                    <br />
+                    <label> Postal Price </label>
                   </div>
                 )}
                 <div className="col-xl-5 col-lg-6 col-md-8 col-sm-12">
@@ -237,6 +243,8 @@ class ProductDetails extends React.Component {
                           } (${PRICE_SIGNS[sign + 1]})`
                         : ''}
                     </span>
+                    <br />
+                    <br />
                     <span>
                       {' '}
                       {manPrices[this.state.selectedPrice.index] != undefined
@@ -256,6 +264,8 @@ class ProductDetails extends React.Component {
                           } (${PRICE_SIGNS[sign + 1]})`
                         : ''}
                     </span>
+                    <br />
+                    <br />
                     <span>
                       {' '}
                       {manPrices[this.state.selectedPrice.index] != undefined
