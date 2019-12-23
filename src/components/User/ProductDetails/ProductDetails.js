@@ -6,7 +6,11 @@ import cookie from 'react-cookies';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
 import history from '../../../history';
 import zeroTrimmer from '../../../zeroTrimmer';
-import { USER_SUBCATEGORY, SERVER } from '../../../constants/constantData';
+import {
+  USER_SUBCATEGORY,
+  SERVER,
+  PRICE_SIGNS,
+} from '../../../constants/constantData';
 import s from './ProductDetails.css';
 class ProductDetails extends React.Component {
   static propTypes = {
@@ -83,6 +87,7 @@ class ProductDetails extends React.Component {
               }`,
               privatePrice: price.privateCustomerPrice[sign],
               instPrice: price.institutionalCustomerPrice[sign],
+              postalPrice: price.outPostalCost[sign],
             });
       });
     }
@@ -198,18 +203,6 @@ class ProductDetails extends React.Component {
                   </div>
                 </div>
               </div>
-              {/* {this.props.product.productType.value ==1 ? (
-                <div className="row">
-                  <div className="col-10">
-                    <div className={s.SingleType}>
-                      <label>Single Product Type :</label>{' '}
-                      {this.props.product.singleProductType.label}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                ''
-              )} */}
               <div className="row">
                 <div className="col-12">
                   <div className={s.description}>
@@ -238,23 +231,39 @@ class ProductDetails extends React.Component {
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
                       {manPrices[this.state.selectedPrice.index] != undefined
-                        ? zeroTrimmer(
+                        ? `${
                             manPrices[this.state.selectedPrice.index]
-                              .privatePrice,
-                            'price',
-                          )
+                              .privatePrice
+                          } (${PRICE_SIGNS[sign + 1]})`
                         : ''}
+                    </span>
+                    <span>
+                      {' '}
+                      {manPrices[this.state.selectedPrice.index] != undefined
+                        ? `${
+                            manPrices[this.state.selectedPrice.index]
+                              .postalPrice
+                          }  (${PRICE_SIGNS[sign + 1]})`
+                        : ''}{' '}
                     </span>
                   </div>
                 ) : (
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-12">
                     <span>
                       {manPrices[this.state.selectedPrice.index] != undefined
-                        ? zeroTrimmer(
-                            manPrices[this.state.selectedPrice.index].instPrice,
-                            'price',
-                          )
+                        ? `${
+                            manPrices[this.state.selectedPrice.index].instPrice
+                          } (${PRICE_SIGNS[sign + 1]})`
                         : ''}
+                    </span>
+                    <span>
+                      {' '}
+                      {manPrices[this.state.selectedPrice.index] != undefined
+                        ? `${
+                            manPrices[this.state.selectedPrice.index]
+                              .postalPrice
+                          }  (${PRICE_SIGNS[sign + 1]})`
+                        : ''}{' '}
                     </span>
                   </div>
                 )}

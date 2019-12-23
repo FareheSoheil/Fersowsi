@@ -10,7 +10,7 @@ import history from '../../../history';
 import zeroTrimmer from '../../../zeroTrimmer';
 import arrayResolver from '../../../arrayResolver';
 import { SERVER } from '../../../constants';
-import { USER_SUBCATEGORY } from '../../../constants/constantData';
+import { USER_SUBCATEGORY, PRICE_SIGNS } from '../../../constants/constantData';
 // import { PRODUCT_STATUS } from '../../../constants/constantData';
 import s from './WishItem.css';
 class WishItem extends React.Component {
@@ -56,6 +56,8 @@ class WishItem extends React.Component {
               .institutionalCustomerPrice,
             privatePrice: this.props.wish.product.selectedProductPriceAndCost[0]
               .privateCustomerPrice,
+            postalPrice: this.props.wish.product.selectedProductPriceAndCost[0]
+              .outPostalCost,
           },
           startDate: this.startDateCalculator(),
           endDate: this.endDateCalculator(
@@ -226,6 +228,7 @@ class WishItem extends React.Component {
           period: price.ProductSubscriptionTypeName,
           instPrice: price.institutionalCustomerPrice[sign],
           privatePrice: price.privateCustomerPrice[sign],
+          postalPrice: price.outPostalCost[sign],
           value: price.id,
         });
       });
@@ -391,14 +394,19 @@ class WishItem extends React.Component {
 
               <div className={`${s.price} row mb-2 pl-0`}>
                 {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  <div
-                    className="col-xl-2"
-                    // style={{ border: '1px solid yellow' }}
-                  >
+                  <div className="col-xl-2">
                     <label>Institutional Price </label>
+                    <br />
+                    <br />
+                    <label>Postal Price : </label>
                   </div>
                 ) : (
-                  <label>Private Price </label>
+                  <div className="col-xl-2">
+                    <label>Private Price </label>
+                    <br />
+                    <br />
+                    <label>Postal Price :</label>
+                  </div>
                 )}
                 <div className="col-xl-6 col-lg-6 col-md-8 col-sm-8 mb-2">
                   <Select
@@ -411,93 +419,51 @@ class WishItem extends React.Component {
                     }}
                   />
                 </div>
-                {cookie.load('userSubCategory') !== USER_SUBCATEGORY.Single ? (
-                  // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                  manPrices[this.state.selectedPrice.index] != undefined ? (
+                <div className="col-xl-3 col-lg-3 col-md-3 col-sm-8 mb-2">
+                  {cookie.load('userSubCategory') !==
+                  USER_SUBCATEGORY.Single ? (
+                    // <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    manPrices[this.state.selectedPrice.index] != undefined ? (
+                      <span className={s.priceSpan}>
+                        {`= ${
+                          manPrices[this.state.selectedPrice.index].privatePrice
+                        }  (${PRICE_SIGNS[sign + 1]})`}
+                      </span>
+                    ) : (
+                      <span className={s.priceSpan}>
+                        {` = ${this.state.selectedPrice.privatePrice}  ${
+                          PRICE_SIGNS[sign + 1]
+                        }`}
+                      </span>
+                    )
+                  ) : manPrices[this.state.selectedPrice.index] != undefined ? (
                     <span className={s.priceSpan}>
-                      {`= ${zeroTrimmer(
-                        manPrices[this.state.selectedPrice.index].privatePrice,
-                        'price',
-                      )}`}
+                      {`= ${
+                        manPrices[this.state.selectedPrice.index].instPrice
+                      }  (${PRICE_SIGNS[sign + 1]})`}
                     </span>
                   ) : (
                     <span className={s.priceSpan}>
-                      {` = ${zeroTrimmer(
-                        this.state.selectedPrice.privatePrice,
-                        'price',
-                      )}`}
+                      {`= ${this.state.selectedPrice.instPrice} ${
+                        PRICE_SIGNS[sign + 1]
+                      }`}
                     </span>
                   )
-                ) : manPrices[this.state.selectedPrice.index] != undefined ? (
-                  <span className={s.priceSpan}>
-                    {`= ${zeroTrimmer(
-                      manPrices[this.state.selectedPrice.index].instPrice,
-                      'price',
-                    )}`}
-                  </span>
-                ) : (
-                  <span className={s.priceSpan}>
-                    {`= ${zeroTrimmer(
-                      this.state.selectedPrice.instPrice,
-                      'price',
-                    )}`}
-                  </span>
-                )
 
-                // </div>
-                }
+                  // </div>
+                  }
+                  <br />
+                  <br />
+                  <span className={s.priceSpan}>
+                    {' '}
+                    {manPrices[this.state.selectedPrice.index] != undefined
+                      ? `= ${
+                          manPrices[this.state.selectedPrice.index].postalPrice
+                        }  (${PRICE_SIGNS[sign + 1]})`
+                      : ''}{' '}
+                  </span>
+                </div>
               </div>
-
-              {/* <div
-                className={`${s.countContainer} row mb-3`}
-              >
-                <div className={` offset-xl-2 col-xl-3`}>
-                  <div className={s.count}>
-                    <label>Count :</label>
-                    <br />
-                    <input
-                      min="1"
-                      name="count"
-                      type="number"
-                      value={this.state.count}
-                      onChange={e => {
-                        this.onInputChange(e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="col-xl-3 mb-2">
-                  <div className={s.details}>
-                    <label>Start Date : &nbsp;</label> <br />
-                    <DatePicker
-                      name="startDate"
-                      selected={
-                        this.state.startDate !== ''
-                          ? new Date(this.state.startDate)
-                          : ''
-                      }
-                      onChange={date =>
-                        this.handleDateChange(date, 'startDate')
-                      }
-                    />{' '}
-                  </div>
-                </div>
-
-                <div className="col-xl-3 mb-2">
-                  <div className={s.details}>
-                    <label>End Date : &nbsp;&nbsp; </label> <br />
-                    <DatePicker
-                      name="endDate"
-                      selected={
-                        this.state.endDate !== ''
-                          ? new Date(this.state.endDate)
-                          : ''
-                      }
-                      onChange={date => this.handleDateChange(date, 'endDate')}
-                    />{' '}
-                  </div>
-                </div>
-              </div> */}
 
               <div className={` row mb-3 ${s.select} pl-0`}>
                 <div className="col-xl-2 col-lg-4 ">
