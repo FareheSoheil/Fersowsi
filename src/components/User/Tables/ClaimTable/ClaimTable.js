@@ -30,11 +30,11 @@ class ClaimTable extends React.Component {
       records = this.props.records.map((record, i) => (
         <tr
           onClick={() => {
-            this.props.onRecordClick(record.id, record.publisherOrderId);
+            this.props.onRecordClick(record.id, record.orderId);
           }}
         >
           <td>{record.id}</td>
-          <td>{record.publisherOrderId}</td>
+          <td>{record.orderId}</td>
           <td>{record.customerName}</td>
           <td>{record.publisherName}</td>
           <td>{dateTrimmer(record.createdAt)}</td>
