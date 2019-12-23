@@ -298,22 +298,8 @@ class CustomerInvoiceDetail extends React.Component {
             'Customer Invoice',
             'Customer Invoice Updated Successfully!',
           );
-          history.push('/admin/customerInvoice');
+          history.push('/admin/customerInvoice/all');
         } else toastr.error('Customer Invoice', "Couldn't Update Invoice");
-        // that.setState(
-        //   {
-        //     customerOrder: response.customerInvoice,
-        //     // isLoading: false,
-        //     isDisabled:
-        //       response.customerInvoice.InvoiceStatus.value ==
-        //       CUSTOMER_ORDER_STATUS.Done.value
-        //         ? true
-        //         : false,
-        //   },
-        //   () => {
-        //     console.log('order : ', response.customerInvoice);
-        //   },
-        // );
       },
       error => {
         toastr.error('Customer Invoice', "Couldn't Update Invoice");
