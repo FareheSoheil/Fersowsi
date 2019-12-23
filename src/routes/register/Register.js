@@ -34,18 +34,26 @@ class Register extends React.Component {
       user: {
         firstName: '',
         lastName: '',
-        username: '',
-        contractName: '',
-        companyName: '',
         password: '',
-        repPassword: '',
-        roleId: '',
-        userSubCategoryId: '',
-        jobId: '',
-        languageId: '',
-        currencyId: '',
-        countryId: '',
+        username: '',
+        companyName: '',
+        contractName: '',
         email: '',
+        mobileNumber: '',
+        repPassword: '',
+        Country: '',
+        roleId: '',
+        UserSubCategory: '',
+        Job: '',
+        Language: '',
+        Currency: '',
+        address: {
+          province: '',
+          city: '',
+          detailAddress: '',
+          zipCode: '',
+          countryId: '',
+        },
       },
       countries: '',
       jobs: '',
@@ -56,6 +64,7 @@ class Register extends React.Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
     this.fetchAuxInfo = this.fetchAuxInfo.bind(this);
     this.register = this.register.bind(this);
     this.validatePass = this.validatePass.bind(this);
@@ -96,19 +105,51 @@ class Register extends React.Component {
     );
   }
   validatePass() {
-    if (this.state.user.password === this.state.user.repPassword) return true;
-    return false;
+    let res = 1;
+    const title = 'Register';
+    if (this.state.user.username == '') {
+      res = 0;
+      toastr.error(title, 'Enter Username');
+    } else if (this.state.user.password !== this.state.user.repPassword) {
+      res = 0;
+      toastr.error(title, 'Passwords do not match');
+    } else if (this.state.user.email == '') {
+      res = 0;
+      toastr.error(title, 'Enter Email');
+    } else if (this.state.user.Currency.value == undefined) {
+      res = 0;
+      toastr.error(title, 'Choose Currency');
+    } else if (this.state.user.Country.value == undefined) {
+      res = 0;
+      toastr.error(title, 'Choose Country');
+    } else if (this.state.user.address.province == undefined) {
+      res = 0;
+      toastr.error(title, 'Enter Province');
+    } else if (this.state.user.address.city == undefined) {
+      res = 0;
+      toastr.error(title, 'Enter City');
+    } else if (this.state.user.address.detailAddress == undefined) {
+      res = 0;
+      toastr.error(title, 'Enter Address');
+    } else if (this.state.user.address.zipCode == undefined) {
+      res = 0;
+      toastr.error(title, 'Enter zip code');
+    }
+    return res;
   }
   register() {
     if (this.validatePass()) {
       const url = `${SERVER}/register`;
-      const cred = { ...this.state.user };
-      cred.countryId = this.state.user.countryId.value;
-      cred.currencyId = this.state.user.currencyId.value;
-      cred.roleId = this.state.user.roleId.value;
-      cred.languageId = this.state.user.languageId.value;
-      cred.jobId = this.state.user.jobId.value;
-      cred.userSubCategoryId = this.state.user.userSubCategoryId.value;
+      let cred = { ...this.state.user };
+      console.log('let credentials : ', cred);
+      cred.countryId = this.state.user.Country.value;
+      cred.address.countryId = this.state.user.Country.value;
+      cred.currencyId = this.state.user.Currency.value;
+      cred.roleId = this.state.user.roleId;
+      cred.languageId = this.state.user.Language.value;
+      cred.jobId = this.state.user.Job.value;
+      cred.userSubCategoryId = this.state.user.UserSubCategory.value;
+      console.log('after credentials : ', cred);
       const options = {
         method: 'POST',
         body: JSON.stringify(cred),
@@ -126,18 +167,26 @@ class Register extends React.Component {
             let user = {
               firstName: '',
               lastName: '',
-              username: '',
-              contractName: '',
-              companyName: '',
               password: '',
-              repPassword: '',
-              roleId: '',
-              userSubCategoryId: '',
-              jobId: '',
-              languageId: '',
-              currencyId: '',
-              countryId: '',
+              username: '',
+              companyName: '',
+              contractName: '',
               email: '',
+              mobileNumber: '',
+              repPassword: '',
+              Country: '',
+              roleId: '',
+              UserSubCategory: '',
+              Job: '',
+              Language: '',
+              Currency: '',
+              address: {
+                province: '',
+                city: '',
+                detailAddress: '',
+                zipCode: '',
+                countryId: '',
+              },
             };
             that.setState({
               user: user,
@@ -145,21 +194,19 @@ class Register extends React.Component {
           } else toastr.error(response.error.title, response.error.description);
         },
         error => {
-          toastr.error(response.error.title, response.error.description);
+          console.log('error : ', error);
         },
       );
-    } else {
-      toastr.error('Attention !', 'Passwords do not match');
     }
   }
   handleSelectChange = (selectedOption, op) => {
     let user = { ...this.state.user };
     user[op] = selectedOption;
     this.setState({ user }, () => {
-      console.log('state L ', this.state);
+      // console.log('state L ', this.state);
     });
   };
-  handleInputChange(e) {
+  handleInputChange(event) {
     let state, value;
     if (event.target.type == 'radio') {
       state = 'roleId';
@@ -168,15 +215,34 @@ class Register extends React.Component {
       state = event.target.name;
       value = event.target.value;
     }
+
     let user = { ...this.state.user };
     user[state] = value;
 
     this.setState(
       {
-        user,
+        user: user,
       },
       () => {
         console.log('state L ', this.state);
+      },
+    );
+  }
+  handleAddressChange(event) {
+    let state, value;
+
+    state = event.target.name;
+    value = event.target.value;
+
+    let user = { ...this.state.user };
+    user.address[state] = value;
+
+    this.setState(
+      {
+        user: user,
+      },
+      () => {
+        console.log('state L ', this.state.user);
       },
     );
   }
@@ -225,13 +291,13 @@ class Register extends React.Component {
                     </label>
                   </div>
                 </div>
-                {this.state.user.roleId != '' ? (
+                {this.state.user.roleId == ROLES.customer.value ? (
                   <div class="form-group">
                     <Select
                       options={this.state.subcats}
-                      value={this.state.userSubCategoryId}
+                      value={this.state.user.UserSubCategory}
                       onChange={so =>
-                        this.handleSelectChange(so, 'userSubCategoryId')
+                        this.handleSelectChange(so, 'UserSubCategory')
                       }
                       placeholder="User Subcategory"
                     />
@@ -241,7 +307,7 @@ class Register extends React.Component {
                 )}
 
                 {this.state.user.roleId == ROLES.customer.value &&
-                this.state.user.userSubCategoryId.value ==
+                this.state.user.UserSubCategory.value ==
                   USER_SUBCATEGORY.Single.value ? (
                   <div>
                     <div class="form-group">
@@ -267,7 +333,7 @@ class Register extends React.Component {
                       />
                     </div>
                   </div>
-                ) : this.state.user.userSubCategoryId != '' ? (
+                ) : this.state.user.UserSubCategory.value != '' ? (
                   <div class="form-group">
                     <input
                       class="form-control form-control-sm"
@@ -286,11 +352,11 @@ class Register extends React.Component {
                   <input
                     class="form-control form-control-sm"
                     type="type"
-                    name="userName"
+                    name="username"
                     required="true"
                     placeholder="Username"
                     value={this.state.username}
-                    autocomplete="off"
+                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div class="form-group">
@@ -339,33 +405,77 @@ class Register extends React.Component {
                 </div>
                 <div class="form-group">
                   <Select
-                    onChange={so => this.handleSelectChange(so, 'currencyId')}
+                    onChange={so => this.handleSelectChange(so, 'Currency')}
                     options={this.state.currencies}
-                    value={this.state.currencyId}
+                    value={this.state.user.Currency}
                     placeholder="Currency"
                   />
                 </div>
                 <div class="form-group">
                   <Select
                     options={this.state.countries}
-                    value={this.state.countryId}
-                    onChange={so => this.handleSelectChange(so, 'countryId')}
+                    value={this.state.user.Country}
+                    onChange={so => this.handleSelectChange(so, 'Country')}
                     placeholder="Country"
                   />
                 </div>
                 <div class="form-group">
+                  <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    name="province"
+                    required="true"
+                    placeholder="province"
+                    value={this.state.province}
+                    onChange={this.handleAddressChange}
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    name="city"
+                    required="true"
+                    placeholder="city"
+                    value={this.state.city}
+                    onChange={this.handleAddressChange}
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    name="detailAddress"
+                    required="true"
+                    placeholder="Address"
+                    value={this.state.detailAddress}
+                    onChange={this.handleAddressChange}
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    name="zipCode"
+                    required="true"
+                    placeholder="zip Code"
+                    value={this.state.zipCode}
+                    onChange={this.handleAddressChange}
+                  />
+                </div>
+                <div class="form-group">
                   <Select
-                    onChange={so => this.handleSelectChange(so, 'languageId')}
+                    onChange={so => this.handleSelectChange(so, 'Language')}
                     options={this.state.languages}
-                    value={this.state.languageId}
+                    value={this.state.user.Language}
                     placeholder="Language"
                   />
                 </div>
                 <div class="form-group">
                   <Select
-                    onChange={so => this.handleSelectChange(so, 'jobId')}
+                    onChange={so => this.handleSelectChange(so, 'Job')}
                     options={this.state.jobs}
-                    value={this.state.jobId}
+                    value={this.state.user.Job}
                     placeholder="Job"
                   />
                 </div>
