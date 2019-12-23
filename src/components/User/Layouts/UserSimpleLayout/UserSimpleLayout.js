@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import normalizeCss from 'normalize.css';
 import { connect } from 'react-redux';
+import ReduxToastr from 'react-redux-toastr';
 // external-global styles must be imported in your JS.
 
 import s from './UserSimpleLayout.css';
@@ -47,6 +48,16 @@ class UserSimpleLayout extends React.Component {
           width: '100%',
         }}
       >
+        <ReduxToastr
+          timeOut={2000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-center"
+          transitionIn="bounceIn"
+          transitionOut="fadeOut"
+          progressBar
+          closeOnToastrClick
+        />
         <Header context={this.props.context} />
         <div
           style={{

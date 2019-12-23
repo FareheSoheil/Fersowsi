@@ -49,3 +49,6 @@
     margin-right: 3px;
     cursor: pointer;
 }
+.row span {
+    font-weight: bolder;
+}

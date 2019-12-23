@@ -261,7 +261,7 @@ class WishItem extends React.Component {
               </div>
             </div>
             <div className="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
-              <div className="row mb-2">
+              <div className="row mb-3">
                 <div className="col-xl-4 pl-3">
                   <div className="row mb-2">
                     <div className={`${s.title} col-12`}>
@@ -294,49 +294,97 @@ class WishItem extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3">
-                  <div className={s.count}>
-                    <label>Count :</label>
-                    <br />
-                    <input
-                      min="1"
-                      name="count"
-                      type="number"
-                      value={this.state.count}
-                      onChange={e => {
-                        this.onInputChange(e);
-                      }}
-                    />
+                <div className="col-xl-8">
+                  <div className="row">
+                    <div className="col-xl-4 col-lg-2 col-md-3 col-sm-3">
+                      <div className={s.count}>
+                        <label>Count :</label>
+                        <br />
+                        <input
+                          min="1"
+                          name="count"
+                          type="number"
+                          value={this.state.count}
+                          onChange={e => {
+                            this.onInputChange(e);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-6">
+                      <div className={s.details}>
+                        <label>Start Date : &nbsp;</label> <br />
+                        <DatePicker
+                          name="startDate"
+                          selected={
+                            this.state.startDate !== ''
+                              ? new Date(this.state.startDate)
+                              : ''
+                          }
+                          onChange={date =>
+                            this.handleDateChange(date, 'startDate')
+                          }
+                        />{' '}
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-6">
+                      <div className={s.details}>
+                        <label>End Date : &nbsp;&nbsp; </label> <br />
+                        <DatePicker
+                          name="endDate"
+                          selected={
+                            this.state.endDate !== ''
+                              ? new Date(this.state.endDate)
+                              : ''
+                          }
+                          onChange={date =>
+                            this.handleDateChange(date, 'endDate')
+                          }
+                        />{' '}
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-6">
-                  <div className={s.details}>
-                    <label>Start Date : &nbsp;</label> <br />
-                    <DatePicker
-                      name="startDate"
-                      selected={
-                        this.state.startDate !== ''
-                          ? new Date(this.state.startDate)
-                          : ''
-                      }
-                      onChange={date =>
-                        this.handleDateChange(date, 'startDate')
-                      }
-                    />{' '}
-                  </div>
-                </div>
-                <div className="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-6">
-                  <div className={s.details}>
-                    <label>End Date : &nbsp;&nbsp; </label> <br />
-                    <DatePicker
-                      name="endDate"
-                      selected={
-                        this.state.endDate !== ''
-                          ? new Date(this.state.endDate)
-                          : ''
-                      }
-                      onChange={date => this.handleDateChange(date, 'endDate')}
-                    />{' '}
+                  <div className="row mt-1">
+                    <div className="col-xl-4 col-lg-2 col-md-3 col-sm-3">
+                      <div className={s.count}>
+                        <label>Customer Name :</label>
+                        <br />
+                        <input
+                          name="reciverName"
+                          type="text"
+                          value={this.state.reciverName}
+                          onChange={e => {
+                            this.onInputChange(e);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-6">
+                      <div className={s.count}>
+                        <label>Contract Person : &nbsp;</label> <br />
+                        <input
+                          name="contactPerson"
+                          type="text"
+                          value={this.state.contactPerson}
+                          onChange={e => {
+                            this.onInputChange(e);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-6">
+                      <div className={s.count}>
+                        <label>User Order Number </label> <br />
+                        <input
+                          name="userOrderNumber"
+                          type="text"
+                          value={this.state.userOrderNumber}
+                          onChange={e => {
+                            this.onInputChange(e);
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -492,7 +540,23 @@ class WishItem extends React.Component {
                   </div>
                 </div>
               </div>
-
+              <div className={`row mb-2 ${s.select} pl-0`}>
+                <div className="col-xl-2">
+                  <label>Customer Note: </label>
+                </div>
+                <div className="col-10">
+                  <div className={s.description}>
+                    <textarea
+                      value={this.props.wish.product.customerNote}
+                      name="customerNote"
+                      rows="7"
+                      onChange={e => {
+                        this.onInputChange(e);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
               <div className="row mb-2">
                 <div className="offset-xl-6 offset-lg-5 offset-md-4 offset-sm-3 offset-4 col-xl-2 col-4">
                   <div className={s.deleteBtnContainer}>

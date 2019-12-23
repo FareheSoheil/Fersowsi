@@ -19,6 +19,7 @@ import adminPriceTrimmer from '../../../adminPriceTrimmer';
 class CustomerInvoice extends React.Component {
   static propTypes = {
     invoice: PropTypes.object.isRequired,
+    // currencyId:
   };
   // static defaultProps = {
   //   hasPagination: true,
@@ -68,26 +69,20 @@ class CustomerInvoice extends React.Component {
         <div className="col-xl-4 col-lg-5 col-md-6 ">
           <div>
             <label>Price: &nbsp;</label>
-            {
-              this.props.invoice.totalToBePaid[
-                this.props.invoice.currencyId - 1
-              ]
-            }{' '}
-            {PRICE_SIGNS[this.props.invoice.currencyId]}
+            {this.props.invoice.price[this.props.currencyId - 1]}{' '}
+            {PRICE_SIGNS[this.props.currencyId]}
           </div>
           <div>
             <label>Discount: &nbsp;</label>
-            {this.props.invoice.discount[this.props.invoice.currencyId - 1]}
+            {this.props.invoice.discount[this.props.currencyId - 1]}
             {/* Discount */}
           </div>
           <div>
             <label>Postal Cost: &nbsp;</label>
             {
-              this.props.invoice.totalDeliveryCost[
-                this.props.invoice.currencyId - 1
-              ]
+              this.props.invoice.totalDeliveryCost[this.props.currencyId - 1]
             }{' '}
-            {PRICE_SIGNS[this.props.invoice.currencyId]}
+            {PRICE_SIGNS[this.props.currencyId]}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import toastr from 'react-redux-toastr';
+import { toastr } from 'react-redux-toastr';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Claim from '../../../../components/User/Claim';
 import ContentHeader from '../../../../components/User/ContentHeader';
@@ -34,7 +34,7 @@ class ClaimDetails extends React.Component {
     const url = `${SERVER}/getClaimCollection`;
     this.setState({ isLoading: true });
     const credentials = {
-      publisherOrderId: this.state.orderId,
+      orderId: this.state.orderId,
     };
     const options = {
       method: 'POST',

@@ -11,11 +11,10 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import s from './CustomerInvoiceTable.css';
-import adminPriceTrimmer from '../../../adminPriceTrimmer';
-import { PRODUCT_STATUS, PRICE_SIGNS } from '../../../constants/constantData';
+import s from './ClaimTable.css';
+import { PRODUCT_STATUS } from '../../../../constants/constantData';
 
-class CustomerInvoiceTable extends React.Component {
+class ClaimTable extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
     hasPagination: PropTypes.bool.isRequired,
@@ -45,13 +44,11 @@ class CustomerInvoiceTable extends React.Component {
   render() {
     const tableHeaders = (
       <tr>
-        {/* <th className="border-0">Id</th> */}
-        <th className="border-0">Username</th>
-
-        <th className="border-0">User Type</th>
-        <th className="border-0">Invoice Number</th>
-        <th className="border-0">Total Cost</th>
-        <th className="border-0">Payment Method</th>
+        <th className="border-0">Id</th>
+        <th className="border-0">Order Id</th>
+        <th className="border-0">Customer</th>
+        <th className="border-0">Publisher</th>
+        <th className="border-0">Is Finished</th>
       </tr>
     );
     let records = '';
@@ -60,29 +57,31 @@ class CustomerInvoiceTable extends React.Component {
       records = this.props.records.map((record, i) => (
         <tr
           // style={{ lineHeight: '14px' }}
-          // className={this.colorPicker(record)}
+          className={this.colorPicker(record)}
           onClick={() => {
             this.props.onRecordClick(
               record.id,
-              record.publisherOrderId,
+              record.orderId,
               record.productId,
             );
           }}
         >
-          {/* <td>{record.id}</td> */}
-          {/* {record.user.username} */}
-          <td>{record.customer.label}</td>
-          {/* {record.user.username} */}
-          <td>{record.customerStatus.label}</td>
-          {/* {record.invoiceNumber} */}
           <td>{record.id}</td>
+          <td>{record.orderId}</td>
+          <td>{record.customerName}</td>
+          <td>{record.publisherName}</td>
           <td>
-            {record.totalToBePaid[record.currencyId - 1]}{' '}
-            {PRICE_SIGNS[record.currencyId]}
+            {record.isFinished ? (
+              <i style={{ color: 'green' }} class="fas fa-check" />
+            ) : (
+              <i
+                style={{ color: 'red' }}
+                class="fa fa-times"
+                aria-hidden="true"
+              />
+            )}
           </td>
-
-          <td>{record.paymentMethod}</td>
-          {/* <td>{adminPriceTrimmer(record.discount, 'price')} %</td> */}
+          {/* <td>{i + 1}</td> */}
         </tr>
       ));
       toDisplay = (
@@ -134,4 +133,4 @@ class CustomerInvoiceTable extends React.Component {
   }
 }
 
-export default withStyles(s)(CustomerInvoiceTable);
+export default withStyles(s)(ClaimTable);

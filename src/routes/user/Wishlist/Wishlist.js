@@ -1,6 +1,6 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import ReactPaginate from 'react-paginate';
+import { toastr } from 'react-redux-toastr';
 import ContentHeader from '../../../components/User/ContentHeader';
 import WishItem from '../../../components/User/WishItem';
 import Spinner from '../../../components/User/Spinner';
@@ -148,7 +148,7 @@ class Wishlist extends React.Component {
       url,
       options,
       response => {
-        if (response.error === undefined) {
+        if (response.error == undefined) {
           that.fetchWishes();
         } else {
           toastr.error(response.error.title, response.error.description);
@@ -164,23 +164,33 @@ class Wishlist extends React.Component {
     let res = 0;
     if (this.state.selectedIndices[index]) {
       if (this.state.currentWishes[index].count == undefined) {
-        window.alert('Please Enter Count');
+        toastr.error('Checkout Error', 'Please Enter Count');
       } else if (this.state.currentWishes[index].startDate == undefined) {
-        window.alert('Please Enter Start Date');
+        toastr.error('Checkout Error', 'Please Enter Start Date');
       } else if (this.state.currentWishes[index].endDate == undefined)
-        window.alert('please enter end date');
+        toastr.error('Checkout Error', 'Please enter end date');
       else if (this.state.currentWishes[index].selectedAddress == undefined)
-        window.alert('please enter address');
+        toastr.error('Checkout Error', 'Please enter address');
       else if (this.state.currentWishes[index].selectedPrice == undefined)
-        window.alert('please enter price');
+        toastr.error('Checkout Error', 'Please Enter Price');
+      else if (this.state.currentWishes[index].contactPerson == undefined) {
+        toastr.error('Checkout Error', 'Please Enter Contact Person');
+      } else if (this.state.currentWishes[index].reciverName == undefined)
+        toastr.error('Checkout Error', 'Please enter Reciever Name');
+      else if (this.state.currentWishes[index].userOrderNumber == undefined)
+        toastr.error('Checkout Error', 'Please enter User Order Number');
       else res = 1;
     }
     return res;
   }
   checkOut() {
     let wishes = [];
+    console.log('this.state.selectedIds : ', this.state.selectedIds);
     if (this.state.selectedIds.length == 0)
-      window.alert('Please Choose at least one product before checkout');
+      toastr.error(
+        'Checkout Error',
+        'Please Choose at least one product before checkout',
+      );
     else {
       for (let index = 0; index < this.state.selectedIndices.length; index++) {
         if (this.validator(index)) {
@@ -192,16 +202,21 @@ class Wishlist extends React.Component {
             productPriceAndCostId: this.state.currentWishes[index]
               .selectedPrice,
             addressId: this.state.currentWishes[index].selectedAddress,
+            customerNote: this.state.currentWishes[index].customerNote,
+            contactPerson: this.state.currentWishes[index].contactPerson,
+            reciverName: this.state.currentWishes[index].reciverName,
+            userOrderNumber: this.state.currentWishes[index].userOrderNumber,
           });
         }
       }
       if (wishes.length > 0) {
-        const url = `${SERVER}/addCustomerOrder`;
+        const url = `${SERVER}/addCustomerInvoice`;
+        console.log('wishes to be added : ', wishes);
         this.setState({
           isLoading: true,
         });
         const credentials = {
-          publisherOrders: wishes,
+          orders: wishes,
         };
         // console.log('wishes : ', wishes);
         const options = {
@@ -218,7 +233,7 @@ class Wishlist extends React.Component {
           options,
           response => {
             if (response.error === undefined) {
-              window.alert(response.message);
+              toastr.success('Checout', response.message);
               that.deleteAfterCheckout();
             } else {
               toastr.error(response.error.title, response.error.description);
@@ -232,6 +247,7 @@ class Wishlist extends React.Component {
       }
     }
   }
+
   fetchCountries() {
     const url = `${SERVER}/getAuxInfoForAllUsers`;
     this.setState({ countriesFetched: false });
@@ -309,19 +325,15 @@ class Wishlist extends React.Component {
 
   setShoppingDetails(index, label, value) {
     let preWish = [...this.state.currentWishes];
-    if (label == 'selectedPrice') preWish[index].selectedPrice = value;
-    else if (label == 'selectedAddress') preWish[index].selectedAddress = value;
-    else if (label == 'count') preWish[index].count = value;
-    else if (label == 'startDate') preWish[index].startDate = value;
-    else if (label == 'endDate') preWish[index].endDate = value;
-    // console.log
+    preWish[index][label] = value;
     this.setState({
       currentWishes: preWish,
     });
   }
   handleWishItemSelect(id, index) {
-    let selectedIds = [],
+    let selectedIds = this.state.selectedIds,
       selectedIndices;
+
     selectedIds.push(id);
     selectedIndices = [...this.state.selectedIndices];
     selectedIndices[index] = !selectedIndices[index];

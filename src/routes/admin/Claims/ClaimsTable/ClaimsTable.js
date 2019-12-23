@@ -17,6 +17,7 @@ import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import s from './ClaimsTable.css';
 import Spinner from '../../../../components/Admin/Spinner';
 import CustomTable from '../../../../components/CustomTabel';
+import ClaimTable from '../../../../components/Admin/Claim/ClaimTable';
 import ClaimSearch from '../../../../components/Admin/ClaimSearch';
 import {
   CLAIMS_COLUMNS_LABELS_ARRAY,
@@ -103,6 +104,7 @@ class ClaimsTable extends React.Component {
       url,
       options,
       response => {
+        console.log('cliams admin : ', response);
         that.setState({
           currentClaims: response.currentRecords,
           totalPageNum: response.totalPageNum,
@@ -146,12 +148,12 @@ class ClaimsTable extends React.Component {
                       clearFilters={this.clearFilters}
                     />
                     <hr />
-                    <CustomTable
+                    <ClaimTable
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
                       records={this.state.currentClaims}
-                      columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
-                      recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
+                      // columnLabels={CLAIMS_COLUMNS_LABELS_ARRAY}
+                      // recordItemNames={CLAIMS_RECORDE_ITEM_NAMES_ARRAY}
                       handlePageChange={this.handlePageChange}
                       onRecordClick={this.onClaimClick}
                     />

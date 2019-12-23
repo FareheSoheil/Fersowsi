@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import s from './OrderTable.css';
 import zeroTrimmer from '../../../../zeroTrimmer';
 import dateTrimmer from '../../../../dateTrimmer';
+import { PRICE_SIGNS } from '../../../../constants/constantData';
 
 class OrderTable extends React.Component {
   static propTypes = {
@@ -31,16 +32,29 @@ class OrderTable extends React.Component {
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
+          className={s.row}
           onClick={() => {
             this.props.onRecordClick(record.id, record.customerOrderId);
           }}
         >
           <td>{record.id}</td>
-          <td>{zeroTrimmer(record.totalCost[sign], 'price')}</td>
-          <td>{zeroTrimmer(record.totalPrice[sign], 'price')}</td>
-          <td>{zeroTrimmer(record.discount, 'price')}</td>
+          <td>
+            {record.totalDeliveryCost[sign]}
+            {'  '}
+            <span>({PRICE_SIGNS[sign + 1]})</span>
+          </td>
+          <td>
+            {record.totalPrice[sign]}
+            {'  '}
+            <span>({PRICE_SIGNS[sign + 1]})</span>
+          </td>
+          <td>
+            {record.totalDiscount[sign]}
+            {'  '}
+            <span>({PRICE_SIGNS[sign + 1]})</span>
+          </td>
           <td width="150">{dateTrimmer(record.createdAt)}</td>
-          <td>{record.status.label}</td>
+          <td>{record.InvoiceStatus.label}</td>
         </tr>
       ));
       // table-hover

@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-// import html2canvas from 'html2canvas';
+import { toastr } from 'react-redux-toastr';
 import 'react-datepicker/dist/react-datepicker.css';
 import PageHeader from '../../../../components/Admin/PageHeader';
 import Spinner from '../../../../components/Admin/Spinner';
@@ -11,20 +11,14 @@ import {
   CUSTOMER_ORDER_STATUS,
 } from '../../../../constants/constantData';
 import { SERVER } from '../../../../constants';
-import { PRICE_SIGNS } from '../../../../constants/constantData';
+import { PRICE_SIGNS, PRICES } from '../../../../constants/constantData';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import history from '../../../../history';
 import adminPriceTrimmer from '../../../../adminPriceTrimmer';
 import dateTrimmer from '../../../../dateTrimmer';
 import { pdfMaker } from '../customerInvoicePdfHelper';
 import s from './CustomerInvoiceDetail.css';
-const prices = [
-  'totalPrice',
-  'cancelPrice',
-  'totalDeliveryCost',
-  'totalCost',
-  'totalTaxCost',
-];
+
 class CustomerInvoiceDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -94,6 +88,8 @@ class CustomerInvoiceDetail extends React.Component {
     this.gotoUser = this.gotoUser.bind(this);
     this.onPublisherOrderClick = this.onPublisherOrderClick.bind(this);
     this.print = this.print.bind(this);
+    this.onInvoiceEdit = this.onInvoiceEdit.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
     this.changePrice = this.changePrice.bind(this);
   }
   gotoUser() {
@@ -101,6 +97,24 @@ class CustomerInvoiceDetail extends React.Component {
   }
   onPublisherOrderClick(id) {
     history.push(`/admin/publisherOrder/${id}`);
+  }
+
+  uploadImage() {
+    let inp = document.getElementById('imageUploader');
+    let imgContainer = document.getElementById('paymentImg');
+    let reader = new FileReader();
+    let that = this;
+    if (inp.files && inp.files[0]) {
+      reader.onload = function(e) {
+        imgContainer.src = e.target.result;
+        let pres = { ...that.state.customerOrder };
+        pres.paymentImage = e.target.result;
+        that.setState({
+          customerOrder: pres,
+        });
+      };
+      let imgt = reader.readAsDataURL(inp.files[0]);
+    }
   }
 
   componentDidMount() {
@@ -184,11 +198,16 @@ class CustomerInvoiceDetail extends React.Component {
 
     if (value != '') {
       if (value == '.')
-        customerOrder[state][this.state.customerOrder.currencyId - 1] = value;
+        customerOrder[state][
+          this.state.customerOrder.Currency.value - 1
+        ] = value;
       else
         // window.alert(event.valueAsNumber);
-        customerOrder[state][this.state.customerOrder.currencyId - 1] = value;
-    } else customerOrder[state][this.state.customerOrder.currencyId - 1] = 0;
+        customerOrder[state][
+          this.state.customerOrder.Currency.value - 1
+        ] = value;
+    } else
+      customerOrder[state][this.state.customerOrder.Currency.value - 1] = 0;
     this.setState({ customerOrder });
   }
   onChangeInput(event) {
@@ -202,9 +221,68 @@ class CustomerInvoiceDetail extends React.Component {
   handleSelectChange = (selectedOption, op) => {
     // status
     let customerOrder = { ...this.state.customerOrder };
-    customerOrder.InvoiceStatus = selectedOption;
+    customerOrder[op] = selectedOption;
     this.setState({ customerOrder });
   };
+  onInvoiceEdit() {
+    const url = `${SERVER}/editCustomerInvoice`;
+    // this.setState({
+    //   isLoading: true,
+    // });
+    const credentials = {
+      id: this.state.id,
+      fdtRefCode: this.state.customerOrder.fdtRefCode,
+      paymentImage: this.state.customerOrder.paymentImage,
+      paymentNote: this.state.customerOrder.paymentNote,
+      statusId: this.state.customerOrder.InvoiceStatus.value,
+      // totalTaxCost: 16,
+      // totalDeliveryCost: 222,
+      // totalCost:223.4,
+      // cancelPrice: 11.3,
+      // discount: 0.2,
+      // "spacialFair": 155
+    };
+    console.log('edit : ', credentials);
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        console.log('edit response : ', response);
+        if (response.error == undefined) {
+          toastr.success(
+            'Customer Invoice',
+            'Customer Invoice Updated Successfully!',
+          );
+          history.push('/admin/customerInvoice');
+        } else toastr.error('Customer Invoice', "Couldn't Update Invoice");
+        // that.setState(
+        //   {
+        //     customerOrder: response.customerInvoice,
+        //     // isLoading: false,
+        //     isDisabled:
+        //       response.customerInvoice.InvoiceStatus.value ==
+        //       CUSTOMER_ORDER_STATUS.Done.value
+        //         ? true
+        //         : false,
+        //   },
+        //   () => {
+        //     console.log('order : ', response.customerInvoice);
+        //   },
+        // );
+      },
+      error => {
+        toastr.error('Customer Invoice', "Couldn't Update Invoice");
+      },
+    );
+  }
   onExportProduct() {
     window.alert('send delete ajax with user id');
   }
@@ -231,7 +309,7 @@ class CustomerInvoiceDetail extends React.Component {
     frog.document.write(
       pdfMaker(
         this.state.customerOrder.orders,
-        this.state.customerOrder.currencyId,
+        this.state.customerOrder.Currency.value,
         prices,
       ),
     );
@@ -243,7 +321,13 @@ class CustomerInvoiceDetail extends React.Component {
     console.log('publisherOrders : ', subOrders);
     if (subOrders != undefined && subOrders.length != 0)
       invoices = subOrders.map(
-        (order, i) => (invoices = <CustomerInvoice invoice={order} />),
+        (order, i) =>
+          (invoices = (
+            <CustomerInvoice
+              invoice={order}
+              currencyId={this.state.customerOrder.Currency.value}
+            />
+          )),
       );
     else invoices = <div className={s.warning}>No Products Available</div>;
     return (
@@ -360,7 +444,7 @@ class CustomerInvoiceDetail extends React.Component {
                       <div className="col-12">
                         <textarea
                           rows="5"
-                          vlaue={this.state.customerOrder.paymentNote}
+                          value={this.state.customerOrder.paymentNote}
                           name="paymentNote"
                           onChange={this.onChangeInput}
                         />
@@ -372,12 +456,24 @@ class CustomerInvoiceDetail extends React.Component {
                     <div className="col-3">
                       <label>Upload Payment file : </label>
                     </div>
-                    <div className="col-6">
+                    <div className="col-4">
                       <input
                         type="file"
                         id="imageUploader"
                         className={s.imageUploader}
-                        // onChange={() => this.uploadImage(this)}
+                        onChange={this.uploadImage}
+                      />
+                    </div>
+                    <div className="col-4">
+                      <img
+                        style={{ maxWidth: '180px' }}
+                        id="paymentImg"
+                        src={
+                          this.state.customerOrder.paymentImage == ''
+                            ? 'http://placehold.it/180'
+                            : this.state.customerOrder.paymentImage
+                        }
+                        alt="your image"
                       />
                     </div>
                   </div>
@@ -401,7 +497,7 @@ class CustomerInvoiceDetail extends React.Component {
                       </div>
 
                       <div className="col-2 mt-2">
-                        <button>Apply</button>
+                        <button onClick={this.onInvoiceEdit}>Apply</button>
                       </div>
                       <div className="col-2 mt-2">
                         <button onClick={this.print}>Print</button>
@@ -414,7 +510,17 @@ class CustomerInvoiceDetail extends React.Component {
               </div>
 
               <hr />
-              <div id="invoices">{invoices}</div>
+              <div className="row mb-2">
+                <div className="col-2 pl-4">
+                  <label>Select Currency</label>
+                  <Select
+                    value={this.state.customerOrder.Currency}
+                    onChange={so => this.handleSelectChange(so, 'Currency')}
+                    options={PRICES}
+                  />
+                </div>
+              </div>
+              <div id="invoicescol-5">{invoices}</div>
               <hr />
               <div className="container-fluid">
                 <div className={`row ${s.total}`}>
@@ -430,17 +536,18 @@ class CustomerInvoiceDetail extends React.Component {
                         </div>
                         <div className="col-4">
                           <input
-                            disabled={this.state.isDisabled}
+                            disabled
+                            // {this.state.isDisabled}
                             value={
                               this.state.customerOrder.totalPrice[
-                                this.state.customerOrder.currencyId - 1
+                                this.state.customerOrder.Currency.value - 1
                               ]
                             }
                             name="totalPrice"
                             onChange={this.changePrice}
                           />
                         </div>
-                        {PRICE_SIGNS[this.state.customerOrder.currencyId]}
+                        {PRICE_SIGNS[this.state.customerOrder.Currency.value]}
                       </div>
                       <div className={`row mb-1 `}>
                         <div className="col-5">
@@ -448,17 +555,18 @@ class CustomerInvoiceDetail extends React.Component {
                         </div>
                         <div className="col-4">
                           <input
-                            disabled={this.state.isDisabled}
+                            disabled
+                            // {this.state.isDisabled}
                             value={
                               this.state.customerOrder.totalDeliveryCost[
-                                this.state.customerOrder.currencyId - 1
+                                this.state.customerOrder.Currency.value - 1
                               ]
                             }
                             name="totalDeliveryCost"
                             onChange={this.changePrice}
                           />
                         </div>
-                        {PRICE_SIGNS[this.state.customerOrder.currencyId]}
+                        {PRICE_SIGNS[this.state.customerOrder.Currency.value]}
                       </div>
                       <div className="row mb-1">
                         <div className="col-5">
@@ -466,17 +574,18 @@ class CustomerInvoiceDetail extends React.Component {
                         </div>
                         <div className="col-4">
                           <input
-                            disabled={this.state.isDisabled}
+                            disabled
+                            // {this.state.isDisabled}
                             value={
                               this.state.customerOrder.totalTax[
-                                this.state.customerOrder.currencyId - 1
+                                this.state.customerOrder.Currency.value - 1
                               ]
                             }
                             name="totalTax"
                             onChange={this.changePrice}
                           />
                         </div>
-                        {PRICE_SIGNS[this.state.customerOrder.currencyId]}
+                        {PRICE_SIGNS[this.state.customerOrder.Currency.value]}
                       </div>
                       <div className="row mb-1">
                         <div className="col-5">
@@ -484,17 +593,18 @@ class CustomerInvoiceDetail extends React.Component {
                         </div>
                         <div className="col-4">
                           <input
-                            disabled={this.state.isDisabled}
+                            disabled
+                            // {this.state.isDisabled}
                             value={
                               this.state.customerOrder.totalDiscount[
-                                this.state.customerOrder.currencyId - 1
+                                this.state.customerOrder.Currency.value - 1
                               ]
                             }
                             name="totalDiscount"
                             onChange={this.changePrice}
                           />{' '}
                         </div>
-                        {PRICE_SIGNS[this.state.customerOrder.currencyId]}
+                        {PRICE_SIGNS[this.state.customerOrder.Currency.value]}
                       </div>
                       <div className="row mb-1">
                         <div className="col-5">
@@ -504,28 +614,28 @@ class CustomerInvoiceDetail extends React.Component {
                           {adminPriceTrimmer(
                             parseFloat(
                               this.state.customerOrder.totalPrice[
-                                this.state.customerOrder.currencyId - 1
+                                this.state.customerOrder.Currency.value - 1
                               ],
                             ) +
                               parseFloat(
                                 this.state.customerOrder.totalDeliveryCost[
-                                  this.state.customerOrder.currencyId - 1
+                                  this.state.customerOrder.Currency.value - 1
                                 ],
                               ) +
                               parseFloat(
                                 this.state.customerOrder.totalTaxSixPrecent[
-                                  this.state.customerOrder.currencyId - 1
+                                  this.state.customerOrder.Currency.value - 1
                                 ],
                               ) +
                               parseFloat(
                                 this.state.customerOrder.totalTax[
-                                  this.state.customerOrder.currencyId - 1
+                                  this.state.customerOrder.Currency.value - 1
                                 ],
                               ),
                             'price',
                           )}
                         </div>
-                        {PRICE_SIGNS[this.state.customerOrder.currencyId]}
+                        {PRICE_SIGNS[this.state.customerOrder.Currency.value]}
                       </div>
                       <div className="row mb-1">
                         <div className="col-5">
@@ -535,33 +645,33 @@ class CustomerInvoiceDetail extends React.Component {
                           {adminPriceTrimmer(
                             parseFloat(
                               this.state.customerOrder.totalPrice[
-                                this.state.customerOrder.currencyId - 1
+                                this.state.customerOrder.Currency.value - 1
                               ],
                             ) +
                               parseFloat(
                                 this.state.customerOrder.totalDeliveryCost[
-                                  this.state.customerOrder.currencyId - 1
+                                  this.state.customerOrder.Currency.value - 1
                                 ],
                               ) +
                               parseFloat(
                                 this.state.customerOrder.totalTaxSixPrecent[
-                                  this.state.customerOrder.currencyId - 1
+                                  this.state.customerOrder.Currency.value - 1
                                 ],
                               ) +
                               parseFloat(
                                 this.state.customerOrder.totalTax[
-                                  this.state.customerOrder.currencyId - 1
+                                  this.state.customerOrder.Currency.value - 1
                                 ],
                               ) -
                               parseFloat(
                                 this.state.customerOrder.totalDiscount[
-                                  this.state.customerOrder.currencyId - 1
+                                  this.state.customerOrder.Currency.value - 1
                                 ],
                               ),
                             'price',
                           )}
                         </div>
-                        {PRICE_SIGNS[this.state.customerOrder.currencyId]}
+                        {PRICE_SIGNS[this.state.customerOrder.Currency.value]}
                       </div>
                     </div>
                   </div>

@@ -27,11 +27,7 @@ class CustomerInvoices extends React.Component {
       pageIndex: 0,
       pageSize: 10,
       totalPageNum: 20,
-      currentCustomerInvoices: [
-        // { id: 1, currencyId: 1, totalPrice: [2, 3, 4], paymentMethod: 'Card' },
-        // { id: 2, currencyId: 1, totalPrice: [3], paymentMethod: 'Card' },
-        // { id: 3, currencyId: 1, totalPrice: [4], paymentMethod: 'Card' },
-      ],
+      currentCustomerInvoices: [],
       searchClear: true,
       allCurrencies: '',
       allDeliveryAddresses: '',

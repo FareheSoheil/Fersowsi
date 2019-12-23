@@ -23,11 +23,11 @@ class OrderDetails extends React.Component {
       publisherOrders: [],
       fetchedAddress: '',
     };
-    this.fetchOrders = this.fetchOrders.bind(this);
+    this.fetchCustomerInvoice = this.fetchCustomerInvoice.bind(this);
     this.onAddressClick = this.onAddressClick.bind(this);
   }
   componentDidMount() {
-    this.fetchOrders();
+    this.fetchCustomerInvoice();
   }
   onAddressClick(id) {
     const url = `${SERVER}/getAddress`;
@@ -140,13 +140,13 @@ class OrderDetails extends React.Component {
   onOrderClick(id1, id2, productId) {
     history.push(`/user/products/${productId}`);
   }
-  fetchOrders() {
-    const url = `${SERVER}/getCustomerOrder`;
+  fetchCustomerInvoice() {
+    const url = `${SERVER}/getCustomerInvoice`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
-      customerOrderId: this.state.id,
+      customerInvoiceId: this.state.id,
     };
     const options = {
       method: 'POST',
@@ -163,7 +163,7 @@ class OrderDetails extends React.Component {
       response => {
         if (response.error === undefined) {
           that.setState({
-            publisherOrders: response.publisherOrders,
+            publisherOrders: response.customerInvoice.orders,
             isLoading: false,
           });
         } else {

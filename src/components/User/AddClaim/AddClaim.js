@@ -51,7 +51,7 @@ class AddAddress extends React.Component {
   addClaim() {
     const url = `${SERVER}/addClaimByCustomerOrPublisher`;
     const credentials = {
-      publisherOrderId: this.props.orderId,
+      orderId: this.props.orderId,
       senderUserId: parseInt(localStorage.getItem('id')),
       messageHtml: JSON.stringify(this.state.newClaim.messageHtml),
     };

@@ -65,3 +65,6 @@
     background-color: red;
     color: black;
 }
+.row span {
+    font-weight: bolder;
+}

@@ -11,7 +11,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-// external-global styles must be imported in your JS.
+import ReduxToastr from 'react-redux-toastr';
 import normalizeCss from 'normalize.css';
 import s from './UserLayout.css';
 import Header from '../Header';
@@ -54,6 +54,16 @@ class UserLayout extends React.Component {
           width: '100%',
         }}
       >
+        <ReduxToastr
+          timeOut={2000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-center"
+          transitionIn="bounceIn"
+          transitionOut="fadeOut"
+          progressBar
+          closeOnToastrClick
+        />
         {/* {this.props.context} */}
         <Header
           context={this.props.context}

@@ -2,7 +2,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import s from './PublisherOrderTable.css';
-
+import { PRICE_SIGNS } from '../../../../constants/constantData';
 import zeroTrimmer from '../../../../zeroTrimmer';
 import dateTrimmer from '../../../../dateTrimmer';
 
@@ -29,9 +29,9 @@ class PublisherOrderTable extends React.Component {
         <th>Id</th>
         {/* <th>User Order No.</th> */}
         <th>Publication Title</th>
-        <th>Publication Price</th>
-
+        <th>Total Price</th>
         <th>Postal Cost</th>
+        <th>Discount</th>
         <th>Number of Issues</th>
         <th>Start/End Date</th>
         <th>Reciever</th>
@@ -45,30 +45,44 @@ class PublisherOrderTable extends React.Component {
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
         <tr
-        // onClick={() => {
-        //   this.props.onRecordClick(record.id, record.customerOrderId);
-        // }}
+          className={s.row}
+          // onClick={() => {
+          //   this.props.onRecordClick(record.id, record.customerOrderId);
+          // }}
         >
           <td>{record.id}</td>
           {/* <td>{record.customerOrderId}</td> */}
           <td>{record.Product.label}</td>
-          <td>{zeroTrimmer(record.customerPrice[sign], 'price')}</td>
-          <td>{zeroTrimmer(record.deliveryCost[sign], 'price')}</td>
-          <td width="100">{record.count}</td>
-          <td width="140">{`${dateTrimmer(record.startDate)}\n ${dateTrimmer(
+          <td>
+            {record.price[sign]} <span>({PRICE_SIGNS[sign + 1]})</span>
+          </td>
+          <td>
+            {record.totalDeliveryCost[sign]}{' '}
+            <span>({PRICE_SIGNS[sign + 1]})</span>
+          </td>
+          <td>
+            {' '}
+            {record.discount[sign]} <span>({PRICE_SIGNS[sign + 1]})</span>
+          </td>
+          <td>{record.count}</td>
+          <td>{`${dateTrimmer(record.startDate)}\n ${dateTrimmer(
             record.endDate,
           )}`}</td>
-          <td onClick={e => this.onAddressClick(e, record.address.id)}>
-            {record.address.label}
+          <td onClick={e => this.onAddressClick(e, record.Address.value)}>
+            {`${record.Address.province} ${record.Address.city} ${
+              record.Address.detailAddress
+            } ${record.Address.zipCode} ${record.Address.Country.label} `}
           </td>
           <td
             className={
-              record.status.label == 'Accepted'
+              record.OrderStatus.label == 'Accepted'
                 ? s.accepted
-                : record.status.label == 'cancelled' ? s.cancelled : s.pending
+                : record.OrderStatus.label == 'cancelled'
+                  ? s.cancelled
+                  : s.pending
             }
           >
-            {record.status.label}
+            {record.OrderStatus.label}
           </td>
           <td width="130" className={s.btn}>
             <button
@@ -80,7 +94,7 @@ class PublisherOrderTable extends React.Component {
             </button>
             <button
               onClick={e => {
-                this.props.renew(record.Product.id);
+                this.props.renew(record.Product.value);
               }}
             >
               Renew

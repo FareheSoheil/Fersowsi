@@ -70,7 +70,7 @@ class ClaimDetails extends React.Component {
       isLoading: true,
     });
     const credentials = {
-      publisherOrderId: this.state.publisherOrderId,
+      orderId: this.state.publisherOrderId,
     };
     const options = {
       method: 'POST',

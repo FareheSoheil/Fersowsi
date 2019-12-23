@@ -2,7 +2,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactDOM from 'react-dom/server';
 // import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+// import jsPDF from 'jspdf';
 import ReactPaginate from 'react-paginate';
 import ContentHeader from '../../../components/User/ContentHeader';
 import OrderTable from '../../../components/User/Tables/OrderTable';
@@ -50,7 +50,6 @@ class Order extends React.Component {
       // allCountries: [],
     };
     this.fetchOrders = this.fetchOrders.bind(this);
-    this.test = this.test.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
@@ -119,87 +118,7 @@ class Order extends React.Component {
       },
     );
   }
-  test() {
-    // window.alert('this is test pdf');
-    // const records = this.state.orders.map((record, i) => (
-    //   <tr>
-    //     <td span="3" style={{ backgroundColor: 'red' }}>
-    //       {record.id}
-    //     </td>
-    //     <td span="6"> {record.status.label}</td>
-    //   </tr>
-    // ));
-    let rn = (
-      <div id="hsan" className={`user-table-responsive ${s.userTable}`}>
-        <table className={`user-table ${s.userHoverableTr}`}>
-          <thead style={{ backgroundColor: 'green' }}>
-            {' '}
-            <tr>
-              <th>Id</th>
-              <th>Total Cost</th>
-              <th>Total Price</th>
-              <th>Discount</th>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          {/* <tbody>{records} </tbody> */}
-        </table>
-      </div>
-    );
-    // console.log('hsan : ', document.getElementById('hsan'));
-    // const string = ReactDOM.renderToString(rn);
-    // console.log('test el: ', document.getElementById('hi'));
-    // const pdf = new jsPDF('p', 'mm', 'a4');
-    // pdf.addHTML(document.getElementById('hi'), function() {
-    //   pdf.save('Test.pdf');
-    // });
-    // pdf.html(string);
-    // pdf.save('pdf');
-    const input = document.getElementById('hsan');
-    const inputHeightMm = 300;
-    // pxToMm(input.offsetHeight);
-    const a4WidthMm = 210;
-    const a4HeightMm = 297;
-    const a4HeightPx = 300;
-    // mmToPx(a4HeightMm);
-    const numPages =
-      inputHeightMm <= a4HeightMm
-        ? 1
-        : Math.floor(inputHeightMm / a4HeightMm) + 1;
-    console.log({
-      input,
-      inputHeightMm,
-      a4HeightMm,
-      a4HeightPx,
-      numPages,
-      // range: range(0, numPages),
-      // comp: inputHeightMm <= a4HeightMm,
-      // inputHeightPx: input.offsetHeight,
-    });
-    const pdf = new jsPDF();
-    html2canvas(input).then(canvas => {
-      canvas.appendChild(input);
-      // problem : canvas is empty
-      console.log('canvas : ', canvas);
 
-      const imgData = canvas.toDataURL('image/png');
-      console.log('pdf : ', input);
-      console.log('imgData : ', imgData);
-      // Document of a4WidthMm wide and inputHeightMm high
-      if (inputHeightMm > a4HeightMm) {
-        // elongated a4 (system print dialog will handle page breaks)
-        const pdf = new jsPDF('p', 'mm', [inputHeightMm + 16, a4WidthMm]);
-      } else {
-        // standard a4
-
-        const pdf = new jsPDF();
-      }
-
-      pdf.addImage(imgData, 'PNG', 0, 0);
-      pdf.save(`502.pdf`);
-    });
-  }
   render() {
     return (
       <div>
@@ -214,27 +133,12 @@ class Order extends React.Component {
               onSortFunc={this.handleSelectChange}
               sortOptions={ORDER_SORT_OPTION}
             />
-            <div id="hsan" className={`user-table-responsive ${s.userTable}`}>
-              <table className={`user-table ${s.userHoverableTr}`}>
-                <thead style={{ backgroundColor: 'green' }}>
-                  {' '}
-                  <tr>
-                    <th>Id</th>
-                    <th>Total Cost</th>
-                    <th>Total Price</th>
-                    <th>Discount</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                {/* <tbody>{records} </tbody> */}
-              </table>
-            </div>
+
             <OrderTable
               onRecordClick={this.onOrderClick}
               records={this.state.orders}
             />
-            <button onClick={this.test}>test me</button>
+
             <div className="row">
               <div className="offset-xl-7 col-5 ">
                 <ReactPaginate
