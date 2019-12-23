@@ -88,6 +88,7 @@ class CustomerInvoiceDetail extends React.Component {
     this.gotoUser = this.gotoUser.bind(this);
     this.onPublisherOrderClick = this.onPublisherOrderClick.bind(this);
     this.print = this.print.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
     this.onInvoiceEdit = this.onInvoiceEdit.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
     this.changePrice = this.changePrice.bind(this);
@@ -118,7 +119,7 @@ class CustomerInvoiceDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchAllInfo();
+    // this.fetchAllInfo();
     this.fetchcustomerOrder();
   }
   fetchcustomerOrder() {
@@ -161,12 +162,48 @@ class CustomerInvoiceDetail extends React.Component {
       },
     );
   }
+  sendEmail() {
+    const url = `${SERVER}/sendInvoiceToCustomerMail`;
+    let prices = {
+      totalPrice: this.state.customerOrder.totalPrice,
+      totalDiscount: this.state.customerOrder.totalDiscount,
+      totalDeliveryCost: this.state.customerOrder.totalDeliveryCost,
+      totalTaxSixPrecent: this.state.customerOrder.totalTaxSixPrecent,
+      totalTax: this.state.customerOrder.totalTax,
+    };
+    const html = pdfMaker(
+      this.state.customerOrder.orders,
+      this.state.customerOrder.Currency.value,
+      prices,
+    );
+    const cred = {
+      customerInvoiceId: this.state.id,
+      htmlContent: html,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(cred),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    console.log('cred : ', cred);
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error == undefined) {
+          toastr.success('Cusomer Invoice', 'Invoices were EMailed');
+        }
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  }
   fetchAllInfo() {
     const url = `${SERVER}/getAuxInfoForAll`;
-    // this.setState({
-    //   isLoading: true,
-    // });
-
     const options = {
       method: 'POST',
       headers: {
@@ -427,7 +464,7 @@ class CustomerInvoiceDetail extends React.Component {
                       <button onClick={this.print}>Print User Invoices</button>
                     </div>
                     <div className="col-4">
-                      <button onClick={this.print}>
+                      <button onClick={this.sendEmail}>
                         Send Invoices To Cutomer
                       </button>
                     </div>
@@ -466,7 +503,7 @@ class CustomerInvoiceDetail extends React.Component {
                     </div>
                     <div className="col-4">
                       <img
-                        style={{ maxWidth: '180px' }}
+                        style={{ maxWidth: '180px', border: '1px solid black' }}
                         id="paymentImg"
                         src={
                           this.state.customerOrder.paymentImage == ''
