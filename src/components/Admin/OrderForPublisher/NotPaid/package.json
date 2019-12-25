@@ -1,0 +1,7 @@
+{
+    "name": "NotPaid",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./NotPaid.js"
+  }
+  

@@ -9,15 +9,15 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import ProductMain from '../../../../../components/Admin/Product/ProductMain';
-import { PRODUCT_STATUS } from '../../../../../constants/constantData';
+import ProductMain from '../../../../components/Admin/Product/ProductMain';
+import { PRODUCT_STATUS } from '../../../../constants/constantData';
 
-import s from './Ready.css';
+import s from './All.css';
 
-class Ready extends React.Component {
+class All extends React.Component {
   render() {
-    return <ProductMain status={PRODUCT_STATUS.Ready} />;
+    return <ProductMain status={PRODUCT_STATUS.All} />;
   }
 }
 
-export default withStyles(s)(Ready);
+export default withStyles(s)(All);

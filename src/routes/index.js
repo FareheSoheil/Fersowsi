@@ -95,7 +95,7 @@ const routes = {
             {
               path: '/all',
               load: () =>
-                import(/* webpackChunkName: 'adminProducts' */ './admin/Products/ProductsList'),
+                import(/* webpackChunkName: 'adminAllProducts' */ './admin/Products/ProductsList/All'),
             },
             {
               path: '/pending',
@@ -127,10 +127,20 @@ const routes = {
         {
           path: '/ordersForPublisher',
           children: [
+            // {
+            //   path: '/all',
+            //   load: () =>
+            //     import(/* webpackChunkName: 'adminOrdersForPublishers' */ './admin/OrdersForPubisher/OrdersForPubisherList'),
+            // },
             {
-              path: '',
+              path: '/active',
               load: () =>
-                import(/* webpackChunkName: 'adminOrdersForPublishers' */ './admin/OrdersForPubisher/OrdersForPubisherList'),
+                import(/* webpackChunkName: 'adminActiveOrdersForPublishers' */ './admin/OrdersForPubisher/OrdersForPubisherList/Active'),
+            },
+            {
+              path: '/sent',
+              load: () =>
+                import(/* webpackChunkName: 'adminSentOrdersForPublishers' */ './admin/OrdersForPubisher/OrdersForPubisherList/Sent'),
             },
             {
               path: '/:id',

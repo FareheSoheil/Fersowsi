@@ -1,0 +1,129 @@
+
+.container,.prepareContainer {
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    padding-top: 25px ;
+    padding-bottom: 25px;
+    padding-right: 5px ;
+    background-color: white;
+    font-size: 13px;
+}
+.container label, .prepareContainer label {
+    font-size: 13px;
+    color: #3d405c !important;
+}
+.prepareContainer h5 {
+    padding-top: 5px;
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: #3d405c;
+}
+.container h5 {
+    /* border-bottom: 1px solid #3d405c; */
+    padding-top: 5px;
+    margin-bottom: 2px;
+    color: white;
+    text-align: center;
+}
+.container textarea {
+    width: 95%;
+    padding: 5px;
+
+}
+.total h5  {
+    color: #366e73;
+    text-align: left;
+    border-bottom: 1px solid #366e73;
+    
+}
+.total>div>div{
+    text-align: center;
+    padding: 8px;
+}
+    /* .link {
+        padding-left: 20px;
+        color: blue;
+        cursor: pointer;
+        font-size: 17px;
+    }
+    .orderNo {
+        padding-left: 20px;
+        color: gray;
+        cursor: pointer;
+        font-size: 17px; 
+    }
+    .container label {
+        color:black;
+    } */
+.prepareContainer {
+
+}
+.orderSmallInfoContainer {
+    padding: 5px 20px 5px 15px;
+    text-align: center;
+}
+.orderSmallInfoContainer>div {
+    text-align: left;
+}
+.orderSmallInfoContainer input{
+    display: inline;
+    width: 80px;
+}
+.imageContainer {
+    text-align: center;
+}
+.imageUploader {
+    width: 200px !important;
+}
+.imageContainer img {
+    border: 2px solid lightgray;
+    border-radius: 3px;
+}
+
+
+.dropDownContainer>div{
+    margin-bottom: 12px;
+    /* border: 1px solid violet; */
+}
+.dropDownContainer > input {
+    width: 100px;
+}
+.dropDownContainer>div>label , .productsmallInfoContainer>div>label{ 
+    color: rgb(80, 78, 78);
+}
+.advancedContainer {
+    /* border: 1px solid greenyellow; */
+    text-align: left;
+    padding: 10px;
+    background-color: white;
+}
+.publisherOrderDetailContainer form {
+    width: 100%;
+    display: inline-block;
+}
+.publisherOrderDetailContainer label {
+    display: inline-block;
+}
+.publisherOrderDetailContainer input{
+    margin-left: 5px;
+    width:100px;
+    display: inline-block;
+}
+@media only screen and (max-width: 600px) {
+    .customerOrderDetailContainer input{
+        
+        width:100%;
+    }
+}
+.container>div:first-child>div{
+    border-top:1px solid #366e73;
+}
+.container>div:first-child>div>div{
+    border-right:1px solid #366e73;
+    border-left:1px solid #366e73;
+    border-bottom:1px solid #366e73;
+    word-wrap: break-word;
+}
+.publisher {
+    background-color: #4fb9ae
+}

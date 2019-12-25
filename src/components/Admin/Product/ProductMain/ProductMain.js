@@ -10,17 +10,17 @@
 import React from 'react';
 import history from '../../../../history';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import ProductTable from '../../../../components/Admin/Product/ProductTable';
-import AdvancedSearch from '../../../../components/Admin/Product/AdvancedSearch';
-import RowAdder from '../../../../components/moreTableRowSelector';
-import Spinner from '../../../../components/Admin/Spinner';
+import ProductTable from '../ProductTable';
+import AdvancedSearch from '../AdvancedSearch';
+import RowAdder from '../../../moreTableRowSelector';
+import Spinner from '../../Spinner';
 import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
 import { SERVER } from '../../../../constants';
 import { OPCODES } from '../../../../constants/constantData';
 
-import s from './ProductsList.css';
+import s from './ProductMain.css';
 
-class ProductsList extends React.Component {
+class ProductMain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ class ProductsList extends React.Component {
         singlProductTypes: '',
         productType: '', //remove s
         productContentTypes: '',
-        productStatus: '',
+        productStatus: [this.props.status],
         productLanguages: '',
         ageGroups: '',
         originalTitle: '',
@@ -276,4 +276,4 @@ class ProductsList extends React.Component {
   }
 }
 
-export default withStyles(s)(ProductsList);
+export default withStyles(s)(ProductMain);

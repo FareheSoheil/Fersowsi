@@ -13,7 +13,7 @@ import {
   PRODUCT_TYPE_ARRAY,
   PAYMENT_STATUS_ARRAY,
   OPCODES,
-} from '../../../constants/constantData';
+} from '../../../../constants/constantData';
 class CustomerInvoiceSideFilter extends React.Component {
   static propTypes = {
     allCurrencies: PropTypes.array.isRequired,

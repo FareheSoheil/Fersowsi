@@ -425,13 +425,55 @@ class SideBar extends React.Component {
                   </ul>
                 </div>
               </li>
-              <li className="nav-item ">
+
+              <li className="nav-item">
                 <a
                   className="nav-link"
-                  onClick={() => this.goTo('/admin/ordersForPublisher')}
+                  href="#orderForPublisher"
+                  data-toggle="collapse"
+                  aria-expanded="false"
+                  data-target="#orderForPublisher"
+                  aria-controls="orderForPublisher"
                 >
                   Orders For Publishers{' '}
                 </a>
+                <div
+                  id="orderForPublisher"
+                  className={`collapse submenu ${s.submenuContainer} `}
+                >
+                  <ul className="nav flex-column">
+                    {/* <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/ordersForPublisher/all')
+                        }
+                      >
+                        All Orders
+                      </a>
+                    </li> */}
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/ordersForPublisher/active', '')
+                        }
+                      >
+                        Active Orders
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/ordersForPublisher/sent')
+                        }
+                      >
+                        Done Orders{' '}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </li>
 
               {/* claims item */}

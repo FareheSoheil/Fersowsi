@@ -10,13 +10,13 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
-import s from './CustomerInvoice.css';
-import { PRICE_SIGNS } from '../../../constants/constantData';
-import dateTrimmer from '../../../dateTrimmer';
-import adminPriceTrimmer from '../../../adminPriceTrimmer';
+import s from './CustomerInvoiceItem.css';
+import { PRICE_SIGNS } from '../../../../constants/constantData';
+import dateTrimmer from '../../../../dateTrimmer';
+import adminPriceTrimmer from '../../../../adminPriceTrimmer';
 // import { PRODUCT_STATUS } from '../../constants/constantData';
 
-class CustomerInvoice extends React.Component {
+class CustomerInvoiceItem extends React.Component {
   static propTypes = {
     invoice: PropTypes.object.isRequired,
     // currencyId:
@@ -90,4 +90,4 @@ class CustomerInvoice extends React.Component {
   }
 }
 
-export default withStyles(s)(CustomerInvoice);
+export default withStyles(s)(CustomerInvoiceItem);

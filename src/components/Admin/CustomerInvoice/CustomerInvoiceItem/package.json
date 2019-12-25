@@ -1,0 +1,7 @@
+{
+    "name": "CustomerInvoiceItem",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./CustomerInvoiceItem.js"
+  }
+  

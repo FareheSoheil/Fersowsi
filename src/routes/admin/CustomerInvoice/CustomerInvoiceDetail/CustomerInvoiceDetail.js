@@ -5,7 +5,7 @@ import { toastr } from 'react-redux-toastr';
 import 'react-datepicker/dist/react-datepicker.css';
 import PageHeader from '../../../../components/Admin/PageHeader';
 import Spinner from '../../../../components/Admin/Spinner';
-import CustomerInvoice from '../../../../components/Admin/CustomerInvoice';
+import CustomerInvoiceItem from '../../../../components/Admin/CustomerInvoice/CustomerInvoiceItem';
 import {
   CUSTOMER_ORDER_STATUS_ARRAY,
   CUSTOMER_ORDER_STATUS,
@@ -38,47 +38,13 @@ class CustomerInvoiceDetail extends React.Component {
         description: '', //
         createdAt: '2011-03-01 12:17:40', //
         updatedAt: '2019-10-16 01:56:52', //
-        status: { value: 1, label: 'Wait For Admin Response ' }, //
+        status: '', //
         userOrderNo: 10001, //
         customerId: 60044, //
-        currency: { value: 5, label: 'dollsr' }, //
+        currency: '', //
         currencyId: 3,
-        deliveryAddress: {
-          value: 2662,
-          label: 'alkjsdhaskjdnasdjkasndasjdlasnd',
-        }, //
-        publisherOrders: [
-          {
-            reciever: 'asdkn;eouwfnd/as',
-            orderNo: 2,
-            userOrderNo: 1231,
-            count: 10,
-            deliveryType: {
-              label: 'air mail',
-              value: 3,
-            },
-            discount: 65,
-            deliveryCost: [2, 3, 4, 5, 6, 7, 8],
-            currencyId: 1,
-            startDate: new Date(),
-            endDate: new Date(),
-          },
-          {
-            reciever: 'farehesdsa dasdasdsf',
-            orderNo: 22,
-            userOrderNo: 14531,
-            count: 20,
-            currencyId: 2,
-            deliveryType: {
-              label: 'air mail',
-              value: 5,
-            },
-            discount: 56,
-            deliveryCost: [2, 3, 4, 5, 6, 7, 8],
-            startDate: new Date(),
-            endDate: new Date(),
-          },
-        ],
+        deliveryAddress: {}, //
+        publisherOrders: [],
       },
     };
     this.fetchcustomerOrder = this.fetchcustomerOrder.bind(this);
@@ -329,13 +295,7 @@ class CustomerInvoiceDetail extends React.Component {
       totalTax: this.state.customerOrder.totalTax,
     };
     frog.document.open();
-    frog.document.write(
-      pdfMaker(
-        this.state.customerOrder.orders,
-        this.state.customerOrder.Currency.value,
-        prices,
-      ),
-    );
+    frog.document.write(pdfMaker(this.state.customerOrder));
     frog.document.close();
   }
   render() {
@@ -346,7 +306,7 @@ class CustomerInvoiceDetail extends React.Component {
       invoices = subOrders.map(
         (order, i) =>
           (invoices = (
-            <CustomerInvoice
+            <CustomerInvoiceItem
               invoice={order}
               currencyId={this.state.customerOrder.Currency.value}
             />

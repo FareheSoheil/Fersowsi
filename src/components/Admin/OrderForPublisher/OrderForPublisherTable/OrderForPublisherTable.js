@@ -12,7 +12,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import history from '../../../../history';
-
+import dateTrimmer from '../../../../dateTrimmer';
 import s from './OrderForPublisherTable.css';
 
 class OrderForPublisherTable extends React.Component {
@@ -31,6 +31,16 @@ class OrderForPublisherTable extends React.Component {
     super(props);
     this.onNumberChange = this.onNumberChange.bind(this);
   }
+  colorPicker(record) {
+    let color = '';
+
+    // if (record.isPaid !== undefined) {
+    // PRODUCT_STATUS
+    if (record.isPaid) {
+      color = s.activeOrder;
+    } else color = s.sentOrder;
+    return color;
+  }
   goTo(id) {
     history.push(`/admin/ordersForPublisher/${id}`);
   }
@@ -41,8 +51,10 @@ class OrderForPublisherTable extends React.Component {
   render() {
     const tableHeaders = (
       <tr>
+        <th>Publisher Order No.</th>
         <th>Publisher</th>
         <th>Number Of Ready To Send Orders</th>
+        <th>Date</th>
         <th>Action</th>
       </tr>
     );
@@ -50,15 +62,29 @@ class OrderForPublisherTable extends React.Component {
     let toDisplay = <div className={s.noRecords}> No Match Found</div>;
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
-        <tr
-          onClick={() => {
-            this.goTo(record.id);
-          }}
-        >
-          <td>{record.publisher}</td>
-          <td>{record.numberOfReady}</td>
+        <tr className={this.colorPicker(record)}>
+          <td>{record.id}</td>
+          <td>{record.User.publisherName}</td>
+          <td>{record.numberOfReadyOrdersToSend}</td>
+          <td>{dateTrimmer(record.createdAt)}</td>
           <td>
-            <button>Continue</button>
+            {record.isPaid ? (
+              <button
+                onClick={() => {
+                  this.goTo(record.id);
+                }}
+              >
+                Continue
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  this.goTo(record.id);
+                }}
+              >
+                Prepare
+              </button>
+            )}
           </td>
         </tr>
       ));

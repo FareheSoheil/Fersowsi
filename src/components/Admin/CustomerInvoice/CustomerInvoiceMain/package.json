@@ -1,0 +1,7 @@
+{
+    "name": "CustomerInvoiceMain",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./CustomerInvoiceMain.js"
+  }
+  

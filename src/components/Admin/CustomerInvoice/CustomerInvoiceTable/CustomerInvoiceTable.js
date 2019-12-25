@@ -12,8 +12,10 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import s from './CustomerInvoiceTable.css';
-import adminPriceTrimmer from '../../../adminPriceTrimmer';
-import { PRODUCT_STATUS, PRICE_SIGNS } from '../../../constants/constantData';
+import {
+  PRODUCT_STATUS,
+  PRICE_SIGNS,
+} from '../../../../constants/constantData';
 
 class CustomerInvoiceTable extends React.Component {
   static propTypes = {

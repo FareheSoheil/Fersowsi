@@ -1,6 +1,6 @@
 import dateTrimmer from '../../../dateTrimmer';
 import { PRICE_SIGNS } from '../../../constants/constantData';
-const pdfMaker = function(customerOrder) {
+const pdfMaker = function(publisherOrder, titles) {
   let header = `<div id="userInvoices" style="margin-bottom:30px; background-color: white" >
         
         <div style="display: flex;-ms-flex-wrap: wrap;
@@ -17,21 +17,18 @@ const pdfMaker = function(customerOrder) {
             <table style="border: 1px solid black;">
               <thead style="background-color: lightgray;border: 1px solid black;">
                 <th id="title" width="40%">
-                  Customer No
+                Publisher Order  No
                 </th>
-                <th width="40%">Order No</th>
-                <th width="60%">Print Date</th>
+                <th width="60%">Publisher Order  Date</th>
               </thead>
               <tbody>
                 <tr>
                   <td  style="text-align:center; border: 1px solid black;">${
-                    customerOrder.customerId
+                    publisherOrder.id
                   }</td>
-                  <td style="text-align:center; border: 1px solid black;">${
-                    customerOrder.id
-                  }</td>
+                 
                   <td style="text-align:center; border: 1px solid black;">${dateTrimmer(
-                    customerOrder.createdAt,
+                    publisherOrder.createdAt,
                   )} </td>
                 </tr>
              
@@ -43,20 +40,28 @@ const pdfMaker = function(customerOrder) {
           <table style= "width:100%; border: 1px solid black;">
             <thead style="background-color: lightgray; border: 1px solid black;">
               <th id="title" width="40%">
-                Our Refrence
+                Publisher
               </th>
-              <th width="40%">Your Refrence</th>
-              <th width="60%">Order Date</th>
+              
             </thead>
             <tbody>
               <tr>
-                <td style="text-align:center; border: 1px solid black;">??</td>
-                <td style="text-align:center; border: 1px solid black;">${
-                  customerOrder.customer.label
-                }</td>
-                <td style="text-align:center; border: 1px solid black;">${dateTrimmer(
-                  new Date(),
-                )}</td>
+                <td style="text-align:center; border: 1px solid black;">
+                ${titles}
+                                <br />
+                                <b>Attn: </b>
+                                ${publisherOrder.User.companyName}
+                                <br />
+                                ${publisherOrder.User.hompage}
+                                <br />
+                                ${publisherOrder.User.Country.name}
+                                ${publisherOrder.User.address.province}
+                                ${publisherOrder.User.address.city}
+                                ${publisherOrder.User.address.detailAddress}
+                                ${publisherOrder.User.address.zipCode}
+                
+                </td>
+               
               </tr>
       
             </tbody>
@@ -64,7 +69,7 @@ const pdfMaker = function(customerOrder) {
         </div>
         
       </div>`;
-  let invoices = customerOrder.orders
+  let invoices = publisherOrder.orders.orders
     .map(
       order =>
         `<div
@@ -101,13 +106,10 @@ const pdfMaker = function(customerOrder) {
           max-width: 33.333333%;padding:5px;"
                 >
                   <div>
-                    <label>Order No: &nbsp;</label>
+                    <label>Our Order No: &nbsp;</label>
                     ${order.id}
                   </div>
-                  <div>
-                    <label>User Order No: &nbsp;</label>
-                    ${order.userOrderNo}
-                  </div>
+              
                   <div>
                     <label>Number Of Copies: &nbsp;</label>
                     ${order.count}
@@ -129,20 +131,10 @@ const pdfMaker = function(customerOrder) {
                 <div className="col-xl-4 col-lg-5 col-md-6 ">
                   <div>
                     <label>Price: &nbsp;</label>
-                    ${order.totalToBePaid[customerOrder.Currency.value - 1]}
-                    ${PRICE_SIGNS[customerOrder.Currency.value]}
+                    ${order.totalToBePaid[publisherOrder.User.Currency.id - 1]}
+                    ${PRICE_SIGNS[publisherOrder.User.Currency.id]}
                   </div>
-                  <div>
-                    <label>Discount: &nbsp;</label>
-                    ${order.discount[customerOrder.Currency.value - 1]}
-                  </div>
-                  <div>
-                    <label>Postal Cost: &nbsp;</label>
-                     ${
-                       order.totalDeliveryCost[customerOrder.Currency.value - 1]
-                     }
-                    ${PRICE_SIGNS[customerOrder.Currency.value]}
-                  </div>
+                
                 </div>
               </div>
               
@@ -161,67 +153,42 @@ const pdfMaker = function(customerOrder) {
   let footer = `<div style=" margin:5px;width: 100%;margin-top:20px">
           <table style= "width:100%; border: 1px solid black;">
             <thead style="background-color: lightgray; border: 1px solid black;">
-              <th style="padding:3px;text-align:center; " >
-                Total Price 
-              </th>
-              <th style="padding:3px;text-align:center;">Discount</th>
-              <th style="padding:3px;text-align:center;">Total Postal Cost</th>
+              
+              <th style="padding:3px;text-align:center;">Amount</th>
+              <th style="padding:3px;text-align:center;">Date</th>
     
-              <th style="padding:3px;text-align:center;">Net Amount</th>
-              <th style="padding:3px;text-align:center;">Sale Tax</th>
-              <th style="padding:3px;text-align:center;">Applied Tax</th>
-              <th style="padding:3px;text-align:center;">Currency</th>
+              <th style="padding:3px;text-align:center;">Payment Method</th>
+              <th style="padding:3px;text-align:center;">Information</th>
+  
     
             </thead>
             <tbody>
               <tr>
                 <td style="text-align:center; border: 1px solid black;">${
-                  customerOrder.totalPrice[customerOrder.Currency.value - 1]
+                  publisherOrder.totalCost
                 }</td>
+                <td style="text-align:center; border: 1px solid black;">${dateTrimmer(
+                  publisherOrder.createdAt,
+                )}</td>
                 <td style="text-align:center; border: 1px solid black;">${
-                  customerOrder.totalDiscount[customerOrder.Currency.value - 1]
-                }</td>
-                <td style="text-align:center; border: 1px solid black;">${
-                  customerOrder.totalDeliveryCost[
-                    customerOrder.Currency.value - 1
-                  ]
+                  publisherOrder.paymentMethod
                 }</td>
                 
+                
                 <td style="text-align:center; border: 1px solid black;">
-                ${customerOrder.totalPrice[customerOrder.Currency.value - 1] +
-                  customerOrder.totalDeliveryCost[
-                    customerOrder.Currency.value - 1
-                  ] +
-                  customerOrder.totalTaxSixPrecent[
-                    customerOrder.Currency.value - 1
-                  ] +
-                  customerOrder.totalTax[customerOrder.Currency.value - 1]}
+                ${publisherOrder.description} %
                 </td>
-                <td style="text-align:center; border: 1px solid black;">
-                ${
-                  customerOrder.totalTaxSixPrecent[
-                    customerOrder.Currency.value - 1
-                  ]
-                } %
-                </td>
-                <td style="text-align:center; border: 1px solid black;">
-                ${customerOrder.totalTax[customerOrder.Currency.value - 1]}
-                </td>
-                <td style="text-align:center; border: 1px solid black;">${
-                  PRICE_SIGNS[customerOrder.Currency.value]
-                }</td>
+               
               </tr>
       
             </tbody>
           </table>
-          <div style="float:right;margin-top:20px;margin-right:10px;font-size:16px;padding:8px;border:1px solid black;">To Be Paid : 
-          ${customerOrder.totalPrice[customerOrder.Currency.value - 1] +
-            customerOrder.totalDeliveryCost[customerOrder.Currency.value - 1] +
-            customerOrder.totalTaxSixPrecent[customerOrder.Currency.value - 1] +
-            customerOrder.totalTax[customerOrder.Currency.value - 1] -
-            customerOrder.totalDiscount[customerOrder.Currency.value - 1]} ${
-    PRICE_SIGNS[customerOrder.Currency.value]
-  }
+          <div style="float:right;margin-top:20px;margin-right:10px;font-size:16px;padding:8px;border:1px solid black;">Total : 
+          ${
+            publisherOrder.orders.totalInPrice[
+              publisherOrder.User.Currency.id - 1
+            ]
+          }  ${PRICE_SIGNS[publisherOrder.User.Currency.id]}
           </div>
         </div>`;
 

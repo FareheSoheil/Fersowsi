@@ -9,15 +9,13 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import ProductMain from '../../../../../components/Admin/Product/ProductMain';
-import { PRODUCT_STATUS } from '../../../../../constants/constantData';
+import s from './ActiveList.css';
+import OrdersForPublisherMain from '../../../../../components/Admin/OrderForPublisher/OrdersForPublisherMain';
 
-import s from './Ready.css';
-
-class Ready extends React.Component {
+class ActiveList extends React.Component {
   render() {
-    return <ProductMain status={PRODUCT_STATUS.Ready} />;
+    return <OrdersForPublisherMain isPaid={true} />;
   }
 }
 
-export default withStyles(s)(Ready);
+export default withStyles(s)(ActiveList);
