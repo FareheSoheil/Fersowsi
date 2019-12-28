@@ -10,13 +10,12 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { fetchWithTimeOut } from '../../../fetchWithTimeout';
-import history from '../../../history';
-import s from './CMS.css';
+import s from './AddressHistory.css';
 import Spinner from '../../../components/Admin/Spinner';
-import CMSTable from '../../../components/Admin/CMS/CMSTable';
+import HistoryTable from '../../../components/HistoryTable';
 import RowAdder from '../../../components/moreTableRowSelector';
 import { SERVER } from '../../../constants';
-class CMS extends React.Component {
+class AddressHistory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,26 +24,27 @@ class CMS extends React.Component {
       pageIndex: 0,
       pageSize: 10,
       totalPageNum: '',
-      currentCMSs: '',
-      type: '',
+      currentHistories: '',
+      type: 'Address Change',
     };
     this.handlePageChange = this.handlePageChange.bind(this);
-    this.fetchCMSs = this.fetchCMSs.bind(this);
-    this.onCMSCLick = this.onCMSCLick.bind(this);
+    this.fetchHistories = this.fetchHistories.bind(this);
+    this.onHisClick = this.onHisClick.bind(this);
     this.showMore = this.showMore.bind(this);
   }
 
   componentDidMount() {
-    this.fetchCMSs();
+    this.fetchHistories();
   }
 
-  fetchCMSs() {
-    const url = `${SERVER}/getAllCMS`;
-
+  fetchHistories() {
+    const url = `${SERVER}/getAllOrderActionHistories`;
     this.setState({
       isLoading: true,
     });
     const credentials = {
+      orderId: this.state.id,
+      type: this.state.type,
       pageIndex: this.state.pageIndex,
       pageSize: this.state.pageSize,
     };
@@ -61,7 +61,7 @@ class CMS extends React.Component {
       options,
       response => {
         that.setState({
-          currentCMSs: response.currentRecords,
+          currentHistories: response.currentRecords,
           totalPageNum: response.totalPageNum,
           isLoading: false,
           firstRender: false,
@@ -75,20 +75,20 @@ class CMS extends React.Component {
 
   handlePageChange(pageIndex) {
     this.setState({ pageIndex: pageIndex.selected }, () => {
-      this.fetchCMSs();
+      this.fetchHistories();
     });
   }
 
-  onCMSCLick(str) {
-    history.push(str);
-  }
+  // onHisClick(id) {
+  //   history.push(`/admin/accounts/${id}`);
+  // }
   showMore(num) {
     this.setState(
       {
         pageSize: num,
       },
       () => {
-        this.fetchCMSs();
+        this.fetchHistories();
       },
     );
   }
@@ -101,7 +101,7 @@ class CMS extends React.Component {
           ) : (
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div className="card">
-                <h5 className="card-header">All CMS</h5>
+                <h5 className="card-header">All Address History</h5>
                 <div className="card-body p-0">
                   <div className="container-fluid">
                     <div className={`${s.btnContainer} row`}>
@@ -113,14 +113,13 @@ class CMS extends React.Component {
                       </div>
                     </div>
 
-                    <CMSTable
-                      ondel={this.fetchCMSs}
+                    <HistoryTable
                       pageSize={this.state.pageSize}
                       pageCount={this.state.totalPageNum}
                       currentPageNumber={this.state.pageIndex}
-                      records={this.state.currentCMSs}
+                      records={this.state.currentHistories}
                       handlePageChange={this.handlePageChange}
-                      onRecordClick={this.onCMSCLick}
+                      onRecordClick={this.onHisClick}
                     />
                   </div>
                 </div>
@@ -133,4 +132,4 @@ class CMS extends React.Component {
   }
 }
 
-export default withStyles(s)(CMS);
+export default withStyles(s)(AddressHistory);

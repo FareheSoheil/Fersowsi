@@ -32,11 +32,6 @@ class PublisherOrderTable extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.goToCustomerOrder = this.goToCustomerOrder.bind(this);
-  }
-  goTo(e, url) {
-    e.stopPropagation();
-    history.push(url);
   }
 
   colorPicker(record) {
@@ -54,69 +49,10 @@ class PublisherOrderTable extends React.Component {
     }
     return color;
   }
-  goToCustomerOrder(e, id) {
+
+  goTo(e, id) {
     e.stopPropagation();
-    if (cookie.load('role') == 5) history.push(`user/order/${id}`);
-    else {
-      window.alert('please first choose a user ');
-      // const url = `${SERVER}/loginInsteadACustomer`;
-      // const cred = {
-      //   userId: id,
-      // };
-      // const options = {
-      //   method: 'POST',
-      //   body: JSON.stringify(cred),
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      // };
-      // const that = this;
-      // fetchWithTimeOut(
-      //   url,
-      //   options,
-      //   response => {
-      //     if (response.error === undefined) {
-      //       const setStateURL = `${SSRSERVER}/state/setState`;
-      //       const setStateOptions = {
-      //         method: 'POST',
-      //         body: JSON.stringify(response),
-      //         headers: {
-      //           'Content-Type': 'application/json',
-      //         },
-      //       };
-      //       fetchWithTimeOut(setStateURL, setStateOptions, () => {
-      //         const expires = new Date();
-      //         const now = new Date();
-      //         expires.setDate(now.getDate() + COOKIE_EXPIRATION);
-
-      //         cookie.save('role', response.role.value, {
-      //           path: '/',
-      //           expires,
-      //         });
-      //         cookie.save('TokenId', response.TokenId, {
-      //           path: '/',
-      //           expires,
-      //         });
-
-      //         cookie.save('userSubCategory', response.userSubCategory.value, {
-      //           path: '/',
-      //           expires,
-      //         });
-      //         localStorage.setItem('TokenId', response.TokenId);
-      //         localStorage.setItem('id', response.id);
-      //         localStorage.setItem('role', response.role.value);
-      //         history.push(`user/order/${id}`);
-      //       });
-      //     } else {
-      //       toastr.error(response.error.title, response.error.description);
-      //       console.log('login error : ', error);
-      //     }
-      //   },
-      //   error => {
-      //     console.log(error);
-      //   },
-      // );
-    }
+    history.push(`/admin/customerInvoice/${id}`);
   }
   render() {
     const tableHeaders = (
@@ -157,7 +93,11 @@ class PublisherOrderTable extends React.Component {
                 }`}
           </td>
           <td>{record.recieptName}</td>
-          <td>{record.CustomerInvoice.id}</td>
+          <td>
+            <u onClick={e => this.goTo(e, record.CustomerInvoice.id)}>
+              <i>{record.CustomerInvoice.id}</i>
+            </u>
+          </td>
           <td>{record.Product.label}</td>
           <td>
             {record.OrderForPublisher.User.userSubCategoryId != 1

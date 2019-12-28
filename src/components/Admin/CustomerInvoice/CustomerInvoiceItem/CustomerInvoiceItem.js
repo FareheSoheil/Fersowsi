@@ -43,7 +43,15 @@ class CustomerInvoiceItem extends React.Component {
         <div className="col-xl-4 col-lg-5 col-md-6 ">
           <div>
             <label>Order No: &nbsp;</label>
-            {this.props.invoice.id}
+            <i>
+              <u
+                onClick={() =>
+                  this.props.onPublisherOrderClick(this.props.invoice.id)
+                }
+              >
+                {this.props.invoice.id}
+              </u>
+            </i>
           </div>
           <div>
             <label>User Order No: &nbsp;</label>

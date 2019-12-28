@@ -171,7 +171,8 @@ const pdfMaker = function(publisherOrder, title, code) {
             </tbody>
           </table>
         
-        </div>`;
+        </div>
+        <div><h3>Note :</h3>   ${publisherOrder.publicationNote}</div>`;
 
   return header + order + footer;
 };

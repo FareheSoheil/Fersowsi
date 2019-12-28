@@ -141,7 +141,7 @@ const addressPdfMaker = function(publisherOrder, newAddress, newCO, newRN) {
           
                 </div>
               </div>
-              
+              <div><h3>Note :</h3>   ${publisherOrder.publicationNote}</div>
               
               `;
 

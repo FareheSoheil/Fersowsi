@@ -9,13 +9,17 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { toastr } from 'react-redux-toastr';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import history from '../../../../history';
-import dateTrimmer from '../../../../dateTrimmer';
-import s from './OrderForPublisherTable.css';
+import s from './CMSTable.css';
 
-class OrderForPublisherTable extends React.Component {
+import { fetchWithTimeOut } from '../../../../fetchWithTimeout';
+import { SERVER } from '../../../../constants/constantData';
+import dateTrimmer from '../../../../dateTrimmer';
+import history from '../../../../history';
+
+class CMSTable extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
     hasPagination: PropTypes.bool.isRequired,
@@ -27,73 +31,84 @@ class OrderForPublisherTable extends React.Component {
   static defaultProps = {
     hasPagination: true,
   };
-  constructor(props) {
-    super(props);
-    this.onNumberChange = this.onNumberChange.bind(this);
-  }
-  colorPicker(record) {
-    let color = '';
-
-    // if (record.isPaid !== undefined) {
-    // PRODUCT_STATUS
-    if (record.isPaid) {
-      color = s.activeOrder;
-    } else color = s.sentOrder;
-    return color;
-  }
-  goTo(e, url) {
+  delete(e, id) {
     e.stopPropagation();
-    history.push(url);
+    const url = `${SERVER}/deleteCMS`;
+
+    const credentials = {
+      id: id,
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const that = this;
+    fetchWithTimeOut(
+      url,
+      options,
+      response => {
+        if (response.error == undefined) {
+          toastr.success('', 'CMS DeletedSuccessfully');
+          that.props.ondel();
+        } else toastr.error('', 'CMS was not deleted');
+      },
+      error => {
+        console.log(error);
+        toastr.error('', 'CMS was not deleted');
+      },
+    );
   }
-  onNumberChange() {
-    var x = parseInt(document.getElementById('numberSelect').value);
-    this.props.showMore(x);
+
+  goToOrder(id) {
+    history.push(`/admin/publisherOrder/${id}`);
   }
   render() {
     const tableHeaders = (
       <tr>
-        <th>Publisher Order No.</th>
-        <th>Publisher</th>
-        <th>Number Of Ready To Send Orders</th>
-        <th>Date</th>
-        <th>Action</th>
+        <th className="border-0">Title</th>
+        <th className="border-0">Link</th>
+        <th className="border-0">Active</th>
+        <th className="border-0">Language</th>
+        <th className="border-0">Date</th>
+        <th className="border-0">Action</th>
       </tr>
     );
+
     let records = '';
     let toDisplay = <div className={s.noRecords}> No Match Found</div>;
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
-        <tr className={this.colorPicker(record)}>
-          <td>{record.id}</td>
+        <tr
+          // style={{ lineHeight: '14px' }}
+
+          onClick={() => {
+            this.props.onRecordClick(
+              `/admin/cms/edit/${record.link}&${record.languageId}&${
+                record.id
+              }`,
+            );
+          }}
+        >
+          <td>{record.title}</td>
+          <td>{record.link}</td>
           <td>
-            <u
-              onClick={e =>
-                this.goTo(e, `/admin/accounts/${record.publisherId}`)
-              }
-            >
-              <i>{record.User.publisherName}</i>
-            </u>
+            {record.isActive ? (
+              <i style={{ color: 'green' }} class="fas fa-check" />
+            ) : (
+              <i
+                style={{ color: 'red' }}
+                class="fa fa-times"
+                aria-hidden="true"
+              />
+            )}
           </td>
-          <td>{record.numberOfReadyOrdersToSend}</td>
+          <td>{record.SiteLanguage.label}</td>
           <td>{dateTrimmer(record.createdAt)}</td>
           <td>
-            {record.isPaid ? (
-              <button
-                onClick={e => {
-                  this.goTo(e, `/admin/ordersForPublisher/${record.id}`);
-                }}
-              >
-                Continue
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  this.goTo(e, `/admin/ordersForPublisher/${record.id}`);
-                }}
-              >
-                Prepare
-              </button>
-            )}
+            <button onClick={e => this.delete(e, record.id)}>Delete</button>{' '}
           </td>
         </tr>
       ));
@@ -102,7 +117,10 @@ class OrderForPublisherTable extends React.Component {
           <table
             className={`table table-hover table-bordered ${s.hoverableTr}`}
           >
-            <thead className="bg-light">{tableHeaders}</thead>
+            <thead className="bg-light">
+              {/* <th>#</th> */}
+              {tableHeaders}
+            </thead>
             <tbody>{records}</tbody>
           </table>
         </div>
@@ -110,6 +128,7 @@ class OrderForPublisherTable extends React.Component {
     }
 
     return (
+      // window.alert(this.props.pa)
       <div>
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" />
@@ -142,4 +161,4 @@ class OrderForPublisherTable extends React.Component {
   }
 }
 
-export default withStyles(s)(OrderForPublisherTable);
+export default withStyles(s)(CMSTable);

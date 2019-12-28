@@ -11,6 +11,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
+import history from '../../../../history';
 import s from './CustomerInvoiceTable.css';
 import {
   PRODUCT_STATUS,
@@ -29,6 +30,10 @@ class CustomerInvoiceTable extends React.Component {
   static defaultProps = {
     hasPagination: true,
   };
+  goTo(e, id) {
+    e.stopPropagation();
+    history.push(`/admin/accounts/${id}`);
+  }
   colorPicker(record) {
     let color = '';
 
@@ -73,7 +78,13 @@ class CustomerInvoiceTable extends React.Component {
         >
           {/* <td>{record.id}</td> */}
           {/* {record.user.username} */}
-          <td>{record.customer.label}</td>
+          <td>
+            <i>
+              <u onClick={e => this.goTo(e, record.customer.value)}>
+                {record.customer.label}
+              </u>
+            </i>
+          </td>
           {/* {record.user.username} */}
           <td>{record.customerStatus.label}</td>
           {/* {record.invoiceNumber} */}

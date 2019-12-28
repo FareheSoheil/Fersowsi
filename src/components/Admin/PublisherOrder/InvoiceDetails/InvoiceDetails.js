@@ -18,7 +18,17 @@ class InvoiceDetails extends React.Component {
             <label>Invoice No : </label>
           </div>
           <div className="col-6">
-            {this.props.publisherOrder.CustomerInvoice.id}
+            <u
+              onClick={() =>
+                this.props.goTo(
+                  `/admin/customerInvoice/${
+                    this.props.publisherOrder.CustomerInvoice.id
+                  }`,
+                )
+              }
+            >
+              <i>{this.props.publisherOrder.CustomerInvoice.id}</i>
+            </u>
           </div>
         </div>
         <div className="row">
@@ -26,7 +36,17 @@ class InvoiceDetails extends React.Component {
             <label>Customer Code :</label>{' '}
           </div>
           <div className="col-6">
-            {this.props.publisherOrder.CustomerInvoice.User.id}
+            <u
+              onClick={() =>
+                this.props.goTo(
+                  `/admin/acoounts/${
+                    this.props.publisherOrder.CustomerInvoice.User.id
+                  }`,
+                )
+              }
+            >
+              <i> {this.props.publisherOrder.CustomerInvoice.User.id}</i>
+            </u>
           </div>
         </div>
         <div className="row">

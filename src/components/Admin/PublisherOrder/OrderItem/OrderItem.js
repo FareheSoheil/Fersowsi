@@ -10,7 +10,15 @@ class OrderItem extends React.Component {
       <div className={`row mt-3 ${s.mainContainer}`}>
         <h5 className={`col-12 ${s.title}`}>
           {' '}
-          Publication Title :{this.props.publisherOrder.Product.label}{' '}
+          <u
+            onClick={() =>
+              this.props.goTo(
+                `/admin/products/${this.props.publisherOrder.Product.id}`,
+              )
+            }
+          >
+            <i>Publication Title :{this.props.publisherOrder.Product.label}</i>
+          </u>{' '}
         </h5>
         <div className={`col-xl-3 col-lg-5 col-md-6 ${s.reciever}`}>
           <b>Reciever : </b> <br />

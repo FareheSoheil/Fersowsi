@@ -61,6 +61,9 @@ class OrdersForPubisherDetails extends React.Component {
     this.onEdit = this.onEdit.bind(this);
     this.onSend = this.onSend.bind(this);
   }
+  goTo(url) {
+    history.push(url);
+  }
   findTitle() {
     let titles = [];
     let res = ``;
@@ -254,6 +257,7 @@ class OrdersForPubisherDetails extends React.Component {
         (order, i) =>
           (invoices = (
             <OrderForPublisherItem
+              goTo={this.goTo}
               order={order}
               currencyId={this.state.preparedOrder.User.Currency.id}
             />

@@ -1,0 +1,6 @@
+{
+    "name": "HistoryTable",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./HistoryTable.js"
+}

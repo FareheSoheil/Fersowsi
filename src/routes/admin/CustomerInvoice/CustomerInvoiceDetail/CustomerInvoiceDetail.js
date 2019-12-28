@@ -301,6 +301,7 @@ class CustomerInvoiceDetail extends React.Component {
           (invoices = (
             <CustomerInvoiceItem
               invoice={order}
+              onPublisherOrderClick={this.onPublisherOrderClick}
               currencyId={this.state.customerOrder.Currency.value}
             />
           )),
@@ -346,7 +347,11 @@ class CustomerInvoiceDetail extends React.Component {
                             <label>Customer Id:</label>
                           </div>
                           <div className="col-4">
-                            {this.state.customerOrder.customerId}{' '}
+                            <i>
+                              <u onClick={this.gotoUser}>
+                                {this.state.customerOrder.customerId}
+                              </u>
+                            </i>{' '}
                           </div>
                         </div>
                         <div className="row mb-1">

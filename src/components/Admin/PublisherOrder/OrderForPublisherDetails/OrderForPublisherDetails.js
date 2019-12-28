@@ -17,7 +17,19 @@ class OrderForPublisherDetails extends React.Component {
             <label>Order No to Publisher : </label>
           </div>
           <div className="col-6">
-            {this.props.publisherOrder.OrderForPublisher.id}
+            <i>
+              <u
+                onClick={() =>
+                  this.props.goTo(
+                    `/admin/publisherOrder/${
+                      this.props.publisherOrder.OrderForPublisher.id
+                    }`,
+                  )
+                }
+              >
+                {this.props.publisherOrder.OrderForPublisher.id}
+              </u>
+            </i>
           </div>
         </div>
         <div className="row mt-1 mb-1 ">

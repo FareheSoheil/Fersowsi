@@ -20,7 +20,28 @@ const routes = {
         },
         {
           path: '/CMS',
-          load: () => import(/* webpackChunkName: 'adminCMS' */ './admin/CMS'),
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'adminCMS' */ './admin/CMS'),
+            },
+            {
+              path: '/add',
+              load: () =>
+                import(/* webpackChunkName: 'adminAddCMS' */ './admin/CMS/AddCMS'),
+            },
+            {
+              path: '/edit',
+              children: [
+                {
+                  path: '/:lt',
+                  load: () =>
+                    import(/* webpackChunkName: 'adminCMSDetails' */ './admin/CMS/CMSDetails'),
+                },
+              ],
+            },
+          ],
         },
         {
           path: '/currencies',
@@ -242,11 +263,31 @@ const routes = {
               load: () =>
                 import(/* webpackChunkName: 'adminAddCustomerInvoice' */ './admin/CustomerInvoice/AddCustomerInvoice'),
             },
-            // {
-            //   path: '/:id',
-            //   load: () =>
-            //     import(/* webpackChunkName: 'adminCustomerInvoiceDetail' */ './admin/CustomerInvoice/CustomerInvoiceDetail'),
-            // },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminCustomerInvoiceDetail' */ './admin/CustomerInvoice/CustomerInvoiceDetail'),
+            },
+          ],
+        },
+        {
+          path: '/History',
+          children: [
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminHistory' */ './admin/History'),
+            },
+          ],
+        },
+        {
+          path: '/AddressHistory',
+          children: [
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminAddressHistory' */ './admin/AddressHistory'),
+            },
           ],
         },
         {

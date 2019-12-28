@@ -38,8 +38,8 @@ class Forget extends React.Component {
     });
   }
   sendEmail() {
-    const url = `${SERVER}/resetPasswordEmail`;
-    credentials = {
+    const url = `${SERVER}/sendResetPasswordEmail`;
+    const credentials = {
       email: this.state.email,
     };
     const loginOptions = {
@@ -51,10 +51,11 @@ class Forget extends React.Component {
     };
     const that = this;
     fetchWithTimeOut(
-      loginURL,
+      url,
       loginOptions,
       data => {
         if (data.error === undefined) {
+          toastr.success('Reset Password', data.message.description);
           history.push(`/changePass/${this.state.email}`);
         } else {
           toastr.error('Reset Password', data.message);
@@ -84,6 +85,7 @@ class Forget extends React.Component {
                   class="form-control form-control-lg"
                   type="email"
                   name="email"
+                  onChange={this.setEmail}
                   value={this.state.email}
                   required=""
                   placeholder="Your Email"
@@ -92,6 +94,7 @@ class Forget extends React.Component {
               </div>
               <div class="form-group pt-1">
                 <a
+                  onClick={this.sendEmail}
                   class="btn btn-block btn-xl"
                   style={{ backgroundColor: 'black', color: 'white' }}
                 >

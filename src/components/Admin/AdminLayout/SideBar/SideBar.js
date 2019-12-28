@@ -514,6 +514,52 @@ class SideBar extends React.Component {
                   Claims{' '}
                 </a>
               </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  href="#CMS"
+                  data-toggle="collapse"
+                  aria-expanded="false"
+                  data-target="#CMS"
+                  aria-controls="CMS"
+                >
+                  CMS
+                </a>
+                <div
+                  id="CMS"
+                  className={`collapse submenu ${s.submenuContainer} `}
+                >
+                  <ul className="nav flex-column">
+                    {/* <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/ordersForPublisher/all')
+                        }
+                      >
+                        All Orders
+                      </a>
+                    </li> */}
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() => this.goTo('/admin/cms', '')}
+                      >
+                        All CMS
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() => this.goTo('/admin/CMS/add')}
+                      >
+                        Add CMS
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
               {/* Comments item */}
               {/* <li className="nav-item ">
                 <a

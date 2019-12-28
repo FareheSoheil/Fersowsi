@@ -44,13 +44,13 @@ class PublisherOrderDetail extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
-    this.gotoCustomerOrder = this.gotoCustomerOrder.bind(this);
-    this.gotoProduct = this.gotoProduct.bind(this);
+    this.goTo = this.goTo.bind(this);
     this.onEdit = this.onEdit.bind(this);
     this.onAddressChange = this.onAddressChange.bind(this);
     this.back = this.back.bind(this);
     this.save = this.save.bind(this);
     this.send = this.send.bind(this);
+    this.goToHistoryTable = this.goToHistoryTable.bind(this);
     this.print = this.print.bind(this);
     this.printAddress = this.printAddress.bind(this);
     this.applySendAddressChange = this.applySendAddressChange.bind(this);
@@ -147,13 +147,12 @@ class PublisherOrderDetail extends React.Component {
       },
     );
   }
-  gotoProduct(id) {
-    history.push(`/admin/products/${this.state.publisherOrder.productId}`);
+  goTo(url) {
+    history.push(url);
   }
-  gotoCustomerOrder() {
-    history.push(
-      `/admin/customerOrder/${this.state.publisherOrder.customerOrderId}`,
-    );
+  goToHistoryTable(type) {
+    if ((type = 'address')) history.push(`/admin/History/${this.state.id}`);
+    else history.push(`/admin/AddressHistory/${this.state.id}`);
   }
   uploadImage() {
     let inp = document.getElementById('imageUploader');
@@ -210,9 +209,6 @@ class PublisherOrderDetail extends React.Component {
   }
   fetchAllInfo() {
     const url = `${SERVER}/getAuxInfoForAll`;
-    this.setState({
-      isLoading: true,
-    });
 
     const options = {
       method: 'POST',
@@ -229,7 +225,7 @@ class PublisherOrderDetail extends React.Component {
           allDeliveryTypes: response.DeliveryType,
           allCountries: response.Country,
 
-          isLoading: false,
+          // isLoading: false,
         });
       },
       error => {
@@ -328,7 +324,8 @@ class PublisherOrderDetail extends React.Component {
       name == 'count' ||
       name == 'paymentNote' ||
       name == 'publicationNote' ||
-      name == 'userOrderNo'
+      name == 'userOrderNo' ||
+      name == 'desc'
     )
       pres[name] = value;
     else pres[name][this.state.publisherOrder.currencyId - 1] = value;
@@ -422,17 +419,22 @@ class PublisherOrderDetail extends React.Component {
                 allCountries={this.state.allCountries}
                 printAddress={this.printAddress}
                 applySend={this.applySendAddressChange}
+                addressHistory={this.goToHistoryTable}
               />
             ) : (
               <div className={`${s.container} container-fluid`}>
                 {/* Print Claim */}
 
                 <div className={`row `} style={{ padding: '10px' }}>
-                  <InvoiceDetails publisherOrder={this.state.publisherOrder} />
+                  <InvoiceDetails
+                    goTo={this.goTo}
+                    publisherOrder={this.state.publisherOrder}
+                  />
                   <PublisherDetails
                     publisherOrder={this.state.publisherOrder}
                   />
                   <OrderForPublisherDetails
+                    goTo={this.goTo}
                     publisherOrder={this.state.publisherOrder}
                   />
                 </div>
@@ -456,14 +458,18 @@ class PublisherOrderDetail extends React.Component {
                     <h5>Note to Publisher</h5>
                     <div className="col-12">
                       <textarea
-                        disabled
+                        onChange={this.onOrderInputChange}
+                        name="publicationNote"
                         value={this.state.publisherOrder.publicationNote}
                         rows="6"
                       />
                     </div>
                   </div>
                 </div>
-                <OrderItem publisherOrder={this.state.publisherOrder} />
+                <OrderItem
+                  goTo={this.goTo}
+                  publisherOrder={this.state.publisherOrder}
+                />
 
                 <div className="row mt-4" style={{ textAlign: 'center' }}>
                   <div className="col-2">
@@ -494,6 +500,9 @@ class PublisherOrderDetail extends React.Component {
                 </div>
                 <div className="row mt-4" style={{ textAlign: 'center' }}>
                   <div className="offset-2 col-2">
+                    <button onClick={this.goToHistoryTable}>History</button>
+                  </div>
+                  <div className=" col-2">
                     <button onClick={() => this.send('Claim', 1)}>
                       send Claim To Publisher
                     </button>
@@ -505,7 +514,7 @@ class PublisherOrderDetail extends React.Component {
                   </div>
                   <div className=" col-3">
                     <button onClick={() => this.send('Cancelation/Refound', 1)}>
-                      printable Cancellation Form
+                      send Cancellation To publisherOrder
                     </button>
                   </div>
                 </div>

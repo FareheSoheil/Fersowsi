@@ -370,7 +370,12 @@ class EditDetails extends React.Component {
           <div className={`col-sm-11 ${s.subContainer}`}>
             <h5>Comment </h5>
             <div className="col-12">
-              <textarea value="note goes here" rows="3" />
+              <textarea
+                name="desc"
+                onChange={this.props.onOrderInputChange}
+                value={this.props.publisherOrder.desc}
+                rows="3"
+              />
             </div>
           </div>
         </div>

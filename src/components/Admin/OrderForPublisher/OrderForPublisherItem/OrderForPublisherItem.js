@@ -30,7 +30,16 @@ class OrderForPublisherItem extends React.Component {
       <div className={`row mb-2 ${s.mainContainer}`}>
         <h5 className={`col-12 ${s.title}`}>
           {' '}
-          Publication Title : {this.props.order.Product.label}{' '}
+          Publication Title :{' '}
+          <u
+            onClick={() =>
+              this.props.goTo(
+                `/admin/products/${this.props.order.Product.value}`,
+              )
+            }
+          >
+            <i> {this.props.order.Product.label} </i>
+          </u>
         </h5>
         <div className={`col-xl-7 col-lg-5 col-md-6 ${s.reciever}`}>
           <b>Reciever : </b> <br />
@@ -43,7 +52,13 @@ class OrderForPublisherItem extends React.Component {
         <div className="col-xl-4 col-lg-5 col-md-6 ">
           <div>
             <label>Our Order No: &nbsp;</label>
-            {this.props.order.id}
+            <u
+              onClick={() =>
+                this.props.goTo(`/admin/publisherOrder/${this.props.order.id}`)
+              }
+            >
+              <i> {this.props.order.id} </i>
+            </u>
           </div>
 
           <div>

@@ -215,7 +215,7 @@ class ChangeAddress extends React.Component {
         </table>
 
         <div className="row mt-3">
-          <div className="offset-2 col-2">
+          <div className="col-2">
             <button onClick={() => this.applySend(1)}>Apply Changes</button>
           </div>
           <div className="col-2">
@@ -224,6 +224,11 @@ class ChangeAddress extends React.Component {
           <div className="col-3">
             <button onClick={() => this.applySend(2)}>
               Send Address To Publisher
+            </button>
+          </div>
+          <div className="col-2">
+            <button onClick={() => this.props.addressHistory('address')}>
+              History
             </button>
           </div>
           <div className="col-2">

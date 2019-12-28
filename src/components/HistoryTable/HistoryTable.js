@@ -11,11 +11,13 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import history from '../../../../history';
-import dateTrimmer from '../../../../dateTrimmer';
-import s from './OrderForPublisherTable.css';
+import s from './HistoryTable.css';
+import zeroTrimmer from '../../zeroTrimmer';
+import dateTrimmer from '../../dateTrimmer';
+import history from '../../history';
+import { PRODUCT_STATUS } from '../../constants/constantData';
 
-class OrderForPublisherTable extends React.Component {
+class HistoryTable extends React.Component {
   static propTypes = {
     pageCount: PropTypes.number.isRequired,
     hasPagination: PropTypes.bool.isRequired,
@@ -27,73 +29,75 @@ class OrderForPublisherTable extends React.Component {
   static defaultProps = {
     hasPagination: true,
   };
-  constructor(props) {
-    super(props);
-    this.onNumberChange = this.onNumberChange.bind(this);
+  print(htmlC) {
+    let frog = window.open(
+      '',
+      'wildebeast',
+      'width=800,height=700,scrollbars=1,resizable=1',
+    );
+    frog.document.open();
+    frog.document.write(htmlC);
+    frog.document.close();
   }
   colorPicker(record) {
     let color = '';
 
-    // if (record.isPaid !== undefined) {
-    // PRODUCT_STATUS
-    if (record.isPaid) {
-      color = s.activeOrder;
-    } else color = s.sentOrder;
+    if (record.productStatus !== undefined) {
+      // PRODUCT_STATUS
+      if (record.productStatus.value === PRODUCT_STATUS.Ready.value) {
+        color = s.readyProduct;
+      }
+      if (record.productStatus.value === PRODUCT_STATUS.Pending.value)
+        color = s.pendingProduct;
+      if (record.productStatus.value === PRODUCT_STATUS.NotAvailable.value)
+        color = s.notAvailableProduct;
+    }
     return color;
   }
-  goTo(e, url) {
-    e.stopPropagation();
-    history.push(url);
-  }
-  onNumberChange() {
-    var x = parseInt(document.getElementById('numberSelect').value);
-    this.props.showMore(x);
+  goToOrder(id) {
+    history.push(`/admin/publisherOrder/${id}`);
   }
   render() {
     const tableHeaders = (
       <tr>
-        <th>Publisher Order No.</th>
-        <th>Publisher</th>
-        <th>Number Of Ready To Send Orders</th>
-        <th>Date</th>
-        <th>Action</th>
+        <th className="border-0">Id</th>
+        <th className="border-0">Type</th>
+        <th className="border-0">Order NO.</th>
+        <th className="border-0">Date</th>
+        <th className="border-0">Action</th>
       </tr>
     );
+
     let records = '';
     let toDisplay = <div className={s.noRecords}> No Match Found</div>;
     if (this.props.records !== undefined && this.props.records.length !== 0) {
       records = this.props.records.map((record, i) => (
-        <tr className={this.colorPicker(record)}>
+        <tr
+          // style={{ lineHeight: '14px' }}
+          className={this.colorPicker(record)}
+          //   onClick={() => {
+          //     this.props.onRecordClick(
+          //       record.id,
+          //       record.publisherOrderId,
+          //       record.productId,
+          //     );
+          //   }}
+        >
           <td>{record.id}</td>
-          <td>
-            <u
-              onClick={e =>
-                this.goTo(e, `/admin/accounts/${record.publisherId}`)
-              }
-            >
-              <i>{record.User.publisherName}</i>
-            </u>
+          <td>{record.type}</td>
+          <td onClick={() => this.goToOrder(record.orderId)}>
+            <i>
+              <u>{record.orderId}</u>
+            </i>
           </td>
-          <td>{record.numberOfReadyOrdersToSend}</td>
           <td>{dateTrimmer(record.createdAt)}</td>
           <td>
-            {record.isPaid ? (
-              <button
-                onClick={e => {
-                  this.goTo(e, `/admin/ordersForPublisher/${record.id}`);
-                }}
-              >
-                Continue
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  this.goTo(e, `/admin/ordersForPublisher/${record.id}`);
-                }}
-              >
-                Prepare
-              </button>
-            )}
+            <button onClick={() => this.delete(record.id, record.orderId)}>
+              Delete
+            </button>{' '}
+            <button onClick={() => this.print(record.htmlContent)}>
+              Content
+            </button>
           </td>
         </tr>
       ));
@@ -102,7 +106,10 @@ class OrderForPublisherTable extends React.Component {
           <table
             className={`table table-hover table-bordered ${s.hoverableTr}`}
           >
-            <thead className="bg-light">{tableHeaders}</thead>
+            <thead className="bg-light">
+              {/* <th>#</th> */}
+              {tableHeaders}
+            </thead>
             <tbody>{records}</tbody>
           </table>
         </div>
@@ -110,6 +117,7 @@ class OrderForPublisherTable extends React.Component {
     }
 
     return (
+      // window.alert(this.props.pa)
       <div>
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" />
@@ -142,4 +150,4 @@ class OrderForPublisherTable extends React.Component {
   }
 }
 
-export default withStyles(s)(OrderForPublisherTable);
+export default withStyles(s)(HistoryTable);

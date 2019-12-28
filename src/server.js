@@ -83,6 +83,12 @@ function otherPathResolver(path) {
     changePat.test(path) ||
     congrats.test(path)
   )
+    return 2;
+  else if (
+    adminPaths.test(path) ||
+    publisherPaths.test(path) ||
+    userPaths.test(path)
+  )
     return 1;
   return 0;
 }
@@ -103,7 +109,7 @@ async function Authorize(req, res, next) {
     if ('/' === req.path) {
       return next();
     } else {
-      res.redirect('/');
+      return next();
     }
   } else if (req.cookies.TokenId !== undefined) {
     // ********************** End of User not logged in process
@@ -119,7 +125,7 @@ async function Authorize(req, res, next) {
       // *********************** User is Valid
       // ********************** if user wants other pages
       console.log('url requeste : ', req.path);
-      if (otherPathResolver(req.path)) {
+      if (otherPathResolver(req.path) == 2) {
         if (req.cookies.role == ROLES.customer.value) {
           res.redirect('/user/myAccount');
         } else if (req.cookies.role == ROLES.publisher.value)
@@ -128,7 +134,10 @@ async function Authorize(req, res, next) {
         // --------------------------------if any where else than main pages
       } else {
         // ********************** if user wants main pages
-        console.log('in main pages above if it is Customer');
+        console.log(
+          'in main pages above if it is Customer',
+          otherPathResolver(req.path),
+        );
         // ************************ if it is customer or admin Customer
         if (
           req.cookies.role == ROLES.customer.value ||
