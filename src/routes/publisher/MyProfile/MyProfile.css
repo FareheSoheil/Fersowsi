@@ -1,0 +1,19 @@
+.btnContainer {
+    padding: 22px;
+    background-color: red;
+    border-radius: 6px;
+    border: 1px solid lightgray;
+    text-align: center;
+    align-content: center;
+}
+.btnContainer>button:first-child {
+    margin-right: 2.5rem;
+}
+.btnContainer>button:nth-child(2) {
+    margin-right: 2.5rem;
+    color: white;
+}
+
+.container * {
+    font-size: 13px;
+}

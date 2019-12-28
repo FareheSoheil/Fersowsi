@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import All from './All';
+import ProductsList from './ProductsList';
 import AdminLayout from '../../../../components/Admin/AdminLayout';
 
 async function action(context) {
@@ -17,7 +17,7 @@ async function action(context) {
     chunks: ['adminAllProducts'],
     component: (
       <AdminLayout>
-        <All context={context} />
+        <ProductsList context={context} />
       </AdminLayout>
     ),
   };

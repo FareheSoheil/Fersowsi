@@ -397,29 +397,57 @@ class SideBar extends React.Component {
                     <li className="nav-item">
                       <a
                         className="nav-link"
+                        onClick={() => this.goTo('/admin/publisherOrder/new')}
+                      >
+                        New Orders{' '}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/publisherOrder/inProgress')
+                        }
+                      >
+                        In Progress Orders{' '}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/publisherOrder/delayed')
+                        }
+                      >
+                        Delayed Orders{' '}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() => this.goTo('/admin/publisherOrder/done')}
+                      >
+                        Done Orders{' '}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        onClick={() =>
+                          this.goTo('/admin/publisherOrder/ignored')
+                        }
+                      >
+                        Ignored Orders{' '}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
                         onClick={() =>
                           this.goTo('/admin/publisherOrder/cancelled')
                         }
                       >
-                        Cancelled Orders{' '}
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        className="nav-link"
-                        onClick={() =>
-                          this.goTo('/admin/publisherOrder/accepted')
-                        }
-                      >
-                        Accepted Orders{' '}
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        className="nav-link"
-                        onClick={() => this.goTo('/admin/publisherOrder/add')}
-                      >
-                        Add Order{' '}
+                        Cancelled Order{' '}
                       </a>
                     </li>
                   </ul>

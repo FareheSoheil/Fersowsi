@@ -8,7 +8,7 @@ import history from '../../history';
 import s from './Login.css';
 import { fetchWithTimeOut } from '../../fetchWithTimeout';
 import { COOKIE_EXPIRATION, SERVER, ERRORS, SSRSERVER } from '../../constants';
-
+import { ROLES } from '../../constants/constantData';
 class Login extends React.Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -94,7 +94,11 @@ class Login extends React.Component {
             localStorage.setItem('TokenId', data.TokenId);
             localStorage.setItem('id', data.id);
             localStorage.setItem('role', data.role.value);
-            if (data.role.value === 4) history.push('/user/AdvancedSearch');
+            window.alert(data.role.value);
+            if (data.role.value == ROLES.customer.value)
+              history.push('/user/AdvancedSearch');
+            else if (data.role.value == ROLES.publisher.value)
+              history.push('/publisher/');
             else history.push('/admin/');
           });
         } else {
@@ -163,14 +167,14 @@ class Login extends React.Component {
             </form>
           </div>
           <div class={`${s.footerLinks} card-footer bg-white p-0`}>
-            <div class="">
+            <div class="card-footer-item">
               <a onClick={() => this.goTo('/register')} class="">
                 Create An Account
               </a>
             </div>
-            {/* <div class="card-footer-item ">
+            <div class="card-footer-item ">
               <a onClick={() => this.goTo('/forget')}>Forgot Password</a>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

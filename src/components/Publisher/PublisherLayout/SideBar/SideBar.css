@@ -1,0 +1,65 @@
+.itemContainer>li>a>i {
+  font-size: 15px !important;
+  
+}
+.scrollbar{
+  border: 1px solid red;
+  margin-top: 5px;
+}
+.scroll {
+  font-size: .8em;
+   /* background: red; */
+  overflow-y: auto;
+}
+.scroll::-webkit-scrollbar {
+   width: 0px;
+}
+
+.scroll::-webkit-scrollbar-track {
+   -webkit-box-shadow:  none;
+   /* inset 0 0 6px rgba(0,0,0,0.3);  */
+   border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+   border-radius: 10px;
+   -webkit-box-shadow: none;
+   /* inset 0 0 6px rgba(0,0,0,0.5);  */
+}
+.itemContainer>li {
+  cursor: pointer;
+}
+/* .submenuContainer ul li::before {
+  content: "\2022";
+  color: red;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+} */
+.avatarContainer {
+  padding-bottom: 6px;
+  border-bottom: 1px solid white;
+  /* text-align: center; */
+  /* height: 56px; */
+  color: white;
+  /* font-size: 20px; */
+}
+.avatarContainer div{
+  text-align: left;
+}
+.dashboard_header {
+  height: 45px;
+ 
+} 
+.mainContainer img {
+  margin-left: 5px;
+}
+.mainContainer {
+
+padding-right: 2px !important;
+padding-left: 3px !important;
+}
+.mainContainer a{
+  /* border: 1px solid red; */
+  /* padding-left: 2px !important; */
+}

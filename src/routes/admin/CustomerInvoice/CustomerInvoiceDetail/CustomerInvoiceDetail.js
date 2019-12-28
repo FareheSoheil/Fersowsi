@@ -287,13 +287,6 @@ class CustomerInvoiceDetail extends React.Component {
       'wildebeast',
       'width=800,height=700,scrollbars=1,resizable=1',
     );
-    let prices = {
-      totalPrice: this.state.customerOrder.totalPrice,
-      totalDiscount: this.state.customerOrder.totalDiscount,
-      totalDeliveryCost: this.state.customerOrder.totalDeliveryCost,
-      totalTaxSixPrecent: this.state.customerOrder.totalTaxSixPrecent,
-      totalTax: this.state.customerOrder.totalTax,
-    };
     frog.document.open();
     frog.document.write(pdfMaker(this.state.customerOrder));
     frog.document.close();

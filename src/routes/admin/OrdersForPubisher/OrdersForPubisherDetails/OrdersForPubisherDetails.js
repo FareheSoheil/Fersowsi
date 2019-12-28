@@ -76,9 +76,7 @@ class OrdersForPubisherDetails extends React.Component {
   onEdit() {
     console.log('details : ', this.state.preparedOrder);
     const url = `${SERVER}/editOrderForPublisher`;
-    this.setState({
-      isLoading: true,
-    });
+
     const credentials = {
       id: this.state.id,
       amount: this.state.preparedOrder.totalCost,
@@ -100,7 +98,7 @@ class OrdersForPubisherDetails extends React.Component {
       url,
       options,
       response => {
-        if (response.error != undefined)
+        if (response.error == undefined)
           toastr.success('Order For Publisher', 'Changes Applied Successfully');
         else toastr.error('Order For Publisher', "Couldn'nt Apply Changes");
       },
@@ -197,6 +195,7 @@ class OrdersForPubisherDetails extends React.Component {
     );
   }
   onPrepare() {
+    window.alert('hi');
     let pres = { ...this.state.preparedOrder };
     pres.isPaid = true;
     this.setState({

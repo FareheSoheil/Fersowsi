@@ -1,0 +1,77 @@
+
+.prepareContainer {
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    padding-top: 25px ;
+    padding-bottom: 25px;
+    padding-right: 5px ;
+    background-color: white;
+    font-size: 13px;
+}
+.prepareContainer label {
+    font-size: 13px;
+    color: #3d405c !important;
+}
+.prepareContainer h5 {
+    padding-top: 5px;
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: #3d405c;
+}
+
+.editableDataContainer {
+    border: 1px solid lightgray;
+    padding: 0px;
+}
+.editableDataContainer input {
+    padding: 3px;
+}
+.editableDataContainer textarea {
+    width: 100%
+}
+.ApplyBtnContainer {
+    text-align: center;
+}
+/* .editableDataContainer h5 {
+    back
+} */
+.orderTable , .publisherTable {
+    width: 100%;
+    /* border: 1px solid gray; */
+    word-wrap: break-word;
+    padding: 4px;
+}
+.orderTable th ,.publisherTable th , .editableDataContainer h5 {
+    background-color: #4fb9ae;
+    color:white;
+}
+.orderTable th , .orderTable td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid lightgray;
+}
+.publisherTable th , .publisherTable td {
+    padding: 5px;
+    text-align: left;
+    border: 1px solid lightgray;
+}
+.editableDataTable th , .editableDataTable td{
+    padding: 5px;
+    text-align: left;
+}
+.publisherTable {
+    width: 100%;
+}
+.imageUploader {
+    margin-bottom: 5px;
+}
+.total h5  {
+    color: #366e73;
+    text-align: left;
+    border-bottom: 1px solid #366e73;
+    
+}
+.total>div>div{
+    text-align: center;
+    padding: 8px;
+}

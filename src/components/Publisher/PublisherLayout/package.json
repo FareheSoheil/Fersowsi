@@ -1,0 +1,6 @@
+{
+  "name": "PublisherLayout",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PublisherLayout.js"
+}

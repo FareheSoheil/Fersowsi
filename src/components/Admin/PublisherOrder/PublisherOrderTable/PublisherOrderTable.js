@@ -121,7 +121,6 @@ class PublisherOrderTable extends React.Component {
   render() {
     const tableHeaders = (
       <tr>
-        <th className="border-0">Id</th>
         <th className="border-0">Order No.</th>
         <th className="border-0">User Order No.</th>
         <th className="border-0">Customer Name</th>
@@ -149,42 +148,30 @@ class PublisherOrderTable extends React.Component {
           }}
         >
           <td>{record.id}</td>
-          <td>{record.orderNo}</td>
-          <td>{record.userOrderNum}</td>
-          <td>{record.customerName}</td>
-          <td>{record.recieverName}</td>
-          <td>{record.invoiceNo}</td>
-          <td>{record.publicationTitle}</td>
-          <td>{record.publisher}</td>
-          {/* <td
-            onClick={e =>
-              this.goTo(e, `/admin/customerOrder/${record.customerOrderId}`)
-            }
-          >
-            <u>
-              <i> {record.customerOrderId}</i>
-            </u>
+          <td>{record.userOrderNo}</td>
+          <td>
+            {record.CustomerInvoice.User.userSubCategoryId != 1
+              ? record.CustomerInvoice.User.companyName
+              : `${record.CustomerInvoice.User.firstName} ${
+                  record.CustomerInvoice.User.lastName
+                }`}
           </td>
-          <td
-            onClick={e => this.goTo(e, `/admin/products/${record.productId}`)}
-          >
-            <u>
-              <i>{record.productId}</i>
-            </u>
-          </td> */}
-
+          <td>{record.recieptName}</td>
+          <td>{record.CustomerInvoice.id}</td>
+          <td>{record.Product.label}</td>
+          <td>
+            {record.OrderForPublisher.User.userSubCategoryId != 1
+              ? record.OrderForPublisher.User.companyName
+              : `${record.OrderForPublisher.User.firstName} ${
+                  record.OrderForPublisher.User.lastName
+                }`}
+          </td>
           <td>{dateTrimmer(record.startDate)}</td>
           <td>{dateTrimmer(record.endDate)}</td>
           <td>
             <button onClick={e => this.goTo(e, `/admin/claims/${record.id}`)}>
               Claims
             </button>{' '}
-            <button
-              className="mt-1"
-              onClick={e => this.goToCustomerOrder(e, record.id)}
-            >
-              Select
-            </button>
           </td>
         </tr>
       ));

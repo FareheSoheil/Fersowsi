@@ -42,7 +42,7 @@ class ProductMain extends React.Component {
         singlProductTypes: '',
         productType: '', //remove s
         productContentTypes: '',
-        productStatus: [this.props.status],
+        productStatus: this.props.isAll ? '' : [this.props.status],
         productLanguages: '',
         ageGroups: '',
         originalTitle: '',

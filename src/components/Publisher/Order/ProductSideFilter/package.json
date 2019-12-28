@@ -1,0 +1,7 @@
+{
+    "name": "ProductSideFilter",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./ProductSideFilter.js"
+  }
+  

@@ -1,0 +1,54 @@
+
+.container {
+    border: 1px solid lightgray;
+    padding: 25px 12px 15px 12px;
+    border-radius: 5px;
+    padding-top: 9px;
+    /* padding-left: 0px; */
+    /* margin-left: 15px; */
+    margin-right: 15px;
+    /* padding-right: 0px; */
+    background-color: white;
+    }
+    .container * {
+    font-size: 13px;
+    }
+    .container label {
+    font-size: 13px;
+    color: #3d405c !important;
+    }
+    .container h5 {
+    color: white;
+    border-bottom: 1px solid #3d405c;
+    }
+    
+.table {
+    /* border: 1px solid #4fb9ae; */
+    padding: 5px;
+    border-collapse: separate;
+  border-spacing: 10px 0;
+}
+.table input {
+    padding: 4px;
+}
+.table thead {
+   color: white;
+    text-align: center;
+  
+    
+   background-color:  #4fb9ae;
+}
+.table tr {
+    padding: 15px;
+}
+.table td {
+    padding-left: 25px;
+    text-align: center;
+    padding-right: 20px;
+    padding: 15px;
+    
+    border: 1px solid #4fb9ae;
+}
+.table td {
+    padding: 4px;
+}

@@ -1,0 +1,44 @@
+.mainContainer{
+    padding: 0px 2px 0px 2px !important;
+
+    font-size: 13px;
+    
+}
+.mainContainer label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: rgb(44, 67, 78);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* rgb(59, 58, 58); */
+    font-size: 12px;
+}
+.additionalInfoContainer{
+    padding-top: 0px;
+}
+.additionalInfoContainer>div {
+    padding-bottom: 15px;
+}
+
+    .userPills a {
+        padding: 5px 15px 5px 15px !important;
+    }
+.additionalInfoContainer > div {
+    /* border: 1px solid yellow; */
+    padding-bottom: 0px;    
+}
+.btnContainer {
+    padding: 2px 22px 2px 22px;
+    margin-bottom: 0px;
+    /* background-color: white; */
+    /* border-radius: 6px; */
+    /* border: 1px solid lightgray; */
+    text-align: center;
+    align-content: center;
+}
+
+.btnContainer button {
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+
+}

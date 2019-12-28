@@ -1,0 +1,99 @@
+
+ .avatar{
+    margin-bottom: 5px;
+    
+}
+.avatarContainer{
+    padding: 0px;
+    
+}
+.avatarContainer>div { padding-top:10px;}
+.avatar:hover {
+    cursor: pointer;
+}
+.userDetailContainer label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: rgb(44, 67, 78);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* rgb(59, 58, 58); */
+    font-size: 13px;
+}
+.userDetailContainer i{
+    
+    text-align: left;
+    color: rgb(88, 87, 87);
+}
+.formS {
+    padding-top: 10px;
+    /* text-align: left; */
+}
+
+.pendingUser img {
+    border: 6px solid rgb(224, 193, 14); 
+}
+.activeUser img {
+    border: 6px solid green;
+}
+.deactiveUser img {
+    border: 6px solid rgb(243, 47, 47);
+}
+.btnContainer {
+    padding: 22px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid lightgray;
+    text-align: center;
+    align-content: center;
+}
+
+.btnContainer button {
+    color: white;
+    font-weight: bold;
+}
+/* .emailConfirmation {
+    padding: 0px;
+} */
+.formS {
+    padding-left: 10px;
+}
+.essentials {
+}
+.moreDetails i {
+    padding-top: 6px;
+
+}
+.iconBtn {
+    color: white !important;
+    font-size: 18px;
+    border-radius: 50%;
+    padding: 3px 7px 3px 7px;
+    cursor: pointer;
+}
+.disconfirmBtn {
+    background: red !important;
+    border: 1px solid red;
+}
+.confirmBtn {
+    background: green !important;
+    border: 1px solid green;
+}
+.iconBtn:hover {
+    opacity: .8;
+}
+.address input{
+    padding: 6px;
+    width: 100px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: 5px 12px 3px 10px;
+}
+.address label {
+    font-size: 13px;
+    font-weight: 100 !important;
+    margin-bottom: 0px;
+}
+.country {
+    width: 220px;
+    /* margin-left: 5px; */
+}

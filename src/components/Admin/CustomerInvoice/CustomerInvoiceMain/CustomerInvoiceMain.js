@@ -77,7 +77,7 @@ class CustomerInvoiceMain extends React.Component {
       isLoading: true,
     });
     const credentials = {
-      searchBy: { status: '' },
+      searchBy: { status: this.props.status },
       //  this.state.customerOrderSearchFilter,
       pageSize: this.state.pageSize,
       pageIndex: this.state.pageIndex,

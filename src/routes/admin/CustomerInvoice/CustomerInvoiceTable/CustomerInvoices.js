@@ -15,7 +15,7 @@ import s from './CustomerInvoices.css';
 
 class CustomerInvoices extends React.Component {
   render() {
-    return <CustomerInvoiceMain status={{}} />;
+    return <CustomerInvoiceMain status={''} />;
   }
 }
 

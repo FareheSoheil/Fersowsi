@@ -172,6 +172,7 @@
   cursor: pointer;
 }
 .footerLinks {
+  text-align: center;
   /* border: 1px solid red; */
 }
 .footerLinks > div {

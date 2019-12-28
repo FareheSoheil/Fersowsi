@@ -95,7 +95,7 @@ const routes = {
             {
               path: '/all',
               load: () =>
-                import(/* webpackChunkName: 'adminAllProducts' */ './admin/Products/ProductsList/All'),
+                import(/* webpackChunkName: 'adminAllProducts' */ './admin/Products/ProductsList'),
             },
             {
               path: '/pending',
@@ -158,25 +158,45 @@ const routes = {
                 import(/* webpackChunkName: 'adminPublisherOrderTable' */ './admin/Orders/PublisherOrderList'),
             },
             {
-              path: '/accepted',
+              path: '/new',
               load: () =>
-                import(/* webpackChunkName: 'adminOrdersForPublishersDetails' */ './admin/Orders/PublisherOrderList/Accepted'),
+                import(/* webpackChunkName: 'adminNeworders' */ './admin/Orders/PublisherOrderList/New'),
+            },
+            {
+              path: '/ignored',
+              load: () =>
+                import(/* webpackChunkName: 'adminInProgressOrders' */ './admin/Orders/PublisherOrderList/Ignored'),
             },
             {
               path: '/cancelled',
               load: () =>
-                import(/* webpackChunkName: 'adminCancelledPublisherOrders' */ './admin/Orders/PublisherOrderList/Cancelled'),
+                import(/* webpackChunkName: 'adminCancelledOrders' */ './admin/Orders/PublisherOrderList/Cancelled'),
             },
             {
-              path: '/add',
+              path: '/ignored',
               load: () =>
-                import(/* webpackChunkName: 'adminAddPublisherOrder' */ './admin/AddPublisherOrder'),
+                import(/* webpackChunkName: 'adminIgnoredorders' */ './admin/Orders/PublisherOrderList/Ignored'),
             },
             {
-              path: '/:id',
+              path: '/delayed',
               load: () =>
-                import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/Orders/PublisherOrderDetail'),
+                import(/* webpackChunkName: 'adminDelayedorders' */ './admin/Orders/PublisherOrderList/Delayed'),
             },
+            {
+              path: '/inProgress',
+              load: () =>
+                import(/* webpackChunkName: 'adminInProgressOrders' */ './admin/Orders/PublisherOrderList/InProgress'),
+            },
+            {
+              path: '/done',
+              load: () =>
+                import(/* webpackChunkName: 'adminDoneorders' */ './admin/Orders/PublisherOrderList/Done'),
+            },
+            // {
+            //   path: '/:id',
+            //   load: () =>
+            //     import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/Orders/PublisherOrderDetail'),
+            // },
           ],
         },
         {
@@ -222,11 +242,11 @@ const routes = {
               load: () =>
                 import(/* webpackChunkName: 'adminAddCustomerInvoice' */ './admin/CustomerInvoice/AddCustomerInvoice'),
             },
-            {
-              path: '/:id',
-              load: () =>
-                import(/* webpackChunkName: 'adminCustomerInvoiceDetail' */ './admin/CustomerInvoice/CustomerInvoiceDetail'),
-            },
+            // {
+            //   path: '/:id',
+            //   load: () =>
+            //     import(/* webpackChunkName: 'adminCustomerInvoiceDetail' */ './admin/CustomerInvoice/CustomerInvoiceDetail'),
+            // },
           ],
         },
         {
@@ -291,6 +311,71 @@ const routes = {
               path: '/:id',
               load: () =>
                 import(/* webpackChunkName: 'adminDeliveryTypes' */ './admin/Settings/DeliveryTypes'),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: '/publisher',
+      children: [
+        {
+          path: '',
+          load: () =>
+            import(/* webpackChunkName: 'publisherHome' */ './publisher/publisherHome'),
+        },
+        {
+          path: '/myProfile',
+          load: () =>
+            import(/* webpackChunkName: 'publisherMyProfile' */ './publisher/MyProfile'),
+        },
+        {
+          path: '/orders',
+          children: [
+            {
+              path: '/active',
+              load: () =>
+                import(/* webpackChunkName: 'publisherActiveOrders' */ './publisher/Orders/OrdersList/Active'),
+            },
+            {
+              path: '/ended',
+              load: () =>
+                import(/* webpackChunkName: 'publisherEndedOrders' */ './publisher/Orders/OrdersList/Ended'),
+            },
+          ],
+        },
+        {
+          path: '/ordersOfProduct',
+          children: [
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'publisherordersOfProduct' */ './publisher/OrdersOfProduct'),
+            },
+          ],
+        },
+        {
+          path: '/orderDetails',
+          children: [
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'publisherOrdersOfProductDetail' */ './publisher/OrdersOfProduct/OrdersOfProductDetail'),
+            },
+          ],
+        },
+        {
+          path: '/prepares',
+          children: [
+            {
+              path: '',
+              load: () =>
+                import(/* webpackChunkName: 'publisherPrepareToSendList' */ './publisher/PrepareToSend/'),
+            },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'publisherPrepareToSendDetail' */ './publisher/PrepareToSend/OrdersOfProductDetail'),
             },
           ],
         },
@@ -414,13 +499,23 @@ const routes = {
       load: () => import(/* webpackChunkName: 'forget' */ './forget'),
     },
     {
-      path: '/about',
-      load: () => import(/* webpackChunkName: 'about' */ './about'),
+      path: '/changePass',
+      children: [
+        {
+          path: '/:id',
+          load: () =>
+            import(/* webpackChunkName: 'ChangePass' */ './forget/ChangePass'),
+        },
+      ],
     },
-    {
-      path: '/privacy',
-      load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),
-    },
+    // {
+    //   path: '/about',
+    //   load: () => import(/* webpackChunkName: 'about' */ './about'),
+    // },
+    // {
+    //   path: '/privacy',
+    //   load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),
+    // },
 
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {

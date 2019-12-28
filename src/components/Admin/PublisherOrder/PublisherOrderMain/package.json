@@ -1,0 +1,7 @@
+{
+    "name": "PublisherOrderMain",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./PublisherOrderMain.js"
+  }
+  

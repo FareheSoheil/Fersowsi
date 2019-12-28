@@ -1,0 +1,6 @@
+{
+    "name": "PrepareToSendTable",
+    "version": "0.0.0",
+    "private": true,
+    "main":"./PrepareToSendTable.js"
+}

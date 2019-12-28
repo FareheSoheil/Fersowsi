@@ -9,15 +9,15 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import ProductMain from '../../../../components/Admin/Product/ProductMain';
-import { PRODUCT_STATUS } from '../../../../constants/constantData';
+import CustomerInvoiceMain from '../../../../../components/Admin/CustomerInvoice/CustomerInvoiceMain';
+import { CUSTOMER_ORDER_STATUS } from '../../../../../constants/constantData';
 
-import s from './All.css';
+import s from './Cancelled.css';
 
-class All extends React.Component {
+class Cancelled extends React.Component {
   render() {
-    return <ProductMain status={PRODUCT_STATUS.All} />;
+    return <CustomerInvoiceMain status={CUSTOMER_ORDER_STATUS.Cancelled} />;
   }
 }
 
-export default withStyles(s)(All);
+export default withStyles(s)(Cancelled);

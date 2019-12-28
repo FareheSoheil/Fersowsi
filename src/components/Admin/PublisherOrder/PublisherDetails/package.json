@@ -1,0 +1,7 @@
+{
+    "name": "PublisherDetails",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./PublisherDetails.js"
+  }
+  

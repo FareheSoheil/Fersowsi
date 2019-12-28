@@ -1,0 +1,17 @@
+
+.mainContainer {
+    border: 1px solid #4fb9ae;
+    border-radius: 3px;
+    margin: 6px;
+    margin-left: 0px;
+}
+.mainContainer >div {
+padding: 5px;
+}
+.title {
+    background-color: #4fb9ae;
+    margin-bottom: 0px;
+}
+.reciever {
+border-right: 1px solid #4fb9ae;
+}

@@ -33,15 +33,18 @@ import { ROLES } from './constants';
 
 const statePat = new RegExp('/state/*');
 const forgetPat = new RegExp('/forget');
+const changePat = new RegExp('/changePass/*');
+const congrats = new RegExp('/congrats');
 const registerPat = new RegExp('/register');
 const loginPat = new RegExp('/login');
 const userPaths = new RegExp('/user/*');
+const publisherPaths = new RegExp('/publisher/*');
+const adminPaths = new RegExp('/admin/*');
 const newPassPat = new RegExp('/newpass');
 const homePat = new RegExp('^/$');
 
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
-  // send entire app down. Process manager will restart it
   process.exit(1);
 });
 
@@ -76,7 +79,9 @@ function otherPathResolver(path) {
     loginPat.test(path) ||
     forgetPat.test(path) ||
     newPassPat.test(path) ||
-    registerPat.test(path)
+    registerPat.test(path) ||
+    changePat.test(path) ||
+    congrats.test(path)
   )
     return 1;
   return 0;
@@ -101,25 +106,30 @@ async function Authorize(req, res, next) {
       res.redirect('/');
     }
   } else if (req.cookies.TokenId !== undefined) {
-    // user has logged in
-    // logged in but not valid
+    // ********************** End of User not logged in process
+
+    // ********************** User Has Logged in
+    // ********** checking if User is Valid
     const fetchedState = await readTokenIdFromDB(req.cookies.TokenId);
     if (fetchedState === undefined) {
       res.clearCookie('TokenId');
       res.clearCookie('role');
       res.redirect('/login');
-      // logged in but valid
     } else {
-      // -------------------------------------if other pages
+      // *********************** User is Valid
+      // ********************** if user wants other pages
       console.log('url requeste : ', req.path);
       if (otherPathResolver(req.path)) {
         if (req.cookies.role == ROLES.customer.value) {
           res.redirect('/user/myAccount');
-        } else res.redirect('/admin');
+        } else if (req.cookies.role == ROLES.publisher.value)
+          res.redirect('/publisher');
+        else res.redirect('/admin');
         // --------------------------------if any where else than main pages
       } else {
-        // in main pages
-        // if it is user
+        // ********************** if user wants main pages
+        console.log('in main pages above if it is Customer');
+        // ************************ if it is customer or admin Customer
         if (
           req.cookies.role == ROLES.customer.value ||
           req.cookies.role == ROLES.adminCustomer.value
@@ -137,11 +147,38 @@ async function Authorize(req, res, next) {
             return next();
           }
         } else if (req.cookies.role != ROLES.customer.value) {
-          // if it is admin
+          // ******************** if it is not customer
+          // ******************* End Of Customer Validation
+          console.log('Heeereeeeeeeeeee');
+          // if Admin or publisher want user pages
           if (userPaths.test(req.path) || homePat.test(req.path)) {
-            if (req.cookies.role == ROLES.adminCustomer.value) return next();
-            res.redirect('/admin');
+            if (req.cookies.role == ROLES.adminCustomer.value) {
+              console.log('in admin cusromer and customer if');
+              return next();
+            } else if (req.cookies.role == ROLES.publisher.value) {
+              console.log('in Publisher if');
+              res.redirect('/publisher');
+            } else {
+              console.log('in else ');
+              res.redirect('/admin');
+            }
           } else {
+            // They want their own page
+            if (publisherPaths.test(req.path) || homePat.test(req.path)) {
+              if (req.cookies.role == ROLES.admin.value) {
+                console.log('in admin wants publisher pages ');
+                res.redirect('/admin');
+              }
+              return next();
+            } else if (adminPaths.test(req.path) || homePat.test(req.path)) {
+              if (req.cookies.role == ROLES.publisher.value) {
+                console.log('in publisher wants admin pages ');
+                res.redirect('/publisher');
+              }
+              return next();
+            }
+            if (req.cookies.role == ROLES.publisher.value)
+              console.log('in last else ');
             return next();
           }
         }

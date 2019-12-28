@@ -1,0 +1,15 @@
+.warning {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+.btnContainer {
+    margin-top: 5px;
+    padding-bottom: 3px;
+    }
+    .btnContainer select{
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }

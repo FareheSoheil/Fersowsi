@@ -14,7 +14,7 @@ import AdminLayout from '../../../../../components/Admin/AdminLayout';
 async function action(context) {
   return {
     title: 'Ferdowsi',
-    chunks: ['adminCancelledPublisherOrders'],
+    chunks: ['adminCancelledOrders'],
     component: (
       <AdminLayout>
         <Cancelled context={context} />

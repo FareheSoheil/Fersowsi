@@ -1,0 +1,17 @@
+.label {
+    /* padding-top: 35px; */
+    font-size: 15px;
+    /* font-weight: bold; */
+}
+.advancedSearchContainer {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.advancedSearchContainer button {
+    font-weight: bolder !important;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 13px;
+    margin: 3px;
+}
