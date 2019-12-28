@@ -25,7 +25,7 @@ class CMS extends React.Component {
       content: this.props.isForAdd ? '' : this.props.cms.content,
       title: this.props.isForAdd ? '' : this.props.cms.title,
       isActive: this.props.isForAdd ? '' : this.props.cms.isActive,
-      language: this.props.isForAdd ? {} : this.props.cms.language,
+      language: this.props.isForAdd ? {} : this.props.cms.SiteLanguage,
       link: this.props.isForAdd ? '' : this.props.cms.link,
     };
     this.onInputChange = this.onInputChange.bind(this);
@@ -131,7 +131,11 @@ class CMS extends React.Component {
           <div className="offset-xl-2 col-3">
             <Select
               placeholder="Language"
-              value={this.state.language}
+              value={
+                this.props.isForAdd
+                  ? this.state.language
+                  : this.props.cms.SiteLanguage
+              }
               options={this.props.alllanguages}
               onChange={this.onLangChange}
             />
@@ -141,7 +145,11 @@ class CMS extends React.Component {
           <div className="offset-xl-2 col-8">
             <RichText
               min_height={500}
-              initialValue={this.state.content}
+              initialValue={
+                this.props.isForAdd
+                  ? this.state.content
+                  : this.props.cms.htmlContent
+              }
               handleEditorChange={this.onContentChange}
             />
           </div>
