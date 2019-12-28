@@ -192,11 +192,11 @@ const routes = {
               load: () =>
                 import(/* webpackChunkName: 'adminDoneorders' */ './admin/Orders/PublisherOrderList/Done'),
             },
-            // {
-            //   path: '/:id',
-            //   load: () =>
-            //     import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/Orders/PublisherOrderDetail'),
-            // },
+            {
+              path: '/:id',
+              load: () =>
+                import(/* webpackChunkName: 'adminPublisherOrderDetail' */ './admin/Orders/PublisherOrderDetail'),
+            },
           ],
         },
         {
