@@ -59,7 +59,7 @@ class OrderForPublisherDetails extends React.Component {
                 { value: 1, label: 'Active' },
               ]}
               value={
-                this.props.publisherOrder.OrderForPublisher.isActive == 0
+                this.props.publisherOrder.isActive == 0
                   ? { value: 0, label: 'Cancelled' }
                   : { value: 1, label: 'Active' }
               }

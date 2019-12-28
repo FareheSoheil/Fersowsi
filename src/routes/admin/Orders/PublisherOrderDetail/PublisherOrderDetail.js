@@ -242,10 +242,7 @@ class PublisherOrderDetail extends React.Component {
 
     const credentials = {
       id: this.state.id,
-      isActive:
-        this.state.publisherOrder.OrderForPublisher.isActive == 1
-          ? true
-          : false,
+      isActive: this.state.publisherOrder.isActive == 1 ? true : false,
       count: this.state.publisherOrder.count,
       paymentNote: this.state.publisherOrder.paymentNote,
       publicationNote: this.state.publisherOrder.publicationNote,
@@ -309,7 +306,7 @@ class PublisherOrderDetail extends React.Component {
     let publisherOrder = { ...this.state.publisherOrder };
     if (op == 'Country') publisherOrder.address.Country = selectedOption;
     else if (op == 'deliveryType') publisherOrder.deliveryType = selectedOption;
-    else publisherOrder.OrderForPublisher.isActive = selectedOption.value;
+    else publisherOrder.isActive = selectedOption.value;
     this.setState({ publisherOrder });
   };
   onRecieverInputChange(e) {
