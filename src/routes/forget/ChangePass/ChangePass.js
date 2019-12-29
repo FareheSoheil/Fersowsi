@@ -66,7 +66,7 @@ class ChangePass extends React.Component {
         loginOptions,
         data => {
           if (data.error === undefined) {
-            toastr.error(
+            toastr.success(
               'Reset Password',
               'Your password was changed successfully',
             );

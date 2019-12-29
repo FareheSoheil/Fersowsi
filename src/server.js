@@ -75,22 +75,22 @@ app.all('*', Authorize);
 
 InitializeSQLite();
 function otherPathResolver(path) {
-  // else if (
-  //   loginPat.test(path) ||
-  //   forgetPat.test(path) ||
-  //   newPassPat.test(path) ||
-  //   registerPat.test(path) ||
-  //   changePat.test(path) ||
-  //   congrats.test(path)
-  // )
-  // return 2;
   if (
+    loginPat.test(path) ||
+    forgetPat.test(path) ||
+    newPassPat.test(path) ||
+    registerPat.test(path) ||
+    changePat.test(path) ||
+    congrats.test(path)
+  )
+    return 2;
+  else if (
     adminPaths.test(path) ||
     publisherPaths.test(path) ||
     userPaths.test(path)
   )
     return 1;
-  return 2;
+  return 3;
 }
 async function Authorize(req, res, next) {
   if (statePat.test(req.path) && req.method == 'POST') {
@@ -132,12 +132,9 @@ async function Authorize(req, res, next) {
           res.redirect('/publisher');
         else res.redirect('/admin');
         // --------------------------------if any where else than main pages
-      } else {
+      } else if (otherPathResolver(req.path) == 3) return next();
+      else {
         // ********************** if user wants main pages
-        console.log(
-          'in main pages above if it is Customer',
-          otherPathResolver(req.path),
-        );
         // ************************ if it is customer or admin Customer
         if (
           req.cookies.role == ROLES.customer.value ||
@@ -145,8 +142,8 @@ async function Authorize(req, res, next) {
         ) {
           if (homePat.test(req.path)) {
             console.log('im fixing redirections : ', req.path);
-            // return next();
-            res.redirect('/user/advancedSearch');
+            return next();
+            // res.redirect('/user/advancedSearch');
           } else if (!userPaths.test(req.path)) {
             if (req.cookies.role == ROLES.adminCustomer.value) return next();
 

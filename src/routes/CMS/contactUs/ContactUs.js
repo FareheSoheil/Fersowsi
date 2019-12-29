@@ -12,7 +12,7 @@ class ContactUs extends React.Component {
   // }
 
   render() {
-    return <CMSPage link="siteMap" langId={1} />;
+    return <CMSPage link="contactUs" langId={1} />;
   }
 }
 

@@ -94,7 +94,6 @@ class Login extends React.Component {
             localStorage.setItem('TokenId', data.TokenId);
             localStorage.setItem('id', data.id);
             localStorage.setItem('role', data.role.value);
-            window.alert(data.role.value);
             if (data.role.value == ROLES.customer.value)
               history.push('/user/AdvancedSearch');
             else if (data.role.value == ROLES.publisher.value)
