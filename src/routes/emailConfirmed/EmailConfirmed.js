@@ -10,6 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { toastr } from 'react-redux-toastr';
 import s from './EmailConfirmed.css';
 import { fetchWithTimeOut } from '../../fetchWithTimeout';
 import { SERVER } from '../../constants/constantData';

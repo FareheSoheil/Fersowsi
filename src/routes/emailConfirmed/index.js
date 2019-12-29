@@ -13,13 +13,13 @@ import EmailConfirmed from './EmailConfirmed';
 
 const title = 'Email Confirmed';
 
-function action() {
+function action(context) {
   return {
     chunks: ['emailConfirmed'],
     title,
     component: (
       <Layout>
-        <EmailConfirmed title={title} />
+        <EmailConfirmed context={context} title={title} />
       </Layout>
     ),
     status: 404,
