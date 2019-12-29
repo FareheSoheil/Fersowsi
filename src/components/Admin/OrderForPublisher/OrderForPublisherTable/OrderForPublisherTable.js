@@ -62,6 +62,7 @@ class OrderForPublisherTable extends React.Component {
     let records = '';
     let toDisplay = <div className={s.noRecords}> No Match Found</div>;
     if (this.props.records !== undefined && this.props.records.length !== 0) {
+      window.alert(records);
       records = this.props.records.map((record, i) => (
         <tr className={this.colorPicker(record)}>
           <td>{record.id}</td>
