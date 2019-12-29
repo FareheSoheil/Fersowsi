@@ -118,7 +118,7 @@ class PublisherOrderMain extends React.Component {
     );
   }
   fetchAllInfo() {
-    window.alert('hi');
+    // window.alert('hi');
     const url = `${SERVER}/getAllAuxInfoForOrders`;
     this.setState({
       isLoading: true,

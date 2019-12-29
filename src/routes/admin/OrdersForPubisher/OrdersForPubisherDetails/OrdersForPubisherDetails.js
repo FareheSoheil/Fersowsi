@@ -198,7 +198,7 @@ class OrdersForPubisherDetails extends React.Component {
     );
   }
   onPrepare() {
-    window.alert('hi');
+    // window.alert('hi');
     let pres = { ...this.state.preparedOrder };
     pres.isPaid = true;
     this.setState({
