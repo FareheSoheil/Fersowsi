@@ -14,7 +14,7 @@ import OrdersForPublisherMain from '../../../../../components/Admin/OrderForPubl
 
 class SentList extends React.Component {
   render() {
-    return <OrdersForPublisherMain isPaid={false} />;
+    return <OrdersForPublisherMain isPaid={true} />;
   }
 }
 

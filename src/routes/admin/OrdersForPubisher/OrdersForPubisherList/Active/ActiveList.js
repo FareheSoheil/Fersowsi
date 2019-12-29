@@ -14,7 +14,7 @@ import OrdersForPublisherMain from '../../../../../components/Admin/OrderForPubl
 
 class ActiveList extends React.Component {
   render() {
-    return <OrdersForPublisherMain isPaid={true} />;
+    return <OrdersForPublisherMain isPaid={false} />;
   }
 }
 

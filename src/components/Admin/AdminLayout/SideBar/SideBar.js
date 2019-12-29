@@ -487,7 +487,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/ordersForPublisher/active', '')
                         }
                       >
-                        Done Orders
+                        Active Orders
                       </a>
                     </li>
                     <li className="nav-item">
@@ -497,7 +497,7 @@ class SideBar extends React.Component {
                           this.goTo('/admin/ordersForPublisher/sent')
                         }
                       >
-                        Active Orders{' '}
+                        Done Orders{' '}
                       </a>
                     </li>
                   </ul>
