@@ -19,8 +19,14 @@ class EmailConfirmed extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
-
+  constructor(props) {
+    super(props);
+    this.fetch = this.fetch.bind(this);
+  }
   componentDidMount() {
+    this.fetch();
+  }
+  fetch() {
     const url = `${SERVER}/verifyEmail`;
     const cred = {
       token: this.props.context.params.token,
@@ -37,25 +43,28 @@ class EmailConfirmed extends React.Component {
       url,
       ops,
       data => {
-        if (data.error == undefined) {
-          toastr.success('Email', data.message.description);
+        if (data.error != undefined) {
+          document.getElementById('res').innerText = `${
+            data.error.description
+          } :(`;
           // history.push(`/changePass/${this.state.email}`);
         } else {
-          toastr.error('Email ', 'Could not verify your Email');
+          document.getElementById('res').innerText =
+            'Your Email Was Confirmed Successfully :D';
         }
       },
       error => {
-        toastr.error('Email ', 'Could not verify your Email');
+        document.getElementById('res').innerText =
+          'Could not Confirm your Email';
       },
     );
   }
-
   render() {
     return (
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
-          <p>Your Email Has Been Confirmed.</p>
+          <p id="res" />
         </div>
       </div>
     );

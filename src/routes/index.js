@@ -578,7 +578,7 @@ const routes = {
       ],
     },
     {
-      path: '/emailConfirmed',
+      path: '/emailConfirmation',
       children: [
         {
           path: '/:token',

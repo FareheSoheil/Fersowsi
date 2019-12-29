@@ -11,7 +11,7 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import EmailConfirmed from './EmailConfirmed';
 
-const title = 'Email Confirmed';
+const title = 'Email Confirmation';
 
 function action(context) {
   return {
