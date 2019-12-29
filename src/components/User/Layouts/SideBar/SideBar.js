@@ -24,7 +24,7 @@ class SideBar extends React.Component {
         <a onClick={() => this.goTo('/user/products')}>Products</a>
         <a onClick={() => this.goTo('/user/order')}>Order</a>
         <a onClick={() => this.goTo('/user/address')}>Address Book</a>
-        <a onClick={() => this.goTo('/user/wishlist')}>Wishlist</a>
+        <a onClick={() => this.goTo('/user/wishlist')}>Basket</a>
         <a onClick={this.handleSubmenues}>Messages</a>
         <a
           onClick={() => this.goTo('/user/claim')}

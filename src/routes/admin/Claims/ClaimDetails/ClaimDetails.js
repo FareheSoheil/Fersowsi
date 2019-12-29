@@ -69,6 +69,7 @@ class ClaimDetails extends React.Component {
     this.setState({
       isLoading: true,
     });
+    console.log('this.state.publisherOrderId : ', this.state.publisherOrderId);
     const credentials = {
       orderId: this.state.publisherOrderId,
     };
@@ -168,7 +169,7 @@ class ClaimDetails extends React.Component {
     let claims = <div>No Message</div>;
     if (!this.state.isLoading && this.state.allClaimsOfOrder.length != 0)
       claims = this.state.allClaimsOfOrder.map((claim, i) => (
-        <Claim claim={claim} userId={this.state.customerId} />
+        <Claim claim={claim} userId={claim.ClaimCollection.customerUserId} />
       ));
     return (
       <div className="container-fluid dashboard-content">

@@ -31,25 +31,25 @@ class Footer extends React.Component {
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/aboutUs">
                         About
-                      </Link>
+                      </a>
                     </div>
                   </div>
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/terms">
                         Terms
-                      </Link>
+                      </a>
                     </div>
                   </div>
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/siteMap">
                         Site Map
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -57,25 +57,25 @@ class Footer extends React.Component {
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/offices">
                         Offices
-                      </Link>
+                      </a>
                     </div>
                   </div>
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/login">
                         Publisher Login
-                      </Link>
+                      </a>
                     </div>
                   </div>
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/">
                         Contract Information
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -83,25 +83,25 @@ class Footer extends React.Component {
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/contactUs">
                         Contact Us
-                      </Link>
+                      </a>
                     </div>
                   </div>
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/howToSearch">
                         How To Search
-                      </Link>
+                      </a>
                     </div>
                   </div>
                   <div className="row mt-3">
                     {' '}
                     <div className="col-xl-12">
-                      <Link className={s.link} to="/">
+                      <a className={s.link} href="/howToShop">
                         How to Subscribe
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>

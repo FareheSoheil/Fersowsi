@@ -540,19 +540,53 @@ const routes = {
       load: () => import(/* webpackChunkName: 'forget' */ './forget'),
     },
     {
+      path: '/aboutUs',
+      load: () => import(/* webpackChunkName: 'aboutUs' */ './CMS/aboutUs'),
+    },
+    {
+      path: '/terms',
+      load: () => import(/* webpackChunkName: 'terms' */ './CMS/Terms'),
+    },
+    {
+      path: '/contactUs',
+      load: () => import(/* webpackChunkName: 'contactUs' */ './CMS/contactUs'),
+    },
+    {
+      path: '/offices',
+      load: () => import(/* webpackChunkName: 'offices' */ './CMS/offices'),
+    },
+    {
+      path: '/howToSearch',
+      load: () => import(/* webpackChunkName: 'search' */ './CMS/search'),
+    },
+    {
+      path: '/howToShop',
+      load: () => import(/* webpackChunkName: 'shopping' */ './CMS/shopping'),
+    },
+    {
+      path: '/siteMap',
+      load: () => import(/* webpackChunkName: 'siteMap' */ './CMS/siteMap'),
+    },
+    {
       path: '/changePass',
       children: [
         {
-          path: '/:id',
+          path: '/:token',
           load: () =>
             import(/* webpackChunkName: 'ChangePass' */ './forget/ChangePass'),
         },
       ],
     },
-    // {
-    //   path: '/about',
-    //   load: () => import(/* webpackChunkName: 'about' */ './about'),
-    // },
+    {
+      path: '/emailConfirmed',
+      children: [
+        {
+          path: '/:token',
+          load: () =>
+            import(/* webpackChunkName: 'emailConfirmed' */ './emailConfirmed'),
+        },
+      ],
+    },
     // {
     //   path: '/privacy',
     //   load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),

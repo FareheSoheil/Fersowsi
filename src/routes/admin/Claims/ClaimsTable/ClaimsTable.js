@@ -37,6 +37,9 @@ class ClaimsTable extends React.Component {
       currentClaims: [{ a: 1 }, { a: 1 }, { a: 1 }],
       searchClear: true,
       claimsSearchFilter: {
+        // isNewForAdmin: false,
+        // isNewForCustomer: false,
+        // isNewForPublisher: false,
         customerFirstName: '',
         customerLastName: '',
         customerEmail: '',
@@ -85,7 +88,7 @@ class ClaimsTable extends React.Component {
   fetchClaims() {
     const url = `${SERVER}/getAllClaimCollections`;
     this.setState({
-      // isLoading: true,
+      isLoading: true,
     });
     const credentials = {
       searchBy: this.state.claimsSearchFilter,

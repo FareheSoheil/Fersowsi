@@ -54,9 +54,9 @@ class Forget extends React.Component {
       url,
       loginOptions,
       data => {
-        if (data.error === undefined) {
+        if (data.error == undefined) {
           toastr.success('Reset Password', data.message.description);
-          history.push(`/changePass/${this.state.email}`);
+          // history.push(`/changePass/${this.state.email}`);
         } else {
           toastr.error('Reset Password', data.message);
         }

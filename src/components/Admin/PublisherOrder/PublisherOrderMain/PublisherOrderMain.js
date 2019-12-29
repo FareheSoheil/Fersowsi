@@ -118,7 +118,8 @@ class PublisherOrderMain extends React.Component {
     );
   }
   fetchAllInfo() {
-    const url = `${SERVER}/getAllAuxInfoForPublisherOrders`;
+    window.alert('hi');
+    const url = `${SERVER}/getAllAuxInfoForOrders`;
     this.setState({
       isLoading: true,
     });
@@ -134,12 +135,17 @@ class PublisherOrderMain extends React.Component {
       url,
       options,
       response => {
-        that.setState({
-          allProducts: response.Products,
-          allSubscriptions: response.ProductSubscriptionType,
-          allDeliverTypes: response.DeliveryType,
-          allPeriods: response.ProductPeriod,
-        });
+        that.setState(
+          {
+            allProducts: response.Products,
+            allSubscriptions: response.ProductSubscriptionType,
+            allDeliverTypes: response.DeliveryType,
+            allPeriods: response.ProductPeriod,
+          },
+          () => {
+            console.log('all aux', response);
+          },
+        );
       },
       error => {
         console.log(error);

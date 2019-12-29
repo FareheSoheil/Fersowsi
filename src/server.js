@@ -75,22 +75,22 @@ app.all('*', Authorize);
 
 InitializeSQLite();
 function otherPathResolver(path) {
+  // else if (
+  //   loginPat.test(path) ||
+  //   forgetPat.test(path) ||
+  //   newPassPat.test(path) ||
+  //   registerPat.test(path) ||
+  //   changePat.test(path) ||
+  //   congrats.test(path)
+  // )
+  // return 2;
   if (
-    loginPat.test(path) ||
-    forgetPat.test(path) ||
-    newPassPat.test(path) ||
-    registerPat.test(path) ||
-    changePat.test(path) ||
-    congrats.test(path)
-  )
-    return 2;
-  else if (
     adminPaths.test(path) ||
     publisherPaths.test(path) ||
     userPaths.test(path)
   )
     return 1;
-  return 0;
+  return 2;
 }
 async function Authorize(req, res, next) {
   if (statePat.test(req.path) && req.method == 'POST') {
