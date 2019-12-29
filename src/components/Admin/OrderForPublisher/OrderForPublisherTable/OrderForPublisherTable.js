@@ -36,7 +36,7 @@ class OrderForPublisherTable extends React.Component {
 
     // if (record.isPaid !== undefined) {
     // PRODUCT_STATUS
-    if (record.isPaid) {
+    if (!record.isPaid) {
       color = s.activeOrder;
     } else color = s.sentOrder;
     return color;
@@ -62,7 +62,7 @@ class OrderForPublisherTable extends React.Component {
     let records = '';
     let toDisplay = <div className={s.noRecords}> No Match Found</div>;
     if (this.props.records !== undefined && this.props.records.length !== 0) {
-      window.alert(records);
+      // window.alert(records);
       records = this.props.records.map((record, i) => (
         <tr className={this.colorPicker(record)}>
           <td>{record.id}</td>
@@ -78,7 +78,7 @@ class OrderForPublisherTable extends React.Component {
           <td>{record.numberOfReadyOrdersToSend}</td>
           <td>{dateTrimmer(record.createdAt)}</td>
           <td>
-            {record.isPaid ? (
+            {record.isPaid == false ? (
               <button
                 onClick={e => {
                   this.goTo(e, `/admin/ordersForPublisher/${record.id}`);
