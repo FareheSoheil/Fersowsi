@@ -36,7 +36,7 @@ class OrderForPublisherTable extends React.Component {
 
     // if (record.isPaid !== undefined) {
     // PRODUCT_STATUS
-    if (!record.isPaid) {
+    if (record.isPaid == false) {
       color = s.activeOrder;
     } else color = s.sentOrder;
     return color;
