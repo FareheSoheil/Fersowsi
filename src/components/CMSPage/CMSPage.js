@@ -1,8 +1,9 @@
 import React from 'react';
+import { toastr } from 'react-redux-toastr';
 import { fetchWithTimeOut } from '../../fetchWithTimeout';
 import { SERVER } from '../../constants/constantData';
 import Spinner from '../../components/User/Spinner';
-import { tr } from 'date-fns/locale';
+
 class CMSPage extends React.Component {
   constructor(props) {
     super(props);
