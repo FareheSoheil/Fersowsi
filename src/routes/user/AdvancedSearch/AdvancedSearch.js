@@ -36,17 +36,6 @@ class AdvancedSearch extends React.Component {
           dropdowns.classList.remove(s.show);
         }
       }
-      // if (
-      //   !event.target.classList.contains(s.requestBtn) &&
-      //   !event.target.classList.contains('reqInp') &&
-      //   !event.target.classList.contains('reqTxt')
-      // ) {
-      //   let dropdowns = document.getElementById('requestDropDown');
-
-      //   if (dropdowns.classList.contains(s.show)) {
-      //     dropdowns.classList.remove(s.show);
-      //   }
-      // }
     };
   }
   goTo(url) {
@@ -190,7 +179,7 @@ class AdvancedSearch extends React.Component {
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Requests"
-                        class={`fa fa-file-text ${s.request}`}
+                        class={`fas fa-file ${s.request}`}
                       />
                     </div>
                     <div

@@ -367,7 +367,8 @@ class Header extends React.Component {
                       onClick={() => {
                         this.drop('moneyDown', 'moneyshow');
                       }}
-                      className="fa fa-money moneydropbtn"
+                      // <i class="fas "></i>
+                      className="fas fa-money-bill-alt  moneydropbtn"
                     />
                   </button>
                   <div id="moneyDown" className="moneydropdown-content">
